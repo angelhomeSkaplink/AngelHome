@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Request;
 use App\member;
+use Carbon\Carbon;
 use DB, Auth;
 use App\logbook;
 use Kamaln7\Toastr\Facades\Toastr;
@@ -38,10 +39,12 @@ class MemberController extends Controller
 				'email' => $inputs['email'],
 				'password'  => Bcrypt($inputs['password']),
 				'role' => $role,
-				'status' => $inputs['status']
+				'status' => $inputs['status'],
+				'created_at' => Carbon::now()->toDateTimeString(),
+				'updated_at' => Carbon::now()->toDateTimeString(),
 			];
 			member::insert($data);
-		}
+		}		
 		return redirect("/admin");
     }
     
@@ -59,14 +62,15 @@ class MemberController extends Controller
 
 		$id = Auth::user()->id;
 		$row = DB::table('users')->where('id', $id)->first();
+		$date = date('Y/m/d');
 		$data =[
 			'id' => $id,
+			'date' => $date,
 			'action' => 'User Insert',
 			'role' => $row->role,
 			'table_name' => 'users'
 		];
-		logbook::insert($data);
-		
+		logbook::insert($data);		
 		return redirect("/admin");
     }
 	
@@ -77,23 +81,12 @@ class MemberController extends Controller
 			'middlename' => $post['middlename'],
 			'lastname' => $post['lastname'],
 			'email' => $post['email'],
-			//'password' => Bcrypt($post['password']),
 			'role' => $post['role'],
-			'status' => $post['status'],
-			'submission_date'=> $post['submission_date']
+			'status' => $post['status']
+			//'submission_date'=> $post['submission_date']
 		];		
-		$i = DB::table('users')->where('id', $post['id'])->update($data);
-		
-		$id = Auth::user()->id;
-		$row = DB::table('users')->where('id', $id)->first();
-		$data =[
-			'id' => $id,
-			'action' => 'User Update',
-			'role' => $row->role,
-			'table_name' => 'users'
-		];
-		logbook::insert($data);
-		
+		$i = DB::table('users')->where('user_id', $post['user_id'])->update($data);
+			
 		return redirect("/admin");
     }
 	
@@ -108,7 +101,12 @@ class MemberController extends Controller
     }
 	
 	public function getname($emp_id){
-		$employees = DB::table('employees')->select('emp_f_name', 'emp_m_name', 'emp_l_name', 'post_id', 'fld_DeptID')->where('emp_id', $emp_id)->first();
+		$employees = DB::table('employees')->where('emp_id', $emp_id)->first();
+		return json_encode($employees);
+	}
+	
+	public function loan_details($emp_id){
+		$employees = DB::table('loan_trasection')->where([['emp_id', $emp_id], ['status', '3'], ['loan_type_id', '1']])->first();
 		return json_encode($employees);
 	}
 	

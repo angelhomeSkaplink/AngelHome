@@ -1,0 +1,69 @@
+/*# Achyut Changes Start*/
+
+.nav-tabs>.tab{
+  transition:.3s;
+}
+.nav-tabs {
+  /*overflow-x: auto; */
+  overflow-y: hidden;
+  display: -webkit-box;
+  display: -moz-box;
+  position: relative;
+}
+.nav-tabs .right, .nav-tabs .left{
+  opacity: 1;
+  position: absolute;
+  z-index:999;
+  top:0;
+  bottom:0;
+  width:30px;
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition:.3s;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.nav-tabs .left::after{
+  width:15px;
+  height:15px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  content:"";
+  border-left: 4px solid black;
+  border-top: 4px solid black;
+  transform: translate(-25%,-50%) rotate(-45deg);
+}
+
+
+.nav-tabs .right::after{
+  width:15px;
+  height:15px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  content:"";
+  border-left: 4px solid black;
+  border-top: 4px solid black;
+  transform: translate(-50%,-50%) rotate(135deg);
+}
+
+
+.nav-tabs .right{
+   right: 0;
+}
+.nav-tabs .left{
+  left:0;
+}
+
+.nav-tabs:hover > .left, .nav-tabs:hover > .right  {
+    opacity: 1;
+}
+
+/*# Achyut Changes End*/
+
+
+/*# sourceMappingURL=app.css.map */

@@ -1,0 +1,14 @@
+1. Payment
+2. Multi Language - DONE.
+3. Aging Report
+4. Typeahead - DONE
+5. Assessment - 
+6. Change controller function for Multi language - DONE
+
+7. Photo for resident - DONE
+8. attendee new form and report - DONE
+10. Tasksheet - DONE
+11. Group Name - DONE
+12. Photo in edit - DONE
+13. no of person validation - DONE
+

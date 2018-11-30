@@ -21,114 +21,15 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/clear_cache',function(){
+    $exitCode = Artisan::call('config:cache');
+});
+
 Route::get('/home', function () {
     return redirect('/dashboard');
 });
 
 Route::auth();
-
-//Appointment 
-Route::get('appointment_master', 'AppointmentController@index');
-Route::post('appointment_insert', 'AppointmentController@appointment_insert');
-Route::get('appointment_view', 'AppointmentController@appointment_view');
-
-//Salary Calculation
-Route::get('salary_claim', 'SalaryController@salary_claim');
-Route::get('salary_calculation/{emp_id}', 'SalaryController@getrecord');
-Route::post('insert_sallary_claim', 'SalaryController@insert_sallary_claim');
-Route::get('salary_view', 'SalaryController@salary_view');
-Route::get('salary_deduction', 'SalaryController@salary_deduction');
-Route::get('loan_calculation/{emp_id}', 'SalaryController@loan_calculation');
-Route::get('housing_loan/{emp_id}', 'SalaryController@housing_loan');
-Route::get('car_loan/{emp_id}', 'SalaryController@car_loan');
-Route::get('bike_loan/{emp_id}', 'SalaryController@bike_loan');
-Route::post('salary_deduction_insert', 'SalaryController@salary_deduction_insert');
-Route::get('salary_details/{emp_id}', 'SalaryController@edit_salary');
-Route::get('salary_claim_batch', 'SalaryController@salary_claim_batch');
-Route::get('salary_claim_edit', 'SalaryController@salary_edit');
-Route::get('salary_details/{emp_id}/{month}/{year}', 'SalaryController@salary_details');
-Route::post('update_sallary_claim', 'SalaryController@update_sallary_claim');
-Route::get('salary_deduction_edit', 'SalaryController@salary_deduction_edit');
-Route::get('salary_deduction_details/{emp_id}', 'SalaryController@salary_deduction_details');
-Route::post('salary_deduction_update', 'SalaryController@salary_deduction_update');
-Route::get('generate_rtgs', 'SalaryController@generate_rtgs');
-Route::get('generate_rtgs_insert', 'SalaryController@generate_rtgs_insert');
-Route::get('calculate_salary/{month}/{year}', 'SalaryController@calculate_salary');
-Route::get('rtgs', 'SalaryController@rtgs');
-Route::post('rtgs', 'SalaryController@rtgs');
-Route::get('salary_statement', 'SalaryController@salary_statement');
-Route::post('generate_salary_statement', 'SalaryController@generate_salary_statement');
-Route::get('kss_upload', 'SalaryController@kss_upload');
-Route::post('kss_insert', 'AttendanceController@kss_insert');
-
-//Loan
-Route::get('apply_loan', 'LoanController@index');
-Route::post('loaninsert', 'LoanController@loaninsert');
-Route::get('apply_loan_view', 'LoanController@apply_loan_view');
-Route::get('show_loan_details/{loan_transection_id}', 'LoanController@show_loan_details');
-Route::patch('loan_forward', 'LoanController@loan_forward');
-Route::get('loanapplication', 'LoanController@loanapplication');
-Route::get('show_loan_detail/{loan_transection_id}', 'LoanController@show_loan_detail');
-Route::get('approved_loan/{loan_transection_id}', 'LoanController@approved_loan');
-Route::get('rejected_loan/{loan_transection_id}', 'LoanController@rejected_loan');
-Route::get('back_to_branch_loan/{loan_transection_id}', 'LoanController@back_to_branch_loan');
-Route::get('interest/{loan_type_id}', 'LoanController@interest');
-Route::get('view_loan_status', 'LoanController@view_loan_status');
-
-//Leave
-Route::get('leave_add', 'LeaveController@leave_add');
-Route::post('add_leave', 'LeaveController@add_leave');
-Route::get('applyleave', 'LeaveController@index');
-Route::get('view_leave_status', 'LeaveController@view_leave_status');
-Route::get('view_available_leave', 'LeaveController@view_available_leave');
-Route::post('leaveapply', 'LeaveController@leaveapply');
-Route::get('viewapplyleave', 'LeaveController@viewapplyleave');
-Route::get('show/{leave_transaction_id}', 'LeaveController@show_details');
-Route::patch('forward', 'LeaveController@forward');
-Route::get('manageleave', 'LeaveController@manageleave');
-Route::get('show_leave_details/{leave_transaction_id}', 'LeaveController@show_leave_details');
-Route::patch('brforward', 'LeaveController@brforward');
-Route::get('leaveapplication', 'LeaveController@leaveapplication');
-Route::get('show_leave/{leave_transaction_id}', 'LeaveController@show_leave');
-Route::get('approved/{leave_transaction_id}', 'LeaveController@approved');
-Route::get('rejected/{leave_transaction_id}', 'LeaveController@reject');
-Route::get('back_to_branch/{leave_transaction_id}', 'LeaveController@backtobranch');
-Route::get('show_balance_leave/{emp_id}/{leave_type_id}', 'LeaveController@show_balance_leave');
-
-//Attendance
-Route::get('showattendance', 'AttendanceController@showattendance');
-Route::get('showattendanceform', 'AttendanceController@showattendanceform');
-Route::post('attendanceentry', 'AttendanceController@attendanceentry');
-Route::get('check_leave/{emp_id}', 'AttendanceController@check_leave');
-
-//Import Excel Test
-Route::get('importExport', 'MaatwebsiteDemoController@importExport');
-Route::post('importExcel', 'MaatwebsiteDemoController@importExcel');
-
-//Member
-Route::get('member', 'MemberController@index');   // Member registration
-Route::post('insert', 'MemberController@insert');
-Route::get('edit_user/{user_id}', 'MemberController@member_edit');
-Route::patch('update_user', 'MemberController@update_user');
-Route::get('delete_user/{user_id}', 'MemberController@member_delete');
-Route::get('memberview', 'MemberController@memberview');
-Route::get('employee_name/{emp_id}', 'MemberController@getname');
-
-//Service Book
-Route::get('servicebook', 'ServicebookController@index');   // Service book
-Route::get('servicebookview', 'ServicebookController@servicebookview');
-Route::get('details/{emp_id}', 'ServicebookController@detail');
-Route::get('view/{service_id}', 'ServicebookController@servicebook_detail_view');
-Route::post('serviceinsert', 'ServicebookController@serviceinsert');
-Route::get('post_scale/{post_id}', 'ServicebookController@post_scale');
-
-//Dependant
-Route::resource('dependantview', 'DependantController@dependantview');  // Dependant
-Route::get('dependant', 'DependantController@index');  // Dependant
-Route::get('edit_dependant/{dependant_id}', 'DependantController@edit_dependant');
-Route::patch('update_dependant', 'DependantController@update_dependant');
-Route::get('delete_dependant/{dependant_id}', 'DependantController@delete_dependant');
-Route::post('dependantinsert', 'DependantController@dependantinsert');
 
 //Login (Defult Laravel)
 Route::get('/dashboard', 'HomeController@index');   // Defult
@@ -136,169 +37,359 @@ Route::resource('profile', 'ProfileController');
 Route::patch('profile/{profile}/password', 'ProfileController@update_password');
 Route::resource('admin', 'AdminController');
 
-//Qualification
-Route::get('qualification', 'QualificationController@index');   // return to qualification view
-Route::post('store', 'QualificationController@store');          // store data to qualifications table
-Route::get('delete/{qualification_id}', 'QualificationController@delete_qualification');
-Route::get('edit/{qualification_id}', 'QualificationController@edit_qualification');
-Route::patch('update_qualification', 'QualificationController@update_qualification');
-Route::resource('qualification_view', 'QualificationViewController');
+// Custom route
+Route::get('prospective', 'ProspectiveController@prospective');
+Route::get('pross_add', 'ProspectiveController@pross_add');
+Route::post('pross_stor', 'ProspectiveController@pross_stor');
+Route::get('sales_pipeline', 'ProspectiveController@sales_pipeline');
+Route::get('sales_stage_pipeline', 'ProspectiveController@sales_stage_pipeline');
+Route::get('new_pross_add', 'ProspectiveController@new_pross_add');
+Route::post('new_prospective', 'ProspectiveController@new_prospective');
+Route::get('add_records/{pipeline_id}', 'ProspectiveController@add_records');
+Route::get('change_records/{pipeline_id}', 'ProspectiveController@change_records');
+Route::get('select_pros/{pros_id}', 'ProspectiveController@select_pros');
+Route::get('select_pros_email/{pros_id}', 'ProspectiveController@select_pros_email');
+Route::get('select_pros_contact/{pros_id}', 'ProspectiveController@select_pros_contact');
+Route::get('select_stage_pros/{pros_id}', 'ProspectiveController@select_stage_pros');
+Route::get('select_stage_pros_email/{pros_id}', 'ProspectiveController@select_stage_pros_email');
+Route::get('select_personal_detail/{pros_id}', 'ProspectiveController@select_personal_detail');
+Route::get('pipeline_search_view/{pros_id}', 'ProspectiveController@pipeline_search_view');
+Route::patch('new_records', 'ProspectiveController@new_records');
+Route::get('view_records/{pipeline_id}', 'ProspectiveController@view_records');
+Route::patch('change_pross_records', 'ProspectiveController@change_pross_records');
+Route::get('change_pro_records/{pipeline_id}', 'ProspectiveController@change_pro_records');
+Route::patch('change_pro_record', 'ProspectiveController@change_pro_record');
+Route::get('reports', 'ProspectiveController@reports');
+Route::post('inquiery_reports', 'ProspectiveController@inquiery_reports');
+Route::post('prospect_date_btween_excel', 'ExcelController@prospect_date_btween_excel');
+Route::get('appointment_schedule', 'ProspectiveController@appointment_schedule');
+Route::get('reschedule/{appoiuntment_id}', 'ProspectiveController@reschedule');
+Route::patch('change_appointment', 'ProspectiveController@change_appointment');
+Route::get('personal_details', 'ProspectiveController@personal_details');
+Route::get('details/{id}', 'ProspectiveController@details');
+Route::get('injury', 'ProspectiveController@injury');
+Route::post('injury_record_entry', 'ProspectiveController@injury_record_entry');
+Route::get('add_prospect_record/{stage}/{id}', 'ProspectiveController@add_prospect_record');
+Route::patch('new_records_pros_add', 'ProspectiveController@new_records_pros_add');
+Route::get('select_personal_detail_contact/{pros_id}', 'ProspectiveController@select_personal_detail_contact');
+Route::get('select_personal_detail_email/{pros_id}', 'ProspectiveController@select_personal_detail_email');
+//Route::get('select_stage_pros_email/{pros_id}', 'ProspectiveController@select_stage_pros_email');
 
-//Employee
-Route::get('employee', 'EmployeeController@index');   // return to employee view
-Route::post('empstore', 'EmployeeController@empstore');          // store data to employees table
-Route::resource('employee_view', 'EmployeeViewController');
-Route::get('emp_show/{emp_id}', 'EmployeeViewController@show');
-Route::get('emp_delete/{del_emp_id}', 'EmployeeController@delete_employee');
-Route::get('emp_edit/{emp_id}', 'EmployeeController@edit_employee');
-Route::patch('update_employee', 'EmployeeController@update_employee');
-Route::get('employee_lic', 'EmployeeController@employee_lic'); 
+Route::post('add_personal_records', 'PersonalDetailsController@add_personal_records');
+Route::patch('add_insurance', 'PersonalDetailsController@add_insurance');
+Route::patch('add_emergency', 'PersonalDetailsController@add_emergency');
+Route::patch('add_physician', 'PersonalDetailsController@add_physician');
+Route::patch('add_dentist', 'PersonalDetailsController@add_dentist');
+Route::patch('add_others', 'PersonalDetailsController@add_others');
 
-//Post
-Route::get('post', 'PostController@index');
-Route::post('poststore', 'PostController@poststore');
-Route::get('post_view', 'PostController@post_view');
-Route::get('post_redesignation/{fld_PostID}', 'PostController@post_redesignation');
-Route::patch('update_post_redesignation', 'PostController@update_post_redesignation');
-Route::patch('scale_revision_update', 'PostController@scale_revision_update');
-Route::get('department', 'PostController@department');
-Route::post('department_store', 'PostController@department_store');
-Route::get('department_view', 'PostController@department_view');
-Route::get('department_delete/{fld_DeptID}', 'PostController@department_delete');
-Route::get('promotion', 'PostController@promotion');
-Route::post('promotion_store', 'PostController@promotion_store');
-Route::get('promotion_view', 'PostController@promotion_view');
-Route::get('post_name/{post_id}', 'PostController@get_post_name');
-Route::get('pay_scale/{fld_PostID}', 'PostController@pay_scale');
-Route::get('transfer', 'PostController@transfer');
-Route::post('transfer_store', 'PostController@transfer_store');
-Route::get('transfer_view', 'PostController@transfer_view');
-Route::get('department_name/{fld_DeptID}', 'PostController@department_name');
-Route::post('department_edit/{fld_DeptID}', 'PostController@department_edit');
-Route::get('increment', 'PostController@increment');
-Route::get('scale_revision', 'PostController@scale_revision');
-Route::post('revision_update', 'PostController@revision_update');
-Route::get('get_PayScale_upper_limit/{PayScale_lower_limit}', 'PostController@get_PayScale_upper_limit');
-Route::get('grade_pay_revision', 'PostController@grade_pay_revision');
-Route::patch('grade_pay_revision_update', 'PostController@grade_pay_revision_update');
-Route::get('new_scale', 'PostController@new_scale_grade_pay');
-Route::get('new_grade_pay', 'PostController@new_grade_pay');
-Route::post('new_grade_pay_add', 'PostController@new_grade_pay_add');
-Route::post('new_scale_add', 'PostController@new_scale_add');
-Route::get('audit_trail', 'PostController@audit_trail');
 
-//Perameter 
-Route::get('parameter', 'ParameterController@index');
-Route::get('parameter_value', 'ParameterController@parameter_value');
-Route::post('parameter_value_insert', 'ParameterController@parameter_value_insert');
-Route::post('parameter_insert', 'ParameterController@parameter_insert');
-Route::get('parameter_view', 'ParameterController@parameter_view');
-Route::get('parameter_edit/{id}', 'ParameterController@parameter_edit');
-Route::post('parameter_update', 'ParameterController@parameter_update');
+/*Route::get('screening', 'ScreeningController@screening');
+Route::get('screening_details/{id}', 'ScreeningController@screening_details');
+Route::post('add_responsible_person', 'ScreeningController@add_responsible_person');
+Route::post('add_significant_person', 'ScreeningController@add_significant_person');
+Route::patch('add_resident_details', 'ScreeningController@add_resident_details');
+Route::patch('add_primary_doctor', 'ScreeningController@add_primary_doctor');
+Route::patch('add_pharmacy', 'ScreeningController@add_pharmacy');
+Route::patch('add_equipment', 'ScreeningController@add_equipment');
+Route::patch('add_mental_status', 'ScreeningController@add_mental_status');
+Route::patch('add_bathing', 'ScreeningController@add_bathing');
+Route::patch('add_dressing', 'ScreeningController@add_dressing');
+Route::patch('add_toileting', 'ScreeningController@add_toileting');
+Route::patch('add_transfer', 'ScreeningController@add_transfer');
+Route::patch('add_grooming', 'ScreeningController@add_grooming');
+Route::patch('add_feeding', 'ScreeningController@add_feeding');
+Route::patch('add_communucation', 'ScreeningController@add_communucation');
+Route::patch('add_night_need', 'ScreeningController@add_night_need');
+Route::patch('add_exiting', 'ScreeningController@add_exiting');
+Route::patch('add_overall_fuctioning', 'ScreeningController@add_overall_fuctioning');*/
 
-//Pension Module Routes
-Route::group(['prefix'=>'pension'], function() {
 
-    Route::get('/employees/retired/add-pension-details/view-list', [
-        'as' => 'pension.view_list.employees.add_pension_details',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@addPensionDetails'
-    ]);
+Route::get('room_details', 'RoomController@room_details');
+Route::get('new_room_add', 'RoomController@new_room_add');
+Route::post('new_room', 'RoomController@new_room');
+Route::get('room_edit/{room_id}', 'RoomController@room_edit');
+Route::patch('new_room_edit', 'RoomController@new_room_edit');
+Route::get('room_delete/{room_id}', 'RoomController@room_delete');
+Route::get('booking', 'RoomController@booking');
+Route::get('book_room/{id}', 'RoomController@book_room');
+Route::patch('room_book', 'RoomController@room_book');
+Route::patch('room_change', 'RoomController@room_change');
+Route::get('view_book_resident/{room_id}', 'RoomController@view_book_resident');
+Route::get('room_details_view/{id}', 'RoomController@room_details_view');
+Route::patch('select_room', 'RoomController@select_room');
+Route::get('activity_calendar', 'RoomController@activity_calendar');
+Route::get('new_event_add_form', 'RoomController@new_event_add_form');
+Route::post('new_event_add', 'RoomController@new_event_add');
+Route::get('change_own_room/{id}', 'RoomController@change_own_room');
+Route::get('leave_own_room/{id}', 'RoomController@leave_own_room');
 
-    Route::get('/employees/retired/add-pension-details/{emp_id}', [
-        'as' => 'pension.employees.add_pension_details',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@addBankAddressDetails'
-    ]);
+Route::post('saveAssessment', 'AssessmentController@saveAssessment');
+Route::get('assessment_preview', 'AssessmentController@assessment_preview');
+Route::get('tasksheet', 'AssessmentController@tasksheet');
+Route::get('set_task/{id}', 'AssessmentController@set_task');
+Route::patch('search_event', 'RoomController@search_event');
+Route::get('attendee/{event_id}', 'RoomController@attendee');
+Route::patch('add_attendee', 'AttendeeController@add_attendee');
+Route::patch('store_tasklist', 'AttendeeController@store_tasklist');
+Route::patch('assign_tasklist', 'AttendeeController@assign_tasklist');
 
-    Route::post('/employees/retired/add-pension-details/{emp_id}', [
-        'as' => 'pension.post.employees.add_pension_details',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@postPensionDetails'
-    ]);
+Route::get('service_plan', 'AdminmoduleController@service_plan');
+Route::get('new_plan_add_form', 'AdminmoduleController@new_plan_add_form');
+Route::post('add_new_service_plan', 'AdminmoduleController@add_new_service_plan');
+Route::get('resident_service_plan', 'AdminmoduleController@resident_service_plan');
+Route::get('view_plan_details/{id}', 'AdminmoduleController@view_plan_details');
 
-    Route::get('/employees/retired/view-pension-details', [
-        'as' => 'pension.employees.pension_details.view',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@viewPensionDetails'
-    ]);
+// Bikram change
+Route::get('plan_edit/{plan_id}','AdminmoduleController@plan_edit');
+Route::get('plan_delete/{plan_id}','AdminmoduleController@plan_delete');
+Route::post('update_plan','AdminmoduleController@update_plan');
+Route::get('password_change','ProfileController@change_password');
+Route::patch('update_password','ProfileController@update_password');
+// End
 
-    Route::get('/employees/view', [
-        'as' => 'pension.view.employees',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@viewEmployees'
-    ]);
-    
-    Route::post('/settle', [
-        'as' => 'pension.settle',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@settle'
-    ]);
-	
-	Route::post('/increment_update', [
-        'as' => 'pension.increment_update',
-        'middleware' => ['auth'],
-        'uses' => 'PostController@increment_update'
-    ]);
+Route::get('assessment_form_view/{assessment_id}', 'AssessmentController@assessment_form_view');
+Route::get('assessment_edit_preview', 'AssessmentController@assessment_edit_preview');
+Route::get('assessment_edit/{assessment_id}', 'AssessmentController@assessment_edit');
+Route::get('assessment', 'AssessmentController@assessment');
+Route::get('upload_file/{id}', 'AssessmentController@upload_file');
+Route::patch('file_upload', 'ProspectiveController@file_upload');
+Route::get('resident_assessment', 'AssessmentController@resident_assessment');
+Route::get('preadmin_resident_assessment', 'AssessmentController@preadmin_resident_assessment');
+Route::get('select_assessments/{id}', 'AssessmentController@select_assessments');
+Route::get('preadmin_select_assessments/{id}', 'AssessmentController@preadmin_select_assessments');
+Route::get('assessment_choose/{assessment_id}/{id}', 'AssessmentController@assessment_choose');
+Route::post('assessment_store', 'AssessmentController@assessment_store');
+Route::get('assessment_history/{id}', 'AssessmentController@assessment_history');
+Route::get('care_plan/{id}', 'AssessmentController@care_plan');
+Route::post('save_care_plan', 'AssessmentController@save_care_plan');
+Route::get('assessment_set_point/{assessment_id}', 'AssessmentController@assessment_set_point');
+Route::patch('set_points', 'AssessmentController@set_points');
+Route::get('next_assessment_date/{id}', 'AssessmentController@next_assessment_date');
+Route::patch('set_date', 'AssessmentController@set_date');
+Route::get('daily_task/{task}', 'AssessmentController@daily_task');
+Route::get('daily_task_assignee/{task}', 'AssessmentController@daily_task_assignee');
+Route::get('main_task', 'AssessmentController@main_task');
+Route::get('add_task_history/{task_id}/{task}', 'AssessmentController@add_task_history');
+Route::get('task_assignee/{task}', 'AssessmentController@task_assignee');
+Route::get('main_task_list', 'AssessmentController@main_task_list');
 
-    Route::get('/employee/pension-data/{month}/{year}', [
-        'as' => 'employees.pension_data',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@viewPensionData'
-    ]);
+// Added by nilotpal
+Route::get('all_member_list', 'AddMemberController@all_member_list');
+Route::get('add_new_member', 'AddMemberController@add_new_member');
+Route::post('member_details', 'AddMemberController@store_member_details');
+Route::get('screening_view/{id}', 'ScreeningController@screening_view');
+Route::get('screening_next/{id}', 'ScreeningController@screening_next');
+Route::get('screening_status/{id}', 'ScreeningController@screening_status');
+Route::get('screening_data/{id}', 'ScreeningController@screening_data');
+Route::get('screening_data_next/{id}', 'ScreeningController@screening_data_next');
+Route::get('screening_data_status/{id}', 'ScreeningController@screening_data_status');
+Route::get('details_view/{id}', 'ProspectiveController@details_view');
+Route::get('patient_medicine', 'DoctorController@patient_medicine');
+// Route::get('add_history/{pat_medi_id}', 'DoctorController@add_history');
+Route::post('add_history', 'DoctorController@add_history'); //edited by Zaman
+Route::get('patients_list', 'DoctorController@patients_list');
+Route::get('add_patient_details/{id}', 'DoctorController@add_patient_details');
+Route::get('view_patient_details/{id}', 'DoctorController@view_patient_details');
+Route::get('delete_records/{pat_medi_id}/{pros_id}', 'DoctorController@delete_records');
+Route::patch('store_patient_medical_info', 'DoctorController@store_patient_medical_info');
+Route::get('medicine_stocks_list', 'MedicineStockHistoryController@medicine_stocks_list');
+Route::get('add_stocks', 'MedicineStockHistoryController@add_stocks');
+Route::patch('store_stocks', 'MedicineStockHistoryController@store_stocks');
+Route::get('edit_stocks/{medi_stock_id}', 'MedicineStockHistoryController@edit_stocks');
+Route::patch('update_stocks', 'MedicineStockHistoryController@update_stocks');
+Route::get('renew_list', 'MedicineStockHistoryController@renew_list');
+Route::get('renewal_complete/{id}', 'MedicineStockHistoryController@renewal_complete');
+Route::get('view_stock_details/{id}', 'MedicineStockHistoryController@view_stock_details');
+Route::patch('stock_recv', 'MedicineStockHistoryController@stock_recv');
+Route::get('add_recv_date/{id}', 'MedicineStockHistoryController@add_recv_date');
+Route::get('prospect_prescription/{pros_id}', 'MedicineStockHistoryController@prospect_prescription');
+Route::get('create_policy', 'DoctorController@create_policy');
+Route::patch('store_policy_details', 'DoctorController@store_policy_details');
+Route::get('view_policy', 'DoctorController@view_policy');
+Route::get('edit_policy', 'DoctorController@edit_policy');
+Route::patch('update_policy', 'DoctorController@update_policy');
 
-    Route::get('/view-settled-pension-data', [
-        'as' => 'employees.settled.pension_data',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@viewSettledPensionData'
-    ]);
+//finished
 
-    Route::get('/edit-pension-data/{num}', [
-        'as' => 'edit.pension_data',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@editPensionData'
-    ]);
+//Payment History
 
-    Route::post('/update-pension-data/{num}', [
-        'as' => 'update.pension_data',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@updatePensionData'
-    ]);
+Route::get('search_hostory', 'PaymentController@search_hostory');
+Route::post('search_unique_id', 'PaymentController@search_unique_id');
+Route::get('payment_history', 'PaymentController@payment_history');
+Route::post('make_payment', 'PaymentController@make_payment');
+Route::get('payment_done', 'PaymentController@payment_done');
+Route::get('resident_payment', 'PaymentController@resident_payment');
+Route::get('resident_make_payment/{id}', 'PaymentController@resident_make_payment');
+Route::patch('make_payment_res', 'PaymentController@make_payment_res');
+Route::get('payment_report', 'PaymentController@payment_report');
+Route::get('detail_history/{id}', 'PaymentController@detail_history');
 
-    Route::get('/prepare-rtgs', [
-        'as' => 'pension.prepare.rtgs',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@prepareRTGS'
-    ]);
+//End
 
-    Route::post('/generate-rtgs', [
-        'as' => 'pension.generate.rtgs',
-        'middleware' => ['auth'],
-        'uses' => 'PensionsController@generateRTGS'
-    ]);
-});
+// MIS reports
 
-Route::group(['prefix'=>'arrears'], function() {
+Route::get('total_revenue', 'ReportController@total_revenue');
+Route::get('facility_reports/{id}', 'ReportController@facility_reports');
+Route::patch('date_range_report', 'ReportController@date_range_report');
+Route::get('room_reports', 'ReportController@room_reports');
+Route::get('facility_room_reports/{id}', 'ReportController@facility_room_reports');
+Route::patch('date_range_room_report', 'ReportController@date_range_room_report');
+Route::get('aging_report', 'ReportController@aging_report');
+Route::get('facility_sales_reports', 'ReportController@facility_sales_reports');
+Route::get('facility_sales_reports_detail/{id}', 'ReportController@facility_sales_reports_detail');
+Route::get('activity_report', 'ReportController@activity_report');
+Route::get('view_attendee/{event_id}', 'ReportController@view_attendee');
+Route::get('view_activity/{id}', 'ReportController@view_activity');
+Route::get('tasksheet_report', 'ReportController@tasksheet_report');
+Route::get('facility_task_graph_reports/{id}', 'ReportController@facility_task_graph_reports');
 
-    Route::get('/calculate', [
-        'as' => 'arrears.calculate',
-        'middleware' => ['auth'],
-        'uses' => 'ArrearsController@calculate'
-    ]); 
+// changes on 11 november
 
-    Route::get('/excel/download', [
-        'as' => 'arrears.excel',
-        'middleware' => ['auth'],
-        'uses' => 'ArrearsController@arrearExcelDownload'
-    ]);
-});
+Route::get('facility_aggregated_revenue_graph', 'ReportController@facility_aggregated_revenue_graph');
+Route::get('facility_aggregated_revenue_graph_data', 'ReportController@facility_aggregated_revenue_graph_data');
+Route::get('facility_aggregated_revenue_details', 'ReportController@facility_aggregated_revenue_details');
+Route::get('monthly_revenue/{facility_id}', 'ReportController@monthly_revenue');
+Route::get('facility_aggregated_room_graph', 'ReportController@facility_aggregated_room_graph');
+Route::get('facility_aggregated_room_graph_data', 'ReportController@facility_aggregated_room_graph_data');
+Route::get('facility_aggregated_room_status', 'ReportController@facility_aggregated_room_status');
+Route::get('facility_aggregated_sales_report', 'ReportController@facility_aggregated_sales_report');
+Route::get('facility_aggregated_aging_report', 'ReportController@facility_aggregated_aging_report');
+Route::get('facility_aggregated_aging_graph_data', 'ReportController@facility_aggregated_aging_graph_data');
 
-//OT Generation
-Route::get('ot_view', 'OtController@ot_view');
-Route::post('ot_calculation', 'OtController@ot_calculation');
-Route::post('generate_ot', 'OtController@generate_ot');
-Route::get('ot_rtgs', 'OtController@ot_rtgs');
-Route::post('generate_ot_rtgs', 'OtController@generate_ot_rtgs');
+// End
+
+// GRAPH REPORT
+Route::get('facility_graph_reports/{id}', 'ReportController@facility_graph_reports');
+Route::get('get_graph_data/{id}', 'ReportController@get_graph_data');
+Route::get('facility_room_graph/{id}', 'ReportController@facility_room_graph');
+Route::get('facility_room_graph_data/{id}', 'ReportController@facility_room_graph_data');
+Route::get('facility_aging_graph_reports/{id}', 'ReportController@facility_aging_graph_reports');
+Route::get('facility_aging_graph_data/{id}', 'ReportController@facility_aging_graph_data');
+Route::get('get_medicine', 'ReportController@get_medicine');
+Route::get('get_room_type', 'ReportController@get_room_type');
+Route::get('get_pharmacy', 'ReportController@get_pharmacy');
+Route::get('get_event_json', 'RoomController@get_event_json');
+Route::get('facility_task_graph_data/{id}', 'ReportController@facility_task_graph_data');
+Route::get('activity_graph/{id}', 'ReportController@activity_graph');
+Route::get('attendee_report_graph/{id}', 'ReportController@attendee_report_graph');
+Route::get('attendee_report_graph_data/{id}', 'ReportController@attendee_report_graph_data');
+// END
+
+//Seperate personal detail_history
+Route::get('personal_insurance/{id}', 'PersonalDetailsController@personal_insurance');
+Route::get('contact/{id}', 'PersonalDetailsController@contact');
+Route::get('physician/{id}', 'PersonalDetailsController@physician');
+Route::get('dentist/{id}', 'PersonalDetailsController@dentist');
+Route::get('funeral/{id}', 'PersonalDetailsController@funeral');
+//end
+
+//Route::get('t', 'PersonalDetailsController@funeral');
+Route::get('change_language', 'LanguageController@change_language');
+
+// Bikram Changes
+
+Route::get('edit_member/{user_id}','AddMemberController@edit_member_role');
+Route::post('update_member_role','AddMemberController@update_member_role');
+
+//screening
+
+Route::get('screening', 'ScreeningController@screening');
+Route::get('screening_details/{id}', 'ScreeningController@screening_details');
+Route::patch('add_responsible_person', 'ScreeningController@add_responsible_person');
+Route::patch('add_significant_person', 'ScreeningController@add_significant_person');
+Route::patch('add_resident_details', 'ScreeningController@add_resident_details');
+Route::patch('add_primary_doctor', 'ScreeningController@add_primary_doctor');
+Route::patch('add_pharmacy', 'ScreeningController@add_pharmacy');
+Route::patch('add_equipment', 'ScreeningController@add_equipment');
+Route::patch('add_mental_status', 'ScreeningController@add_mental_status');
+Route::patch('add_bathing', 'ScreeningController@add_bathing');
+Route::patch('add_dressing', 'ScreeningController@add_dressing');
+Route::patch('add_toileting', 'ScreeningController@add_toileting');
+Route::patch('add_transfer', 'ScreeningController@add_transfer');
+Route::patch('add_grooming', 'ScreeningController@add_grooming');
+Route::patch('add_feeding', 'ScreeningController@add_feeding');
+Route::patch('add_communucation', 'ScreeningController@add_communucation');
+Route::patch('add_night_need', 'ScreeningController@add_night_need');
+Route::patch('add_exiting', 'ScreeningController@add_exiting');
+Route::patch('add_overall_fuctioning', 'ScreeningController@add_overall_fuctioning');
+
+Route::get('resposible_personal/{id}','ScreeningController@resposible_personal');
+Route::get('significant_personal/{id}','ScreeningController@significant_personal');
+Route::get('resident_details/{id}','ScreeningController@resident_details');
+Route::get('primary_doctor/{id}','ScreeningController@primary_doctor');
+Route::get('pharmacy/{id}','ScreeningController@pharmacy');
+Route::get('medical_equipment/{id}','ScreeningController@medical_equipment');
+Route::get('mental_status/{id}','ScreeningController@mental_status');
+Route::get('bathing/{id}','ScreeningController@bathing');
+Route::get('dressing/{id}','ScreeningController@dressing');
+Route::get('toileting/{id}','ScreeningController@toileting');
+Route::get('ambulation_transfer/{id}','ScreeningController@ambulation_transfer');
+Route::get('personal_grooming_hygiene/{id}','ScreeningController@grooming');
+Route::get('feeding_nutrition/{id}','ScreeningController@feeding');
+Route::get('communication_abilities/{id}','ScreeningController@communication');
+Route::get('night_need/{id}','ScreeningController@night_need');
+Route::get('emergency_exiting/{id}','ScreeningController@emergency');
+Route::get('overall/{id}','ScreeningController@overall');
+
+Route::get('inactive_member/{user_id}','ProspectiveController@inactive_member');
+Route::get('active_member/{user_id}','ProspectiveController@active_member');
+
+Route::get('booking_pros/{pros_id}','RoomController@booking_pros');
+Route::get('reports_pros/{pros_id}','ProspectiveController@reports_pros');
+Route::get('screening_pros/{pros_id}','ScreeningController@screening_pros');
+Route::get('screening_pros_email/{pros_id}','ScreeningController@screening_pros_email');
+Route::get('screening_pros_contact/{pros_id}','ScreeningController@screening_pros_contact');
+Route::get('booking_pros_email/{pros_id}','RoomController@booking_pros_email');
+Route::get('assessment_pros/{pros_id}','AssessmentController@assessment_pros');
+
+//Typeahead search bar
+Route::get('get_resident_list', 'ProspectiveController@get_resident_list');
+Route::get('get_resident_email_list', 'ProspectiveController@get_resident_email_list');
+Route::get('get_resident_contact_list', 'ProspectiveController@get_resident_contact_list');
+Route::get('score_view/{assessment_form_name}', 'AssessmentController@score_view');
+//End
+
+// MAR report
+Route::get('mar_report','ReportController@mar_report');
+Route::get('resident_mar_rep/{id}','ReportController@mar_report_details');
+Route::post('mar_monthly_report','ReportController@mar_monthly_report');
+Route::post('send', 'EmailController@send'); //21 nov
+// End
+
+// PRN history
+Route::post('prn_history_add','DoctorController@add_prn_history');
+
+//21 Nov
+Route::get('service_pros/{pros_id}', 'AdminmoduleController@service_pros');
+Route::get('service_pros_email/{pros_id}', 'AdminmoduleController@service_pros_email');
+Route::get('service_pros_contact/{pros_id}', 'AdminmoduleController@service_pros_contact');
+//End
+
+//22 NOV
+Route::get('payment_pros/{pros_id}','PaymentController@payment_pros');
+Route::get('payment_pros_email/{pros_id}','PaymentController@payment_pros_email');
+Route::get('payment_pros_contact/{pros_id}','PaymentController@payment_pros_contact');
+//END
+
+//23 NOV
+Route::get('search_patient/{pros_id}','DoctorController@search_patient');
+Route::get('search_patient_contact/{pros_id}','DoctorController@search_patient_contact');
+Route::get('search_appointment/{pros_id}','ProspectiveController@search_appointment');
+Route::get('select_pros_task/{pros_id}','AssessmentController@select_pros_task');
+Route::get('select_pros_task_email/{pros_id}','AssessmentController@select_pros_task_email');
+Route::get('select_pros_task_contact/{pros_id}','AssessmentController@select_pros_task_contact');
+Route::get('service_pros_payment/{pros_id}','PaymentController@service_pros_payment');
+//END
+
+//24 NOV
+Route::get('select_pros_upload/{pros_id}','AssessmentController@select_pros_upload');
+Route::get('select_pros_upload_email/{pros_id}','AssessmentController@select_pros_upload_email');
+Route::get('select_pros_upload_contact/{pros_id}','AssessmentController@select_pros_upload_contact');
+//END
+
+// 29 NOV TSP
+Route::get('temporary_service_plan','tspController@viewResidents');
+Route::get('all_tsp/{id}','tspController@all_tsp');
 
 Auth::routes();
 

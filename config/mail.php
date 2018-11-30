@@ -1,5 +1,6 @@
 <?php
-
+$MAIL_USERNAME= "abc@gmail.com";
+$MAIL_PASSWORD= "1234";
 return [
 
     /*
@@ -29,7 +30,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +85,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
+    'username' => $MAIL_USERNAME,
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +98,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => $MAIL_PASSWORD,
 
     /*
     |--------------------------------------------------------------------------

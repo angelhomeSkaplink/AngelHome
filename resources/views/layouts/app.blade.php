@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
-		<title> @yield('htmlheader_title', 'AHSEC') </title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title> @yield('htmlheader_title', 'ANGEL HOME') </title>
 		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 		<!-- Bootstrap 3.3.4 -->
 		<link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet" type="text/css"/>
@@ -20,7 +21,33 @@
 		<link href="{{ asset('/css/toastr.min.css') }}" rel="stylesheet" type="text/css"/>
 		<!-- SweetAlert2 -->
 		<link href="{{ asset('/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css"/>
-		
+		<!-- Bootstrap calendar CSS -->
+		<link href="{{ asset('/css/bootstrap-datepicker3.css') }}" rel="stylesheet" type="text/css"/>
+		<!-- Material icon added KALYAN -->
+
+		<!-- Assessment start -->
+
+		<link href="{{ asset('/css/assessment/surveyeditor.css') }}" rel="stylesheet" type="text/css"/>
+
+		<link href="{{ asset('/css/assessment/survey.css') }}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('/css/assessment/index.css') }}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('/css/nav-bar.css') }}" rel="stylesheet" type="text/css"/>
+
+		<link href="{{ asset('/css/assessment/custom.css') }}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('/css/assessment/jquery-confirm.min.css') }}" rel="stylesheet" type="text/css"/>
+		<link href="{{ asset('/css/assessment/jquery-ui.css') }}" rel="stylesheet" type="text/css"/>
+		<!-- Assessment end -->
+
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+		<!--<script type="text/javascript" language="javascript" src="{{ asset('/js/jquery.min.js') }}"></script>-->
+		<script type="text/javascript" language="javascript" src="{{ asset('/js/bootstrap-datepicker.js') }}"></script>
+		<script type="text/javascript" language="javascript" src="{{ asset('/js/select2.min.js') }}"></script>
+		<!--<script type="text/javascript" language="javascript" src="{{ asset('/js/bootstrap-datepicker.js') }}"></script>-->
+
+
+
 		@yield('header-extra')
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,211 +56,124 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".wrapper").on("contextmenu",function(){
+				//alert('right click disabled');
+				return true;
+			}); 
+		});
+	</script>
 	<style>
-		.dropbtn {
-			background-color: #00c0ef;
-			color: white;
-			padding: 14px;
-			font-size: 16px;
-			border: none;
-			cursor: pointer;
+		.herder-text {
+			float: left;
+			background-color: transparent;
+			color: #ffffff;
+			background-image: none;
+			padding: 19px 15px;
+			font-size: 14px !important;
+			font-family: source sans pro !important;
+			text-transform: uppercase;
 		}
-						
-		.dropdown {
-			position: relative;
-			display: inline-block;
+
+		.herder-language {
+			float: left;
+			background-color: transparent;
+			color: #ffffff;
+			background-image: none;
+			padding: 12px 15px;
+			font-family: fontAwesome;
 		}
-								
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: #f9f9f9;
-			min-width: 160px;
-			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		.navbar-custom-menu {
+			float: right;
+			height: 57px !important;
 		}
-								
-		.dropdown-content a {
-			color: black;
-			padding: 12px 16px;
-			text-decoration: none;
-			display: block;
-		}
-								
-		.dropdown-content a:hover {background-color: #f1f1f1}
-							
-		.dropdown:hover .dropdown-content {
-			display: block;
-		}
-						
-		.dropdown:hover .dropbtn {
-			background-color: #3e8e41;
-		}
+		
 	</style>
 	<body class="skin-blue sidebar-mini">
 		<div class="wrapper">
 			<!-- Main Header -->
 			<header class="main-header">
 				<!-- Logo -->
-				<a href="{{ url('/dashboard') }}" class="logo">
+					<a href="{{ url('/dashboard') }}" class="logo">
+                                        <?php
+						$logo = DB::table('facility')->where('id', Auth::user()->facility_id)->first();
+					?>
 					<!-- mini logo for sidebar mini 50x50 pixels -->
-					<span class="logo-mini"><b>A</b>LT</span>
+					@if($logo->facility_logo==NULL)
+					<span class="logo-lg"><img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/images.png" class="img-circle" width="40" height="40"></span>
+					@else
+					<span class="logo-lg"><img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/{{ $logo->facility_logo }}" class="img-circle" width="40" height="40"></span>
+					
+					@endif
 					<!-- logo for regular state and mobile devices -->
-					<span class="logo-lg"><b>Admin</b> Panel </span>
+					
+					@if($logo->facility_logo==NULL)
+					<span class="logo-lg"><img src="http://documentcluster.com/angel_home/hsfiles/public/facility_logo/images.png" class="img-circle" width="40" height="40"></span>
+					@else
+					<span class="logo-lg"><img src="http://documentcluster.com/angel_home/hsfiles/public/facility_logo/{{ $logo->facility_logo }}" class="img-circle" width="40" height="40"></span>
+					
+					@endif
 				</a>
 				<!-- Header Navbar -->
 				<nav class="navbar navbar-static-top" role="navigation">
 					<!-- Sidebar toggle button-->
-					<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-						<span class="sr-only">Toggle navigation</span>
-					</a>					
+					<a href="#" class="sidebar-toggle cust-remove-nav-side-open-lg" data-toggle="offcanvas" role="button"></a>
+					<div class="herder-text" data-toggle="" role="button">
+						<?php $facility_name = DB::table('facility')->where('id', Auth::user()->facility_id)->first(); ?>
+						<span class=""><b>@lang("msg.Welcome To") {{ $facility_name->facility_name }}</b></span>
+					</div>
 					<!-- Navbar Right Menu -->
 					<div class="navbar-custom-menu">
 						<ul class="nav navbar-nav">
-							<!-- Messages: style can be found in dropdown.less-->
-							<!--<li class="dropdown messages-menu">
-								<!-- Menu toggle button -->
-								<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-envelope-o"></i>
-									<span class="label label-success">4</span>
-								</a>-->
-								<!--<ul class="dropdown-menu">
-									<li class="header">You have 4 messages</li>
-									<li>
-										<!-- inner menu: contains the messages -->
-										<!--<ul class="menu">
-											<li><!-- start message -->
-												<!--<a href="#">
-													<div class="pull-left">
-														<!-- User Image -->
-														<!--<img src="{{ Auth::user()->image }}" class="img-circle"
-															 alt="User Image"/>
-													</div>
-													<!-- Message title and timestamp -->
-													<!--<h4>
-														Support Team
-														<small><i class="fa fa-clock-o"></i> 5 mins</small>
-													</h4>
-													<!-- The message -->
-													<!--<p>Why not buy a new awesome theme?</p>
-												</a>
-											</li><!-- end message -->
-										<!--</ul><!-- /.menu -->
-									<!--</li>
-									<li class="footer"><a href="#">See All Messages</a></li>
-								</ul>
-							</li><!-- /.messages-menu -->
-
-							<!-- Notifications Menu -->
-							<!--<li class="dropdown notifications-menu">
-								<!-- Menu toggle button -->
-								<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-bell-o"></i>
-									<span class="label label-warning">10</span>
-								</a>
-								<ul class="dropdown-menu">
-									<li class="header">You have 10 notifications</li>
-									<li>
-										<!-- Inner Menu: contains the notifications -->
-										<!--<ul class="menu">
-											<li><!-- start notification -->
-												<!--<a href="#">
-													<i class="fa fa-users text-aqua"></i> 5 new members joined today
-												</a>
-											</li><!-- end notification -->
-										<!--</ul>
-									</li>
-									<li class="footer"><a href="#">View all</a></li>
-								</ul>
-							</li>
-							<!-- Tasks Menu -->
-							<!--<li class="dropdown tasks-menu">
-								<!-- Menu Toggle Button -->
-								<!--a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-flag-o"></i>
-									<span class="label label-danger">9</span>
-								</a>
-								<ul class="dropdown-menu">
-									<li class="header">You have 9 tasks</li>
-									<li>
-										<!-- Inner menu: contains the tasks -->
-										<!--<ul class="menu">
-											<li><!-- Task item -->
-												<!--<a href="#">
-													<!-- Task title and progress text -->
-													<!--<h3>
-														Design some buttons
-														<small class="pull-right">20%</small>
-													</h3>
-													<!-- The progress bar -->
-													<!--<div class="progress xs">
-														<!-- Change the css width attribute to simulate progress -->
-														<!--<div class="progress-bar progress-bar-aqua" style="width: 20%"
-															 role="progressbar" aria-valuenow="20" aria-valuemin="0"
-															 aria-valuemax="100">
-															<span class="sr-only">20% Complete</span>
-														</div>
-													</div>
-												</a>
-											</li><!-- end task item -->
-										<!--</ul>
-									</li>
-									<li class="footer">
-										<a href="#">View all tasks</a>
-									</li>
-								</ul>
-							</li>-->
 							@if (Auth::guest())
 								<li><a href="{{ url('/login') }}">Login</a></li>
 								<li><a href="{{ url('/register') }}">Register</a></li>
 							@else
 							<!-- User Account Menu -->
-								<li class="dropdown user user-menu">
+								<?php
+									$route_name = url()->full();
+								?>
+								<div class="herder-language">
+									<form action="{{ $route_name }}" method="get">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
+										{{ csrf_field() }}
+										<li class="">
+											<div class="form-group has-feedback" >
+												<select name="language" id="language" class="form-control" onchange="this.form.submit()">
+													<option value="">CHANGE LANGUAGE</option>
+													<option value="en">ENGLISH</option>
+													<option value="fr">FRENCH</option>
+													<option value="es">SPANISH</option>
+												</select>
+											</div>
+										</li>
+									</form>
+								</div>
+								<!--<li class="dropdown user user-menu">
 									<!-- Menu Toggle Button -->
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-										<!-- The user image in the navbar-->
-										<!--<img src="{{ Auth::user()->image }}" class="user-image" alt="User Image"/>-->
-										<!-- hidden-xs hides the username on small devices so only the image appears. -->
-										<span class="hidden-xs">{{ Auth::user()->firstname." ".Auth::user()->lastname }}</span>
+									<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="material-icons"> account_circle </i>
+										<span class="hidden-xs" style="text-transform:uppercase; font-weight:600">{{ Auth::user()->firstname." ".Auth::user()->lastname }}</span>
 									</a>
 									<ul class="dropdown-menu">
 										<!-- The user image in the menu -->
-										<li class="user-header">
+										<!--<li class="user-header">
 											<img src="{{ url(Auth::user()->image) }}" class="img-circle" alt="User Image"/>
 											<p>
 												{{ Auth::user()->firstname." ".Auth::user()->lastname }}
 												<small>{{ Auth::user()->created_at->diffForHumans() }}</small>
 											</p>
 										</li>
-										<!-- Menu Body -->
-										<!--<li class="user-body">
-											<div class="col-xs-4 text-center">
-												<a href="#">Followers</a>
-											</div>
-											<div class="col-xs-4 text-center">
-												<a href="#">Sales</a>
-											</div>
-											<div class="col-xs-4 text-center">
-												<a href="#">Friends</a>
-											</div>
-										</li><!--
-										<!-- Menu Footer-->
+
 										<li class="user-footer">
 											<div class="pull-left">
-												<a href="{{ url('profile') }}" class="btn btn-default btn-flat">Profile</a>
-											</div>
-											<div class="pull-right">
-												<a href="{{ url('/logout') }}" class="btn btn-default btn-flat"
-												   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-													Logout</a>
-
-												<form id="logout-form" action="{{ url('/logout') }}" method="POST"
-													  style="display: none;">
-													{{ csrf_field() }}
-												</form>
+												<!-- <a href="{{ url('profile') }}" class="btn btn-default btn-flat">Profile</a> -->
+												<!--<a href="profile/{{ Auth::user()->user_id }}" class="btn btn-default btn-flat">Profile</a>
 											</div>
 										</li>
 									</ul>
-								</li>
+								</li>-->						
 							@endif
 						</ul>
 					</div>
@@ -246,455 +186,342 @@
 				<section class="sidebar">
 					<!-- Sidebar user panel (optional) -->
 					@if (! Auth::guest())
-						<div class="user-panel">
-							<div class="pull-left image">
-								<img src="{{ url(Auth::user()->image) }}" class="img-circle" alt="User Image"/>
-							</div>
-							<div class="pull-left info">
-								<p>{{ Auth::user()->firstname." ".Auth::user()->lastname }}</p>
-								<!-- Status -->
-								<!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
-							</div>
-						</div>
-				@endif
-
-				<!-- search form (Optional) -->
-					<!--<form action="#" method="get" class="sidebar-form">
-						<div class="input-group">
-							<input type="text" name="q" class="form-control" placeholder="Search..."/>
-							<span class="input-group-btn">
-						<button type='submit' name='search' id='search-btn' class="btn btn-flat"><i
-									class="fa fa-search"></i></button>
-					  </span>
-						</div>
-					</form>-->
-					<!-- /.search form -->
-
-					<!-- Sidebar Menu -->
-					
+					@endif
+					<?php
+						$us = Auth::user()->user_id;
+						$roles = DB::table('role')->where('u_id',$us)->where('status',1)->get();
+						$role_arr = array();
+						foreach ($roles as $r) {
+							array_push($role_arr,$r->id);
+						}
+					?>
+					<li class="bg-c text-center" style="padding:20px 16px 19px 15px; list-style-type: none;">
+						<span><img src="" class="img-circle" style="width:69px">
+					</li>
+					<div style="margin-top:3px"></div>
 					<ul class="sidebar-menu">
-						<li class="header">Links</li>
-					<!-- USE {{ Request::is('route-name*') ? 'active' : '' }} to dynamically set active tab -->
-						<?php if(Auth::user()->role == '1'){ ?>				
-						<li class="{{ Request::is('dashboard*') ? 'active' : '' }}"><a href="{{ url('dashboard') }}"><i class='fa fa-tachometer'></i> <span>Dashboard</span></a></li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Master Entry</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-					        <ul class="treeview-menu">
-								<li><a href="{{ url('qualification_view') }}">Qualification</a></li>
-								<li><a href="{{ url('post_view') }}">Designation</a></li>
-								<li><a href="{{ url('department_view') }}">Department</a></li>
-								<li><a href="{{ url('parameter_view') }}">Parameter</a></li>
-								<li><a href="{{ url('scale_revision') }}">Scale Revision</a></li>
-								<li><a href="{{ url('grade_pay_revision') }}">Grade Pay Revision</a></li>
-								<li><a href="{{ url('new_scale') }}">New Scale</a></li>
-								<li><a href="{{ url('new_grade_pay') }}">New Grade Pay</a></li>
-					        </ul>
+						<li class="cust-remove-side-open-sm">
+							<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+								<i class="material-icons md-18 dark-gray">view_headline</i>
+								<span class="sr-only">Toggle navigation</span>
+							</a>
 						</li>
-						<li><a href="{{ url('admin') }}"><i class='fa fa-link'></i> <span>User</span></a></li>
-						<li><a href="{{ url('dependantview') }}"><i class='fa fa-link'></i> <span>Dependant</span></a></li>
-						<!--<li><a href="{{ url('employee_view') }}"><i class='fa fa-link'></i> <span>Employee</span></a></li>-->
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Employees</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-					        <ul class="treeview-menu">							
-								<li><a href="{{ url('employee_view') }}">View Employees</a></li>
-								<li><a href="{{ url('employee_lic') }}">Employee LIC</a></li>
-					        </ul>
+						<li class="{{ Request::is('dashboard*') ? 'active' : '' }}">
+							<a href="{{ url('dashboard') }}">
+								<i class="material-icons md-18 dark-gray">dashboard </i>
+								<span class="padding-left-10">@lang("msg.Dashboard")</span>
+							</a>
 						</li>
-						<li><a href="{{ url('servicebookview') }}"><i class='fa fa-link'></i> <span>Service Book</span></a></li>
-						<li><a href="{{ url('showattendance') }}"><i class='fa fa-link'></i> <span>Attendance</span></a></li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Salary</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-							<ul class="treeview-menu">	
-								<li><a href="{{ url('kss_upload') }}"><i class="fa fa-angle-right"></i> Upload KSS</a></li>
-					            <li><a href="{{ url('salary_claim_batch') }}"><i class="fa fa-angle-right"></i> Salary Process</a></li>
-					            <li><a href="{{ url('salary_claim_edit') }}"><i class="fa fa-angle-right"></i> Edit Salary Claims</a></li>
-					            <li><a href="{{ url('salary_deduction_edit') }}"><i class="fa fa-angle-right"></i> Edit Salary Deductions</a></li>
-								<li><a href="{{ url('generate_rtgs') }}"><i class="fa fa-angle-right"></i> Generate RTGS</a></li>
-					        </ul>
+						<li class="">
+							<a href="{{ url('activity_calendar') }}">
+								<i class="fa fa-calendar"></i>
+								<span class="padding-left-10">@lang("msg.Activity Calendar")</span>
+							</a>
 						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Pension</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-					        <ul class="treeview-menu">
-								<li><a href="{{ route('pension.view_list.employees.add_pension_details') }}"><i class="fa fa-angle-right"></i> Add Bank/Address Info</a></li>
-					            <li><a href="{{ route('pension.employees.pension_details.view') }}"><i class="fa fa-angle-right"></i> View Address/Bank Details</a></li>
-					            <li><a href="{{ route('pension.view.employees') }}"><i class="fa fa-angle-right"></i> Settle</a></li>
-					            <li><a href="{{ route('employees.settled.pension_data') }}"><i class="fa fa-angle-right"></i> View All Settled Employee Data</a></li>
-					            <li><a href="{{ route('pension.prepare.rtgs')}}"><i class="fa fa-angle-right"></i> Gebnerate RTGS</a></li>					            
-								<li><a href="{{ url('employee_view') }}">Calculate Arrears</a></li>
-							</ul>
-						</li>
-						<!--<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Users</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-							<ul class="treeview-menu">					              	
-					            <li><a href="{{ url('member') }}"><i class="fa fa-angle-right"></i> Add User</a></li>
-					            <li><a href="{{ url('admin') }}"><i class="fa fa-angle-right"></i> View User</a></li>
-					            <li><a href="{{ url('admin') }}"><i class="fa fa-angle-right"></i> Edit/Delete User</a></li>
-					        </ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Dependant</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-							<ul class="treeview-menu">					              	
-					            <li><a href="{{ url('dependant') }}"><i class="fa fa-angle-right"></i> Add Dependant</a></li>
-					            <li><a href="{{ url('dependantview') }}"><i class="fa fa-angle-right"></i> View Dependant</a></li>
-					            <li><a href="{{ url('dependantview') }}"><i class="fa fa-angle-right"></i> Edit/Delete Dependant</a></li>
-					        </ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Master Entry</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-					        <ul class="treeview-menu">
-					            <li>
-					              <a href="#"><i class="fa fa-recycle"></i> Qualification
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">					              	
-					              	<li><a href="{{ url('qualification') }}"><i class="fa fa-angle-right"></i> Add Qualification</a></li>
-					              	<li><a href="{{ url('qualification_view') }}"><i class="fa fa-angle-right"></i> View Qualification</a></li>
-					                <li><a href="{{ url('qualification_view') }}"><i class="fa fa-angle-right"></i> Edit Qualification</a></li>
-					              </ul>
-					            </li>
-								<li>
-					              <a href="#"><i class="fa fa-recycle"></i> Parameter
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">					              	
-					              	<li><a href="{{ url('parameter') }}"><i class="fa fa-angle-right"></i> Add Parameter Type</a></li>
-									<li><a href="{{ url('parameter_value') }}"><i class="fa fa-angle-right"></i> Add Parameter Value</a></li>
-					              	<li><a href="{{ url('parameter_view') }}"><i class="fa fa-angle-right"></i> View Parameter</a></li>
-					                <li><a href="{{ url('parameter_view') }}"><i class="fa fa-angle-right"></i> Edit Parameter</a></li>
-					              </ul>
-					            </li>
-								<li>
-					              <a href="#"><i class="fa fa-recycle"></i> Department
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">					              	
-					              	<li><a href="{{ url('department') }}"><i class="fa fa-angle-right"></i> Add Department</a></li>
-					              	<li><a href="{{ url('department_view') }}"><i class="fa fa-angle-right"></i> View Department</a></li>
-					                <li><a href="{{ url('department_view') }}"><i class="fa fa-angle-right"></i> Delete Department</a></li>
-					              </ul>
-					            </li>
-								<li>
-					              <a href="#"><i class="fa fa-recycle"></i> Designation
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">					              	
-					              	<li><a href="{{ url('post') }}"><i class="fa fa-angle-right"></i> Add Designation</a></li>
-					              	<li><a href="{{ url('post_view') }}"><i class="fa fa-angle-right"></i> View Designation</a></li>
-					                <li><a href="{{ url('post_view') }}"><i class="fa fa-angle-right"></i> Delete Designation</a></li>
-									<li><a href="{{ url('revision') }}"><i class="fa fa-angle-right"></i> Revision</a></li>
-					              </ul>
-					            </li>
-								<li>
-					              <a href="#"><i class="fa fa-recycle"></i> Increment
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">					              	
-					              	<li><a href="{{ url('increment') }}"><i class="fa fa-angle-right"></i>Calculate Increment</a></li>					              	
-					              </ul>
-					            </li>
-					        </ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Employees</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-					        <ul class="treeview-menu">
-								<li><a href="{{ url('employee') }}">Add Employees</a></li>
-								<li><a href="{{ url('employee_view') }}">View Employees</a></li>
-								<li><a href="{{ url('employee_view') }}">Edit Employees</a></li>
-								<li><a href="{{ url('promotion') }}">Employees Promotion</a></li>
-								<li><a href="{{ url('transfer') }}">Employees Transfer</a></li>
-								<li><a href="{{ url('pay_fixation') }}">Pay Fixation</a></li>
-					        </ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Service Book</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-							<ul class="treeview-menu">					              	
-					            <li><a href="{{ url('servicebook') }}"><i class="fa fa-angle-right"></i> Add Service Book</a></li>
-					            <li><a href="{{ url('servicebookview') }}"><i class="fa fa-angle-right"></i> View Service Book</a></li>
-					        </ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Salary</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-							<ul class="treeview-menu">	
-								<li><a href="{{ url('kss_upload') }}"><i class="fa fa-angle-right"></i> Upload KSS</a></li>
-					            <li><a href="{{ url('salary_claim_batch') }}"><i class="fa fa-angle-right"></i> Salary Process</a></li>
-					            <li><a href="{{ url('salary_claim_edit') }}"><i class="fa fa-angle-right"></i> Edit Salary Claims</a></li>
-					            <li><a href="{{ url('salary_deduction_edit') }}"><i class="fa fa-angle-right"></i> Edit Salary Deductions</a></li>
-								<li><a href="{{ url('generate_rtgs') }}"><i class="fa fa-angle-right"></i> Generate RTGS</a></li>
-					        </ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Pension</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-					        <ul class="treeview-menu">
-								<li><a href="{{ route('pension.view_list.employees.add_pension_details') }}"><i class="fa fa-angle-right"></i> Add Bank/Address Info</a></li>
-					            <li><a href="{{ route('pension.employees.pension_details.view') }}"><i class="fa fa-angle-right"></i> View Address/Bank Details</a></li>
-					            <li><a href="{{ route('pension.view.employees') }}"><i class="fa fa-angle-right"></i> Settle</a></li>
-					            <li><a href="{{ route('employees.settled.pension_data') }}"><i class="fa fa-angle-right"></i> View All Settled Employee Data</a></li>
-					            <li><a href="{{ route('pension.prepare.rtgs')}}"><i class="fa fa-angle-right"></i> Gebnerate RTGS</a></li>					            
-								<li><a href="{{ url('employee_view') }}">Calculate Arrears</a></li>
-							</ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Attendance</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-					        <ul class="treeview-menu">
-								<li><a href="{{ url('showattendanceform') }}">Insert Attendance</a></li>
-								<li><a href="{{ url('showattendance') }}">View Attendance</a></li>
-					        </ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-					            <i class="fa fa-users"></i>
-					            <span>Bill</span>
-					            <span class="pull-right-container">
-					              <i class="fa fa-angle-left pull-right"></i>
-					            </span>
-					        </a>
-					        <ul class="treeview-menu">
-					            <li>
-					              <a href="#"><i class="fa fa-recycle"></i> Over Time
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">					              	
-					              	<li><a href="{{ url('ot_view') }}">Over Time Calculation</a></li>
-									<li><a href="{{ url('ot_rtgs') }}">Generate OT Rtgs</a></li>
-					              </ul>
-					            </li>
-								<li>
-					              <a href="#"><i class="fa fa-recycle"></i> Festival Advance
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">
-					              </ul>
-					            </li>
-								<li>
-					              <a href="#"><i class="fa fa-recycle"></i> Ex Gartia
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">
-					              </ul>
-					            </li>
-								<li>
-					              <a href=""><i class="fa fa-recycle"></i> Arrear
-					                <span class="pull-right-container">
-					                  <i class="fa fa-angle-left pull-right"></i>
-					                </span>
-					              </a>
-					              <ul class="treeview-menu">
-									<li><a href="{{ url('arrears/calculate') }}">Calculate Arrear</a></li>
-					              </ul>
-					            </li>
-					        </ul>
-						</li>-->
-						<li><a href="{{ url('leaveapplication') }}"><i class='fa fa-link'></i> <span>View Applied Leave</span></a></li>
-						<li><a href="{{ url('loanapplication') }}"><i class='fa fa-link'></i> <span>View Applied Loans</span></a></li>
-						<li><a href="{{ url('audit_trail') }}"><i class='fa fa-link'></i> <span>Audit Trail</span></a></li>
-												
-						<?php } ?>
-						
-						<?php if(Auth::user()->role == '2'){ ?>				
-						<li class="{{ Request::is('dashboard*') ? 'active' : '' }}"><a href="{{ url('dashboard') }}"><i
-										class='fa fa-tachometer'></i> <span>Dashboard</span></a></li>
-						
-						<!--<li class="{{ Request::is('profile*') ? 'active' : '' }}"><a href="{{ url('profile') }}"><i
-										class='fa fa-user'></i> <span>My Profile</span></a></li>-->
-						<!--<li class="{{ Request::is('admin*') ? 'active' : '' }}"><a href="{{ url('admin') }}"><i
-										class='fa fa-cogs'></i> <span>User</span></a></li>
-						<li><a href="{{ url('qualification_view') }}"><i class='fa fa-link'></i> <span>Qualifications</span></a></li>
-						<li><a href="{{ url('dependantview') }}"><i class='fa fa-link'></i> <span>Dependant</span></a></li>
-						<li><a href="{{ url('employee_view') }}"><i class='fa fa-link'></i> <span>Employees</span></a></li>                
-						<li><a href="{{ url('servicebookview') }}"><i class='fa fa-link'></i> <span>Service Book</span></a></li>
-						<li><a href="{{ url('showattendance') }}"><i class='fa fa-link'></i> <span>Attendance</span></a></li>-->
-						<li><a href="{{ url('viewapplyleave') }}"><i class='fa fa-link'></i> <span>View Applied Leave</span></a></li>
-						<li><a href="{{ url('apply_loan_view') }}"><i class='fa fa-link'></i> <span>View Applied Loan</span></a></li>
-						<?php } ?>
-						
-						<?php if(Auth::user()->role == '3'){ ?>
-						<li><a href="manageleave"><i class='fa fa-link'></i> <span>Manage Employee Leave</span></a></li>
-						<!--<li><a href=""><i class='fa fa-link'></i> <span>Manage Employee Loan</span></a></li>-->
-						<?php } ?>
-						
-						<?php if(Auth::user()->role == '5'){ ?>
-						<li class="{{ Request::is('dashboard*') ? 'active' : '' }}"><a href="{{ url('dashboard') }}"><i class='fa fa-tachometer'></i> <span>Dashboard</span></a></li>
-						<li class="{{ Request::is('dashboard*') ? 'active' : '' }}"><a href="{{ url('salary_statement') }}"><i	class='fa fa-tachometer'></i> <span>Salary Statement</span></a></li>
-						<?php } ?>
-						<?php if(Auth::user()->role == '6'){ ?>
-						<li class="{{ Request::is('dashboard*') ? 'active' : '' }}"><a href="{{ url('dashboard') }}"><i class='fa fa-tachometer'></i> <span>Dashboard</span></a></li>
-						<li class="{{ Request::is('dashboard*') ? 'active' : '' }}"><a href="{{ url('salary_statement') }}"><i	class='fa fa-tachometer'></i> <span>Salary Statement</span></a></li>
-						<?php } ?>
-					</ul><!-- /.sidebar-menu -->
-				</section>
-				<!-- /.sidebar -->
-			</aside>
 
+						@if(in_array(1,$role_arr))
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">@lang("msg.Master Entry")</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="{{ url('all_member_list') }}"><i class="material-icons md-18 dark-gray"> perm_identity </i><span class="padding-left-10">@lang("msg.Add User")</a></li>
+								<li><a href="{{ url('room_details') }}"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10">@lang("msg.Add Room")</a></li>
+								<li><a href="{{ url('service_plan') }}"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10">@lang("msg.Service Plan")</a></li>
+								<li><a href="{{ url('assessment_preview') }}"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10">@lang("msg.Assessments")</a></li>
+
+								<!--<li><a href="{{ url('room_details') }}">Admission Policies</a></li>-->
+							</ul>
+						</li>
+						<!--<li class="">
+							<a href="{{ url('activity_calendar') }}">
+								<i class="material-icons md-18 dark-gray">date_range</i>
+								<span class="padding-left-10">@lang("msg.Activity Calendar")</span>
+							</a>
+						</li>-->
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">@lang("msg.Reports")</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="{{ url('total_revenue') }}"><i class="material-icons md-18 dark-gray"> monetization_on </i><span class="padding-left-10">@lang("msg.Total Revenue")</a></li>
+								<li><a href="{{ url('room_reports') }}"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10">@lang("msg.Room Report")</a></li>
+								<li><a href="{{ url('facility_sales_reports') }}"><i class="material-icons md-18"> report</i><span class="padding-left-10">@lang("msg.Sales Reports")</a></li>
+								<li><a href="{{ url('aging_report') }}"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10">@lang("msg.Aging Report")</a></li>
+								<li><a href="{{ url('activity_report') }}"><i class="material-icons md-18 dark-gray">local_activity</i><span class="padding-left-10">@lang("msg.Activity Report")</a></li>
+								<li><a href="{{ url('tasksheet_report') }}"><i class="material-icons md-18 dark-gray">list</i><span class="padding-left-10">@lang("msg.Task Sheet Report")</a></li>
+
+								<!--<li><a href="{{ url('room_details') }}">Admission Policies</a></li>-->
+							</ul>
+						</li>
+						<li><a href="{{ url('resident_service_plan') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Resident Service Plan")</span></a></li>
+						@endif
+
+						@if(in_array(2,$role_arr))
+						<li><a href="{{ url('sales_pipeline') }}"><i class="material-icons"> image_search </i><span class="padding-left-10">@lang("msg.Inquiry")</span></a></li>
+						<li>
+							<a href="{{ url('appointment_schedule') }}">
+								<i class="material-icons"> settings_backup_restore </i>
+								<span class="padding-left-10">@lang("msg.Appointment Schedule")</span>
+							</a>
+						</li>
+						@endif
+
+						@if(in_array(3,$role_arr))
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18 dark-gray"> cloud_done</i>
+								<span class="padding-left-10">@lang("msg.CRM")</span>
+								<span class="pull-right-container">
+									<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="{{ url('sales_stage_pipeline') }}">
+										<i class="material-icons md-18"> insert_chart</i>@lang("msg.Sales Pipeline") 
+									</a>
+								</li>
+								<li>
+									<a href="{{ url('reports') }}">
+										<i class="material-icons md-18"> report</i>@lang("msg.Reports") 
+									</a>
+								</li>
+							</ul>
+
+							<li><a href="{{ url('appointment_schedule') }}"><i class="material-icons md-18 dark-gray"> assignment</i><span class="padding-left-10">@lang("msg.Appointment Schedule")</span></a></li>
+							<li><a href="{{ url('personal_details') }}"><i class="material-icons md-18 dark-gray"> details </i><span class="padding-left-10">@lang("msg.Future Resident Details")</span></a></li>
+							<li><a href="{{ url('screening') }}"><i class="material-icons md-18 dark-gray">queue_play_next </i><span class="padding-left-10">@lang("msg.Screening")</span></a></li>
+							<li><a href="{{ url('booking') }}"><i class="material-icons md-18 dark-gray">home </i><span class="padding-left-10">@lang("msg.Book Room")</span></a></li>
+						</li>
+						@endif
+						@if(in_array(4,$role_arr))
+						<li><a href="{{ url('assessment') }}"><i class="material-icons md-18 dark-gray"> assignment</i><span class="padding-left-10">@lang("msg.Assessments Upload")</span></a></li>
+						<li>
+    							 <a href="#">
+    								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+    								<span class="padding-left-10">@lang("msg.Assessment")</span>
+    								<span class="pull-right-container">
+    									<i class="fa fa-angle-left pull-right"></i>
+    								</span>
+    							    </a>
+    							<ul class="treeview-menu">
+    								<li><a href="{{ url('preadmin_resident_assessment') }}"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10">@lang("msg.Preadmission Evaluation")</a></li>
+    								<li><a href="{{ url('resident_assessment') }}"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10">@lang("msg.Sub Assessments")</a></li>
+    							</ul>
+							
+							</li>
+						<li><a href="{{ url('patient_medicine') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.MAR")</span></a></li>
+						<li><a href="{{ url('mar_report') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
+						<li><a href="{{ url('medicine_stocks_list') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Medicine Stock")</span></a></li>
+						<li><a href="{{ url('resident_service_plan') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Resident Service Plan")</span></a></li>
+						@endif
+						@if(in_array(5,$role_arr))
+							<li>
+    							    <a href="#">
+    								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+    								<span class="padding-left-10">@lang("msg.Assessment")</span>
+    								<span class="pull-right-container">
+    									<i class="fa fa-angle-left pull-right"></i>
+    								</span>
+    							    </a>
+    							<ul class="treeview-menu">
+    								<li><a href="{{ url('preadmin_resident_assessment') }}"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10">@lang("msg.Preadmission Evaluation")</a></li>
+    								<li><a href="{{ url('resident_assessment') }}"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10">@lang("msg.Sub Assessments")</a></li>
+    							</ul>
+							
+							</li>
+							
+							<li class="treeview">
+								<a href="#">
+									<i class="material-icons md-18 dark-gray"> cloud_done</i>
+									<span class="padding-left-10">@lang("msg.Tasksheet")</span>
+									<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+									</span>
+								</a>
+								<ul class="treeview-menu">
+									<li><a href="{{ url('tasksheet') }}"><i class="material-icons md-18"> list</i><span class="padding-left-10">@lang("msg.Set Tasksheet")</span></a></li>
+									<li><a href="{{ url('main_task') }}"><i class="material-icons md-18"> list</i><span class="padding-left-10">@lang("msg.Set Assignee")</span></a></li>
+								</ul>
+							</li>
+							<li><a href="{{ url('injury') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Incident")</span></a></li>
+							<li><a href="{{ url('resident_payment') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Resident Payment")</span></a></li>
+							<li><a href="{{ url('payment_report') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Payment Report")</span></a></li>
+
+						@endif
+						@if(in_array(6,$role_arr))
+						<li>
+							<a href="{{ url('patients_list') }}">
+								<i class="material-icons md-18 dark-gray"> local_hospital </i>
+								<span class="padding-left-10">@lang("msg.Doctor")</span>
+							</a>
+						</li>
+						@endif
+						@if(in_array(7,$role_arr))
+							<li><a href="{{ url('patient_medicine') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.MAR")</span></a></li>
+							<li><a href="{{ url('mar_report') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
+							<li><a href="{{ url('medicine_stocks_list') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Medicine Stock")</span></a></li>
+						@endif
+						@if(in_array(8,$role_arr))
+							<li><a href="{{ url('main_task_list') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Daily Task")</span></a></li>
+							<li><a href="{{ url('patient_medicine') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.MAR")</span></a></li>
+						@endif
+						@if(in_array(11,$role_arr))
+							<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">@lang("msg.Master Entry")</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="{{ url('all_member_list') }}"><i class="material-icons md-18 dark-gray"> perm_identity </i><span class="padding-left-10">@lang("msg.Add User")</a></li>
+								<li><a href="{{ url('room_details') }}"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10">@lang("msg.Add Room")</a></li>
+								<li><a href="{{ url('service_plan') }}"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10">@lang("msg.Service Plan")</a></li>
+								<li><a href="{{ url('assessment_preview') }}"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10">@lang("msg.Assessments")</a></li>
+							</ul>
+						</li>
+                        <li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">@lang("msg.Reports")</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="{{ url('total_revenue') }}"><i class="material-icons md-18 dark-gray"> monetization_on </i><span class="padding-left-10">@lang("msg.Total Revenue")</a></li>
+								<li><a href="{{ url('room_reports') }}"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10">@lang("msg.Room Report")</a></li>
+								<li><a href="{{ url('facility_sales_reports') }}"><i class="material-icons md-18"> report</i><span class="padding-left-10">@lang("msg.Sales Reports")</a></li>
+								<li><a href="{{ url('aging_report') }}"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10">@lang("msg.Aging Report")</a></li>
+								<li><a href="{{ url('activity_report') }}"><i class="material-icons md-18 dark-gray">local_activity</i><span class="padding-left-10">@lang("msg.Activity Report")</a></li>
+								<li><a href="{{ url('tasksheet_report') }}"><i class="material-icons md-18 dark-gray">list</i><span class="padding-left-10">@lang("msg.Task Sheet Report")</a></li>
+
+								<!--<li><a href="{{ url('room_details') }}">Admission Policies</a></li>-->
+							</ul>
+						</li>
+                        <li><a href="{{ url('resident_service_plan') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Resident Service Plan")</span></a></li>
+
+
+                        <li><a href="{{ url('sales_pipeline') }}"><i class="material-icons"> image_search </i><span class="padding-left-10">@lang("msg.Inquiry")</span></a></li>
+                        <li>
+							<a href="{{ url('appointment_schedule') }}">
+								<i class="material-icons"> settings_backup_restore </i>
+								<span class="padding-left-10">@lang("msg.Appointment Schedule")</span>
+							</a>
+						</li>
+
+                        <li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18 dark-gray"> cloud_done</i>
+								<span class="padding-left-10">@lang("msg.CRM")</span>
+								<span class="pull-right-container">
+									<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="{{ url('sales_stage_pipeline') }}">
+										<i class="material-icons md-18"> insert_chart</i>@lang("msg.Sales Pipeline") 
+									</a>
+								</li>
+								<li>
+									<a href="{{ url('reports') }}">
+										<i class="material-icons md-18"> report</i>@lang("msg.Reports") 
+									</a>
+								</li>
+							</ul>
+
+							<li><a href="{{ url('personal_details') }}"><i class="material-icons md-18 dark-gray"> details </i><span class="padding-left-10">@lang("msg.Future Resident Details")</span></a></li>
+							<li><a href="{{ url('screening') }}"><i class="material-icons md-18 dark-gray">queue_play_next </i><span class="padding-left-10">@lang("msg.Screening")</span></a></li>
+							<li><a href="{{ url('booking') }}"><i class="material-icons md-18 dark-gray">home </i><span class="padding-left-10">@lang("msg.Book Room")</span></a></li>
+						</li>
+
+                        <li><a href="{{ url('assessment') }}"><i class="material-icons md-18 dark-gray"> assignment</i><span class="padding-left-10">@lang("msg.Assessments Upload")</span></a></li>
+						<li>
+    							 <a href="#">
+    								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+    								<span class="padding-left-10">@lang("msg.Assessment")</span>
+    								<span class="pull-right-container">
+    									<i class="fa fa-angle-left pull-right"></i>
+    								</span>
+    							    </a>
+    							<ul class="treeview-menu">
+    								<li><a href="{{ url('preadmin_resident_assessment') }}"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10">@lang("msg.Preadmission Evaluation")</a></li>
+    								<li><a href="{{ url('resident_assessment') }}"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10">@lang("msg.Sub Assessments")</a></li>
+    							</ul>
+							
+							</li>
+						<li><a href="{{ url('patient_medicine') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.MAR")</span></a></li>
+						<li><a href="{{ url('mar_report') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
+						<li><a href="{{ url('medicine_stocks_list') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Medicine Stock")</span></a></li>
+							
+							<li class="treeview">
+								<a href="#">
+									<i class="material-icons md-18 dark-gray"> cloud_done</i>
+									<span class="padding-left-10">@lang("msg.Tasksheet")</span>
+									<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+									</span>
+								</a>
+								<ul class="treeview-menu">
+									<li><a href="{{ url('tasksheet') }}"><i class="material-icons md-18"> list</i><span class="padding-left-10">@lang("msg.Set Tasksheet")</span></a></li>
+									<li><a href="{{ url('main_task') }}"><i class="material-icons md-18"> list</i><span class="padding-left-10">@lang("msg.Set Assignee")</span></a></li>
+								</ul>
+							</li>
+							<li><a href="{{ url('injury') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Incident")</span></a></li>
+							<li><a href="{{ url('resident_payment') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Resident Payment")</span></a></li>
+							<li><a href="{{ url('payment_report') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Payment Report")</span></a></li>
+
+
+                            <li>
+							<a href="{{ url('patients_list') }}">
+								<i class="material-icons md-18 dark-gray"> local_hospital </i>
+								<span class="padding-left-10">@lang("msg.Doctor")</span>
+							</a>
+						</li>
+                        <li><a href="{{ url('main_task_list') }}"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">@lang("msg.Daily Task")</span></a></li>
+						@endif
+						<li class="">
+							<a href="{{action('ProfileController@change_password') }}">
+								<i class="fa fa-exchange"></i>
+								<span>&nbsp;@lang("msg.Change Password")</span>
+							</a>
+						</li>
+						<li class="dark-gray"><a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;@lang("msg.Logout")</span></a></li>
+						<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
+					</ul>
+				</section>
+			</aside>
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
-
+				<div style="padding-top:4px"></div>
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
-					<h1>
+					<h4>
 						@yield('contentheader_title', 'Page Header here')
 						<small>@yield('contentheader_description')</small>
-					</h1>
+					</h4>
 				</section>
-
 				<!-- Main content -->
 				<section class="content">
 					<!-- Your Page Content Here -->
 					@yield('main-content')
 				</section><!-- /.content -->
 			</div><!-- /.content-wrapper -->
-
-			<!-- Control Sidebar -->
-			<!--<aside class="control-sidebar control-sidebar-dark">
-				<!-- Create the tabs -->
-				<!--<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-					<li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-					<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-				</ul>
-				<!-- Tab panes -->
-				<!--<div class="tab-content">
-					<!-- Home tab content -->
-					<!--<div class="tab-pane active" id="control-sidebar-home-tab">
-						<h3 class="control-sidebar-heading">Recent Activity</h3>
-						<ul class='control-sidebar-menu'>
-							<li>
-								<a href=''>
-									<i class="menu-icon fa fa-birthday-cake bg-red"></i>
-									<div class="menu-info">
-										<h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-										<p>Will be 23 on April 24th</p>
-									</div>
-								</a>
-							</li>
-						</ul><!-- /.control-sidebar-menu -->
-
-						<!--<h3 class="control-sidebar-heading">Tasks Progress</h3>
-						<ul class='control-sidebar-menu'>
-							<li>
-								<a href=''>
-									<h4 class="control-sidebar-subheading">
-										Custom Template Design
-										<span class="label label-danger pull-right">70%</span>
-									</h4>
-									<div class="progress progress-xxs">
-										<div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-									</div>
-								</a>
-							</li>
-						</ul><!-- /.control-sidebar-menu -->
-
-					<!--</div><!-- /.tab-pane -->
-					<!-- Stats tab content -->
-					<!--<div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
-					<!-- Settings tab content -->
-					<!--<div class="tab-pane" id="control-sidebar-settings-tab">
-						<form method="post">
-							<h3 class="control-sidebar-heading">General Settings</h3>
-							<div class="form-group">
-								<label class="control-sidebar-subheading">
-									Report panel usage
-									<input type="checkbox" class="pull-right" checked/>
-								</label>
-								<p>
-									Some information about this general settings option
-								</p>
-							</div><!-- /.form-group -->
-						<!--/form>
-					<!--</div><!-- /.tab-pane -->
-				<!--</div>
-			</aside><!-- /.control-sidebar -->
-
-			<!-- Add the sidebar's background. This div must be placed
-				   immediately after the control sidebar -->
 			<div class='control-sidebar-bg'></div>
 		</div><!-- ./wrapper -->
-		@include('layouts.partials.scripts')	
+		@include('layouts.partials.scripts')
+		@yield('scipts-extra')
 	</body>
 </html>

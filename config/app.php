@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Los_Angeles',
 
     /*
     |--------------------------------------------------------------------------
@@ -163,6 +163,10 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,		
 		Maatwebsite\Excel\ExcelServiceProvider::class,
+		Spatie\Backup\BackupServiceProvider::class,
+		Yk\LaravelBackup\LaravelBackupProvider::class,
+		MaddHatter\LaravelFullcalendar\ServiceProvider::class, 
+		Stevebauman\Translation\TranslationServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -175,11 +179,12 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        //App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Kamaln7\Toastr\ToastrServiceProvider::class,
 		Collective\Html\HtmlServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +238,8 @@ return [
 		
 		'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+		'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+		'Translation' => Stevebauman\Translation\Facades\Translation::class,
 
     ],
 

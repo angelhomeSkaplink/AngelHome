@@ -1,0 +1,78 @@
+		
+		
+		
+		
+		
+		
+		
+		$resident_injury->alarm_bed = $request['alarm_bed'];
+		$resident_injury->alarm_chair = $request['alarm_chair'];
+		$resident_injury->resident_confused = $request['resident_confused'];
+		$resident_injury->psychotropic_med = $request['psychotropic_med'];
+		$resident_injury->psychotropic_med_time = $request['psychotropic_med_time'];
+		
+		$resident_injury->bed_brakes = $request['bed_brakes'];
+		$resident_injury->other_info = $request['other_info'];
+		$resident_injury->environmental_issues = $request['environmental_issues'];
+		$resident_injury->environmental_issues_specify = $request['environmental_issues_specify'];
+		$resident_injury->resident_location_when_found = $request['resident_location_when_found'];
+		$resident_injury->visitor_prior_8_hours = $request['visitor_prior_8_hours'];
+		$resident_injury->visitor_prior_8_hours_who = $request['visitor_prior_8_hours_who'];
+		$resident_injury->new_staff_assigned = $request['new_staff_assigned'];
+		$resident_injury->new_staff_assigned_who = $request['new_staff_assigned_who'];
+		$resident_injury->behavior_issues_past_72_hours = $request['behavior_issues_past_72_hours'];
+		$resident_injury->behavior_issues_past_72_hours_yes = $request['behavior_issues_past_72_hours_yes'];
+		$resident_injury->bedrail_position_skin = $request['bedrail_position_skin'];
+		$resident_injury->resident_confused_skin = $request['resident_confused_skin'];
+		$resident_injury->on_prednisone = $request['on_prednisone'];
+		$resident_injury->other_pertinent_info = $request['other_pertinent_info'];
+		
+		$resident_injury->equipment_issues = $request['equipment_issues'];
+		$resident_injury->equipment_issues_specify = $request['equipment_issues_specify'];
+		$resident_injury->activity_at_time_of_bruiseskin_tear = $request['activity_at_time_of_bruiseskin_tear'];
+		$resident_injury->transfer_from_bed_or_chair = $request['transfer_from_bed_or_chair'];
+		$resident_injury->recent_fall_past_72_hours_skin = $request['recent_fall_past_72_hours_skin'];
+		$resident_injury->seated_next_to = $request['seated_next_to'];
+		$resident_injury->seated_next_to_person = $request['seated_next_to_person'];
+		$resident_injury->ambulatory_skin = $request['ambulatory_skin'];
+		$resident_injury->on_coumadin = $request['on_coumadin'];
+		$resident_injury->other_pertinent_info_skin = $request['other_pertinent_info_skin'];
+		$resident_injury->behaviour_environmental_issues = $request['behaviour_environmental_issues'];
+		$resident_injury->behaviour_environmental_issues_specify = $request['behaviour_environmental_issues_specify'];
+		$resident_injury->assessed_for_pain = $request['assessed_for_pain'];
+		$resident_injury->assessed_for_pain_medicated = $request['assessed_for_pain_medicated'];
+		$resident_injury->urine_dip_results = $request['urine_dip_results'];
+		
+		$resident_injury->activity_at_time_of_behavior = $request['activity_at_time_of_behavior'];
+		$resident_injury->unfamiliar_care_giver = $request['unfamiliar_care_giver'];
+		$resident_injury->care_giver_name = $request['care_giver_name'];
+		$resident_injury->other_pertinent_info_behaviour = $request['other_pertinent_info_behaviour'];
+		$resident_injury->investigation = $request['investigation'];
+		$resident_injury->user_id = Auth::user()->user_id;
+		$resident_injury->injury_entry_date = date('Y/m/d');
+		$resident_injury->injury_status = 1;
+		
+		
+		
+		<div class="container">
+	<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade active in" id="home" role="tabpanel" aria-labelledby="home-tab">
+			<div class="col-md-6">											
+									
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+1. Pharmacy details
+2. Medicine history. Stock, date of delivery, date of stock end, quantity, for whome(resident)
+3. Medicine monthly report(RCC)
+4. Medicine delivery(Day wise)
+
+1. Injury Record
+2. Injury Assessment(82 Field)
+3. Assessment period(Facility Wise Entry)
+4. Service plan.

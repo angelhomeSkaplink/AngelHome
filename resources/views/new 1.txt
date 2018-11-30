@@ -1,4 +1,0 @@
-@foreach($rows as $r)
-										<input type="text" class="form-control" placeholder="" value="{{ $r->basic_pay }}" name="basic_pay" id="basic_pay" onchange="getempSalary();"  />									
-									@endforeach
-									<?php } ?>
