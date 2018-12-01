@@ -390,6 +390,7 @@ Route::get('select_pros_upload_contact/{pros_id}','AssessmentController@select_p
 // 29 NOV TSP
 Route::get('temporary_service_plan','tspController@viewResidents');
 Route::get('all_tsp/{id}','tspController@all_tsp');
+Route::get('fall_tsp/{id}','tspController@view_fall');
 
 Auth::routes();
 

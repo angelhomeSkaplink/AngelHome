@@ -27,7 +27,7 @@
                         <tr>
                             <td>1</td>
                             <td>Fall</td>
-                            <td style=""><a data-toggle="tooltip" data-placement="bottom" data-original-title="Add TSP Records" href=""><i class="material-icons gray md-22"> add_circle</i></a></td>
+                        <td style=""><a data-toggle="tooltip" data-placement="bottom" data-original-title="Add TSP Records" href="../fall_tsp/{{ $id }}"><i class="material-icons gray md-22"> add_circle</i></a></td>
                         </tr>
                         <tr>
                             <td>2</td>

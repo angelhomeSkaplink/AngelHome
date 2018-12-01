@@ -16,6 +16,9 @@ class tspController extends Controller
         return view('tsp.allResident',compact('residents'));
     }
     public function all_tsp($id){
-        return view('tsp.allTsp');
+        return view('tsp.allTsp',compact('id'));
+    }
+    public function view_fall(){
+        return view('tsp.fall');
     }
 }

@@ -44,9 +44,9 @@ class ScreeningController extends Controller
 	public function add_responsible_person(Request $request){
 		$query = Responsibleperson::where('pros_id',$request['pros_id'])->first();
 		if ($query) {
-			$update = Responsibleperson::where('pros_id',$request['pros_id'])
-								->update(['status'=> 0]);
-								$responsibleperson = new Responsibleperson();
+		$update = Responsibleperson::where('pros_id',$request['pros_id'])
+							->update(['status'=> 0]);
+		$responsibleperson = new Responsibleperson();
 		$responsibleperson->pros_id = $request['pros_id'];
 		$responsibleperson->responsible_person_responsible = $request['responsible_person_responsible'];
 		$responsibleperson->address1_responsible = $request['address1_responsible'];
