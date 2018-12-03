@@ -390,7 +390,18 @@ Route::get('select_pros_upload_contact/{pros_id}','AssessmentController@select_p
 // 29 NOV TSP
 Route::get('temporary_service_plan','tspController@viewResidents');
 Route::get('all_tsp/{id}','tspController@all_tsp');
-Route::get('fall_tsp/{id}','tspController@view_fall');
+Route::get('/1','tspController@fall_tsp'); // for fall tsp
+Route::get('/2','tspController@decline_tsp'); //for decline in apetite
+Route::get('/3','tspController@increase_pain');
+Route::get('/4','tspController@new_medication');
+Route::get('/5','tspController@skin_problem');
+Route::get('/6','tspController@problem');
+Route::get('/7','tspController@respiratory_problem');
+Route::get('/8','tspController@cast_splint');
+Route::get('/9','tspController@eye_problem');
+Route::get('/10','tspController@gastrointestinal');
+Route::get('/11','tspController@urinary');
+
 
 Auth::routes();
 

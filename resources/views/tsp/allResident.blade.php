@@ -5,7 +5,7 @@
 @endsection
 
 @section('contentheader_title')
-    <strong>All Residents</strong>
+	All Residents
 @endsection
 
 @section('main-content')

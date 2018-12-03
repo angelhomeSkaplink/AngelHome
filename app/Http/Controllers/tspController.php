@@ -16,9 +16,29 @@ class tspController extends Controller
         return view('tsp.allResident',compact('residents'));
     }
     public function all_tsp($id){
-        return view('tsp.allTsp',compact('id'));
+        $residents = DB::table('sales_pipeline')
+        ->where('id','=',$id)
+        ->where('facility_id','=',Auth::user()->facility_id)->select('sales_pipeline.*')
+        ->first();
+        // dd($residents);
+        return view('tsp.allTsp',compact('id','residents'));
     }
-    public function view_fall(){
-        return view('tsp.fall');
+    public function fall_tsp() {
+        return view('tsp.fallTsp');
+    }
+    public function decline_tsp() {
+        return view('tsp.declineApetiteTsp');
+    }
+    public function increase_pain(){
+        return view('tsp.increasePainTsp');
+    }
+    public function new_medication(){
+        return view('tsp.newMedicationTsp');
+    }
+    public function skin_problem(){
+        return view('tsp.skinProblemTsp');
+    }
+    public function respiratory_problem(){
+        return view('tsp.respiratoryTsp');
     }
 }
