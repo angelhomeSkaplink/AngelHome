@@ -3,7 +3,8 @@
       </strong>
 </h3><br/>
    <div class="tab-pane fade active in container" id="tspCastOrSplint" role="tabpanel" aria-labelledby="home-tab">
-     <div class="row">
+    <input type="hidden" name="tsp_type[]" value="8"> 
+    <div class="row">
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
              <div class="form-group">
@@ -48,5 +49,8 @@
   $("#eyeProblemTspRemove").click(function(){
     $("#box8").remove();
     $("#8").removeClass("hidden");
+    if($.trim($("#myTabContent").html())==''){
+            $("#buttonSet").remove();
+          }
   });
 </script>

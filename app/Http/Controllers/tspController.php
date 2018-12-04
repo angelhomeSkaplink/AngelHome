@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
 use DB, Auth;
 
 class tspController extends Controller
@@ -54,6 +54,8 @@ class tspController extends Controller
      return view('tsp.utiTsp');
    }
    public function storeTsp(Request $request){
-       
+    // $input = Request::all();
+    $input = Request::url();
+    dd($input);
    }
 }

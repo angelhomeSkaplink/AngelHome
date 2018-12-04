@@ -401,6 +401,7 @@ Route::get('/8','tspController@eye_problem');
 Route::get('/9','tspController@gastrointestinal');
 Route::get('/10','tspController@urinary');
 
+Route::patch('storeTsp','tspController@storeTsp');
 
 Auth::routes();
 

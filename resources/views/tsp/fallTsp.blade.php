@@ -4,6 +4,7 @@
         </strong>
   </h3><br/>
    <div class="tab-pane fade active in container" id="tsp_fall" role="tabpanel" aria-labelledby="home-tab">
+    <input type="hidden" name="tsp_type[]" value="1">
      <div class="row">
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
@@ -65,5 +66,8 @@
         $("#fallTspRemove").click(function(){
           $("#box1").remove();
           $("#1").removeClass("hidden");
+          if($.trim($("#myTabContent").html())==''){
+            $("#buttonSet").remove();
+          }
         });
     </script>
