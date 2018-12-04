@@ -12,7 +12,6 @@ class tspController extends Controller
         ->where('sales_pipeline.facility_id','=',Auth::user()->facility_id)
         ->where('resident_room.status','=',1)->select('sales_pipeline.*')
         ->get();
-        // dd($residents);
         return view('tsp.allResident',compact('residents'));
     }
     public function all_tsp($id){
@@ -20,7 +19,6 @@ class tspController extends Controller
         ->where('id','=',$id)
         ->where('facility_id','=',Auth::user()->facility_id)->select('sales_pipeline.*')
         ->first();
-        // dd($residents);
         return view('tsp.allTsp',compact('id','residents'));
     }
     public function fall_tsp() {
@@ -41,4 +39,17 @@ class tspController extends Controller
     public function respiratory_problem(){
         return view('tsp.respiratoryTsp');
     }
+    public function cast_splint(){
+        return view('tsp.castOrSplintTsp');
+    }
+    public function eye_problem(){
+        return view('tsp.eyeProblemTsp');
+    }
+    public function gastrointestinal(){
+        return view('tsp.gastrointestinalTsp');
+    }
+    public function urinary(){
+        return view('tsp.urinaryProblem');
+    }
+
 }

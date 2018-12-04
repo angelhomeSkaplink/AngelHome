@@ -1,6 +1,6 @@
 <h3 style="padding:0px;margin:0px;"><strong>Eye Problem</strong></h3><br/>
    
-   <div class="tab-pane fade active in" id="tspCastOrSplint" role="tabpanel" aria-labelledby="home-tab">
+   <div class="tab-pane fade active in" id="tspEyeProblem" role="tabpanel" aria-labelledby="home-tab">
         <form action="" method="post">
         <input type="hidden" name="_method" value="PATCH">
             {{ csrf_field() }}

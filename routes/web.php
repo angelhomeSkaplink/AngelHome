@@ -395,12 +395,11 @@ Route::get('/2','tspController@decline_tsp'); //for decline in apetite
 Route::get('/3','tspController@increase_pain');
 Route::get('/4','tspController@new_medication');
 Route::get('/5','tspController@skin_problem');
-Route::get('/6','tspController@problem');
-Route::get('/7','tspController@respiratory_problem');
-Route::get('/8','tspController@cast_splint');
-Route::get('/9','tspController@eye_problem');
-Route::get('/10','tspController@gastrointestinal');
-Route::get('/11','tspController@urinary');
+Route::get('/6','tspController@respiratory_problem');
+Route::get('/7','tspController@cast_splint');
+Route::get('/8','tspController@eye_problem');
+Route::get('/9','tspController@gastrointestinal');
+Route::get('/10','tspController@urinary');
 
 
 Auth::routes();

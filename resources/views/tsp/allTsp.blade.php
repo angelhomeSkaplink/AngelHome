@@ -36,12 +36,11 @@
                                 <option value="3">Increase in Pain</option>
                                 <option value="4">New Medication</option>
                                 <option value="5">Skin Problem of Any Type</option>
-                                <option value="6">Problem (State)</option>
-                                <option value="7">Respiratory Problem</option>
-                                <option value="8">Cast Or Splint</option>
-                                <option value="9">Eye Problem</option>
-                                <option value="10">Gastrointestinal Problem</option>
-                                <option value="11">Urinary Tract Infection</option>
+                                <option value="6">Respiratory Problem</option>
+                                <option value="7">Cast Or Splint</option>
+                                <option value="8">Eye Problem</option>
+                                <option value="9">Gastrointestinal Problem</option>
+                                <option value="10">Urinary Tract Infection</option>
 							</select>
 						</div>
 						<div class="col-lg-4" style="padding-left:0px;">
