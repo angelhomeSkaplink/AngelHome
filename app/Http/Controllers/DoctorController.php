@@ -9,7 +9,10 @@ use App\User;
 use App\AdmissionPolicies;
 use App\MedicineHistory;
 use App\Medicine;
+use App\Checkup;
 use DB, Auth, App, Carbon;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
 
 class DoctorController extends Controller
 {
@@ -378,7 +381,43 @@ class DoctorController extends Controller
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['contact_person', 'like', '%' .$pros_id. '%']])->get();
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
         return view('doctor.search_patient', compact('crms', 'prospectives'));
-    }
+	}
+	public function checkup_view(){
+		$residents = DB::table('resident_room')->join('sales_pipeline','resident_room.pros_id','=','sales_pipeline.id')
+        ->where('sales_pipeline.facility_id','=',Auth::user()->facility_id)
+        ->where('resident_room.status','=',1)->select('sales_pipeline.*')
+        ->get();
+		return view('doctor.allResident',compact('residents'));
+	}
+	public function checkup($id){
+		$checkups = DB::table('check_up')->where('res_id',$id)->orderby('id','desc')->get();
+		$name = DB::table('sales_pipeline')->where('id',$id)->first();
+		return view('doctor.checkup',compact('id','name','checkups'));
+	}
+	public function storeCheckup(Request $request){
+		// $rules = array(
+		// 	'weight' => 'required_without_all:sugar,pressure,temperature,o2_stat',
+		// 	'sugar' => 'required_without_all:weight,pressure,temperature,o2_stat',
+		// 	'pressure' => 'required_without_all:weight,sugar,temperature,o2_stat',
+		// 	'temperature' => 'required_without_all:sugar,pressure,weight,o2_stat',
+		// 	'o2_stat' => 'required_without_all:sugar,pressure,weight,temperature'
+		// );
+		// $validator = Validator::make(Input::all(), $rules);
+		
+		$date = date("Y-m-d",time());
+		$time = date("H:i:s",time());
+		$new_check = new Checkup();
+		$new_check->res_id = $request['res_id'];
+		$new_check->weight = $request['weight'];
+		$new_check->sugar = $request['sugar'];
+		$new_check->pressure = $request['pressure'];
+		$new_check->temperature = $request['temperature'];
+		$new_check->o2_stat = $request['o2_stat'];
+		$new_check->date = $date;
+		$new_check->time = $time;
+		$new_check->save();
+		return redirect('all_res_checkup');
+	}
 
 
 }

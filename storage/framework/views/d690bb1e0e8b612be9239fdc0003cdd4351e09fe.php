@@ -1,16 +1,16 @@
 <!-- Nilutpal Boruah Jr. -->
 
-@extends('layouts.app')
 
-@section('htmlheader_title')
+
+<?php $__env->startSection('htmlheader_title'); ?>
     List of Patients
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('contentheader_title')
-    <p class="text-danger"><b>List of Patients for the date of {{ $current_date }}</b></p>
-@endsection
+<?php $__env->startSection('contentheader_title'); ?>
+    <p class="text-danger"><b>List of Patients for the date of <?php echo e($current_date); ?></b></p>
+<?php $__env->stopSection(); ?>
 
-@section('main-content')
+<?php $__env->startSection('main-content'); ?>
 <style>
 	.content-header
 	{
@@ -45,10 +45,10 @@
 								<th class="th-position text-uppercase font-500 font-12">MAR Action</th>
 								<th class="th-position text-uppercase font-500 font-12">Affect Time</th>
 								<th class="th-position text-uppercase font-500 font-12">Prn Action</th>
-                <th class="th-position text-uppercase font-500 font-12">Administered By</th>
-                <th class="th-position text-uppercase font-500 font-12">Action Time</th>
+                                <th class="th-position text-uppercase font-500 font-12">Administered By</th>
+                                <th class="th-position text-uppercase font-500 font-12">Action Time</th>
 							</tr>
-							@foreach ($medicines as $medicine)
+							<?php $__currentLoopData = $medicines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $medicine): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
 							<?php
 								$history = DB::table('medicine_history')->where('pat_medi_id', $medicine->pat_medi_id)
                   					  ->where('mar_date',$current_date)
@@ -57,15 +57,15 @@
                                         $due_time=date('h:i A', strtotime($medicine->time_to_take_med));
                             ?>
 							<tr>
-								@if($medicine->service_image == NULL)
+								<?php if($medicine->service_image == NULL): ?>
 								<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>
-								@else
-								<td><img src="hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
-								@endif
-								<td>{{ $medicine->pros_name }}</td>
-								<td>{{ $medicine->medicine_name }}</td>
-								<td>{{ $medicine->quantity_of_med }}</td>
-								<td>{{ $due_time }}</td>
+								<?php else: ?>
+								<td><img src="hsfiles/public/img/<?php echo e($medicine->service_image); ?>" class="img-circle" width="40" height="40"></td>
+								<?php endif; ?>
+								<td><?php echo e($medicine->pros_name); ?></td>
+								<td><?php echo e($medicine->medicine_name); ?></td>
+								<td><?php echo e($medicine->quantity_of_med); ?></td>
+								<td><?php echo e($due_time); ?></td>
 								<?php
 									if($history->status==0){
 								?>
@@ -75,11 +75,12 @@
                        MAR Action
                      </button>
                      <div class="dropdown-menu">
-                       <form class="" action="{{ action('DoctorController@add_history') }}" method="post">
+                       <form class="" action="<?php echo e(action('DoctorController@add_history')); ?>" method="post">
                          <input name="_method" type="hidden" value="POST">
-                         {!! csrf_field() !!}
-                         <input type="hidden" name="pat_medi_id" value="{{ $medicine->pat_medi_id }}" />
-                         <input type="hidden" name="status" value="{{ $medicine->is_prn }}"/>
+                         <?php echo csrf_field(); ?>
+
+                         <input type="hidden" name="pat_medi_id" value="<?php echo e($medicine->pat_medi_id); ?>" />
+                         <input type="hidden" name="status" value="<?php echo e($medicine->is_prn); ?>"/>
                          <input type="hidden" name="reason_title" value=""/>
                          <input type="hidden" name="reason_desc" value=""/>
                          <button class="dropdown-item" name="submit" type="submit" >Given</button>
@@ -90,8 +91,9 @@
                    </div>
                    <div id="email-modal" class="w3-modal w3-animate-opacity">
                      <form action="send" method="post" enctype = "multipart/form-data">
-                       {{ csrf_field() }}
-                       <input type="hidden" name="pat_medi_id" value="{{ $medicine->pat_medi_id }}" />
+                       <?php echo e(csrf_field()); ?>
+
+                       <input type="hidden" name="pat_medi_id" value="<?php echo e($medicine->pat_medi_id); ?>" />
                      <div class="w3-modal-content w3-animate-zoom w3-card-4">
                         <header class="w3-container" style="background-color:#000;">
                           <span onclick="document.getElementById('email-modal').style.display='none'"
@@ -115,10 +117,11 @@
                    </form>
                    </div>
                    <div id="id01" class="w3-modal w3-animate-opacity">
-                     <form action="{{ action('DoctorController@add_history') }}" method="post">
+                     <form action="<?php echo e(action('DoctorController@add_history')); ?>" method="post">
                        <input name="_method" type="hidden" value="POST">
-                       {!! csrf_field() !!}
-                       <input type="hidden" name="pat_medi_id" value="{{ $medicine->pat_medi_id }}" />
+                       <?php echo csrf_field(); ?>
+
+                       <input type="hidden" name="pat_medi_id" value="<?php echo e($medicine->pat_medi_id); ?>" />
                        <input type="hidden" name="status" value="2"/>
                      <div class="w3-modal-content w3-animate-zoom w3-card-4">
                        <header class="w3-container" style="background-color:#000;">
@@ -157,7 +160,8 @@
                    </div>
 				</td>
 				<td>
-				    {{ date('h:i A', strtotime($history->effect_after)) }}
+				    <?php echo e(date('h:i A', strtotime($history->effect_after))); ?>
+
 				</td>
                 <td>----------</td>
                 <td>----------</td>
@@ -203,7 +207,8 @@
               <td><?php
 				if($medicine->is_prn ==1){
 			   ?>
-			   {{ date('h:i A', strtotime($history->effect_after))}}
+			   <?php echo e(date('h:i A', strtotime($history->effect_after))); ?>
+
 				<?php
 			    }else{
 			    	?> Non-PRN
@@ -213,7 +218,8 @@
                     <?php 
                       if($history->status==1 && $history->effect_after != null){
                     ?>
-                        {{ $history->reason_title }}
+                        <?php echo e($history->reason_title); ?>
+
                     <?php 
                       }else if($history->status==4){
                     ?>
@@ -227,10 +233,11 @@
                      </div>
                    </div>
                    <div id="prn_affected_modal" class="w3-modal w3-animate-opacity">
-                     <form action="{{action('DoctorController@add_prn_history')}}" method="post">
+                     <form action="<?php echo e(action('DoctorController@add_prn_history')); ?>" method="post">
                        <input name="_method" type="hidden" value="POST">
-                       {!! csrf_field() !!}
-                       <input type="hidden" name="pat_medi_id" value="{{ $medicine->pat_medi_id }}" />
+                       <?php echo csrf_field(); ?>
+
+                       <input type="hidden" name="pat_medi_id" value="<?php echo e($medicine->pat_medi_id); ?>" />
                        <input type="hidden" name="status" value="1"/>
                      <div class="w3-modal-content w3-animate-zoom w3-card-4">
                        <header class="w3-container" style="background-color:#000;">
@@ -255,10 +262,11 @@
                    </div>
                    
                    <div id="prn_not_affected_modal" class="w3-modal w3-animate-opacity">
-                     <form action="{{action('DoctorController@add_prn_history')}}" method="post">
+                     <form action="<?php echo e(action('DoctorController@add_prn_history')); ?>" method="post">
                        <input name="_method" type="hidden" value="POST">
-                       {!! csrf_field() !!}
-                       <input type="hidden" name="pat_medi_id" value="{{ $medicine->pat_medi_id }}" />
+                       <?php echo csrf_field(); ?>
+
+                       <input type="hidden" name="pat_medi_id" value="<?php echo e($medicine->pat_medi_id); ?>" />
                        <input type="hidden" name="status" value="1"/>
                      <div class="w3-modal-content w3-animate-zoom w3-card-4">
                        <header class="w3-container" style="background-color:#000;">
@@ -283,12 +291,12 @@
                    </div>
                    <?php } ?>
                 </td>
-                <td>{{$user_query->firstname}} {{$user_query->lastname}}</td>
-                <td>{{$action_time_12format}}</td>
+                <td><?php echo e($user_query->firstname); ?> <?php echo e($user_query->lastname); ?></td>
+                <td><?php echo e($action_time_12format); ?></td>
 								<?php } ?>
 							</tr>
 						<?php } ?>
-							@endforeach
+							<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 						</tbody>
 					</table>
 				</div>
@@ -304,8 +312,8 @@
         <p><strong>Note:- <br> </strong> <i class="material-icons md-36"> offline_pin</i>  Given in due time <strong>::</strong> <i class="material-icons md-36">  check_circle_outline </i>  Given either early or late <strong>::</strong> <i class="material-icons md-36"> hourglass_empty</i> PRN action pending <strong>::</strong> <i class="material-icons md-36"> cancel</i> Not given <strong>::</strong> <i class="material-icons md-36"> email</i> Refused-Mail sent to Doctor</p>
     </div>
 </div>
-@endsection
-@section('scripts-extra')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts-extra'); ?>
 <script>
 	function printDiv() {
 		var divToPrint = document.getElementById('DivIdToPrint');
@@ -332,4 +340,6 @@
     });
   });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

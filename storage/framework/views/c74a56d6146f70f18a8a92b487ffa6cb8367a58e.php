@@ -182,412 +182,6 @@
 							</a>
 						</li>
 						<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10">Vista View</span>
-									<span class="pull-right-container">
-											<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li>
-										<a href="<?php echo e(url('sales_pipeline')); ?>">
-											<i class="material-icons"> image_search </i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Inquiry"); ?></span>
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('appointment_schedule')); ?>">
-											<i class="material-icons"> settings_backup_restore </i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Appointment Schedule"); ?></span>
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('sales_stage_pipeline')); ?>">
-											<i class="material-icons md-18"> insert_chart</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Sales Pipeline"); ?></span>
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('personal_details')); ?>">
-											<i class="material-icons md-18 dark-gray"> details </i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Future Resident Details"); ?></span>
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('screening')); ?>">
-											<i class="material-icons md-18 dark-gray">queue_play_next </i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Screening"); ?></span>
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('booking')); ?>">
-											<i class="material-icons md-18 dark-gray">home </i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Book Room"); ?></span>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10">Compass Care</span>
-									<span class="pull-right-container">
-											<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li>
-										<a href="<?php echo e(url('temporary_service_plan')); ?>">
-											<i class="material-icons md-18"> assignment</i>
-											<span class="padding-left-10">Temporary Service Plan</span>
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('resident_service_plan')); ?>">
-											<i class="material-icons md-18"> assignment</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Resident Service Plan"); ?></span>
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('injury')); ?>">
-											<i class="material-icons md-18"> assignment</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Incident"); ?></span>
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('assessment_preview')); ?>">
-											<i class="material-icons md-18 dark-gray">note_add</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments"); ?></span>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10">Trans Link</span>
-									<span class="pull-right-container">
-											<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li>
-										<a href="<?php echo e(url('assessment')); ?>">
-											<i class="material-icons md-18 dark-gray"> assignment</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments Upload"); ?></span>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10">Link Us</span>
-									<span class="pull-right-container">
-											<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li>
-										<a href="#">
-											<i class="material-icons md-18 dark-gray"> cloud_done</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Tasksheet"); ?></span>
-											<span class="pull-right-container">
-											<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-											</span>
-										</a>
-												<ul class="treeview-menu">
-													<li><a href="<?php echo e(url('tasksheet')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Tasksheet"); ?></span></a></li>
-													<li><a href="<?php echo e(url('main_task')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Assignee"); ?></span></a></li>
-												</ul>
-									</li>
-									<li>
-										<a href="<?php echo e(url('main_task_list')); ?>">
-											<i class="material-icons md-18 dark-gray">assignment</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Daily Task"); ?></span>
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10">Med Rec</span>
-									<span class="pull-right-container">
-											<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li><a href="<?php echo e(url('patient_medicine')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.MAR"); ?></span></a></li>
-									<li><a href="<?php echo e(url('mar_report')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
-									<li><a href="<?php echo e(url('medicine_stocks_list')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Medicine Stock"); ?></span></a></li>
-									<li><a href="<?php echo e(url('patients_list')); ?>"><i class="material-icons md-18 dark-gray"> local_hospital </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Doctor"); ?></span></a></li>
-								</ul>
-							</li>
-							<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10">Business Office</span>
-									<span class="pull-right-container">
-									<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li><a href="<?php echo e(url('resident_payment')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Resident Payment"); ?></span></a></li>
-									<li><a href="<?php echo e(url('payment_report')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Payment Report"); ?></span></a></li>
-								</ul>
-							</li>
-							<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10">General</span>
-									<span class="pull-right-container">
-									<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li class="">
-										<a href="<?php echo e(url('activity_calendar')); ?>">
-											<i class="material-icons">calendar_today</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Activity Calendar"); ?></span>
-										</a>
-									</li>
-									<li class="treeview">
-										<a href="#">
-											<i class="material-icons md-18"> subdirectory_arrow_right</i>
-											<span class="padding-left-10"><?php echo app('translator')->get("msg.Master Entry"); ?></span>
-											<span class="pull-right-container">
-												<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-											</span>
-										</a>
-										<ul class="treeview-menu">
-											<li><a href="<?php echo e(url('all_member_list')); ?>"><i class="material-icons md-18 dark-gray"> perm_identity </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Add User"); ?></a></li>
-											<li><a href="<?php echo e(url('room_details')); ?>"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Add Room"); ?></a></li>
-											<li><a href="<?php echo e(url('service_plan')); ?>"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Service Plan"); ?></a></li>
-											<li><a href="<?php echo e(url('assessment_preview')); ?>"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments"); ?></a></li>
-										</ul>
-									</li>
-									<li class="">
-										<a href="<?php echo e(action('ProfileController@change_password')); ?>">
-											<i class="material-icons">swap_horiz</i>
-											<span><?php echo app('translator')->get("msg.Change Password"); ?></span>
-										</a>
-									</li>
-									<li class="dark-gray"><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;<?php echo app('translator')->get("msg.Logout"); ?></span></a></li>
-									<form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;"><?php echo e(csrf_field()); ?></form>
-								</ul>
-							</li>
-							<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10"><?php echo app('translator')->get("msg.Reports"); ?></span>
-									<span class="pull-right-container">
-											<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li><a href="<?php echo e(url('total_revenue')); ?>"><i class="material-icons md-18 dark-gray"> monetization_on </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Total Revenue"); ?></a></li>
-									<li><a href="<?php echo e(url('room_reports')); ?>"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Room Report"); ?></a></li>
-									<li><a href="<?php echo e(url('facility_sales_reports')); ?>"><i class="material-icons md-18"> report</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sales Reports"); ?></a></li>
-									<li><a href="<?php echo e(url('aging_report')); ?>"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Aging Report"); ?></a></li>
-									<li><a href="<?php echo e(url('activity_report')); ?>"><i class="material-icons md-18 dark-gray">local_activity</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Activity Report"); ?></a></li>
-									<li><a href="<?php echo e(url('tasksheet_report')); ?>"><i class="material-icons md-18 dark-gray">list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Task Sheet Report"); ?></a></li>
-								</ul>
-							</li>
-							<li class="treeview">
-								<a href="#">
-									<i class="material-icons md-18 dark-gray"> cloud_done</i>
-									<span class="padding-left-10"><?php echo app('translator')->get("msg.CRM"); ?></span>
-									<span class="pull-right-container">
-										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li>
-										<a href="<?php echo e(url('sales_stage_pipeline')); ?>">
-											<i class="material-icons md-18"> insert_chart</i><?php echo app('translator')->get("msg.Sales Pipeline"); ?> 
-										</a>
-									</li>
-									<li>
-										<a href="<?php echo e(url('reports')); ?>">
-											<i class="material-icons md-18"> report</i><?php echo app('translator')->get("msg.Reports"); ?> 
-										</a>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="<?php echo e(url('booking')); ?>">
-									<i class="material-icons md-18 dark-gray">home </i>
-									<span class="padding-left-10"><?php echo app('translator')->get("msg.Book Room"); ?></span>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="material-icons md-18"> subdirectory_arrow_right</i>
-									<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessment"); ?></span>
-									<span class="pull-right-container">
-									<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-									</span>
-								</a>
-								<ul class="treeview-menu">
-									<li><a href="<?php echo e(url('preadmin_resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Preadmission Evaluation"); ?></a></li>
-									<li><a href="<?php echo e(url('resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sub Assessments"); ?></a></li>
-								</ul>
-							</li>
-							<?php endif; ?>
-
-						<?php if(in_array(2,$role_arr)): ?>
-						<li><a href="<?php echo e(url('sales_pipeline')); ?>"><i class="material-icons"> image_search </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Inquiry"); ?></span></a></li>
-						<li>
-							<a href="<?php echo e(url('appointment_schedule')); ?>">
-								<i class="material-icons"> settings_backup_restore </i>
-								<span class="padding-left-10"><?php echo app('translator')->get("msg.Appointment Schedule"); ?></span>
-							</a>
-						</li>
-						<?php endif; ?>
-
-						<?php if(in_array(3,$role_arr)): ?>
-						<li class="treeview">
-							<a href="#">
-								<i class="material-icons md-18 dark-gray"> cloud_done</i>
-								<span class="padding-left-10"><?php echo app('translator')->get("msg.CRM"); ?></span>
-								<span class="pull-right-container">
-									<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-								</span>
-							</a>
-							<ul class="treeview-menu">
-								<li>
-									<a href="<?php echo e(url('sales_stage_pipeline')); ?>">
-										<i class="material-icons md-18"> insert_chart</i><?php echo app('translator')->get("msg.Sales Pipeline"); ?> 
-									</a>
-								</li>
-								<li>
-									<a href="<?php echo e(url('reports')); ?>">
-										<i class="material-icons md-18"> report</i><?php echo app('translator')->get("msg.Reports"); ?> 
-									</a>
-								</li>
-							</ul>
-
-							<li><a href="<?php echo e(url('appointment_schedule')); ?>"><i class="material-icons md-18 dark-gray"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Appointment Schedule"); ?></span></a></li>
-							<li><a href="<?php echo e(url('personal_details')); ?>"><i class="material-icons md-18 dark-gray"> details </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Personal Details"); ?></span></a></li>
-							<li><a href="<?php echo e(url('screening')); ?>"><i class="material-icons md-18 dark-gray">queue_play_next </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Screening"); ?></span></a></li>
-							<li><a href="<?php echo e(url('booking')); ?>"><i class="material-icons md-18 dark-gray">home </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Book Room"); ?></span></a></li>
-						</li>
-						<?php endif; ?>
-						<?php if(in_array(4,$role_arr)): ?>
-						<li><a href="<?php echo e(url('assessment')); ?>"><i class="material-icons md-18 dark-gray"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments Upload"); ?></span></a></li>
-						<li>
-    							 <a href="#">
-    								<i class="material-icons md-18"> subdirectory_arrow_right</i>
-    								<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessment"); ?></span>
-    								<span class="pull-right-container">
-    									<i class="fa fa-angle-left pull-right"></i>
-    								</span>
-    							    </a>
-    							<ul class="treeview-menu">
-    								<li><a href="<?php echo e(url('preadmin_resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Preadmission Evaluation"); ?></a></li>
-    								<li><a href="<?php echo e(url('resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sub Assessments"); ?></a></li>
-    							</ul>
-							
-							</li>
-						<li><a href="<?php echo e(url('patient_medicine')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.MAR"); ?></span></a></li>
-						<li><a href="<?php echo e(url('mar_report')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
-						<li><a href="<?php echo e(url('medicine_stocks_list')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Medicine Stock"); ?></span></a></li>
-						<li><a href="<?php echo e(url('resident_service_plan')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Resident Service Plan"); ?></span></a></li>
-						<?php endif; ?>
-						<?php if(in_array(5,$role_arr)): ?>
-						<li class="<?php echo e(Request::is('dashboard*') ? 'active' : ''); ?>">
-							<a href="<?php echo e(url('dashboard')); ?>">
-								<i class="material-icons md-18 dark-gray">dashboard </i>
-								<span class="padding-left-10"><?php echo app('translator')->get("msg.Dashboard"); ?></span>
-							</a>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="material-icons md-18"> subdirectory_arrow_right</i>
-								<span class="padding-left-10">Vista View</span>
-								<span class="pull-right-container">
-										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-								</span>
-							</a>
-							<ul class="treeview-menu">
-								<li>
-									<a href="<?php echo e(url('sales_pipeline')); ?>">
-										<i class="material-icons"> image_search </i>
-										<span class="padding-left-10"><?php echo app('translator')->get("msg.Inquiry"); ?></span>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="material-icons md-18"> subdirectory_arrow_right</i>
-								<span class="padding-left-10">Link Us</span>
-								<span class="pull-right-container">
-										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-								</span>
-							</a>
-							<ul class="treeview-menu">
-								<li>
-									<a href="#">
-										<i class="material-icons md-18 dark-gray"> cloud_done</i>
-										<span class="padding-left-10"><?php echo app('translator')->get("msg.Tasksheet"); ?></span>
-										<span class="pull-right-container">
-										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-										</span>
-									</a>
-									<ul class="treeview-menu">
-										<li><a href="<?php echo e(url('tasksheet')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Tasksheet"); ?></span></a></li>
-										<li><a href="<?php echo e(url('main_task')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Assignee"); ?></span></a></li>
-									</ul>
-								</li>
-								<li>
-									<a href="<?php echo e(url('main_task_list')); ?>">
-										<i class="material-icons md-18 dark-gray">assignment</i>
-										<span class="padding-left-10"><?php echo app('translator')->get("msg.Daily Task"); ?></span>
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="material-icons md-18"> subdirectory_arrow_right</i>
-								<span class="padding-left-10">General</span>
-								<span class="pull-right-container">
-								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
-								</span>
-							</a>
-							<ul class="treeview-menu">
-								<li class="">
-									<a href="<?php echo e(action('ProfileController@change_password')); ?>">
-										<i class="material-icons">swap_horiz</i>
-										<span><?php echo app('translator')->get("msg.Change Password"); ?></span>
-									</a>
-								</li>
-								<li class="dark-gray"><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;<?php echo app('translator')->get("msg.Logout"); ?></span></a></li>
-								<form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;"><?php echo e(csrf_field()); ?></form>
-							</ul>
-						<?php endif; ?>
-						<?php if(in_array(6,$role_arr)): ?>
-						<li>
-							<a href="<?php echo e(url('patients_list')); ?>">
-								<i class="material-icons md-18 dark-gray"> local_hospital </i>
-								<span class="padding-left-10"><?php echo app('translator')->get("msg.Doctor"); ?></span>
-							</a>
-						</li>
-						<?php endif; ?>
-						<?php if(in_array(7,$role_arr)): ?>
-							<li><a href="<?php echo e(url('patient_medicine')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.MAR"); ?></span></a></li>
-							<li><a href="<?php echo e(url('mar_report')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
-							<li><a href="<?php echo e(url('medicine_stocks_list')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Medicine Stock"); ?></span></a></li>
-						<?php endif; ?>
-						<?php if(in_array(8,$role_arr)): ?>
-							<li><a href="<?php echo e(url('main_task_list')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Daily Task"); ?></span></a></li>
-							<li><a href="<?php echo e(url('patient_medicine')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.MAR"); ?></span></a></li>
-						<?php endif; ?>
-						<?php if(in_array(11,$role_arr)): ?>
-						<li class="treeview">
 							<a href="#">
 								<i class="material-icons md-18"> subdirectory_arrow_right</i>
 								<span class="padding-left-10">Vista View</span>
@@ -612,6 +206,11 @@
 									<a href="<?php echo e(url('sales_stage_pipeline')); ?>">
 										<i class="material-icons md-18"> insert_chart</i>
 										<span class="padding-left-10"><?php echo app('translator')->get("msg.Sales Pipeline"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('reports')); ?>">
+										<i class="material-icons md-18"> report</i>Sales Reports 
 									</a>
 								</li>
 								<li>
@@ -662,11 +261,18 @@
 									</a>
 								</li>
 								<li>
-									<a href="<?php echo e(url('assessment_preview')); ?>">
-										<i class="material-icons md-18 dark-gray">note_add</i>
-										<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments"); ?></span>
-									</a>
-								</li>
+        							<a href="#">
+        								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+        								<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessment"); ?></span>
+        								<span class="pull-right-container">
+        								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+        								</span>
+        							</a>
+        							<ul class="treeview-menu">
+        								<li><a href="<?php echo e(url('preadmin_resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Preadmission Evaluation"); ?></a></li>
+        								<li><a href="<?php echo e(url('resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sub Assessments"); ?></a></li>
+        							</ul>
+						        </li>
 							</ul>
 						</li>
 						<li class="treeview">
@@ -801,44 +407,703 @@
 								<li><a href="<?php echo e(url('tasksheet_report')); ?>"><i class="material-icons md-18 dark-gray">list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Task Sheet Report"); ?></a></li>
 							</ul>
 						</li>
+						<?php endif; ?>
+
+						<?php if(in_array(2,$role_arr)): ?>
+						<li class="<?php echo e(Request::is('dashboard*') ? 'active' : ''); ?>">
+							<a href="<?php echo e(url('dashboard')); ?>">
+								<i class="material-icons md-18 dark-gray">dashboard </i>
+								<span class="padding-left-10"><?php echo app('translator')->get("msg.Dashboard"); ?></span>
+							</a>
+						</li>
 						<li class="treeview">
 							<a href="#">
-								<i class="material-icons md-18 dark-gray"> cloud_done</i>
-								<span class="padding-left-10"><?php echo app('translator')->get("msg.CRM"); ?></span>
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Vista View</span>
 								<span class="pull-right-container">
-									<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
 								</span>
 							</a>
 							<ul class="treeview-menu">
 								<li>
-									<a href="<?php echo e(url('sales_stage_pipeline')); ?>">
-										<i class="material-icons md-18"> insert_chart</i><?php echo app('translator')->get("msg.Sales Pipeline"); ?> 
-									</a>
-								</li>
-								<li>
-									<a href="<?php echo e(url('reports')); ?>">
-										<i class="material-icons md-18"> report</i><?php echo app('translator')->get("msg.Reports"); ?> 
+									<a href="<?php echo e(url('sales_pipeline')); ?>">
+										<i class="material-icons"> image_search </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Inquiry"); ?></span>
 									</a>
 								</li>
 							</ul>
 						</li>
-						<li>
-							<a href="<?php echo e(url('booking')); ?>">
-								<i class="material-icons md-18 dark-gray">home </i>
-								<span class="padding-left-10"><?php echo app('translator')->get("msg.Book Room"); ?></span>
-							</a>
-						</li>
-                        <li>
+
+						<li class="treeview">
 							<a href="#">
 								<i class="material-icons md-18"> subdirectory_arrow_right</i>
-								<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessment"); ?></span>
+								<span class="padding-left-10">General</span>
 								<span class="pull-right-container">
 								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
 								</span>
 							</a>
 							<ul class="treeview-menu">
-								<li><a href="<?php echo e(url('preadmin_resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Preadmission Evaluation"); ?></a></li>
-								<li><a href="<?php echo e(url('resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sub Assessments"); ?></a></li>
+								<li class="">
+									<a href="<?php echo e(url('activity_calendar')); ?>">
+										<i class="material-icons">calendar_today</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Activity Calendar"); ?></span>
+									</a>
+								</li>
+								<li class="">
+									<a href="<?php echo e(action('ProfileController@change_password')); ?>">
+										<i class="material-icons">swap_horiz</i>
+										<span><?php echo app('translator')->get("msg.Change Password"); ?></span>
+									</a>
+								</li>
+								<li class="dark-gray"><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;<?php echo app('translator')->get("msg.Logout"); ?></span></a></li>
+								<form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;"><?php echo e(csrf_field()); ?></form>
+							</ul>
+						</li>
+						<?php endif; ?>
+
+						<?php if(in_array(3,$role_arr)): ?>
+						<li class="<?php echo e(Request::is('dashboard*') ? 'active' : ''); ?>">
+							<a href="<?php echo e(url('dashboard')); ?>">
+								<i class="material-icons md-18 dark-gray">dashboard </i>
+								<span class="padding-left-10"><?php echo app('translator')->get("msg.Dashboard"); ?></span>
+							</a>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Vista View</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('sales_pipeline')); ?>">
+										<i class="material-icons"> image_search </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Inquiry"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('appointment_schedule')); ?>">
+										<i class="material-icons"> settings_backup_restore </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Appointment Schedule"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('sales_stage_pipeline')); ?>">
+										<i class="material-icons md-18"> insert_chart</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Sales Pipeline"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('reports')); ?>">
+										<i class="material-icons md-18"> report</i>Sales Reports 
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('personal_details')); ?>">
+										<i class="material-icons md-18 dark-gray"> details </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Future Resident Details"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('screening')); ?>">
+										<i class="material-icons md-18 dark-gray">queue_play_next </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Screening"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('booking')); ?>">
+										<i class="material-icons md-18 dark-gray">home </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Book Room"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">General</span>
+								<span class="pull-right-container">
+								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="">
+									<a href="<?php echo e(url('activity_calendar')); ?>">
+										<i class="material-icons">calendar_today</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Activity Calendar"); ?></span>
+									</a>
+								</li>
+								<li class="">
+									<a href="<?php echo e(action('ProfileController@change_password')); ?>">
+										<i class="material-icons">swap_horiz</i>
+										<span><?php echo app('translator')->get("msg.Change Password"); ?></span>
+									</a>
+								</li>
+								<li class="dark-gray"><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;<?php echo app('translator')->get("msg.Logout"); ?></span></a></li>
+								<form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;"><?php echo e(csrf_field()); ?></form>
+							</ul>
+						</li>
+						<?php endif; ?>
+						<?php if(in_array(4,$role_arr)): ?>
+
+						<li class="<?php echo e(Request::is('dashboard*') ? 'active' : ''); ?>">
+							<a href="<?php echo e(url('dashboard')); ?>">
+								<i class="material-icons md-18 dark-gray">dashboard </i>
+								<span class="padding-left-10"><?php echo app('translator')->get("msg.Dashboard"); ?></span>
+							</a>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Vista View</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('appointment_schedule')); ?>">
+										<i class="material-icons"> settings_backup_restore </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Appointment Schedule"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('screening')); ?>">
+										<i class="material-icons md-18 dark-gray">queue_play_next </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Screening"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Compass Care</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('temporary_service_plan')); ?>">
+										<i class="material-icons md-18"> assignment</i>
+										<span class="padding-left-10">Temporary Service Plan</span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('resident_service_plan')); ?>">
+										<i class="material-icons md-18"> assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Resident Service Plan"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('injury')); ?>">
+										<i class="material-icons md-18"> assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Incident"); ?></span>
+									</a>
+								</li>
+								<li>
+        							<a href="#">
+        								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+        								<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessment"); ?></span>
+        								<span class="pull-right-container">
+        								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+        								</span>
+        							</a>
+        							<ul class="treeview-menu">
+        								<li><a href="<?php echo e(url('preadmin_resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Preadmission Evaluation"); ?></a></li>
+        								<li><a href="<?php echo e(url('resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sub Assessments"); ?></a></li>
+        							</ul>
+						        </li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Trans Link</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('assessment')); ?>">
+										<i class="material-icons md-18 dark-gray"> assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments Upload"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Link Us</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="#">
+										<i class="material-icons md-18 dark-gray"> cloud_done</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Tasksheet"); ?></span>
+										<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li><a href="<?php echo e(url('tasksheet')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Tasksheet"); ?></span></a></li>
+										<li><a href="<?php echo e(url('main_task')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Assignee"); ?></span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="<?php echo e(url('main_task_list')); ?>">
+										<i class="material-icons md-18 dark-gray">assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Daily Task"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Med Rec</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="<?php echo e(url('patient_medicine')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.MAR"); ?></span></a></li>
+								<li><a href="<?php echo e(url('mar_report')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
+								<li><a href="<?php echo e(url('medicine_stocks_list')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Medicine Stock"); ?></span></a></li>
+								<li><a href="<?php echo e(url('patients_list')); ?>"><i class="material-icons md-18 dark-gray"> local_hospital </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Doctor"); ?></span></a></li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">General</span>
+								<span class="pull-right-container">
+								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="">
+									<a href="<?php echo e(url('activity_calendar')); ?>">
+										<i class="material-icons">calendar_today</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Activity Calendar"); ?></span>
+									</a>
+								</li>
+								<li class="">
+									<a href="<?php echo e(action('ProfileController@change_password')); ?>">
+										<i class="material-icons">swap_horiz</i>
+										<span><?php echo app('translator')->get("msg.Change Password"); ?></span>
+									</a>
+								</li>
+								<li class="dark-gray"><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;<?php echo app('translator')->get("msg.Logout"); ?></span></a></li>
+								<form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;"><?php echo e(csrf_field()); ?></form>
+							</ul>
+						</li>
+                        <li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10"><?php echo app('translator')->get("msg.Reports"); ?></span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="<?php echo e(url('total_revenue')); ?>"><i class="material-icons md-18 dark-gray"> monetization_on </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Total Revenue"); ?></a></li>
+								<li><a href="<?php echo e(url('room_reports')); ?>"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Room Report"); ?></a></li>
+								<li><a href="<?php echo e(url('facility_sales_reports')); ?>"><i class="material-icons md-18"> report</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sales Reports"); ?></a></li>
+								<li><a href="<?php echo e(url('aging_report')); ?>"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Aging Report"); ?></a></li>
+								<li><a href="<?php echo e(url('activity_report')); ?>"><i class="material-icons md-18 dark-gray">local_activity</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Activity Report"); ?></a></li>
+								<li><a href="<?php echo e(url('tasksheet_report')); ?>"><i class="material-icons md-18 dark-gray">list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Task Sheet Report"); ?></a></li>
+							</ul>
+						</li>
+						<?php endif; ?>
+						<?php if(in_array(5,$role_arr)): ?>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Compass Care</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+									<li>
+											<a href="#">
+												<i class="material-icons md-18"> subdirectory_arrow_right</i>
+												<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessment"); ?></span>
+												<span class="pull-right-container">
+												<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+												</span>
+											</a>
+											<ul class="treeview-menu">
+												<li><a href="<?php echo e(url('preadmin_resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Preadmission Evaluation"); ?></a></li>
+												<li><a href="<?php echo e(url('resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sub Assessments"); ?></a></li>
+											</ul>
+										</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Trans Link</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('assessment')); ?>">
+										<i class="material-icons md-18 dark-gray"> assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments Upload"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+								<a href="#">
+									<i class="material-icons md-18"> subdirectory_arrow_right</i>
+									<span class="padding-left-10">General</span>
+									<span class="pull-right-container">
+									<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+									</span>
+								</a>
+								<ul class="treeview-menu">
+									<li class="">
+										<a href="<?php echo e(action('ProfileController@change_password')); ?>">
+											<i class="material-icons">swap_horiz</i>
+											<span><?php echo app('translator')->get("msg.Change Password"); ?></span>
+										</a>
+									</li>
+									<li class="dark-gray"><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;<?php echo app('translator')->get("msg.Logout"); ?></span></a></li>
+									<form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;"><?php echo e(csrf_field()); ?></form>
+								</ul>
+						</li>
+						<?php endif; ?>
+						<?php if(in_array(6,$role_arr)): ?>
+						<li>
+							<a href="<?php echo e(url('patients_list')); ?>">
+								<i class="material-icons md-18 dark-gray"> local_hospital </i>
+								<span class="padding-left-10"><?php echo app('translator')->get("msg.Doctor"); ?></span>
+							</a>
+						</li>
+						<?php endif; ?>
+						<?php if(in_array(7,$role_arr)): ?>
+							<li><a href="<?php echo e(url('patient_medicine')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.MAR"); ?></span></a></li>
+							<li><a href="<?php echo e(url('mar_report')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
+							<li><a href="<?php echo e(url('medicine_stocks_list')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Medicine Stock"); ?></span></a></li>
+						<?php endif; ?>
+						<?php if(in_array(8,$role_arr)): ?>
+						<li class="<?php echo e(Request::is('dashboard*') ? 'active' : ''); ?>">
+							<a href="<?php echo e(url('dashboard')); ?>">
+								<i class="material-icons md-18 dark-gray">dashboard </i>
+								<span class="padding-left-10"><?php echo app('translator')->get("msg.Dashboard"); ?></span>
+							</a>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Vista View</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('sales_pipeline')); ?>">
+										<i class="material-icons"> image_search </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Inquiry"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Link Us</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="#">
+										<i class="material-icons md-18 dark-gray"> cloud_done</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Tasksheet"); ?></span>
+										<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li><a href="<?php echo e(url('tasksheet')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Tasksheet"); ?></span></a></li>
+										<li><a href="<?php echo e(url('main_task')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Assignee"); ?></span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="<?php echo e(url('main_task_list')); ?>">
+										<i class="material-icons md-18 dark-gray">assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Daily Task"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">General</span>
+								<span class="pull-right-container">
+								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="">
+									<a href="<?php echo e(action('ProfileController@change_password')); ?>">
+										<i class="material-icons">swap_horiz</i>
+										<span><?php echo app('translator')->get("msg.Change Password"); ?></span>
+									</a>
+								</li>
+								<li class="dark-gray"><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;<?php echo app('translator')->get("msg.Logout"); ?></span></a></li>
+								<form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;"><?php echo e(csrf_field()); ?></form>
+							</ul>
+						</li>
+						<?php endif; ?>
+						<?php if(in_array(11,$role_arr)): ?>
+						<li class="<?php echo e(Request::is('dashboard*') ? 'active' : ''); ?>">
+							<a href="<?php echo e(url('dashboard')); ?>">
+								<i class="material-icons md-18 dark-gray">dashboard </i>
+								<span class="padding-left-10"><?php echo app('translator')->get("msg.Dashboard"); ?></span>
+							</a>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Vista View</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('sales_pipeline')); ?>">
+										<i class="material-icons"> image_search </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Inquiry"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('appointment_schedule')); ?>">
+										<i class="material-icons"> settings_backup_restore </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Appointment Schedule"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('sales_stage_pipeline')); ?>">
+										<i class="material-icons md-18"> insert_chart</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Sales Pipeline"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('reports')); ?>">
+										<i class="material-icons md-18"> report</i>Sales Reports 
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('personal_details')); ?>">
+										<i class="material-icons md-18 dark-gray"> details </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Future Resident Details"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('screening')); ?>">
+										<i class="material-icons md-18 dark-gray">queue_play_next </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Screening"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('booking')); ?>">
+										<i class="material-icons md-18 dark-gray">home </i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Book Room"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Compass Care</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('temporary_service_plan')); ?>">
+										<i class="material-icons md-18"> assignment</i>
+										<span class="padding-left-10">Temporary Service Plan</span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('resident_service_plan')); ?>">
+										<i class="material-icons md-18"> assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Resident Service Plan"); ?></span>
+									</a>
+								</li>
+								<li>
+									<a href="<?php echo e(url('injury')); ?>">
+										<i class="material-icons md-18"> assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Incident"); ?></span>
+									</a>
+								</li>
+								<li>
+        							<a href="#">
+        								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+        								<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessment"); ?></span>
+        								<span class="pull-right-container">
+        								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+        								</span>
+        							</a>
+        							<ul class="treeview-menu">
+        								<li><a href="<?php echo e(url('preadmin_resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Preadmission Evaluation"); ?></a></li>
+        								<li><a href="<?php echo e(url('resident_assessment')); ?>"><i class="material-icons md-18 dark-gray"> assessment </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sub Assessments"); ?></a></li>
+        							</ul>
+						        </li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Trans Link</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="<?php echo e(url('assessment')); ?>">
+										<i class="material-icons md-18 dark-gray"> assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments Upload"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Link Us</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="#">
+										<i class="material-icons md-18 dark-gray"> cloud_done</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Tasksheet"); ?></span>
+										<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li><a href="<?php echo e(url('tasksheet')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Tasksheet"); ?></span></a></li>
+										<li><a href="<?php echo e(url('main_task')); ?>"><i class="material-icons md-18"> list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Set Assignee"); ?></span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="<?php echo e(url('main_task_list')); ?>">
+										<i class="material-icons md-18 dark-gray">assignment</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Daily Task"); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Med Rec</span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="<?php echo e(url('patient_medicine')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.MAR"); ?></span></a></li>
+								<li><a href="<?php echo e(url('mar_report')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10">MAR REPORT</span></a></li>
+								<li><a href="<?php echo e(url('medicine_stocks_list')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Medicine Stock"); ?></span></a></li>
+								<li><a href="<?php echo e(url('patients_list')); ?>"><i class="material-icons md-18 dark-gray"> local_hospital </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Doctor"); ?></span></a></li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">Business Office</span>
+								<span class="pull-right-container">
+								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="<?php echo e(url('resident_payment')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Resident Payment"); ?></span></a></li>
+								<li><a href="<?php echo e(url('payment_report')); ?>"><i class="material-icons md-18"> assignment</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Payment Report"); ?></span></a></li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10">General</span>
+								<span class="pull-right-container">
+								<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="">
+									<a href="<?php echo e(url('activity_calendar')); ?>">
+										<i class="material-icons">calendar_today</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Activity Calendar"); ?></span>
+									</a>
+								</li>
+								<li class="treeview">
+									<a href="#">
+										<i class="material-icons md-18"> subdirectory_arrow_right</i>
+										<span class="padding-left-10"><?php echo app('translator')->get("msg.Master Entry"); ?></span>
+										<span class="pull-right-container">
+											<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+										</span>
+									</a>
+									<ul class="treeview-menu">
+										<li><a href="<?php echo e(url('all_member_list')); ?>"><i class="material-icons md-18 dark-gray"> perm_identity </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Add User"); ?></a></li>
+										<li><a href="<?php echo e(url('room_details')); ?>"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Add Room"); ?></a></li>
+										<li><a href="<?php echo e(url('service_plan')); ?>"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Service Plan"); ?></a></li>
+										<li><a href="<?php echo e(url('assessment_preview')); ?>"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Assessments"); ?></a></li>
+									</ul>
+								</li>
+								<li class="">
+									<a href="<?php echo e(action('ProfileController@change_password')); ?>">
+										<i class="material-icons">swap_horiz</i>
+										<span><?php echo app('translator')->get("msg.Change Password"); ?></span>
+									</a>
+								</li>
+								<li class="dark-gray"><a href="<?php echo e(url('/logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons md-18 dark-gray">exit_to_app</i><span class="padding-left-10">&nbsp;<?php echo app('translator')->get("msg.Logout"); ?></span></a></li>
+								<form id="logout-form" action="<?php echo e(url('/logout')); ?>" method="POST" style="display: none;"><?php echo e(csrf_field()); ?></form>
+							</ul>
+						</li>
+                        <li class="treeview">
+							<a href="#">
+								<i class="material-icons md-18"> subdirectory_arrow_right</i>
+								<span class="padding-left-10"><?php echo app('translator')->get("msg.Reports"); ?></span>
+								<span class="pull-right-container">
+										<i class="material-icons pull-right dark-gray" style="font-size:18px !important; position:relative"> expand_more </i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li><a href="<?php echo e(url('total_revenue')); ?>"><i class="material-icons md-18 dark-gray"> monetization_on </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Total Revenue"); ?></a></li>
+								<li><a href="<?php echo e(url('room_reports')); ?>"><i class="material-icons md-18 dark-gray"> home </i><span class="padding-left-10"><?php echo app('translator')->get("msg.Room Report"); ?></a></li>
+								<li><a href="<?php echo e(url('facility_sales_reports')); ?>"><i class="material-icons md-18"> report</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Sales Reports"); ?></a></li>
+								<li><a href="<?php echo e(url('aging_report')); ?>"><i class="material-icons md-18 dark-gray">note_add</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Aging Report"); ?></a></li>
+								<li><a href="<?php echo e(url('activity_report')); ?>"><i class="material-icons md-18 dark-gray">local_activity</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Activity Report"); ?></a></li>
+								<li><a href="<?php echo e(url('tasksheet_report')); ?>"><i class="material-icons md-18 dark-gray">list</i><span class="padding-left-10"><?php echo app('translator')->get("msg.Task Sheet Report"); ?></a></li>
 							</ul>
 						</li>
 						<?php endif; ?>

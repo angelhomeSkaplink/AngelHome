@@ -401,6 +401,10 @@ Route::get('/8','tspController@eye_problem');
 Route::get('/9','tspController@gastrointestinal');
 Route::get('/10','tspController@urinary');
 
+Route::get('all_res_checkup','DoctorController@checkup_view');
+Route::get('checkup/{id}','DoctorController@checkup');
+Route::post('storeCheckup','DoctorController@storeCheckup');
+
 Route::patch('storeTsp','tspController@storeTsp');
 
 Auth::routes();
