@@ -394,14 +394,6 @@ class DoctorController extends Controller
 		return view('doctor.checkup',compact('id','name','checkups'));
 	}
 	public function storeCheckup(Request $request){
-		// $rules = array(
-		// 'weight' => 'required_without_all:sugar,pressure,temperature,o2_stat',
-		// 	'sugar' => 'required_without_all:weight,pressure,temperature,o2_stat',
-		// 	'pressure' => 'required_without_all:weight,sugar,temperature,o2_stat',
-		// 	'temperature' => 'required_without_all:sugar,pressure,weight,o2_stat',
-		// 	'o2_stat' => 'required_without_all:sugar,pressure,weight,temperature'
-		// );
-		// $validator = Validator::make(Input::all(), $rules);
 		$rules = [
 			'weight' => 'required_without_all:sugar,pressure,temperature,o2_stat',
 			'sugar' => 'required_without_all:weight,pressure,temperature,o2_stat',
@@ -409,9 +401,6 @@ class DoctorController extends Controller
 			'temperature' => 'required_without_all:sugar,pressure,weight,o2_stat',
 			'o2_stat' => 'required_without_all:sugar,pressure,weight,temperature'
 		];
-		// $customMessages = [
-		// 	'required_without_all' => 'Atleast One Field is Required'
-		// ];
 		$this->validate($request,$rules);
 		$id = $request['res_id'];
 		$date = date("Y-m-d",time());
@@ -425,9 +414,8 @@ class DoctorController extends Controller
 		$new_check->o2_stat = $request['o2_stat'];
 		$new_check->date = $date;
 		$new_check->time = $time;
+		$new_check->recorder = Auth::user()->user_id;
 		$new_check->save();
 		return redirect('checkup/'.$id);
 	}
-
-
 }
