@@ -13,6 +13,15 @@
     <h4><p style="text-align:center;"><strong>Check Ups</strong></p></h4>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('main-content'); ?>
+<?php if(count($errors)): ?>
+<div class="form-group">
+    <div class="alert alert-danger">
+      <ul>
+          <li><b>At least one field is required</b></li>
+      </ul>
+    </div>
+</div>
+<?php endif; ?>
 
 <div class="card">
     <div class="card-body px-lg-5 pt-0">
@@ -61,6 +70,11 @@
             <div class="box box-primary">
                 <div class="box-body" style="height:500px; padding-top:0">
                     <h4><strong>Previous Checkups</strong></h4>
+                    <?php 
+                        if($checkups->isEmpty()){
+                            echo "No previous Record!";
+                        }
+                     ?>
                     <?php $__currentLoopData = $checkups; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $check): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                     <div class="panel-heading">
                     <li><a href="#modal" data-toggle="modal" data-target="#modalRegister<?php echo e($check->id); ?>"> <?php echo e($check->date); ?>  <?php echo e($check->time); ?></a></li>

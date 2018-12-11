@@ -15,6 +15,15 @@
     <h4><p style="text-align:center;"><strong>Check Ups</strong></p></h4>
 @endsection
 @section('main-content')
+@if(count($errors))
+<div class="form-group">
+    <div class="alert alert-danger">
+      <ul>
+          <li><b>At least one field is required</b></li>
+      </ul>
+    </div>
+</div>
+@endif
 
 <div class="card">
     <div class="card-body px-lg-5 pt-0">
@@ -62,6 +71,11 @@
             <div class="box box-primary">
                 <div class="box-body" style="height:500px; padding-top:0">
                     <h4><strong>Previous Checkups</strong></h4>
+                    @php
+                        if($checkups->isEmpty()){
+                            echo "No previous Record!";
+                        }
+                    @endphp
                     @foreach ($checkups as $check)
                     <div class="panel-heading">
                     <li><a href="#modal" data-toggle="modal" data-target="#modalRegister{{$check->id}}"> {{$check->date}}  {{$check->time}}</a></li>

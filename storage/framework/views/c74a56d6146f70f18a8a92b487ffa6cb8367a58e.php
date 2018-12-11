@@ -261,6 +261,12 @@
 									</a>
 								</li>
 								<li>
+									<a href="<?php echo e(url('all_res_checkup')); ?>">
+										<i class="material-icons md-18"> assignment</i>
+										<span class="padding-left-10">Check-up</span>
+									</a>
+								</li>
+								<li>
         							<a href="#">
         								<i class="material-icons md-18"> subdirectory_arrow_right</i>
         								<span class="padding-left-10"><?php echo app('translator')->get("msg.Assessment"); ?></span>
