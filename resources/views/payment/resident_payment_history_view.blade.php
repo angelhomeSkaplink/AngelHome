@@ -54,99 +54,101 @@ function ShowCheque() {
 						<form action="{{action('PaymentController@make_payment_res')}}" method="post">					
 							<input type="hidden" name="_method" value="PATCH">
 							{!! csrf_field() !!}
-							<table class="table">
-								<tbody>
-									<tr>
-										<td>
-											<div class="form-group has-feedback">
-												<label>Month</label>
-												<select name="month" class="form-control" required >
-													<option value="">Select Month</option>
-													<option value="January">January</option>
-													<option value="February">February</option>
-													<option value="March">March</option>
-													<option value="April">April</option>
-													<option value="May">May</option>
-													<option value="June">June</option>
-													<option value="July">July</option>
-													<option value="August">August</option>
-													<option value="September">September</option>
-													<option value="October">October</option>
-													<option value="November">November</option>
-													<option value="December">December</option>
-												</select>
-											</div>
-										</td>
-										<td>
-											<div class="form-group has-feedback">
-												<label>Year</label>
-												<select name="year" class="form-control"required >
-													<option value="">Select Year</option>
-													<option value="2018">2018</option>
-													<option value="2019">2019</option>
-													<option value="2020">2020</option>
-													<option value="2021">2021</option>
-													<option value="2022">2022</option>
-													<option value="2023">2023</option>
-													<option value="2024">2024</option>
-													<option value="2025">2025</option>
-												</select>
-											</div>
-										</td>
-									</tr>
-									<input type="hidden" class="form-control" name="pros_id" value="{{ $check_id->id }}" readonly />
-										
-									<tr>
-										<td><label>Room Rent</label></td>
-										<input type="hidden" class="form-control" name="" value="{{ $reports->price }}" readonly />
-										<td>{{ $reports->price }}</td>
-									</tr>
-									<tr>
-										<td><label>Service Plan Price</label></td>
-										<input type="hidden" class="form-control" name="" value="{{ $service_plan_price->price }}" readonly />
-										<td>{{ $service_plan_price->price }}</td>
-									</tr>
-									<tr>
-										<td><label>Outstanding</label></td>
-										@if($check_payment == NULL)
-										<input type="hidden" class="form-control" name="due_ammount" value="0" readonly />
-										<td>0</td>
-										@endif
-										@if($check_payment != NULL)
-										<input type="hidden" class="form-control" name="due_ammount" value="{{ $check_payment->due_ammount }}" readonly />
-										<td>{{ $check_payment->due_ammount }}</td>
-										@endif							
-									</tr>
-									<tr>
-										<td><label>Total Payable amount</label></td>
-										<input type="hidden" class="form-control" name="ammount_pay" value="{{ $total_payable_ammount }}" readonly />
-										<td>{{ $total_payable_ammount }}</td>
-									</tr>
-									<tr>
-										<td><label>Amount To Be Paid</label></td>
-										<td><input type="number" class="form-control" name="ammount_paid" /></td>
-									</tr>
-									@if (! Auth::guest())
-									<tr>
-										<td><label>Method of payment</label></td>
-										<td>
-											<div class="form-group has-feedback">
-												<select name="payment_method" id="payment_method" class="form-control" onchange = "ShowCheque()" required >
-													<option value="">Choose an option</option>
-													<option value="Cash">Cash</option>
-													<option value="Cheque">Cheque</option>
-												</select>
-											</div>
-										</td>
-									</tr>
-									<tr id="cheque_no" style="display: none">
-										<td><label>Cheque No</label></td>
-										<td><input type="text" class="form-control" name="cheque_no" /></td>
-									</tr>
-									@endif
-									<input type="hidden" class="form-control" name="facility_id" value="{{ $check_id->facility_id }}" />
-								</tbody>
-							</table>
+							<div class="table-responsive">
+    							<table class="table">
+    								<tbody>
+    									<tr>
+    										<td>
+    											<div class="form-group has-feedback">
+    												<label>Month</label>
+    												<select name="month" class="form-control" required >
+    													<option value="">Select Month</option>
+    													<option value="January">January</option>
+    													<option value="February">February</option>
+    													<option value="March">March</option>
+    													<option value="April">April</option>
+    													<option value="May">May</option>
+    													<option value="June">June</option>
+    													<option value="July">July</option>
+    													<option value="August">August</option>
+    													<option value="September">September</option>
+    													<option value="October">October</option>
+    													<option value="November">November</option>
+    													<option value="December">December</option>
+    												</select>
+    											</div>
+    										</td>
+    										<td>
+    											<div class="form-group has-feedback">
+    												<label>Year</label>
+    												<select name="year" class="form-control"required >
+    													<option value="">Select Year</option>
+    													<option value="2018">2018</option>
+    													<option value="2019">2019</option>
+    													<option value="2020">2020</option>
+    													<option value="2021">2021</option>
+    													<option value="2022">2022</option>
+    													<option value="2023">2023</option>
+    													<option value="2024">2024</option>
+    													<option value="2025">2025</option>
+    												</select>
+    											</div>
+    										</td>
+    									</tr>
+    									<input type="hidden" class="form-control" name="pros_id" value="{{ $check_id->id }}" readonly />
+    										
+    									<tr>
+    										<td><label>Room Rent</label></td>
+    										<input type="hidden" class="form-control" name="" value="{{ $reports->price }}" readonly />
+    										<td>{{ $reports->price }}</td>
+    									</tr>
+    									<tr>
+    										<td><label>Service Plan Price</label></td>
+    										<input type="hidden" class="form-control" name="" value="{{ $service_plan_price->price }}" readonly />
+    										<td>{{ $service_plan_price->price }}</td>
+    									</tr>
+    									<tr>
+    										<td><label>Outstanding</label></td>
+    										@if($check_payment == NULL)
+    										<input type="hidden" class="form-control" name="due_ammount" value="0" readonly />
+    										<td>0</td>
+    										@endif
+    										@if($check_payment != NULL)
+    										<input type="hidden" class="form-control" name="due_ammount" value="{{ $check_payment->due_ammount }}" readonly />
+    										<td>{{ $check_payment->due_ammount }}</td>
+    										@endif							
+    									</tr>
+    									<tr>
+    										<td><label>Total Payable amount</label></td>
+    										<input type="hidden" class="form-control" name="ammount_pay" value="{{ $total_payable_ammount }}" readonly />
+    										<td>{{ $total_payable_ammount }}</td>
+    									</tr>
+    									<tr>
+    										<td><label>Amount To Be Paid</label></td>
+    										<td><input type="number" class="form-control" name="ammount_paid" /></td>
+    									</tr>
+    									@if (! Auth::guest())
+    									<tr>
+    										<td><label>Method of payment</label></td>
+    										<td>
+    											<div class="form-group has-feedback">
+    												<select name="payment_method" id="payment_method" class="form-control" onchange = "ShowCheque()" required >
+    													<option value="">Choose an option</option>
+    													<option value="Cash">Cash</option>
+    													<option value="Cheque">Cheque</option>
+    												</select>
+    											</div>
+    										</td>
+    									</tr>
+    									<tr id="cheque_no" style="display: none">
+    										<td><label>Cheque No</label></td>
+    										<td><input type="text" class="form-control" name="cheque_no" /></td>
+    									</tr>
+    									@endif
+    									<input type="hidden" class="form-control" name="facility_id" value="{{ $check_id->facility_id }}" />
+    								</tbody>
+    							</table>
+							</div>
 							<div>
 								<div class="form-group has-feedback">
 									<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm" id="submit-button" style="margin-right: 5px;">@lang("msg.Submit")</button>

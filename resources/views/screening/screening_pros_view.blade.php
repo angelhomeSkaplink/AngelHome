@@ -4,7 +4,7 @@
 @endsection
 @section('contentheader_title')
 	<p class="text-danger"><b>Future resident</b>
-		<a href="{{ url('screening') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a>
+		<a href="{{ url('screening') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:120px !important; margin-top: -2px; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a>
 	</p>
 @endsection
 @section('main-content')

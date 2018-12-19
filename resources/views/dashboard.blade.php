@@ -5,50 +5,56 @@
 @endsection
 
 @section('contentheader_title')
-    Dashboard
+	<div class="panel panel-default text-center" style="margin-top:-15px;background-color:#f2f2f2 !important;">
+		<div class="panel-header" style="padding:2px;">
+		<h3><span style="color:#003366;text-shadow: 1px 1px #000;"><strong>Dashboard :: </strong><?php echo Auth::user()->firstname." ".Auth::user()->lastname ?></span></h3>
+		</div>
+	</div>
 @endsection
 
 @section('main-content')
 <style>	
+	
 	.content-header
 	{
-		display:none;
+		/* display:none; */
+		padding:0px;
+		margin:0px;
+	}
+	.make-scrollable{
+		overflow:scroll; 
+		height:200px;
+	}
+	.wiget-head{
+		background-color:#262626;
+	}
+	.wiget-head:hover{
+		background-color:#006622;
+		color:#fff;
+	}
+	.wiget-head > h4{
+		color:#fff !important;
 	}	
+	.zoom {
+  		transition: transform .2s; /* Animation */
+  		/* margin: 0 auto; */
+	}
+	.zoom:hover {
+		transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+	}
 </style>
-<div style="padding-top:65px"></div>
 
-<div>
-    <div class="box-header with-border text-center">
-		<?php $facility_name = DB::table('facility')->where('id', Auth::user()->facility_id)->first(); ?>
-        <h3 class="box-title heading"> @lang("msg.Welcome To") {{ $facility_name->facility_name }}</h3>
-    </div>
 	
-    <div class="box-body no-box-shadow text-center; desc-dashbord">
-		@lang('msg.Hi') <?php echo Auth::user()->firstname." ".Auth::user()->lastname ?> ! @lang('msg.This Is Your Dashboard'). Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </div>
-	@if(Auth::user()->role == '1')
-	<!-- Survey Content start -->
-		<!--<div class="sv_main sv_frame sv_default_css">
-		
-		<input type="hidden" class="form-control" id="assessment_id" value="{{ $uniq_code }}" />
-		<input type="hidden" id="csrf" name="_token" value="{{ csrf_token() }}">
-		<div class="sv_custom_header"></div>
-			<div class="sv_container">
-				<div class="sv_header">
-					<h5>Create Assessment</h5>
-					<div>
-						<a href="{{ url('assessment_edit_preview') }}" >Preview</a>
-					</div>
-				</div> 
-				<div class="sv_body">
-					
-					<div id="editor"></div>
-				</div>
-			</div>
-		</div>-->
-	<!-- Survey Content end -->
+	<?php $facility_name = DB::table('facility')->where('id', Auth::user()->facility_id)->first(); 
+		$id=Auth::user()->facility_id; 
+	?>
+	@if(Auth::user()->role == '1')   
+	   @include('dashboard.admin');
 	@endif
-		
-</div>
+
+	@if(Auth::user()->role == '11')   
+	   @include('dashboard.ed');
+	@endif
 
 @endsection
+

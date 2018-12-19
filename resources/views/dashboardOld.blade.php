@@ -16,12 +16,15 @@
 	}	
 </style>
 <div style="padding-top:65px"></div>
+
 <div>
     <div class="box-header with-border text-center">
-        <h3 class="box-title heading">Welcome to Angel Home</h3>
+		<?php $facility_name = DB::table('facility')->where('id', Auth::user()->facility_id)->first(); ?>
+        <h3 class="box-title heading"> @lang("msg.Welcome To") {{ $facility_name->facility_name }}</h3>
     </div>
+	
     <div class="box-body no-box-shadow text-center; desc-dashbord">
-		Hi <?php echo Auth::user()->firstname." ".Auth::user()->lastname ?> ! This is your Dashboard. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+		@lang('msg.Hi') <?php echo Auth::user()->firstname." ".Auth::user()->lastname ?> ! @lang('msg.This Is Your Dashboard'). Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </div>
 	@if(Auth::user()->role == '1')
 	<!-- Survey Content start -->

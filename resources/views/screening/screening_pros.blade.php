@@ -35,11 +35,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary border">
-
-            <div class="box-header with-border col-sm-2 pull-right">
-
-            </div>
+            <div class="box-header with-border col-sm-2 pull-right"></div>
             <div class="box-body border padding-top-0 padding-left-right-0">
+                <div class="table-responsive">
                 <table class="table">
                     <tbody>
 						<tr>
@@ -79,7 +77,9 @@
 						@endforeach
                     </tbody>
                 </table>
-    </div>
+                </div>
+            </div>
+        </div>
 </div>
 @endsection
 @section('scripts-extra')

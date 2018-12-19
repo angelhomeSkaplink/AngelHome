@@ -13,6 +13,7 @@ use App\CareplanSave;
 use App\AssessmentCommonValue;
 use App\NextAssessment;
 use App\TaskHistory;
+use App\ResidentTemporaryAssessment;
 use Kamaln7\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Route;
 
@@ -133,7 +134,7 @@ class AssessmentController extends Controller
 		$assessmentstore->assessment_json = json_encode($request['answer']);
 		$assessmentstore->score = $request['score'];
 		$assessmentstore->assessment_date = date('Y/m/d');
-		$assessmentstore->facility_id = 1;
+		$assessmentstore->facility_id = Auth::user()->facility_id;
 		$assessmentstore->assessment_status = 1;
 		$assessmentstore->save();		
     }
@@ -364,5 +365,45 @@ class AssessmentController extends Controller
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
         return view('assessment.select_pros_upload', compact('crms', 'prospectives'));
     }
+    
+    //CHANGES DONE BY DHRUWA
+    
+    public function reassessment($assessment_id, $id){
+		$assessment = Assessment::all()->where('assessment_id', $assessment_id)->first();
+		$status = DB::table('resident_assessment')->where([['assessment_id', $assessment->assessment_id], ['pros_id', $id]])->first();
+		if(!$status){
+			Toastr::error("NO ASSESSMENT RECORD FOUND<br/> CLICK ADD ASSESSMENT");
+			return back();
+		}else{
+			return view('assessment.reassessment_form_view', compact('assessment_id', 'id'));
+		}
+	}
+	
+	public function find_assessment($assessment_id, $pros_id){
+		$data = DB::table('resident_assessment')->where([['assessment_id', $assessment_id], ['pros_id', $pros_id], ['assessment_status', 1]])->first();
+		$zero_data = DB::table('resident_temporary_assessment')->where([['assessment_id', $assessment_id], ['pros_id', $pros_id], ['assessment_status', 0]])->orderBy('id', 'desc')->first();
+		$zero_value = $zero_data->assessment_json;
+		if($data && $zero_value=='null'){
+			return json_encode($data);
+		}elseif(!$data && $zero_value!='null'){
+			return json_encode($zero_data);
+		}elseif($data && $zero_value!='null'){
+			return json_encode($zero_data);
+		}
+	}
+	
+	public function save_temporary_json(Request $request){		
+		$residenttemporaryassessment = new ResidentTemporaryAssessment();
+		$residenttemporaryassessment->pros_id = $request['prosId'];
+		$residenttemporaryassessment->assessment_id = $request['surveyId'];
+		$residenttemporaryassessment->assessment_json = json_encode($request['answer']);
+		$residenttemporaryassessment->score = $request['score'];
+		$residenttemporaryassessment->assessment_date = date('Y/m/d');
+		$residenttemporaryassessment->facility_id = Auth::user()->facility_id;
+		$residenttemporaryassessment->assessment_status = 0;
+		$residenttemporaryassessment->save();		
+	}
+	
+	//END
 
 }

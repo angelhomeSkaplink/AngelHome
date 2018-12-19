@@ -57,7 +57,7 @@
 							<option value="Re-Tour">@lang("msg.Re-Tour")</option>
 							<option value="Appointment">@lang("msg.Appointment Scheduling")</option>
 							<option value="Signing">@lang("msg.Signing")</option>
-							<option value="Move In">@lang("msg.Move In")</option>
+							<option value="MoveIn">@lang("msg.Move In")</option>
 						</select>
 					</div>
 					<div id="appointScedule" style="display: none">

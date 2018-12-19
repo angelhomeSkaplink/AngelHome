@@ -3,30 +3,34 @@
       </strong>
 </h3><br/>
    <div class="tab-pane fade active in container" id="tspCastOrSplint" role="tabpanel" aria-labelledby="home-tab">
-    <input type="hidden" name="tsp_type[]" value="8"> 
+    <input type="hidden" name="tsp_type[]" value="8">
     <div class="row">
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
              <div class="form-group">
                  <label for="cast">Eye Problem Characterized By:</label>
-                 <input class="form-control" type="text" name="eye_problem" id="">
+                 <input class="form-control" type="text" name="eye_problem" id="" required />
              </div>
              <div class="form-group">
                  <label for="cast">Precautions:</label>
-                 <input class="form-control" type="text" name="eye_pracaution" id="">
+                 <input class="form-control" type="text" name="eye_pracaution" id="" required />
              </div>
          </div>
          <div class="col-lg-6">
              <div class="form-group">
              <h5><strong>What To Chart:</strong></h5>
              <label for="pain">Pain</label>
-             <input class="form-control" type="text" name="cast_pain" id="">
-             <label for="further injuries">Any injuries or skin issues identified</label>
-             <input class="form-control" type="text" name="cast_injury" id="">
-             <label for="transfer">Any injuries or skin issues identified –</label>
-             <input class="form-control" type="text" name="cast_injury" id="">
-             <label for="mental_status">Overall resident ability to transfer</label>
-             <input class="form-control" type="text" name="cast_transfer" id="">
+             <input class="form-control" type="text" name="eye_pain" id=""><br/>
+             <label for="pain">Ongoing symptoms</label>
+             <input class="form-control" type="text" name="eye_symptoms" id=""><br/>
+             <label for="further injuries">Any safety issues related to vision affected by eye problem</label>
+             <input class="form-control" type="text" name="eye_safety_issue" id=""><br/>
+             <label for="transfer">Color &amp; amount drainage if present</label>
+             <input class="form-control" type="text" name="eye_amt_drainage" id=""><br/>
+             <label for="mental_status">If on antibiotic any adverse symptoms</label>
+             <input class="form-control" type="text" name="eye_adverse_symptoms" id=""><br/>
+             <label for="mental_status">Other complaints by resident or other symptoms</label>
+             <input class="form-control" type="text" name="eye_complaints" id="">
              </div>
          </div>
      </div>

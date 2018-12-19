@@ -8,30 +8,36 @@
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
              <div class="form-group">
-                 <label for="cast">Gastrointestinal Problem Characterized By:</label>
-                 <input class="form-control" type="text" name="gastro_problem" id="">
+                 <label for="gastro_problem">Gastrointestinal Problem Characterized By:</label>
+                 <input class="form-control" type="text" name="gastro_problem" id="" required />
              </div>
              <div class="form-group">
-                 <label for="cast">Precautions:</label>
-                 <input class="form-control" type="text" name="gastro_pracaution" id="">
+                 <label for="gastro_pracaution">Precautions:</label>
+                 <input class="form-control" type="text" name="gastro_pracaution" id="" required />
              </div>
          </div>
          <div class="col-lg-6">
              <div class="form-group">
              <h5><strong>What To Chart:</strong></h5>
-             <label for="pain">Pain</label>
-             <input class="form-control" type="text" name="gastro_pain" id="">
-             <label for="further injuries">Ongoing symptoms such as nausea, vomiting, diarrhea or constipation</label>
-             <input class="form-control" type="text" name="gastro_symptoms" id="">
-             <label for="transfer">Appetite</label>
-             <input class="form-control" type="text" name="gastro_appetite" id="">
-             <label for="mental_status">Weight if obtained</label>
-             <input class="form-control" type="text" name="gastro_weight" id="">
-             <label for="mental_status">Color &amp; amount of vomiting, diarrhea if any</label>
-             <input class="form-control" type="text" name="gastro_vomit" id="">
-             <label for="mental_status">Temperature, pulse, respirations, and B/P</label>
-             <input class="form-control" type="text" name="gastro_temp" id="">
-             <label for="mental_status">Other complaints by resident or other symptoms</label>
+             <label for="gastro_pain">Pain</label>
+             <input class="form-control" type="text" name="gastro_pain" id=""><br/>
+             <label for="gastro_symptoms">Ongoing symptoms</label>
+             <input class="form-control" type="text" name="gastro_symptoms" id=""><br/>
+             <label for="gastro_appetite">Appetite</label>
+             <input class="form-control" type="text" name="gastro_appetite" id=""><br/>
+             <label for="gastro_weight">Weight if obtained</label>
+             <input class="form-control" type="text" name="gastro_weight" id=""><br/>
+             <label for="gastro_amt_drainage">Color &amp; amount of vomiting, diarrhea if any</label>
+             <input class="form-control" type="text" name="gastro_amt_drainage" id=""><br/>
+             <label for="gastro_temp">Temperature</label>
+             <input class="form-control" type="text" name="gastro_temp" id=""><br/>
+             <label for="gastro_pulse">Pulse</label>
+             <input class="form-control" type="text" name="gastro_pulse" id=""><br/>
+             <label for="gastro_respirations">Respirations</label>
+             <input class="form-control" type="text" name="gastro_respirations" id=""><br/>
+             <label for="gastro_bp">B/P</label>
+             <input class="form-control" type="text" name="gastro_bp" id=""><br/>
+             <label for="gastro_complaints">Other complaints by resident or other symptoms</label>
              <input class="form-control" type="text" name="gastro_complaints" id="">
              </div>
          </div>

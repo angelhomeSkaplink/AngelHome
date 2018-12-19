@@ -6,14 +6,14 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>@lang("msg.Sales Reports")</b><a href="{{ url('facility_sales_reports') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:150px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> details </i> @lang("msg.Back")</a></p>
+    <p class="text-danger"><b>@lang("msg.Sales Reports")</b><a href="{{ url('facility_sales_reports') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:150px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Back")</a></p>
 @endsection
 
 @section('main-content')
 <style>	
 	.content-header
 	{
-		padding: 2px 0px 1px 20px;
+		padding: 2px 0px 0px 20px;
 		margin-bottom: -18px;
 	}	
 </style>
@@ -97,14 +97,6 @@ $(document).ready(function() {
                     <tbody>
 						<tr>
 							<th class="th-position text-uppercase font-500 font-12">###</th>
-							<!--<th class="th-position text-uppercase font-500 font-13">
-								<select name="pros_id" id="id" class="form-control">
-									<option value="">FUTURE RESIDENT</option>
-									@foreach ($reports as $prospect)
-									<option value="{{ $prospect->id}}">{{ $prospect->pros_name }}</option>
-									@endforeach
-								</select>
-							</th>-->
 							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Residents")</th>
 							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Phone No")</th>
 							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Email")</th>

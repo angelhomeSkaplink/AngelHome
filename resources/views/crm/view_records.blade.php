@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('htmlheader_title')
@@ -161,7 +160,7 @@
 		<li class="active"><a href="#1" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Discovery")</span></a></li>
 		<li class=""><a href="#2" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Tour")</span></a></li>
 		<li class=""><a href="#3" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Re-Tour")</span></a></li>
-		<li class=""><a href="#4" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Appointment")</span></a></li>
+		<li class=""><a href="#4" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Screening/Assessment")</span></a></li>
 		<li class=""><a href="#5" data-toggle="tab" aria-expanded="true"><span class="nmbr"></span><span class="text">@lang("msg.Lease Signing")</span></a></li>
 		<li class=""><a href="#6" data-toggle="tab" aria-expanded="true"><span class="nmbr"></span><span class="text">@lang("msg.Move In")</span></a></li>
 	 </ul>
@@ -205,17 +204,17 @@
 	
     <div id="2" class="tab-pane fade">
         <div class="box box-primary arrow_box border-light-blue">
-			<div class="box-body padding-top-5" style="height:190px">	
+			<div class="box-body padding-top-5" style="height:240px">	
 				<?php $tour = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', 'Tour']])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
 				@if($tour == NULL)
 					<h4 class="font-500 text-uppercase font-15">@lang("msg.Tour") <a href="../add_prospect_record/Tour/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a></h4>
-				<div class="form-inline border-top">
+				    <div class="form-inline border-top">
 					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">@lang("msg.No Records Found")</div> 
-				</div>
+				    </div>
 				@endif
 				@if($tour != NULL)
-					
-				<h4 class="font-500 text-uppercase font-15">Tour @if($tour->status == 1)<span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Active State")</span> @endif </h4>
+						<?php $appointment = DB::table('appointment')->where([['pros_id', $tour->pipeline_id], ['status', 1]])->first(); ?>
+				        <h4 class="font-500 text-uppercase font-15">Tour @if($tour->status == 1)<span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Active State")</span> @endif </h4>
 				
 					<div class="form-inline border-top">
 					
@@ -225,13 +224,15 @@
 					<div style="clear:both; margin-top:7px"></div>
 					
 					<?php $lead = DB::table('leads')->where('lead_id', $tour->lead_id)->first(); ?>
-						<label class="text-capitalize font-500 font-14">@lang("msg.Lead Status")</label> : <span class="font-14">{{ $lead->lead_type }}</span>
-						<div style="clear:both; margin-top:7px"></div>
-					
-						<label class="text-capitalize font-500 font-14">@lang("msg.Note")</label> : <span class="font-14">{{ $tour->notes }}</span>
-					
-						<div style="clear:both; margin-top:7px"></div>
-						<label class="text-capitalize font-500 font-14">@lang("msg.Communication Method")</label> : <span class="font-14">{{ $tour->moc }}</span>
+					<label class="text-capitalize font-500 font-14">Tour Date</label> : <span class="font-14">{{ $appointment->appointment_date }}</span>
+					<div style="clear:both; margin-top:7px"></div>
+					<label class="text-capitalize font-500 font-14">Tour Time</label> : <span class="font-14">{{ $appointment->appointment_time }}</span>
+					<div style="clear:both; margin-top:7px"></div>
+					<label class="text-capitalize font-500 font-14">@lang("msg.Lead Status")</label> : <span class="font-14">{{ $lead->lead_type }}</span>
+					<div style="clear:both; margin-top:7px"></div>
+					<label class="text-capitalize font-500 font-14">@lang("msg.Note")</label> : <span class="font-14">{{ $tour->notes }}</span>
+					<div style="clear:both; margin-top:7px"></div>
+					<label class="text-capitalize font-500 font-14">@lang("msg.Communication Method")</label> : <span class="font-14">{{ $tour->moc }}</span>
 					</div>						
 					@endif
 					
@@ -243,13 +244,22 @@
 	
     <div id="3" class="tab-pane fade">
         <div class="box box-primary arrow_box border-light-blue">
-			<div class="box-body padding-top-5" style="height:190px">	
+			<div class="box-body padding-top-5" style="height:240px">	
 				<?php $retour = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', 'Re-Tour']])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
 				@if($retour == NULL)
-				<h4 class="font-500 text-uppercase font-15">@lang("msg.Re-Tour") <a href="../add_prospect_record/Re-Tour/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a></h4>
-				<div class="form-inline border-top">
-					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">@lang("msg.No Records Found") </div> 
-				</div>
+				<?php $appointment = DB::table('appointment')->where([['pros_id', $row->id], ['status', 1]])->first(); ?>
+					@if($appointment)
+						<h4 class="font-500 text-uppercase font-15">@lang("msg.Re-Tour") <a href="../add_prospect_record/Re-Tour/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a></h4>
+						<div class="form-inline border-top">
+						<div class='text-danger' style="padding-top:10px; padding-bottom:7px">@lang("msg.No Records Found") </div> 
+						</div>
+					@else
+					<h4 class="font-500 text-uppercase font-15">@lang("msg.Re-Tour")
+					</h4>
+					<div class="form-inline border-top">
+					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">First Take a Tour! </div> 
+					</div>
+					@endif
 				@endif
 				@if($retour != NULL)
 					
@@ -282,41 +292,69 @@
 	<div id="4" class="tab-pane fade">
         <div class="box box-primary">
 			<div class="box-body padding-top-5" style="height:190px">			
-				<?php $appointment = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', 'Appointment']])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
-				@if($appointment == NULL)
-					<h4 class="font-500 text-uppercase font-15">@lang("msg.Appointment") <a href="../add_prospect_record/Appointment/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a></h4>
-					<div class='text-danger'>@lang("msg.No Records Found")</div> 
-				@endif
-				@if($appointment != NULL)
-				<h4 class="font-500 text-uppercase font-15">Appointment @if($appointment->status == 1)<span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Active State")</span> @endif </h4> 
-				<div class="form-inline border-top">
-				<div style="margin-top:10px"></div>
-				<?php $appointment_date = DB::table('appointment')->where([['pros_id', $appointment->pipeline_id], ['status', 1]])->first(); ?>
-				
-					<label class="text-capitalize font-500 font-14">@lang("msg.Date")</label> : <span class="font-14">{{ $appointment_date->appointment_date }}</span>					
-				<div style="clear:both; margin-top:7px"></div>
-				
-				
-					<?php $lead = DB::table('leads')->where('lead_id', $appointment->lead_id)->first(); ?>
-					<label class="text-capitalize font-500 font-14">@lang("msg.Lead Status")</label> : <span class="font-14">{{ $lead->lead_type }}</span>
-				
-					<div style="clear:both; margin-top:7px"></div>
-				
-					<label class="text-capitalize font-500 font-14">@lang("msg.Note")</label> : <span class="font-14">{{ $appointment->notes }}</span>
-					<div style="clear:both; margin-top:7px"></div>
-				
-					<label class="text-capitalize font-500 font-14">@lang("msg.Communication Method")</label> : <span class="font-14">{{ $appointment->moc }}</span>
-				<br/><br/>
-				</div>
-				@endif
-				
+				@php 
+                $screening = DB::table('screening')->where('pros_id',$row->id)->first();
+		        @endphp
+        		@if($screening)
+        			@if($screening->all_scr==1)
+                        @php
+                            $sl_no = DB::table('assessment_entry')->where('sl no',0)->first();
+                            $assessment = DB::table('resident_assessment')->where([['pros_id',$row->id],['assessment_id',$sl_no->assessment_id]])->first();
+                        @endphp
+                        @if($assessment)
+        					<h4 class="font-500 text-uppercase font-15">@lang("msg.Screening/Assessment")
+        						<!--<a href="../add_prospect_record/MoveIn/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a>-->
+        					</h4>
+                            <div class="form-inline border-top">
+                                <div class='text' style="padding-top:10px; padding-bottom:7px">All Required Screening and Main Assessment is done.</div> 
+                            </div>			
+        				@else 
+        					<h4 class="font-500 text-uppercase font-15">@lang("msg.Screening/Assessment")
+        						<!--<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Preadmission Assessment</span></a>-->
+        					</h4>
+                                <div class="form-inline border-top">
+        							<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete Main Assessment! </div> 
+			        				<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Main Assessment</a>
+                                </div>
+                        @endif
+                    @else
+                        @php
+                            $sl_no = DB::table('assessment_entry')->where('sl no',0)->first();
+                            $assessment = DB::table('resident_assessment')->where([['pros_id',$row->id],['assessment_id',$sl_no->assessment_id]])->first();
+                        @endphp
+                        @if($assessment)
+            				<h4 class="font-500 text-uppercase font-15">@lang("msg.Screening/Assessment")
+            					<!--<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>-->
+            				</h4>
+                            <div class="form-inline border-top">
+            					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening!</div>
+			        				<a href="../resposible_personal/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Screening</span></a>
+            				</div>
+        				@else
+            				<h4 class="font-500 text-uppercase font-15">@lang("msg.Screening/Assessment")</h4>
+            				<div class="form-inline border-top">
+            					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening and Assessment</div>
+            					<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Main Assessment</a>
+		        				<a href="../resposible_personal/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Screening</span></a>
+            				</div>
+            			@endif
+        			@endif
+        	    @else
+        			<h4 class="font-500 text-uppercase font-15">@lang("msg.Screening/Assessment")
+        			</h4>
+                    <div class="form-inline border-top">
+        				<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete Screening and Main Assessment First!</div>
+        				<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 " style="">Main Assessment</a>
+        				<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 " style="">Screening</span></a>
+                    </div>
+                @endif			
 			</div>
 		</div>
     </div>
 	<div id="5" class="tab-pane fade">
         <div class="box box-primary arrow_box border-light-blue">
 			<div class="box-body padding-top-5" style="height:190px">	
-				<?php $signing = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', 'Signing']])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
+				<?php $signing = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', "Lease-Signing"]])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
 				@if($signing == NULL)
 					<h4 class="font-500 text-uppercase font-15">@lang("msg.Lease Signing") <a href="../add_prospect_record/Lease-Signing/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">ADD RECORD</span></a></h4>
 				<div class="form-inline border-top">
@@ -351,15 +389,69 @@
 		</div>
 	<div id="6" class="tab-pane fade">
         <div class="box box-primary arrow_box border-light-blue">
-			<div class="box-body padding-top-5" style="height:190px">	
-				<?php $movein = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', 'MoveIn']])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
-				@if($movein == NULL)
-					<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In") <a href="../add_prospect_record/MoveIn/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a></h4>
-				<div class="form-inline border-top">
-					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">@lang("msg.No Records Found")</div> 
-				</div>
-				@endif
-				@if($movein != NULL)
+			<div class="box-body padding-top-5" style="height:190px">
+				@php
+                $stage = DB::table('sales_pipeline')->where([['id', $row->id], ['stage', 'MoveIn']])->first();
+                @endphp
+        @if($stage == NULL)
+        @php 
+            $screening = DB::table('screening')->where('pros_id',$row->id)->first();
+		@endphp				
+		@if($screening)
+			@if($screening->all_scr==1)
+                @php
+                    $sl_no = DB::table('assessment_entry')->where('sl no',0)->first();
+                    $assessment = DB::table('resident_assessment')->where([['pros_id',$row->id],['assessment_id',$sl_no->assessment_id]])->first();
+                @endphp
+                @if($assessment)
+					<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
+						<a href="../add_prospect_record/MoveIn/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a>
+					</h4>
+                    <div class="form-inline border-top">
+                        <div class='text-danger' style="padding-top:10px; padding-bottom:7px">Add Details by Clicking on Add Record</div> 
+                    </div>			
+				@else 
+					<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
+						<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Main Assessment</span></a>
+					</h4>
+                        <div class="form-inline border-top">
+							<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete Main Assessment Now!</div> 
+                        </div>
+                @endif
+            @else 
+                @php
+                    $sl_no = DB::table('assessment_entry')->where('sl no',0)->first();
+                    $assessment = DB::table('resident_assessment')->where([['pros_id',$row->id],['assessment_id',$sl_no->assessment_id]])->first();
+                @endphp
+                @if($assessment)
+    				<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
+    					<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>
+    				</h4>
+                    <div class="form-inline border-top">
+    					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening!</div>
+    				</div>
+				@else
+    				<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
+				        <a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="margin-left: 5px; position:relative; top:-5px">Main Assessment</a>
+				        <a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>
+			        </h4>
+                    <div class="form-inline border-top">
+    					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening and Main Assessment!</div>
+    				</div>
+    			@endif
+			@endif
+	    @else
+			<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
+				<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="margin-left: 5px; position:relative; top:-5px">Main Assessment</a>
+				<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>
+			</h4>
+            <div class="form-inline border-top">
+				<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete Screening and Main Assessment First!</div>
+            </div>
+        @endif
+
+		@else
+		@php $movein = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', 'MoveIn']])->orderBy('stage_pipeline_id', 'DESC')->first(); @endphp
 					
 				<h4 class="font-500 text-uppercase font-15">Move In @if($movein->status == 1)<span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Active State")</span> @endif </h4>
 				

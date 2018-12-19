@@ -17,6 +17,49 @@
 @section('main-content')
 
 <div class="row">
+    <div class="col-md-12">
+		<div class="box box-primary border-light-blue">
+			<div class="box-body padding-top-5" style="padding-bottom:10px">
+				<h4 class="font-500 text-uppercase font-15" >LEGAL DOCUMENT</h4>
+				<div class="form-inline border-top" style="padding-top:10px">
+					<div class="col-md-5" style="padding-left: 0; padding-right:0">
+					<label class="text-capitalize font-500 font-14">Document Name : </label>
+						<span class="font-14"> {{ $reports_0->doc_name }}</span><br/>
+						<label class="text-capitalize font-500 font-14">Uploaded By : </label>
+						<span class="font-14">{{ $reports_0->user_id }} </span><br/>
+						<label class="text-capitalize font-500 font-14">Date Uploaded : </label>
+						<span class="font-14">{{ $reports_0->upload_date }} </span>
+					</div>
+					<div class="col-md-7" style="padding-left: 0; padding-right:0">
+						
+						<?php 
+							if($reports_0->file_type == "jpeg" || $reports_0->file_type == ".jpg" || $reports_0->file_type==".png" || $reports_0->file_type==".gif" || $reports_0->file_type=="tiff" || $reports_0->file_type==".bmp"){
+								
+						?>
+							<span class="text-capitalize font-500 font-14">File Preview : <span class="pull-right"> <a href="../hsfiles/public/legal_doc/{{ $reports_0->doc_file }}" target=_blank><i class="material-icons">insert_drive_file</i> Download File</a></span></span>
+							  <img class="img-responsive" src="../hsfiles/public/legal_doc/{{ $reports_0->doc_file }}" />
+							  
+						<?php
+							}else if($reports_0->file_type==".pdf"){
+						?>
+						<span class="text-capitalize font-500 font-14">File Preview : <span class="pull-right"> <a href="../hsfiles/public/legal_doc/{{ $reports_0->doc_file }}" target=_blank><i class="material-icons">insert_drive_file</i> Download File</a></span></span>
+						<object data="../hsfiles/public/legal_doc/{{ $reports_0->doc_file }}" type="application/pdf" width="600" height="200">
+								<embed src="../hsfiles/public/legal_doc/{{ $reports_0->doc_file }}" width="400px" height="200px" />
+	
+							<!-- <object type="application/pdf"  data="../legal_doc/{{ $reports_0->doc_file"><a href="../legal_doc/{{ $reports_0->doc_file">file</a></object> -->
+						<?php
+							}else{
+						?>
+								<span class="text-capitalize font-500 font-14">File Preview :</span>
+								   <p style="color:#b3b3b3;padding-top:10px;padding-left:20px;">Preview not available <br/><br/>
+								   <span > <a href="../hsfiles/public/legal_doc/{{ $reports_0->doc_file }}" target=_blank><i class="material-icons">insert_drive_file</i> Download File</a></span></p>
+							<?php }?>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="col-md-12">
 		<div class="box box-primary border-light-blue">
 			<div class="box-body padding-top-5" style="padding-bottom:10px">

@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    @lang("msg.Resident Add")
+    Prospective Add
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>@lang("msg.Set Next Assessment Date For") {{ $name->pros_name }}</b></p>
+    <p class="text-danger"><b>set next assessment date for {{ $name->pros_name }}</b></p>
 @endsection
 
 @section('main-content')
@@ -26,8 +26,8 @@
 						<input type="hidden" class="form-control" placeholder="Appointment Date" name="pros_id" value="{{ $id }}" />
 							
 						<div class="form-group has-feedback">
-							<label>@lang("msg.Appointment Date")</label>
-							<input type="text" class="form-control" placeholder="Appointment Date" name="next_assessment_date" id="next_assessment_date" required 
+							<label>Next Assessment Date</label>
+							<input type="text" class="form-control" placeholder="Next Assessment Date" name="next_assessment_date" id="next_assessment_date" required 
 							oninvalid="this.setCustomValidity('Required Field.Please Select Date')"
 							oninput="this.setCustomValidity('')" autocomplete="off"/>
 							<script type="text/javascript"> $('#next_assessment_date').datepicker({format: 'yyyy/mm/dd'});</script> 

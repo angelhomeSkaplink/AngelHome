@@ -3,17 +3,17 @@
       </strong>
 </h3><br/>
     <div class="tab-pane fade active in" id="tsp_respiratory" role="tabpanel" aria-labelledby="home-tab">
-    <input type="hidden" name="tsp_type[]" value="6"> 
+    <input type="hidden" name="tsp_type[]" value="6">
     <div class="row">
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
              <div class="form-group">
                  <label for="location">Respiratory problem characterized by:</label>
-                 <textarea style="resize:none; height:115px" rows="3" name="respiratory" class="form-control"></textarea>
+                 <textarea style="resize:none; height:115px" rows="3" name="resp_char" class="form-control" required /></textarea>
              </div>
              <div class="form-group">
                  <label for="type">Precautions:</label>
-                 <textarea style="resize:none; height:115px" rows="3" name="resp_precautions" class="form-control"></textarea>
+                 <textarea style="resize:none; height:115px" rows="3" name="resp_precautions" class="form-control" required /></textarea>
              </div>
          </div>
          <div class="col-lg-6">
@@ -24,13 +24,17 @@
                  <label for="resp_symptoms">Ongoing symptoms such as cough, shortness of breath, congestion</label>
                  <input class="form-control" type="text" name="resp_symptoms" id="">
                  <label for="appetite">Appetite</label>
-                 <input class="form-control" type="text" name="appetite" id="">
+                 <input class="form-control" type="text" name="resp_appetite" id="">
                  <label for="resp_colour">Color &amp; amount sputum if present</label>
-                 <input class="form-control" type="text" name="resp_colour" id="">
-                 <label for="resp_temp">Temperature, pulse,respirations, and B/P</label>
+                 <input class="form-control" type="text" name="resp_sputum" id="">
+                 <label for="resp_temp">Temperature</label>
                  <input class="form-control" type="text" name="resp_temp" id="">
+                 <label for="resp_temp">Pulse</label>
+                 <input class="form-control" type="text" name="resp_pulse" id="">
+                 <label for="resp_temp">B/P</label>
+                 <input class="form-control" type="text" name="resp_bp" id="">
                  <label for="resp_antibiotic">If on antibiotic any adverse symptoms</label>
-                 <input class="form-control" type="text" name="resp_antibiotic" id="">
+                 <input class="form-control" type="text" name="resp_adverse_symptoms" id="">
                  <label for="resp_complaints">Other complaints by resident or other symptoms</label>
                  <input class="form-control" type="text" name="resp_complaints" id="">
              </div>

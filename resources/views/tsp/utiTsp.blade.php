@@ -8,28 +8,34 @@
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
              <div class="form-group">
-                 <label for="cast">Urinary Tract Infection characterized by:</label>
-                 <input class="form-control" type="text" name="uti_problem" id="">
+                 <label for="uti_problem">Urinary Tract Infection characterized by:</label>
+                 <input class="form-control" type="text" name="uti_problem" id="" required />
              </div>
              <div class="form-group">
-                 <label for="cast">Precautions:</label>
+                 <label for="uti_pracaution">Precautions:</label>
                  <input class="form-control" type="text" name="uti_pracaution" id="">
              </div>
          </div>
          <div class="col-lg-6">
              <div class="form-group">
              <h5><strong>What To Chart:</strong></h5>
-             <label for="pain">Pain</label>
-             <input class="form-control" type="text" name="uti_pain" id="">
-             <label for="further injuries">Ongoing symptoms such as burning, urine color, odor and amount</label>
-             <input class="form-control" type="text" name="uti_symptoms" id="">
-             <label for="transfer">Appetite</label>
-             <input class="form-control" type="text" name="uti_appetite" id="">
-             <label for="mental_status">Temperature, pulse, respirations, and B/P</label>
-             <input class="form-control" type="text" name="uti_temp" id="">
-             <label for="mental_status">If on antibiotic any adverse symptoms</label>
-             <input class="form-control" type="text" name="uti_antibiotic" id="">
-             <label for="mental_status">Other complaints by resident or other symptoms</label>
+             <label for="uti_pain">Pain</label>
+             <input class="form-control" type="text" name="uti_pain" id=""><br/>
+             <label for="uti_symptoms">Ongoing symptoms such as burning, urine color, odor and amount</label>
+             <input class="form-control" type="text" name="uti_symptoms" id=""><br/>
+             <label for="uti_appetite">Appetite</label>
+             <input class="form-control" type="text" name="uti_appetite" id=""><br/>
+             <label for="uti_temp">Temperature</label>
+             <input class="form-control" type="text" name="uti_temp" id=""><br/>
+             <label for="uti_pulse">Pulse</label>
+             <input class="form-control" type="text" name="uti_pulse" id=""><br/>
+             <label for="uti_respirations">Respirations</label>
+             <input class="form-control" type="text" name="uti_respirations" id=""><br/>
+             <label for="uti_bp">B/P</label>
+             <input class="form-control" type="text" name="uti_bp" id=""><br/>
+             <label for="uti_adverse_symptoms">If on antibiotic any adverse symptoms</label>
+             <input class="form-control" type="text" name="uti_adverse_symptoms" id=""><br/>
+             <label for="uti_complaints">Other complaints by resident or other symptoms</label>
              <input class="form-control" type="text" name="uti_complaints" id="">
              </div>
          </div>

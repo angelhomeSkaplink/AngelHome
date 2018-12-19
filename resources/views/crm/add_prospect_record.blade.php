@@ -61,14 +61,14 @@
 					<div class="form-group has-feedback">						
 						<input type="hidden" class="form-control" value="{{ $stage }}" name="sales_stage" id="sales_stage" readonly />
 					</div>
-					@if($stage=='Appointment')
+					@if($stage=='Tour' || $stage=='Re-Tour')
 					<div class="form-group has-feedback">
-						<label>Appointment Date</label>
+						<label>Tour Date</label>
 						<input type="text" class="form-control" placeholder="" name="appointment_date" id="appointment_date" onkeyup="getdateofretirement();" autocomplete="off"/>
 						<script type="text/javascript"> $('#appointment_date').datepicker({format: 'yyyy/mm/dd'});</script> 
 					</div>
 					<div class="form-group has-feedback">
-						<label>Appointment Time</label>
+						<label>Tour Time</label>
 						<div class='input-group date' id='datetimepicker3'>
 							<input type="text" name="appointment_time"  class="form-control timepicker" />
 							<span class="input-group-addon">

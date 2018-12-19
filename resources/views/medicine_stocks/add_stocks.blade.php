@@ -8,7 +8,7 @@
 
 @section('contentheader_title')
     <p class="text-danger"><b>Add Stock Info</b>
-    <a href="{{ url('medicine_stocks_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-top: -2px; margin-bottom: 9px !important; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Go Back")</a>
+    <a href="{{ url('medicine_stocks_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-top: -2px; margin-bottom: 9px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Go Back")</a>
     </p>
 @endsection
 

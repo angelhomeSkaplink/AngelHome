@@ -22,34 +22,35 @@
         <div class="box box-primary border">				
             <div class="box-body border padding-top-0 padding-left-right-0">
 				<form action="{{url('save_care_plan')}}" method="post">
-                <table class="table">
-						<tbody>
-							
-							<tr>
-								<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Assessment Done")</b></th>
-								<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Assessment Score")</b></th>
-							</tr>
-							@foreach ($reports as $report)							
-							<tr>
-								<input type="hidden" class="form-control" name="assessment_id" value="{{ $report->pros_id }}" required />
-								<td><label>{{ $report->assessment_form_name }}</label></td>	
-								<td><label>{{ $report->score }}</label></td>
-							</tr>
-							@endforeach
-							<tr>
-								<td><label>@lang("msg.Assessment Total Score")</label></td>
-								<td>{{ $total_score }}</td>								
-							</tr>
-							<tr>
-								<td><label>@lang("msg.Care Plan Score")</label></td>
-								<td><input type="number" class="form-control" name="total_point" value="{{ $total_score }}" required /></td>								
-							</tr>
-							<tr>
-								<td><label>@lang("msg.Note")</label></td>
-								<td><textarea class="form-control" name="care_plan_detail" type="text" placeHolder="Reason for editing the score" rows="3" required ></textarea></td>								
-							</tr>						
-						</tbody>
-					</table>
+				    <div class="table-responsive">
+                        <table class="table">
+    						<tbody>
+    							<tr>
+    								<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Assessment Done")</b></th>
+    								<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Assessment Score")</b></th>
+    							</tr>
+    							@foreach ($reports as $report)							
+    							<tr>
+    								<input type="hidden" class="form-control" name="assessment_id" value="{{ $report->pros_id }}" required />
+    								<td><label>{{ $report->assessment_form_name }}</label></td>	
+    								<td><label>{{ $report->score }}</label></td>
+    							</tr>
+    							@endforeach
+    							<tr>
+    								<td><label>@lang("msg.Assessment Total Score")</label></td>
+    								<td>{{ $total_score }}</td>								
+    							</tr>
+    							<tr>
+    								<td><label>@lang("msg.Care Plan Score")</label></td>
+    								<td><input type="number" class="form-control" name="total_point" value="{{ $total_score }}" required /></td>								
+    							</tr>
+    							<tr>
+    								<td><label>@lang("msg.Note")</label></td>
+    								<td><textarea class="form-control" name="care_plan_detail" type="text" placeHolder="Reason for editing the score" rows="3" required ></textarea></td>								
+    							</tr>						
+    						</tbody>
+    					</table>
+    				</div>
 					<div>
 						<div class="form-group has-feedback">
 							<input type="hidden" id="csrf" name="_token" value="{{ csrf_token() }}">

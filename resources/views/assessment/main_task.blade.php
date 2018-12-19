@@ -27,46 +27,48 @@
     <div class="col-md-12">
         <div class="box box-primary border">
             <div class="box-body border padding-top-0 padding-left-right-0">
-                <table class="table">
-                    <tbody>
-						<tr>
-							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Task")</th>
-							<th class="th-position text-uppercase font-500 font-12">@lang("msg.View")</th>
-						</tr>
-						<tr>
-							<td>Eating</td>
-							<td><a href="daily_task/EATING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
-						</tr>
-						<tr>
-							<td>Continence</td>
-							<td><a href="daily_task/CONTINENCE"><i class="material-icons material-icons gray md-22"> details </i></a></td>
-						</tr>
-						<tr>
-							<td>Transfer</td>
-							<td><a href="daily_task/TRANSFER"><i class="material-icons material-icons gray md-22"> details </i></a></td>
-						</tr>
-						<tr>
-							<td>Ambulation</td>
-							<td><a href="daily_task/AMBULATION"><i class="material-icons material-icons gray md-22"> details </i></a></td>
-						</tr>
-						<tr>
-							<td>Dressing</td>
-							<td><a href="daily_task/DRESSING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
-						</tr>
-						<tr>
-							<td>Bathing</td>
-							<td><a href="daily_task/BATHING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
-						</tr>
-						<tr>
-							<td>Med.-Management</td>
-							<td><a href="daily_task/MED.-MANAGEMENT"><i class="material-icons material-icons gray md-22"> details </i></a></td>
-						</tr>
-						<tr>
-							<td>Communication</td>
-							<td><a href="daily_task/COMMUNICATION"><i class="material-icons material-icons gray md-22"> details </i></a></td>
-						</tr>
-                    </tbody>
-                </table>					
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+    						<tr>
+    							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Task")</th>
+    							<th class="th-position text-uppercase font-500 font-12">@lang("msg.View")</th>
+    						</tr>
+    						<tr>
+    							<td>Eating</td>
+    							<td><a href="daily_task/EATING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
+    						</tr>
+    						<tr>
+    							<td>Continence</td>
+    							<td><a href="daily_task/CONTINENCE"><i class="material-icons material-icons gray md-22"> details </i></a></td>
+    						</tr>
+    						<tr>
+    							<td>Transfer</td>
+    							<td><a href="daily_task/TRANSFER"><i class="material-icons material-icons gray md-22"> details </i></a></td>
+    						</tr>
+    						<tr>
+    							<td>Ambulation</td>
+    							<td><a href="daily_task/AMBULATION"><i class="material-icons material-icons gray md-22"> details </i></a></td>
+    						</tr>
+    						<tr>
+    							<td>Dressing</td>
+    							<td><a href="daily_task/DRESSING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
+    						</tr>
+    						<tr>
+    							<td>Bathing</td>
+    							<td><a href="daily_task/BATHING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
+    						</tr>
+    						<tr>
+    							<td>Med.-Management</td>
+    							<td><a href="daily_task/MED.-MANAGEMENT"><i class="material-icons material-icons gray md-22"> details </i></a></td>
+    						</tr>
+    						<tr>
+    							<td>Communication</td>
+    							<td><a href="daily_task/COMMUNICATION"><i class="material-icons material-icons gray md-22"> details </i></a></td>
+    						</tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>                
         </div>
     </div>

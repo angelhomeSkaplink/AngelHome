@@ -374,13 +374,7 @@ class DoctorController extends Controller
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
         return view('doctor.search_patient', compact('crms', 'prospectives'));
     }
-	
-	public function search_patient_contact($pros_id){		
-		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['contact_person', 'like', '%' .$pros_id. '%']])->get();
-		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
-        return view('doctor.search_patient', compact('crms', 'prospectives'));
-	}
-	public function checkup_view(){
+    public function checkup_view(){
 		$residents = DB::table('resident_room')->join('sales_pipeline','resident_room.pros_id','=','sales_pipeline.id')
         ->where('sales_pipeline.facility_id','=',Auth::user()->facility_id)
         ->where('resident_room.status','=',1)->select('sales_pipeline.*')
@@ -389,7 +383,6 @@ class DoctorController extends Controller
 	}
 	public function checkup($id){
 		$checkups = DB::table('check_up')->where('res_id',$id)->orderby('id','desc')->get();
-		// dd($checkups);
 		$name = DB::table('sales_pipeline')->where('id',$id)->first();
 		return view('doctor.checkup',compact('id','name','checkups'));
 	}

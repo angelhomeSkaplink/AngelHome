@@ -39,7 +39,7 @@
 <div class="box box-primary padding-bottom-25">
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left:-14px; margin-right:-14px; margin-top:1px">
-      <li class="nav-item">
+       <li class="nav-item">
         <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONAL</a>
       </li>
       <li class="nav-item active">
@@ -49,47 +49,56 @@
         <a class="nav-link" href="../resident_details/{{ $id }}">RESIDENT DETAILS</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../primary_doctor/{{ $id }}">PRIMARY DOCTOR</a>
+        <a class="nav-link" href="../primary_doctor/{{ $id }}">PHYSICIAN & DENTIST</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../pharmacy/{{ $id }}">PHARMACY</a>
+        <a class="nav-link" href="../pharmacy/{{ $id }}">HOSPITAL & PHARMACY</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../medical_equipment/{{ $id }}">MEDICAL EQUIPMENT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../mental_status/{{ $id }}">MENTAL STATUS</a>
+        <a class="nav-link" href="../legal_doc/{{ $id }}">LEGAL DOCUMENT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../bathing/{{ $id }}">BATHING</a>
+        <a class="nav-link" href="../insurance/{{ $id }}">INSURANCE</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../dressing/{{ $id }}">DRESSING</a>
+        <a class="nav-link" href="../funeral_home/{{ $id }}">FUNERAL HOME</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../toileting/{{ $id }}">TOILETING</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../ambulation_transfer/{{ $id }}">AMBULATION/TRANSFER</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../personal_grooming_hygiene/{{ $id }}">PERSONAL GROOMING/HYGIENE</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../feeding_nutrition/{{ $id }}">FEEDING/NUTRITION</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../communication_abilities/{{ $id }}">COMMUNICATION ABILITIES</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../night_need/{{ $id }}">NIGHT NEED</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../emergency_exiting/{{ $id }}">EMERGENCY EXITING</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../overall/{{ $id }}">OVERALL LEVEL OF FUNCTIONING</a>
-      </li>
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../mental_status/{{ $id }}">MENTAL STATUS</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../bathing/{{ $id }}">BATHING</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../dressing/{{ $id }}">DRESSING</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../toileting/{{ $id }}">TOILETING</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../ambulation_transfer/{{ $id }}">AMBULATION/TRANSFER</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../personal_grooming_hygiene/{{ $id }}">PERSONAL GROOMING/HYGIENE</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../feeding_nutrition/{{ $id }}">FEEDING/NUTRITION</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../communication_abilities/{{ $id }}">COMMUNICATION ABILITIES</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../night_need/{{ $id }}">NIGHT NEED</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../emergency_exiting/{{ $id }}">EMERGENCY EXITING</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+      <!--  <a class="nav-link" href="../overall/{{ $id }}">OVERALL LEVEL OF FUNCTIONING</a>-->
+      <!--</li>-->
     </ul>
     <div style="margin-top:35px"></div>
     <div class="tab-content" id="myTabContent">

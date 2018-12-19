@@ -5,7 +5,7 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>List of Patients</b><a href="{{ url('patients_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a>
+    <p class="text-danger"><b>List of Patients</b><a href="{{ url('patients_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:122px !important; margin-top: -2px; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a>
 	</p>
 @endsection
 

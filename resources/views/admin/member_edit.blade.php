@@ -32,11 +32,16 @@ edit user details
             $roles = DB::table('role')->where('u_id',$role->user_id)->where('status',1)->get();
             $role_arr = array();
             foreach ($roles as $r) {
-              // code...
               array_push($role_arr,$r->id);
             }
             // dd($role_arr);
             ?>
+            <label style="padding-right:10px;">
+              <input type="checkbox" id="role_ed" name="role[]" value="11" <?php if (in_array(11,$role_arr)): ?>
+                checked
+              <?php endif; ?>>
+              <span class="label-text">ED</span>
+            </label>
             <label style="padding-right:10px;">
               <input type="checkbox" name="role[]" value="2" <?php if (in_array(2,$role_arr)): ?>
                 checked
@@ -97,17 +102,14 @@ edit user details
             <input type="password" class="form-control" name="password" value="{{$role->password}}">
           </div>
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-          <div class="col-md-6">
-            <div class="form-group has-feedback">
-              <a href="{{  url('all_member_list') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:50px">@lang("msg.Cancel")</a>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group has-feedback">
-              <button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">Submit</button>
-            </div>
-          </div>
+          <div class="form-group has-feedback">
+						
+            			<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm" onclick="return Validate()">@lang("msg.Submit")</button>
+            		</div>
+					<div class="form-group has-feedback">
+                        <a href="{{  url('all_member_list') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
+            		</div>
+          
         </div>
       </div>
     </div>
@@ -115,5 +117,22 @@ edit user details
   </form>
 </div>
 @include('layouts.partials.scripts_auth')
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        var $inputs = $('input:checkbox')
+        if($('#role_ed').is(':checked')){
+            $inputs.not(this).prop('disabled',true);
+            $('#role_ed').prop('disabled',false);
+        }
+    });
+    $('#role_ed').click(function(){
+    var $inputs = $('input:checkbox')
+        if($(this).is(':checked')){
+            $inputs.not(this).prop('checked',false);
+            $inputs.not(this).prop('disabled',true);
+        }else{
+          $inputs.prop('disabled',false);
+        }
+    });
+</script>
 @endsection

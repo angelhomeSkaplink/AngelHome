@@ -14,7 +14,6 @@
 <style>
 	.content-header
 	{
-		//display:none;
 		padding: 2px 0px 1px 20px;
 		margin-bottom: -18px;
 	}
@@ -34,6 +33,7 @@
         <div class="box box-primary border">
 			<div id="DivIdToPrint">
 				<div class="box-body border padding-top-0 padding-left-right-0">
+				    <div class="table-responsive">
 					<table class="table">
 						<tbody>
 							<tr>
@@ -45,8 +45,8 @@
 								<th class="th-position text-uppercase font-500 font-12">MAR Action</th>
 								<th class="th-position text-uppercase font-500 font-12">Affect Time</th>
 								<th class="th-position text-uppercase font-500 font-12">Prn Action</th>
-                <th class="th-position text-uppercase font-500 font-12">Administered By</th>
-                <th class="th-position text-uppercase font-500 font-12">Action Time</th>
+                                <th class="th-position text-uppercase font-500 font-12">Administered By</th>
+                                <th class="th-position text-uppercase font-500 font-12">Action Time</th>
 							</tr>
 							@foreach ($medicines as $medicine)
 							<?php
@@ -102,7 +102,7 @@
                           <div class="form-group" style="padding:20px;">
                             <div><input class="form-control" type="email" name="to" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="To" value="" required/></div>
                             <div style="margin-top:5px;margin-bottom:5px;"><input class="form-control" type="text" name="subject" placeholder="Subject" value="" required /></div>
-                            <div><textarea class="form-control" name="msg_body" rows="8" placeholder="Message body" style="resize:none" requireds></textarea></div>
+                            <div><textarea class="form-control" name="msg_body" rows="8" placeholder="Message body" style="resize:none" required ></textarea></div>
                           </div>
                         </div>
                         <footer class="w3-container" style="background-color:#f1f1f1;color:#fff;">
@@ -291,6 +291,7 @@
 							@endforeach
 						</tbody>
 					</table>
+					</div>
 				</div>
 			</div>
 			<!--<div class="form-group has-feedback" style="float:right;margin-right:5px;">

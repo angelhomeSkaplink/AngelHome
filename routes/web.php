@@ -83,6 +83,7 @@ Route::patch('add_dentist', 'PersonalDetailsController@add_dentist');
 Route::patch('add_others', 'PersonalDetailsController@add_others');
 
 
+
 /*Route::get('screening', 'ScreeningController@screening');
 Route::get('screening_details/{id}', 'ScreeningController@screening_details');
 Route::post('add_responsible_person', 'ScreeningController@add_responsible_person');
@@ -301,6 +302,7 @@ Route::patch('add_resident_details', 'ScreeningController@add_resident_details')
 Route::patch('add_primary_doctor', 'ScreeningController@add_primary_doctor');
 Route::patch('add_pharmacy', 'ScreeningController@add_pharmacy');
 Route::patch('add_equipment', 'ScreeningController@add_equipment');
+Route::patch('add_legal_doc', 'ScreeningController@add_legal_doc');
 Route::patch('add_mental_status', 'ScreeningController@add_mental_status');
 Route::patch('add_bathing', 'ScreeningController@add_bathing');
 Route::patch('add_dressing', 'ScreeningController@add_dressing');
@@ -312,6 +314,9 @@ Route::patch('add_communucation', 'ScreeningController@add_communucation');
 Route::patch('add_night_need', 'ScreeningController@add_night_need');
 Route::patch('add_exiting', 'ScreeningController@add_exiting');
 Route::patch('add_overall_fuctioning', 'ScreeningController@add_overall_fuctioning');
+Route::patch('add_insurance', 'ScreeningController@add_insurance');
+Route::patch('add_funeralhome', 'ScreeningController@add_funeralhome');
+
 
 Route::get('resposible_personal/{id}','ScreeningController@resposible_personal');
 Route::get('significant_personal/{id}','ScreeningController@significant_personal');
@@ -319,6 +324,7 @@ Route::get('resident_details/{id}','ScreeningController@resident_details');
 Route::get('primary_doctor/{id}','ScreeningController@primary_doctor');
 Route::get('pharmacy/{id}','ScreeningController@pharmacy');
 Route::get('medical_equipment/{id}','ScreeningController@medical_equipment');
+Route::get('legal_doc/{id}', 'ScreeningController@legal_doc');
 Route::get('mental_status/{id}','ScreeningController@mental_status');
 Route::get('bathing/{id}','ScreeningController@bathing');
 Route::get('dressing/{id}','ScreeningController@dressing');
@@ -330,6 +336,9 @@ Route::get('communication_abilities/{id}','ScreeningController@communication');
 Route::get('night_need/{id}','ScreeningController@night_need');
 Route::get('emergency_exiting/{id}','ScreeningController@emergency');
 Route::get('overall/{id}','ScreeningController@overall');
+Route::get('funeral_home/{id}','ScreeningController@funeral_home');
+Route::get('insurance/{id}','ScreeningController@insurance');
+
 
 Route::get('inactive_member/{user_id}','ProspectiveController@inactive_member');
 Route::get('active_member/{user_id}','ProspectiveController@active_member');
@@ -344,6 +353,7 @@ Route::get('assessment_pros/{pros_id}','AssessmentController@assessment_pros');
 
 //Typeahead search bar
 Route::get('get_resident_list', 'ProspectiveController@get_resident_list');
+Route::get('get_movein_list', 'ProspectiveController@get_movein_list');
 Route::get('get_resident_email_list', 'ProspectiveController@get_resident_email_list');
 Route::get('get_resident_contact_list', 'ProspectiveController@get_resident_contact_list');
 Route::get('score_view/{assessment_form_name}', 'AssessmentController@score_view');
@@ -386,7 +396,6 @@ Route::get('select_pros_upload/{pros_id}','AssessmentController@select_pros_uplo
 Route::get('select_pros_upload_email/{pros_id}','AssessmentController@select_pros_upload_email');
 Route::get('select_pros_upload_contact/{pros_id}','AssessmentController@select_pros_upload_contact');
 //END
-
 // 29 NOV TSP
 Route::get('temporary_service_plan','tspController@viewResidents');
 Route::get('all_tsp/{id}','tspController@all_tsp');
@@ -401,14 +410,22 @@ Route::get('/8','tspController@eye_problem');
 Route::get('/9','tspController@gastrointestinal');
 Route::get('/10','tspController@urinary');
 
-
+Route::patch('storeTsp','tspController@storeTsp');
+Route::get('view_resident_tsp/{id}', 'tspController@view_resident_tsp');
+// Checkup by Bikram
 Route::get('all_res_checkup','DoctorController@checkup_view');
 Route::get('checkup/{id}','DoctorController@checkup');
 Route::post('storeCheckup','DoctorController@storeCheckup');
-
+// Notes by Bikram
 Route::get('all_res_notes','WellnessController@note_view');
 Route::get('take_note/{id}','WellnessController@take_note');
 Route::post('storeNote','WellnessController@storeNote');
+
+//11 DECEMBER CHANGES BY DHRUWA
+Route::get('reassessment/{assessment_id}/{id}', 'AssessmentController@reassessment');
+Route::get('find_assessment/{assessment_id}/{pros_id}', 'AssessmentController@find_assessment');
+Route::post('save_temporary_json', 'AssessmentController@save_temporary_json');
+//END
 
 Auth::routes();
 

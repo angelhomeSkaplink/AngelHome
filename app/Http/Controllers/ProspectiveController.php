@@ -52,8 +52,10 @@ class ProspectiveController extends Controller
 	public function sales_pipeline(Request $request){	
 	    $val = $request['language'];
 		App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
-		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
+// 		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
+		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->where('stage','!=',"MoveIn")->paginate(6);
+		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->where('stage','!=',"MoveIn")->get();
+// 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
         return view('crm.pipeline_view', compact('crms', 'prospectives'));
     }
 	
@@ -122,7 +124,7 @@ class ProspectiveController extends Controller
 		$pross->facility_id = Auth::user()->facility_id;
 		$pross->user_id = Auth::user()->user_id;
 		$pross->date = date('Y/m/d');
-		$pross->stage = 'Inquiery';
+		$pross->stage = 'Inquiry';
 		$pross->save();
 		
 		$pross_id = $pross->id;
@@ -213,16 +215,18 @@ class ProspectiveController extends Controller
 	public function sales_stage_pipeline(Request $request){	
 	    $val = $request['language'];
 		App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
-		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
+// 		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
+// 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
+		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','DESC')->paginate(6);
+		$prospectives = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','DESC')->get();
         return view('crm.pipeline_stage_view', compact('crms', 'prospectives'));
     }
 	
 	public function personal_details(Request $request){	
 	    $val = $request['language'];
 		App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
-		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
+		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->where('stage',"MoveIn")->paginate(6);
+		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->where('stage',"MoveIn")->get();
 		return view('crm.personal_details', compact('crms', 'prospectives'));
     }
 	
@@ -639,7 +643,7 @@ class ProspectiveController extends Controller
 		
 		$marketing_id = Auth::user()->user_id;
 		
-		$j = DB::table('sales_pipeline')->where('id', $request['pipeline_id'])->update(['marketing_id' => $marketing_id]);
+// 		$j = DB::table('sales_pipeline')->where('id', $request['pipeline_id'])->update(['marketing_id' => $marketing_id]);
 		
 		$j = DB::table('stage_pipeline')->where('pipeline_id', $request['pipeline_id'])->update(['status' => 0]);
 		
@@ -652,6 +656,8 @@ class ProspectiveController extends Controller
 		$sales->notes = $request['notes'];
 		$sales->moc = $request['moc'];		
 		$sales->save();
+		$k = DB::table('sales_pipeline')->where('id', $request['pipeline_id'])
+		->update(['marketing_id' => $marketing_id,'stage' => $request['sales_stage']]);
 		
 		if($request['appointment_date'] != NULL){
 			$appointment = new Appointment();
@@ -743,14 +749,21 @@ class ProspectiveController extends Controller
     }*/
 
 	public function get_resident_list(){
-		$medicines = DB::table('sales_pipeline')->groupBy('pros_name')->where('facility_id', Auth::user()->facility_id)->get();
+		$medicines = DB::table('sales_pipeline')->groupBy('pros_name')->where('facility_id', Auth::user()->facility_id)->where('stage','!=',"MoveIn")->get();
 		$countries = array();
 		foreach($medicines as $row) {
 			$countries[] = $row->pros_name;
 		}			
 		return $countries;
 	}
-	
+	public function get_movein_list(){
+		$medicines = DB::table('sales_pipeline')->groupBy('pros_name')->where('facility_id', Auth::user()->facility_id)->where('stage',"MoveIn")->get();
+		$countries = array();
+		foreach($medicines as $row) {
+			$countries[] = $row->pros_name;
+		}			
+		return $countries;
+	}
 	public function get_resident_email_list(){
 		$medicines = DB::table('change_pross_record')->groupBy('email_p')->where([['facility_id', Auth::user()->facility_id], ['status', 1]])->get();
 		$countries = array();

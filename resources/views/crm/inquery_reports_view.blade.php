@@ -2,12 +2,12 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Sales Report 
+    Resident Report from {{ $from }} to {{ $to }}
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>Future Resident Report from {{ $from }} to {{ $to }}</b>
-    <button onclick="history.back()" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:100px !important; height:26px !important"><i class="material-icons md-14 font-weight-600"> details </i> Go Back</a>
+    <p class="text-danger"><b>Resident Report from {{ $from }} to {{ $to }}</b>
+    <button onclick="history.back()" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:100px !important; height:26px !important; margin-right: 15px !important;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> Go Back</a>
     </p>
 @endsection
 @section('main-content')
@@ -27,34 +27,10 @@
 	.print-header{
 		display:none;
 	}
+	thead{ display:none;}
+	tfoot{ display:none; }
 </style>
 
-<style  type = "text/css" media="print">
-	.print-header{
-		display:block;
-	}
-	.print-header{
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-		justify-content: space-between;
-	}
-	.print-logo img{
-		width:40px;
-		height: 40px;
-		padding: 10px;
-	}
-	.print-right{
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-	    justify-content: center;
-	    align-items: center;
-	    padding: 10px;
-	}
-</style>
 
 <!--<div class="row">
 	<form action="inquiery_reports" method="post" enctype="multipart/form-data">
@@ -110,95 +86,72 @@
 	<div class="col-md-12">
 		<div class="box box-primary border">				
 			<div class="box-header with-border col-sm-2 pull-right"></div>				
-			<div class="box-body border padding-top-0 padding-left-right-0">				
-				<div id="printableDiv">
-					<!--<div class="print-header">
-						<?php 
-							$facility_info = DB::table('facility')->where('id', Auth::user()->facility_id)->first();
-						?>						
-						<div class="print-logo">
-							@if($facility_info->facility_logo == NULL)
-								<img src="http://localhost/angel_home_s_admin/hsfiles/public/facility_logo/images.png" />
-							@else
-								<img src="http://localhost/angel_home_s_admin/hsfiles/public/facility_logo/{{ $facility_info->facility_logo }}" />
-							@endif
-						</div>
-						
-						<div class="print-right">
-							<p><b><label>{{ $facility_info->facility_name }}<label></b></p>
-							<p class="text-danger"><b>FUTURE RESIDENT REPORTS FROM {{ $from }} to {{ $to }}</b></p>
-						</div>
-					</div>-->
-					<div class="print-header">
-						<table>
-							<?php 
-								$facility_info = DB::table('facility')->where('id', Auth::user()->facility_id)->first();
-							?>	
-							<tr>
-								<td class="print-logo">
-									@if($facility_info->facility_logo == NULL)
-										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/images.png"/>
-									@else
-										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/{{ $facility_info->facility_logo }}" />
-									@endif
-								</td>
-							
-								<td>
-									<p><b><label>{{ $facility_info->facility_name }}</label></b></p>
-									<p><b><label>Address :  {{ $facility_info->address }}, {{ $facility_info->address_two }}</label></b></b></p>
-									<p><b><label>Phone no : {{ $facility_info->phone }}</b></p>
-									<p><b><label>email :</label>{{ $facility_info->facility_email }}</b></p>
-									
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p class="text-danger"><b>FUTURE RESIDENT REPORTS FROM {{ $from }} to {{ $to }}</b></p>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<table class="table">
-						<tbody>
-							<tr>
-								<th class="th-position text-uppercase font-500 font-12">#</th>
-								<th class="th-position text-uppercase font-500 font-12">Prospective</th>
-								<th class="th-position text-uppercase font-500 font-12">Phone No</th>
-								<th class="th-position text-uppercase font-500 font-12">Date</th>
-								<th class="th-position text-uppercase font-500 font-12">Sales Stage</th>
-								<th class="th-position text-uppercase font-500 font-12">Note</th>
-								<th class="th-position text-uppercase font-500 font-12">Method of Communication</th>
-								<th class="th-position text-uppercase font-500 font-12">work done by</th>
-							</tr>
-							@foreach ($reports as $report)
-							<tr>
-								@if($report->service_image == NULL)
-								<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
-								@else
-								<td><img src="hsfiles/public/img/{{ $report->service_image }}" class="img-circle" width="40" height="40"></td>
-								@endif
-								<td>{{ $report->pros_name }}</td>
-								<td>{{ $report->phone_p }}</td>
-								<td>{{ $report->date }}</td>
-								<td>{{ $report->sales_stage }}</td>
-								<td>{{ $report->notes }}</td>
-								<td>{{ $report->moc }}</td>	
-								<?php 
-									$user = DB::table('users')->where([['user_id', $report->marketing_id]])->first();{
-								?>
-								<td>{{ $user->firstname }} {{ $user->lastname }}</td>
-								<?php } ?>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-				</div>
+			<div class="box-body border padding-top-0 padding-left-right-0">
+			    <div class="table-responsive">				
+    				<div id="printableDiv">						
+    					<table class="table">
+    						<thead>
+    							<?php 
+    								$facility_info = DB::table('facility')->where('id', Auth::user()->facility_id)->first();
+    							?>	
+    							<tr>								
+    								<td><div style="width: 80px">
+    									@if($facility_info->facility_logo == NULL)
+    										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/images.png"/>
+    									@else
+    										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/{{ $facility_info->facility_logo }}" />
+    									@endif
+    								</div></td>							
+    								<td colspan="7">
+    									<p><b></b><br/>
+    									<b>{{ $facility_info->facility_name }}, {{ $facility_info->address }}, {{ $facility_info->address_two }}</b><br/>
+    									<b>{{ $facility_info->phone }}</b><br/>
+    									<b>{{ $facility_info->facility_email }}</b></p>
+    									
+    								</td>								
+    							</tr>								
+    						</thead>
+    						<tbody>						
+    							<tr>
+    								<th class="th-position text-uppercase font-500 font-12">#</th>
+    								<th class="th-position text-uppercase font-500 font-12">Resident</th>
+    								<th class="th-position text-uppercase font-500 font-12">Phone No</th>
+    								<th class="th-position text-uppercase font-500 font-12">Date</th>
+    								<th class="th-position text-uppercase font-500 font-12">Sales Stage</th>
+    								<th class="th-position text-uppercase font-500 font-12">Note</th>
+    								<th class="th-position text-uppercase font-500 font-12">Method of Communication</th>
+    								<!--<th class="th-position text-uppercase font-500 font-12">work done by</th>-->
+    							</tr>
+    							@foreach ($reports as $report)
+    							<tr>
+    								@if($report->service_image == NULL)
+    								<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
+    								@else
+    								<td><img src="hsfiles/public/img/{{ $report->service_image }}" class="img-circle" width="40" height="40"></td>
+    								@endif
+    								<td>{{ $report->pros_name }}</td>
+    								<td>{{ $report->phone_p }}</td>
+    								<td>{{ $report->date }}</td>
+    								<td>{{ $report->sales_stage }}</td>
+    								<td>{{ $report->notes }}</td>
+    								<td>{{ $report->moc }}</td>	
+    								<?php 
+    									$user = DB::table('users')->where([['user_id', $report->marketing_id]])->first();{
+    								?>
+    								<!--<td>{{ $user->firstname }} {{ $user->lastname }}</td>-->
+    								<?php } ?>
+    							</tr>
+    							@endforeach
+    						</tbody>
+    						<tfoot>
+    							<tr>
+    								<td colspan="8">Powered by Senior Safe Technology LCC</td>
+    							</tr>
+    						</tfoot>
+    					</table>
+    				</div>
+    			</div>
 				<button class="btn btn-info pull-right" id="printButton" type="submit" onclick="printDiv('printableDiv')">Print<i class="material-icons md-22" aria-hidden="true"> description </i></button>
-				<!--<form action="prospect_date_btween_excel" method="post">
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<input type="hidden" name="data" value="{{ json_encode($reports) }}">
-					<button class="btn btn-info pull-right" style="margin-top:15px; margin-bottom:15px; margin-right:7px" type="submit">Export Data to Excel <i class="material-icons md-22" aria-hidden="true"> description </i></button>
-				</form>-->     
 			</div>
 		</div>
 	</div>

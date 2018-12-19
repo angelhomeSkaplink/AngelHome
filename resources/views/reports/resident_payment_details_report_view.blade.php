@@ -7,7 +7,7 @@
 
 @section('contentheader_title')
     <p class="text-danger"><b>Payment History</b>
-	<a href="{{ url('facility_graph_reports/' . $id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:150px !important"><i class="material-icons md-14 font-weight-600"> details </i> Back to graph</a>
+	<a href="{{ url('facility_graph_reports/' . $id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-right:15px !important;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> Back to graph</a>
 	</p>
 	@endsection
 
@@ -28,33 +28,8 @@
 	.print-header{
 		display:none;
 	}
-</style>
-
-<style  type = "text/css" media="print">
-	.print-header{
-		display:block;
-	}
-	.print-header{
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-		justify-content: space-between;
-	}
-	.print-logo img{
-		width:40px;
-		height: 40px;
-		padding: 10px;
-	}
-	.print-right{
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -ms-flexbox;
-		display: flex;
-	    justify-content: center;
-	    align-items: center;
-	    padding: 10px;
-	}
+	thead{ display:none;}
+	tfoot{ display:none; }
 </style>
 <!--<div class="row">
 	<form action="{{action('ReportController@date_range_report')}}" method="post">					
@@ -91,31 +66,28 @@
         <div class="box box-primary border">
             <div class="box-body border padding-top-0 padding-left-right-0">
 				<div id="printableDiv">
-					<div class="print-header">
-						<table>
+					<table class="table">
+						<thead>
 							<?php 
 								$facility_info = DB::table('facility')->where('id', Auth::user()->facility_id)->first();
 							?>	
-							<tr>
-								<td class="print-logo">
-									@if($facility_info->facility_logo == NULL)
-										<img src="http://localhost/angel_home_s_admin/hsfiles/public/facility_logo/images.png"/>
+							<tr>								
+								<td><div style="width: 80px">
+							    	@if($facility_info->facility_logo == NULL)
+										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/images.png"/>
 									@else
-										<img src="http://localhost/angel_home_s_admin/hsfiles/public/facility_logo/{{ $facility_info->facility_logo }}" />
+										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/{{ $facility_info->facility_logo }}" />
 									@endif
-								</td>
-							
-								<td>
-									<p><b><label>{{ $facility_info->facility_name }}</label></b></p>
-									<p><b><label>Address :  {{ $facility_info->address }}, {{ $facility_info->address_two }}</label></b></b></p>
-									<p><b><label>Phone no : {{ $facility_info->phone }}</b></p>
-									<p><b><label>email :</label>{{ $facility_info->facility_email }}</b></p>
+								</div></td>							
+								<td colspan="7">
+									<p><b></b><br/>
+									<b>{{ $facility_info->facility_name }}, {{ $facility_info->address }}, {{ $facility_info->address_two }}</b><br/>
+									<b>{{ $facility_info->phone }}</b><br/>
+									<b>{{ $facility_info->facility_email }}</b></p>
 									
-								</td>
-							</tr>							
-						</table>
-					</div>
-					<table class="table">
+								</td>								
+							</tr>								
+						</thead>
 						<tbody>
 							<tr>
 								<th class="th-position text-uppercase font-500 font-12">Resident</th>
@@ -126,7 +98,6 @@
 								<th class="th-position text-uppercase font-500 font-12">year</th>
 								<th class="th-position text-uppercase font-500 font-12">Payment date</th>
 								<th class="th-position text-uppercase font-500 font-12">Status</th>	
-								<th class="th-position text-uppercase font-500 font-12">work done by</th>	
 							</tr>
 							@foreach ($reports as $report)
 							<tr>
@@ -143,10 +114,14 @@
 								@if($report->due_ammount != 0)
 								<td class="text-danger"><b>PARTIALLY PAID</b></td>
 								@endif
-								<td><label>Nandan Choudhury</label></td>
 							</tr>							
 							@endforeach							
 						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="8">Powered by Senior Safe Technology LCC</td>
+							</tr>
+						</tfoot>
 					</table>									
 				</div>
 				<button class="btn btn-info pull-right" id="printButton" type="submit" onclick="printDiv('printableDiv')">Print<i class="material-icons md-22" aria-hidden="true"> description </i></button>

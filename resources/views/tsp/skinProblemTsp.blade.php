@@ -3,32 +3,32 @@
       </strong>
 </h3><br/>
    <div class="tab-pane fade active in container" id="tsp_skin_problem" role="tabpanel" aria-labelledby="home-tab">
-    <input type="hidden" name="tsp_type[]" value="5"> 
+    <input type="hidden" name="tsp_type[]" value="5">
     <div class="row">
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
              <div class="form-group">
                  <label for="location">Area location:</label>
-                 <textarea style="resize:none; height:115px" rows="3" name="area_location" class="form-control"></textarea>
+                 <textarea style="resize:none; height:115px" rows="3" name="skin_prob_loc" class="form-control"></textarea>
              </div>
              <div class="form-group">
                  <label for="type">Type:</label>
-                 <input type="text" name="type_skin_problem" class="form-control">
+                 <input type="text" name="skin_prob_type" class="form-control">
              </div>
          </div>
          <div class="col-lg-6">
              <div class="form-group">
                  <h5><strong>What To Chart:</strong></h5>
                  <label for="skin_pain">Pain</label>
-                 <input class="form-control" type="text" name="pain" id="">
+                 <input class="form-control" type="text" name="skin_prob_pain" id="">
                  <label for="progress">Progress toward healing</label>
-                 <input class="form-control" type="text" name="progress_healing" id="">
+                 <input class="form-control" type="text" name="skin_prob_healing" id="">
                  <label for="color_odor">Color, odor &amp; amount of drainage if any</label>
-                 <input class="form-control" type="text" name="skin_colour" id="">
+                 <input class="form-control" type="text" name="skin_prob_drainage" id="">
                  <label for="complaints">Other complaints by resident</label>
-                 <input class="form-control" type="text" name="skin_complaints" id="">
+                 <input class="form-control" type="text" name="skin_prob_complaints" id="">
                  <label for="report">Complete Report</label>
-                 <input class="form-control" type="text" name="skin_report" id="">
+                 <input class="form-control" type="text" name="skin_prob_report" id="">
              </div>
          </div>
      </div>

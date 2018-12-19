@@ -27,50 +27,52 @@
     <div class="col-md-12">
         <div class="box box-primary border">
             <div class="box-body border padding-top-0 padding-left-right-0">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th class="th-position text-uppercase font-500 font-12">###</th>
-                            <th class="th-position text-uppercase font-500 font-12">
-								<div class="autocomplete" style="width:200px;">
-									<input id="myInput" type="text" placeHolder="RESIDENT">
-								</div>
-							</th>
-                            <th class="th-position text-uppercase font-500 font-12">Contact no</th>
-                            <th class="th-position text-uppercase font-500 font-12">Address</th>
-                            <th class="th-position text-uppercase font-500 font-12">
-								<div class="contactautocomplete" style="width:200px;">
-									<input id="contactInput" type="text" placeHolder="CONTACT PERSON">
-								</div>
-							</th>
-                            <th class="th-position text-uppercase font-500 font-12">Add Medication</th>
-                            <th class="th-position text-uppercase font-500 font-12">View Details</th>
-                        </tr>
-                        @foreach ($patients as $patient)
-                        <tr>
-							@if($patient->service_image == NULL)
-							<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
-							@else
-							<td><img src="hsfiles/public/img/{{ $patient->service_image }}" class="img-circle" width="40" height="40"></td>
-							@endif
-                            <td>{{ $patient->pros_name }}</td>
-                            <td>{{ $patient->phone_p }}</td>
-                            <td>{{ $patient->city_p }}</td>
-                            <td>{{ $patient->contact_person }}</td>
-                            <td class="padding-left-35">
-                                <a href="add_patient_details/{{ $patient->id }}">
-                                    <i class="material-icons gray md-22"> add_circle</i>
-                                </a>
-                            </td>
-                            <td class="padding-left-35">
-                                <a href="view_patient_details/{{ $patient->id }}">
-                                    <i class="material-icons gray md-22"> visibility</i>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th class="th-position text-uppercase font-500 font-12">###</th>
+                                <th class="th-position text-uppercase font-500 font-12">
+    								<div class="autocomplete" style="width:200px;">
+    									<input id="myInput" type="text" placeHolder="RESIDENT">
+    								</div>
+    							</th>
+                                <th class="th-position text-uppercase font-500 font-12">Contact no</th>
+                                <th class="th-position text-uppercase font-500 font-12">Address</th>
+                                <th class="th-position text-uppercase font-500 font-12">
+    								<div class="contactautocomplete" style="width:200px;">
+    									<input id="contactInput" type="text" placeHolder="CONTACT PERSON">
+    								</div>
+    							</th>
+                                <th class="th-position text-uppercase font-500 font-12">Add Medication</th>
+                                <th class="th-position text-uppercase font-500 font-12">View Details</th>
+                            </tr>
+                            @foreach ($patients as $patient)
+                            <tr>
+    							@if($patient->service_image == NULL)
+    							<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
+    							@else
+    							<td><img src="hsfiles/public/img/{{ $patient->service_image }}" class="img-circle" width="40" height="40"></td>
+    							@endif
+                                <td>{{ $patient->pros_name }}</td>
+                                <td>{{ $patient->phone_p }}</td>
+                                <td>{{ $patient->city_p }}</td>
+                                <td>{{ $patient->contact_person }}</td>
+                                <td class="padding-left-35">
+                                    <a href="add_patient_details/{{ $patient->id }}">
+                                        <i class="material-icons gray md-22"> add_circle</i>
+                                    </a>
+                                </td>
+                                <td class="padding-left-35">
+                                    <a href="view_patient_details/{{ $patient->id }}">
+                                        <i class="material-icons gray md-22"> visibility</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

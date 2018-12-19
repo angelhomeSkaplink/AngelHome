@@ -5,7 +5,13 @@
 @endsection
 
 @section('contentheader_title')
-   <p class="text-danger"><b>reschedule appointment date for {{ $pros->pros_name }}</b></p>
+   <p class="text-danger"><b>reschedule appointment date for
+   	@if($pros->service_image == NULL)
+		<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+		@else
+		<img src="../hsfiles/public/img/{{ $pros->service_image }}" class="img-circle" width="40" height="40">
+	@endif
+	{{ $pros->pros_name }}</b></p>
 @endsection
 
 @section('main-content')

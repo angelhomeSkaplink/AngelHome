@@ -57,79 +57,81 @@
     <div class="col-md-12">
         <div class="box box-primary border">
             <div class="box-body border padding-top-0 padding-left-right-0">
-                <table class="table">
-                    <tbody>
-          				<tr>
-							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Room No")</th>
-          					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Room Type")</th>
-          					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Special Feature")</th>
-          					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Market Rate")</th>
-          					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Actual Rate")</th>
-          					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Book")</th>
-          				</tr>
-          				<tr>
-          					@if($reports == NULL && $rooms != NULL)
-          						@foreach ($rooms as $room)
-									<form action="{{action('RoomController@room_change')}}" method="post">
-										<input type="hidden" name="_method" value="PATCH">
-										{{ csrf_field() }}
-										<input type="hidden" class="form-control" name="pros_id" value="{{ $id }}"/>
-    									<input type="hidden" class="form-control" name="room_id" value="{{ $room->room_id}}"/>
-          								<td style="vertical-align:middle">{{ $room->room_no }}</td>
-          								<td style="vertical-align:middle">{{ $room->room_type }}</td>
-          								<td style="vertical-align:middle">{{ $room->special_feature }}</td>
-          								<td style="vertical-align:middle">${{ $room->price }}</td>
-          								<!--<input type="hidden" class="form-control" name="actual_price" value="{{ $room->price }}"/>-->
-          								@if($room->room_status == 1)
-          									<?php $actual_rate = DB::table('resident_room')->where([['room_id', $room->room_id], ['status', 1]])->first(); ?>
-          									<td style="vertical-align:middle">${{ $actual_rate->price }}</td>
-          									@endif
-          									@if($room->room_status == 0)
-          									<td ><input style="width:110px" type="number" class="form-control" placeholder="PRICE" name="price" value="{{ $room->price }}" required pattern="[0-9]"/></td>
-          									@endif
-          									<input style="width:110px" type="hidden" class="form-control" name="orgnl_price" value="{{ $room->price }}"/>
-          									@if($room->room_status == 0)
-          									<td><button type="submit" class="btn btn-success btn-circle btn-lg"><i class="glyphicon glyphicon-link"></i></button></td></tr>
-          									@endif
-          									@if($room->room_status == 1)
-          									<!--<td><a href="view_book_resident/{{ $room->room_id }}" class="btn btn-danger btn-block btn-flat">Room Booked</a></td></tr>-->
-          									<td><button type="button" class="btn btn-danger btn-circle btn-lg" id="{{ $room->room_id }}" data-toggle="modal" data-target-id="{{ $room->room_id }}"  data-target="#roomModal" ><i class="glyphicon glyphicon-remove"></i></button></td></tr>
-          									@endif
-          							</form>
-          						@endforeach
-          					@endif
-          					@if($reports == NULL && $rooms == NULL)
-          						@lang("msg.No Rooms Available")
-          					@endif
-          					@if($reports != NULL)
-          						@foreach ($reports as $room)
-          							<form action="{{action('RoomController@room_change')}}" method="post">
-          								<input type="hidden" name="_method" value="PATCH">
-          								{{ csrf_field() }}
-          								<input type="hidden" class="form-control" name="pros_id" value="{{ $id }}"/>
-          								<input type="hidden" class="form-control" name="room_id" value="{{ $room->room_id}}"/>
-          									<td>{{ $room->room_no }}</td>
-          									<td>{{ $room->room_type }}</td>
-          									<td>{{ $room->special_feature }}</td>
-          									@if($room->room_status == 1)
-          									<td>${{ $room->price }}</td>
-          									@endif
-          									@if($room->room_status == 0)
-          									<td><input type="number" class="form-control" placeholder="PRICE" name="price" value="{{ $room->price }}" required pattern="[0-9]" /></td>
-          									@endif
-          									@if($room->room_status == 0)
-          									<td><button type="submit" class="btn btn-success btn-circle btn-lg"><i class="glyphicon glyphicon-link"></i>@lang("msg.Available")</button></td></tr>
-          									@endif
-          									@if($room->room_status == 1)
-          									<!--<td><a href="view_book_resident/{{ $room->room_id }}" class="btn btn-danger btn-block btn-flat">Room Booked</a></td></tr>-->
-          									<td><button type="button" class="btn btn-danger btn-circle btn-lg" id="{{ $room->room_id }}" data-toggle="modal" data-target-id="{{ $room->room_id }}"  data-target="#roomModal"><i class="glyphicon glyphicon-remove"></i></button></td></tr>
-          									@endif
-          							</form>
-          						@endforeach
-          					@endif
-          				</tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+              				<tr>
+    							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Room No")</th>
+              					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Room Type")</th>
+              					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Special Feature")</th>
+              					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Market Rate")</th>
+              					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Actual Rate")</th>
+              					<th class="th-position text-uppercase font-500 font-12">@lang("msg.Book")</th>
+              				</tr>
+              				<tr>
+              					@if($reports == NULL && $rooms != NULL)
+              						@foreach ($rooms as $room)
+    									<form action="{{action('RoomController@room_change')}}" method="post">
+    										<input type="hidden" name="_method" value="PATCH">
+    										{{ csrf_field() }}
+    										<input type="hidden" class="form-control" name="pros_id" value="{{ $id }}"/>
+        									<input type="hidden" class="form-control" name="room_id" value="{{ $room->room_id}}"/>
+              								<td style="vertical-align:middle">{{ $room->room_no }}</td>
+              								<td style="vertical-align:middle">{{ $room->room_type }}</td>
+              								<td style="vertical-align:middle">{{ $room->special_feature }}</td>
+              								<td style="vertical-align:middle">${{ $room->price }}</td>
+              								<!--<input type="hidden" class="form-control" name="actual_price" value="{{ $room->price }}"/>-->
+              								@if($room->room_status == 1)
+              									<?php $actual_rate = DB::table('resident_room')->where([['room_id', $room->room_id], ['status', 1]])->first(); ?>
+              									<td style="vertical-align:middle">${{ $actual_rate->price }}</td>
+              									@endif
+              									@if($room->room_status == 0)
+              									<td ><input style="width:110px" type="number" class="form-control" placeholder="PRICE" name="price" value="{{ $room->price }}" required pattern="[0-9]"/></td>
+              									@endif
+              									<input style="width:110px" type="hidden" class="form-control" name="orgnl_price" value="{{ $room->price }}"/>
+              									@if($room->room_status == 0)
+              									<td><button type="submit" class="btn btn-success btn-circle btn-lg"><i class="glyphicon glyphicon-link"></i></button></td></tr>
+              									@endif
+              									@if($room->room_status == 1)
+              									<!--<td><a href="view_book_resident/{{ $room->room_id }}" class="btn btn-danger btn-block btn-flat">Room Booked</a></td></tr>-->
+              									<td><button type="button" class="btn btn-danger btn-circle btn-lg" id="{{ $room->room_id }}" data-toggle="modal" data-target-id="{{ $room->room_id }}"  data-target="#roomModal" ><i class="glyphicon glyphicon-remove"></i></button></td></tr>
+              									@endif
+              							</form>
+              						@endforeach
+              					@endif
+              					@if($reports == NULL && $rooms == NULL)
+              						@lang("msg.No Rooms Available")
+              					@endif
+              					@if($reports != NULL)
+              						@foreach ($reports as $room)
+              							<form action="{{action('RoomController@room_change')}}" method="post">
+              								<input type="hidden" name="_method" value="PATCH">
+              								{{ csrf_field() }}
+              								<input type="hidden" class="form-control" name="pros_id" value="{{ $id }}"/>
+              								<input type="hidden" class="form-control" name="room_id" value="{{ $room->room_id}}"/>
+              									<td>{{ $room->room_no }}</td>
+              									<td>{{ $room->room_type }}</td>
+              									<td>{{ $room->special_feature }}</td>
+              									@if($room->room_status == 1)
+              									<td>${{ $room->price }}</td>
+              									@endif
+              									@if($room->room_status == 0)
+              									<td><input type="number" class="form-control" placeholder="PRICE" name="price" value="{{ $room->price }}" required pattern="[0-9]" /></td>
+              									@endif
+              									@if($room->room_status == 0)
+              									<td><button type="submit" class="btn btn-success btn-circle btn-lg"><i class="glyphicon glyphicon-link"></i>@lang("msg.Available")</button></td></tr>
+              									@endif
+              									@if($room->room_status == 1)
+              									<!--<td><a href="view_book_resident/{{ $room->room_id }}" class="btn btn-danger btn-block btn-flat">Room Booked</a></td></tr>-->
+              									<td><button type="button" class="btn btn-danger btn-circle btn-lg" id="{{ $room->room_id }}" data-toggle="modal" data-target-id="{{ $room->room_id }}"  data-target="#roomModal"><i class="glyphicon glyphicon-remove"></i></button></td></tr>
+              									@endif
+              							</form>
+              						@endforeach
+              					@endif
+              				</tr>
+                        </tbody>
+                    </table>
+                </div>
 				<div class="text-center">{{ $rooms->links() }}</div>
             </div>
         </div>

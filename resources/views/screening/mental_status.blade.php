@@ -142,7 +142,7 @@
 										<div class="form-group has-feedback">
 											<label></label>
 											<select name="memory_lapses" id="memory_lapses" class="form-control" required >
-												<option value="">Memory Lapess</option>
+												<option value="">Memory Lapses</option>
 												<option value="Yes">Yes</option>
 												<option value="No">No</option>
 											</select>
@@ -168,7 +168,7 @@
 										<div class="form-group has-feedback">
 											<label></label>
 											<select name="behaviors" id="behaviors" class="form-control" required >
-												<option value="">Behaviors</option>
+												<option value="">Behaviours</option>
 												<option value="Yes">Yes</option>
 												<option value="No">No</option>
 											</select>

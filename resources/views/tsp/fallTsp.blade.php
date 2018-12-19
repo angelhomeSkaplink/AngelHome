@@ -9,16 +9,16 @@
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
              <div class="form-group">
-                 <label for="date">Date</label>
-                 <input type="date" name="fall_date" class="form-control">
+                 <label for="date">Fall Date</label>
+                 <input type="date" name="fall_date" class="form-control" required/>
              </div>
              <div class="form-group">
                      <label for="time">Fall Time</label>
-                     <input type="time" name="fall_time" class="form-control">
+                     <input type="time" name="fall_time" class="form-control" required />
              </div>
              <div class="form-group">
                      <label for="injury">Injuries <span id="add_more_input" style="cursor:pointer;color:#1a75ff;"><i class="material-icons gray md-22"> add_circle</i> Add More</span></label>
-                     <input type="text" name="injury[]" class="form-control"><br/>
+                     <input type="text" name="fall_injury[]" class="form-control" required /><br/>
                      <span class="form-group" id="add_input_area"></span>
              </div>
          </div>
@@ -26,17 +26,21 @@
              <div class="form-group">
                  <h5><strong>What To Chart:</strong></h5>
                  <label for="pain">Pain</label>
-                 <input class="form-control" type="text" name="fall_pain" id="">
+                 <input class="form-control" type="text" name="fall_pain" id="" ><br/>
                  <label for="further injuries">Any further injuries identified</label>
-                 <input class="form-control" type="text" name="further_injury" id="">
+                 <input class="form-control" type="text" name="fall_further_injury" id="" ><br/>
                  <label for="transfer">Overall resident ability to transfer</label>
-                 <input class="form-control" type="text" name="transfer" id="">
+                 <input class="form-control" type="text" name="fall_transfer" id="" ><br/>
                  <label for="mental_status">Resident Mental Status</label>
-                 <input class="form-control" type="text" name="mental_status" id="">
-                 <label for="vital signs">Vital Signs</label>
-                 <input class="form-control" type="text" name="vital_signs" id="">
+                 <input class="form-control" type="text" name="fall_mental_status" id=""><br/>
+                 <label for="vital signs">Temperature</label>
+                 <input class="form-control" type="text" name="fall_temperature" id="" ><br/>
+                 <label for="vital signs">Pulse</label>
+                 <input class="form-control" type="text" name="fall_pulse" id="" ><br/>
+                 <label for="vital signs">Blood Pressure</label>
+                 <input class="form-control" type="text" name="fall_bp" id=""><br/>
                  <label for="report">Complete Report</label>
-                 <input class="form-control" type="text" name="report" id="">
+                 <input class="form-control" type="text" name="fall_report" id="">
              </div>
          </div>
      </div>
@@ -58,7 +62,7 @@
         $(document).ready(function(){
             $('#add_more_input').click(function(){
                 var inputbox='';
-                inputbox='<input type="text" name="injury[]" class="form-control"><br/>';
+                inputbox='<input type="text" name="fall_injury[]" class="form-control" required /><br/>';
                 $('#add_input_area').append(inputbox);
             });
         });

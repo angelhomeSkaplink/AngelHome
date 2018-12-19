@@ -71,12 +71,12 @@
 							<span class="label-text">@lang("msg.ED")</span>
 						</label>
 						<label style="padding-right:10px;">
-							<input type="checkbox" name="role[]" value="3">
-							<span class="label-text">@lang("msg.Marketing")</span>
+							<input type="checkbox" name="role[]" value="2">
+							<span class="label-text">@lang("msg.Receptionist")</span>
 						</label>
 						<label style="padding-right:10px;">
-							<input type="checkbox" name="role[]" value="2">
-							<span class="label-text">@lang("msg.receptionist")</span>
+							<input type="checkbox" name="role[]" value="3">
+							<span class="label-text">@lang("msg.Marketing")</span>
 						</label>
 						<label style="padding-right:10px;">
 							<input type="checkbox" name="role[]" value="4">
@@ -84,7 +84,7 @@
 						</label>
 						<label style="padding-right:10px;">
 							<input type="checkbox" name="role[]" value="5">
-							<span class="label-text">@lang("msg.back office")</span>
+							<span class="label-text">@lang("msg.Back Office")</span>
 						</label>
 						<label style="padding-right:10px;">
 							<input type="checkbox" name="role[]" value="6">
@@ -92,11 +92,11 @@
 						</label>
 						<label style="padding-right:10px;">
 							<input type="checkbox" name="role[]" value="7">
-							<span class="label-text">@lang("msg.wellness director")</span>
+							<span class="label-text">@lang("msg.Wellness Director")</span>
 						</label>
 						<label style="padding-right:10px;">
 							<input type="checkbox" name="role[]" value="8">
-							<span class="label-text">@lang("msg.care taker")</span>
+							<span class="label-text">@lang("msg.Care Taker")</span>
 						</label>
 						<label style="padding-right:10px;">
 							<input type="checkbox" name="role[]" value="9">
@@ -104,7 +104,15 @@
 						</label>
 						<label style="padding-right:10px;">
 							<input type="checkbox" name="role[]" value="10">
-							<span class="label-text">@lang("msg.Dietacian")</span>
+							<span class="label-text">@lang("msg.Dietician")</span>
+						</label>
+						<label style="padding-right:10px;">
+							<input type="checkbox" name="role[]" value="12">
+							<span class="label-text">Med Tech</span>
+						</label>
+						<label style="padding-right:10px;">
+							<input type="checkbox" name="role[]" value="13">
+							<span class="label-text">BOM</span>
 						</label>
 					</div>			
 					<div class="form-group has-feedback">
@@ -134,10 +142,11 @@
     $('#role_ed').click(function(){
     var $inputs = $('input:checkbox')
         if($(this).is(':checked')){
-           $inputs.not(this).prop('disabled',true); // <-- disable all but checked one
+            $inputs.not(this).prop('checked',false);
+            $inputs.not(this).prop('disabled',true); // <-- disable all but checked one
         }else{
-           $inputs.prop('disabled',false); // <--
+          $inputs.prop('disabled',false); // <--
         }
-    })
+    });
 </script>
 @endsection

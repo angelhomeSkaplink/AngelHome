@@ -4,38 +4,36 @@
       </strong>
 </h3><br/>
    <div class="tab-pane fade active in container" id="tspCastOrSplint" role="tabpanel" aria-labelledby="home-tab">
-    <input type="hidden" name="tsp_type[]" value="7"> 
+    <input type="hidden" name="tsp_type[]" value="7">
     <div class="row">
          <div class="col-lg-6">
              <h5><strong>Problem/Need:</strong></h5>
              <div class="form-group">
                  <label for="cast">Cast:</label>
-                 <input class="form-control" type="text" name="cast" id="">
+                 <input class="form-control" type="text" name="castSplint_cast" id="" required />
              </div>
              <div class="form-group">
                  <label for="cast">Splint:</label>
-                 <input class="form-control" type="text" name="splint" id="">
+                 <input class="form-control" type="text" name="castSplint_splint" id="" required />
              </div>
              <div class="form-group">
                  <label for="type">Injuries:</label>
-                 <textarea style="resize:none; height:115px" rows="3" name="cast_injuries" class="form-control"></textarea>
+                 <textarea style="resize:none; height:115px" rows="3" name="castSplint_injuries" class="form-control"></textarea>
              </div>
              <div class="form-group">
                  <label for="cast">Location:</label>
-                 <input class="form-control" type="text" name="cast_location" id="">
+                 <input class="form-control" type="text" name="castSplint_location" id="" required />
              </div>
          </div>
          <div class="col-lg-6">
              <div class="form-group">
              <h5><strong>What To Chart:</strong></h5>
              <label for="pain">Pain</label>
-             <input class="form-control" type="text" name="cast_pain" id="">
+             <input class="form-control" type="text" name="castSplint_pain" id=""><br/>
              <label for="further injuries">Any injuries or skin issues identified</label>
-             <input class="form-control" type="text" name="cast_injury" id="">
-             <label for="transfer">Any injuries or skin issues identified –</label>
-             <input class="form-control" type="text" name="cast_injury" id="">
+             <input class="form-control" type="text" name="castSplint_skinIssues" id=""><br/>
              <label for="mental_status">Overall resident ability to transfer</label>
-             <input class="form-control" type="text" name="cast_transfer" id="">
+             <input class="form-control" type="text" name="castSplint_transfer" id="">
              </div>
          </div>
      </div>

@@ -9,20 +9,20 @@
           <h5><strong>Problem/Need:</strong></h5>
           <div class="form-group">
               <label for="symptoms">New Medication Order</label>
-              <textarea style="resize:none; height:115px" class="form-control" rows="5" name="new_med"></textarea>
+              <textarea style="resize:none; height:115px" class="form-control" rows="5" name="new_med_order"></textarea>
           </div>
           <div class="form-group">
               <label for="symptoms">Precautions</label>
-              <textarea style="resize:none; height:115px" class="form-control" rows="3" name="precaution"></textarea>
+              <textarea style="resize:none; height:115px" class="form-control" rows="3" name="new_med_precaution"></textarea>
           </div>
       </div>
       <div class="col-lg-6">
           <div class="form-group">
               <h5><strong>What To Chart:</strong></h5>
               <label for="symptoms">Any signs and symptoms of adverse reactions</label>
-              <input class="form-control" type="text" name="adverse_symptoms" id="">
+              <input class="form-control" type="text" name="new_med_symptoms" id="">
               <label for="complaints">Other complaints by resident</label>
-              <input class="form-control" type="text" name="med_complaints" id="">
+              <input class="form-control" type="text" name="new_med_complaints" id="">
           </div>
       </div>
   </div>

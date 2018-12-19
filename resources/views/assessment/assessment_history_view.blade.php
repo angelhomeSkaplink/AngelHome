@@ -35,23 +35,25 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary border">				
-            <div class="box-body border padding-top-0 padding-left-right-0">					
-                <table class="table">
-                    <tbody>
-						<tr>
-							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessment Done")</th>
-							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Date Of Assessment")</th>
-							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessment Point")</th>
-						</tr>
-						@foreach ($reports as $report)							
-						<tr>
-							<td>{{ $report->assessment_form_name }}</td>								
-							<td>{{ $report->assessment_date }}</td>
-							<td>{{ $report->score }}</td>
-						</tr>
-						@endforeach
-                    </tbody>
-                </table>
+            <div class="box-body border padding-top-0 padding-left-right-0">
+                <div class="table-responsive">					
+                    <table class="table">
+                        <tbody>
+    						<tr>
+    							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessment Done")</th>
+    							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Date Of Assessment")</th>
+    							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessment Point")</th>
+    						</tr>
+    						@foreach ($reports as $report)							
+    						<tr>
+    							<td>{{ $report->assessment_form_name }}</td>								
+    							<td>{{ $report->assessment_date }}</td>
+    							<td>{{ $report->score }}</td>
+    						</tr>
+    						@endforeach
+                        </tbody>
+                    </table>
+                </div>
 				<div class="text-center">{{ $reports->links() }}</div>
             </div>                
         </div>

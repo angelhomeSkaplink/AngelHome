@@ -22,7 +22,7 @@
 						<tr>
 							<th class="th-position text-uppercase font-500 font-12">#</th>
 							<th class="th-position text-uppercase font-500 font-13">Resident</th>
-							<th class="th-position text-uppercase font-500 font-12">Check-Up</th>
+							<th class="th-position text-uppercase font-500 font-12">Vital Statistics</th>
 						</tr>
 						@foreach ($residents as $r)
 						<tr>

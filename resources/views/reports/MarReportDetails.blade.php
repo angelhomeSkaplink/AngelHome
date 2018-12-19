@@ -93,25 +93,17 @@ List of Patients
 	}
 </style>
 <style  type = "text/css" media = "screen">
-	.print-header{
-		display:none;
-	}
-	.print-footer{
-		display:none;
-	}
+	.print-header{ display:none; }
+	.print-footer{ display:none; }
 </style>
 <style  type = "text/css" media = "print">
-	.print-header{
-		display:block;
-	}
-	.print-footer{
-		display:block;
-	}
+	.print-header{ display:block; }
+	.print-footer{ display:block; }
 </style>
 <div class="tableContainer" style="background-color:#fff;">
 	<div>
-		<!-- Bootstrap core CSS -->
-		<!-- TOP BAR -->
+	<!-- Bootstrap core CSS -->
+	<!-- TOP BAR -->
 		<div class="row" style="overflow-x:auto;">
 			<div class="box box-primary border" id="printableDiv">
 				<div class="print-header">
@@ -263,7 +255,7 @@ List of Patients
 							<table>
 								<tr>
 									<td style="width:90%;" class="text-center">
-										<h4><strong>Powered by Senior Safe Technology LCC.</strong></h4>
+										<h4><b>Powered by Senior Safe Technology LCC.</b></h4>
 									</td>
 								</tr>
 							</table>

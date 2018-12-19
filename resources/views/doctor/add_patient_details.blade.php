@@ -370,6 +370,7 @@
             }
         });
         $('#all_day').prop('checked', selectAll);
+        
     });
     });
     </script>

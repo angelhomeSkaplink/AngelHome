@@ -7,11 +7,26 @@
 @endsection
 
 @section('contentheader_title')
-    Add Stock Upto Date
-    <a href="{{ url('medicine_stocks_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:115px !important"><i class="material-icons md-14 font-weight-600"> details </i> Go Back</a>
+    <p class="text-danger"><b></b>Add Stock Upto Date
+    <a href="{{ url('medicine_stocks_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:115px !important; margin-right: 10px !important;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back Go Back</a>
+    </p>
 @endsection
 
 @section('main-content')
+<style>
+	.wickedpicker{
+		z-index:999 !important;
+	}
+	.content-header
+	{
+		//display:none;
+		padding: 2px 0px 1px 20px;
+		margin-bottom: -10px;
+	}
+	.content {
+		margin-top: 15px;
+	}
+</style>
 <div class="box box-primary" style="padding:15px; margin-top:22px;">
     <div class="container">
         <div class="tab-content" id="myTabContent">

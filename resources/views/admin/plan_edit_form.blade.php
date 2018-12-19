@@ -6,7 +6,7 @@
 @endsection
 
 @section('contentheader_title')
-    @lang("msg.Edit Plan Details")
+   <p class="text-danger"><b>@lang("msg.Edit Plan Details")</b></p> 
 @endsection
 
 @section('main-content')
@@ -41,11 +41,11 @@
 					{{ csrf_field() }}
           <input type="hidden" name="plan_id" value="{{$plan->service_plan_id}}">
 					<div class="form-group has-feedback">
-						<label>@lang("msg.Service Plan Name")</label>
+						<label>@lang("msg.Servive Plan Name")</label>
 						<input type="text" class="form-control" name="service_plan_name" id="service_plan_name" value="{{$plan->service_plan_name}}" readonly />
 					</div>
 					<div class="form-group has-feedback">
-						<label>@lang("msg.Point Range(From)")</label>
+						<label>@lang("msg.Point Range (From)")</label>
 						<select name="from_range" id="from_range" class="form-control" required >
 							<option value="{{$plan->from_range}}">{{$plan->from_range}}</option>
 							<?php for($i=1; $i<=1000; $i++){?>
@@ -62,7 +62,7 @@
 						</div>
 					</div>
 					<div class="form-group has-feedback" >
-						<label>@lang("msg.Point Range(to)")</label>
+						<label>@lang("msg.Point Range (to)")</label>
 						<select name="to_range" id="to_range" class="form-control" required >
 							<option value="{{$plan->to_range}}">{{$plan->to_range}}</option>
 							<?php for($i=1; $i<=1000; $i++){?>

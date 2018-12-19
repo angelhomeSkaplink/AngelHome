@@ -15,7 +15,10 @@
 			array_push($role_arr,$r->id);
 		}
 	?>
-	@if(in_array(9,$role_arr))
+	@if(in_array(1,$role_arr))
+	<a href="{{ url('new_event_add_form') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:187px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> add </i>@lang("msg.Add New Event")</a>
+	@endif
+	@if(in_array(11,$role_arr))
 	<a href="{{ url('new_event_add_form') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:187px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> add </i>@lang("msg.Add New Event")</a>
 	@endif
 	</p>

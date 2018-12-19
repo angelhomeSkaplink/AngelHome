@@ -29,36 +29,37 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary border">
-				
             <div class="box-body border padding-top-0 padding-left-right-0">
-                <table class="table">
-                    <tbody>
-						<tr>
-							<th class="th-position text-uppercase font-500 font-12">#</th>
-							<th class="th-position text-uppercase font-700 font-12">
-								<div class="autocomplete" style="width:200px;">
-									<input id="myInput" type="text" placeHolder="FUTURE RESIDENT">
-								</div>
-							</th>
-							<th class="th-position text-uppercase font-500 font-12">Appointment Date</th>
-							<th class="th-position text-uppercase font-500 font-12">Appointment Time</th>
-							<th class="th-position text-uppercase font-500 font-12">Reschedule Appointment</th>
-						</tr>
-						@foreach ($appointments as $appointment)
-						<tr>
-							@if($appointment->service_image == NULL)
-							<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
-							@else
-							<td><img src="hsfiles/public/img/{{ $appointment->service_image }}" class="img-circle" width="40" height="40"></td>
-							@endif
-							<td>{{ $appointment->pros_name }}</td>								
-							<td>{{ $appointment->appointment_date }}</td>
-							<td>{{ $appointment->appointment_time }}</td>
-							<td class="padding-left-82"><a href="reschedule/{{ $appointment->appoiuntment_id }}"><i class="material-icons gray md-22">schedule </i></a></td>
-						</tr>
-						@endforeach
-                       </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+    						<tr>
+    							<th class="th-position text-uppercase font-500 font-12">#</th>
+    							<th class="th-position text-uppercase font-700 font-12">
+    								<div class="autocomplete" style="width:200px;">
+    									<input id="myInput" type="text" placeHolder="FUTURE RESIDENT">
+    								</div>
+    							</th>
+    							<th class="th-position text-uppercase font-500 font-12">Appointment Date</th>
+    							<th class="th-position text-uppercase font-500 font-12">Appointment Time</th>
+    							<th class="th-position text-uppercase font-500 font-12">Reschedule Appointment</th>
+    						</tr>
+    						@foreach ($appointments as $appointment)
+    						<tr>
+    							@if($appointment->service_image == NULL)
+    							<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
+    							@else
+    							<td><img src="hsfiles/public/img/{{ $appointment->service_image }}" class="img-circle" width="40" height="40"></td>
+    							@endif
+    							<td>{{ $appointment->pros_name }}</td>								
+    							<td>{{ $appointment->appointment_date }}</td>
+    							<td>{{ $appointment->appointment_time }}</td>
+    							<td class="padding-left-82"><a href="reschedule/{{ $appointment->appoiuntment_id }}"><i class="material-icons gray md-22">schedule </i></a></td>
+    						</tr>
+    						@endforeach
+                           </tbody>
+                    </table>
+                </div>
 				<div class="text-center">{{ $appointments->links() }}</div>
             </div>                
         </div>

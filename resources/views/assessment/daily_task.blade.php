@@ -54,92 +54,94 @@
         <div class="box box-primary border">
 			<div id="DivIdToPrint">
 				<div class="box-body border padding-top-0 padding-left-right-0">
-					<table class="table">
-						<tbody>
-							<tr>
-								<th class="th-position text-uppercase font-500 font-12">#</th>
-								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Resident")</th>
-								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Person Required") </th>
-								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Start Time")</th>
-								<th class="th-position text-uppercase font-500 font-12">@lang("msg.End Time")</th>
-								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Special Equipment")</th>
-							</tr>
-							@foreach ($tasks as $medicine)
-							<tr>
-								@if($medicine->frequency=='Daily')
-									@if($medicine->service_image == NULL)
-									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
-									@else
-									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
-									@endif
-									
-									<td>{{ $medicine->pros_name }}</td>
-									<td>{{ $medicine->person_required }}</td>	
-									<td>{{ $medicine->s_time }}</td>	
-									<td>{{ $medicine->e_time }}</td>	
-									<td>{{ $medicine->special_equipment }}</td>									
-								@endif
-								@if($medicine->frequency=='Alt.Days')
-									<?php 										
-										$diff = (date_diff(date_create($medicine->s_date),date_create(date("Y-m-d"))))->days;
-										$result = fmod($diff,2);
-									if($result==0){	
-									?>
-									@if($medicine->service_image == NULL)
-									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
-									@else
-									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
-									@endif
-									
-									<td>{{ $medicine->pros_name }}</td>
-									<td>{{ $medicine->person_required }}</td>	
-									<td>{{ $medicine->s_time }}</td>	
-									<td>{{ $medicine->e_time }}</td>	
-									<td>{{ $medicine->special_equipment }}</td>										
-									<?php } ?>
-								@endif
-								@if($medicine->frequency=='Weekly')
-									<?php 										
-										$diff = (date_diff(date_create($medicine->s_date),date_create(date("Y-m-d"))))->days;
-										$result = fmod($diff,7);
-									if($result==0){	
-									?>
-									@if($medicine->service_image == NULL)
-									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
-									@else
-									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
-									@endif
-									
-									<td>{{ $medicine->pros_name }}</td>
-									<td>{{ $medicine->person_required }}</td>	
-									<td>{{ $medicine->s_time }}</td>	
-									<td>{{ $medicine->e_time }}</td>	
-									<td>{{ $medicine->special_equipment }}</td>									
-									<?php } ?>
-								@endif	
-								@if($medicine->frequency=='Monthly')
-									<?php 										
-										$diff = (date_diff(date_create($medicine->s_date),date_create(date("Y-m-d"))))->days;
-										$result = fmod($diff,7);
-										if($result==0){	
-									?>
-									@if($medicine->service_image == NULL)
-									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
-									@else
-									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
-									@endif
-									
-									<td>{{ $medicine->pros_name }}</td>
-									<td>{{ $medicine->person_required }}</td>	
-									<td>{{ $medicine->s_time }}</td>	
-									<td>{{ $medicine->e_time }}</td>	
-									<td>{{ $medicine->special_equipment }}</td>									
-									<?php } ?>
-								@endif
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
+				    <div class="table-responsive">
+    					<table class="table">
+    						<tbody>
+    							<tr>
+    								<th class="th-position text-uppercase font-500 font-12">#</th>
+    								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Resident")</th>
+    								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Person Required") </th>
+    								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Start Time")</th>
+    								<th class="th-position text-uppercase font-500 font-12">@lang("msg.End Time")</th>
+    								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Special Equipment")</th>
+    							</tr>
+    							@foreach ($tasks as $medicine)
+    							<tr>
+    								@if($medicine->frequency=='Daily')
+    									@if($medicine->service_image == NULL)
+    									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
+    									@else
+    									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
+    									@endif
+    									
+    									<td>{{ $medicine->pros_name }}</td>
+    									<td>{{ $medicine->person_required }}</td>	
+    									<td>{{ $medicine->s_time }}</td>	
+    									<td>{{ $medicine->e_time }}</td>	
+    									<td>{{ $medicine->special_equipment }}</td>									
+    								@endif
+    								@if($medicine->frequency=='Alt.Days')
+    									<?php 										
+    										$diff = (date_diff(date_create($medicine->s_date),date_create(date("Y-m-d"))))->days;
+    										$result = fmod($diff,2);
+    									if($result==0){	
+    									?>
+    									@if($medicine->service_image == NULL)
+    									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
+    									@else
+    									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
+    									@endif
+    									
+    									<td>{{ $medicine->pros_name }}</td>
+    									<td>{{ $medicine->person_required }}</td>	
+    									<td>{{ $medicine->s_time }}</td>	
+    									<td>{{ $medicine->e_time }}</td>	
+    									<td>{{ $medicine->special_equipment }}</td>										
+    									<?php } ?>
+    								@endif
+    								@if($medicine->frequency=='Weekly')
+    									<?php 										
+    										$diff = (date_diff(date_create($medicine->s_date),date_create(date("Y-m-d"))))->days;
+    										$result = fmod($diff,7);
+    									if($result==0){	
+    									?>
+    									@if($medicine->service_image == NULL)
+    									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
+    									@else
+    									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
+    									@endif
+    									
+    									<td>{{ $medicine->pros_name }}</td>
+    									<td>{{ $medicine->person_required }}</td>	
+    									<td>{{ $medicine->s_time }}</td>	
+    									<td>{{ $medicine->e_time }}</td>	
+    									<td>{{ $medicine->special_equipment }}</td>									
+    									<?php } ?>
+    								@endif	
+    								@if($medicine->frequency=='Monthly')
+    									<?php 										
+    										$diff = (date_diff(date_create($medicine->s_date),date_create(date("Y-m-d"))))->days;
+    										$result = fmod($diff,7);
+    										if($result==0){	
+    									?>
+    									@if($medicine->service_image == NULL)
+    									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
+    									@else
+    									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
+    									@endif
+    									
+    									<td>{{ $medicine->pros_name }}</td>
+    									<td>{{ $medicine->person_required }}</td>	
+    									<td>{{ $medicine->s_time }}</td>	
+    									<td>{{ $medicine->e_time }}</td>	
+    									<td>{{ $medicine->special_equipment }}</td>									
+    									<?php } ?>
+    								@endif
+    							</tr>
+    							@endforeach
+    						</tbody>
+    					</table>
+					</div>
 				</div>
 			</div>
 			<!--<div class="form-group has-feedback" style="float:right;margin-right:5px;">
