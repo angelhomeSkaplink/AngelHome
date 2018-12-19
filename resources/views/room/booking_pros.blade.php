@@ -55,9 +55,9 @@ $(document).ready(function() {
     							<th class="th-position text-uppercase font-400 font-13">resident
     								<!--<select name="id" id="id" class="form-control" >
     									<option value="">SELECT RESIDENT</option>
-    								  @foreach ($reports_all as $prospect)
+    								  {{-- @foreach ($reports_all as $prospect)
     								  <option value="{{ $prospect->id}}">{{ $prospect->pros_name }}</option>
-    								  @endforeach
+    								  @endforeach --}}
     								</select>-->
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">Phone No</th>

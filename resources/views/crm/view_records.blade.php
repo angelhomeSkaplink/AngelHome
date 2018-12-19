@@ -429,21 +429,33 @@
                 @endphp
         @if($stage == NULL)
         @php 
-            $screening = DB::table('screening')->where('pros_id',$row->id)->first();
+			$screening = DB::table('screening')->where('pros_id',$row->id)->first();
+			$sl_no = DB::table('assessment_entry')->where('sl no',0)->first();
+			$assessment = DB::table('resident_assessment')->where([['pros_id',$row->id],['assessment_id',$sl_no->assessment_id]])->first();
 		@endphp				
 		@if($screening)
 			@if($screening->all_scr==1)
-                @php
-                    $sl_no = DB::table('assessment_entry')->where('sl no',0)->first();
-                    $assessment = DB::table('resident_assessment')->where([['pros_id',$row->id],['assessment_id',$sl_no->assessment_id]])->first();
+				@php
+					$check_room = DB::table('resident_room')->where([['pros_id', $row->id],['status',1]])->first();
                 @endphp
-                @if($assessment)
-					<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
-						<a href="../add_prospect_record/MoveIn/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a>
-					</h4>
-                    <div class="form-inline border-top">
-                        <div class='text-danger' style="padding-top:10px; padding-bottom:7px">Add Details by Clicking on Add Record</div> 
-                    </div>			
+				@if($assessment)
+					@if($check_room==null)
+						<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")	
+							<a href="../add_prospect_record/MoveIn/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a>
+							<a href="../change_own_room/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Book Room</span></a>
+						</h4>
+						<div class="form-inline border-top">
+							<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Book A Room!</div> 
+						</div>
+					@else
+						<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")	
+							<a href="../add_prospect_record/MoveIn/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a>
+						</h4>
+						<div class="form-inline border-top">
+							<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Add Details by Clicking on Add Record</div> 
+						</div>
+					@endif
+								
 				@else 
 					<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
 						<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Main Assessment</span></a>
@@ -453,31 +465,27 @@
                         </div>
                 @endif
             @else 
-                @php
-                    $sl_no = DB::table('assessment_entry')->where('sl no',0)->first();
-                    $assessment = DB::table('resident_assessment')->where([['pros_id',$row->id],['assessment_id',$sl_no->assessment_id]])->first();
-                @endphp
-                @if($assessment)
-    				<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
-    					<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>
-    				</h4>
-                    <div class="form-inline border-top">
-    					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening!</div>
-    				</div>
+				@if($assessment)
+					<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
+						<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>
+					</h4>
+					<div class="form-inline border-top">
+						<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening!</div>
+					</div>
 				@else
-    				<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
-				        <a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="margin-left: 5px; position:relative; top:-5px">Main Assessment</a>
-				        <a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>
-			        </h4>
-                    <div class="form-inline border-top">
-    					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening and Main Assessment!</div>
-    				</div>
-    			@endif
+					<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
+						<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 " style="margin-left: 5px; position:relative; top:-5px">Main Assessment</a>
+						<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 " style="position:relative; top:-5px">Screening</span></a>
+					</h4>
+					<div class="form-inline border-top">
+						<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening and Main Assessment!</div>
+					</div>
+				@endif
 			@endif
 	    @else
 			<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
-				<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="margin-left: 5px; position:relative; top:-5px">Main Assessment</a>
-				<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>
+				<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="margin-left: 5px; position:relative; top:-5px">Main Assessment</a>
+				<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="position:relative; top:-5px">Screening</span></a>
 			</h4>
             <div class="form-inline border-top">
 				<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete Screening and Main Assessment First!</div>

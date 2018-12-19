@@ -51,7 +51,7 @@
     							<th class="th-position text-uppercase font-500 font-12">#</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="myInput" type="text" placeHolder="FUTURE RESIDENT">
+    									<input id="myInput" type="text" placeHolder="RESIDENT">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">Phone No</th>

@@ -92,8 +92,8 @@ class RoomController extends Controller
 	public function booking(Request $request){	
 	    $val = $request['language'];
 	    App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
-		$reports = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
+		$crms = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['stage',"MoveIn"]])->paginate(6);
+		$reports = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['stage',"MoveIn"]])->get();
         return view('room.booking', compact('crms', 'reports'));
     }
 	
@@ -135,16 +135,22 @@ class RoomController extends Controller
 		return redirect('/booking');
     }
 	
-	public function room_change(Request $request){		
-		$j = DB::table('facility_room')->where('room_id', $request['room_id'])->update(['room_status' => 1]);
-		$release_date = date('Y-m-d');
-		$i = DB::table('resident_room')->where('pros_id', $request['pros_id'])->update(['release_date'=> $release_date,'status' => 0]);
-		$k = DB::table('resident_room')->where('pros_id', $request['pros_id'])->get();
+	public function room_change(Request $request){
 		
-		foreach($k as $K){
-			$j = DB::table('facility_room')->where('room_id', $K->room_id)->update(['room_status' => 0]);
+		
+		$check_room = DB::table('resident_room')->where([['pros_id', $request['pros_id']],['status',1]])->first();
+		if($check_room != null){
+			$release_date = date('Y-m-d');
+			$update_facility_room = DB::table('facility_room')->where('room_id', $check_room->room_id)->update(['room_status' => 0]);
+			$update_resident_room = DB::table('resident_room')->where([['pros_id', $request['pros_id']],['resident_room_id',$check_room->resident_room_id]])->update(['release_date'=> $release_date,'status' => 0]);
 		}
+		// $i = DB::table('resident_room')->where('pros_id', $request['pros_id'])->update(['release_date'=> $release_date,'status' => 0]);
+		// $k = DB::table('resident_room')->where('pros_id', $request['pros_id'])->get();
 		
+		// foreach($k as $K){
+		// 	$j = DB::table('facility_room')->where('room_id', $K->room_id)->update(['room_status' => 0]);
+		// }
+		$j = DB::table('facility_room')->where('room_id', $request['room_id'])->update(['room_status' => 1]);
         $roombook = new RoomBook();
 		$roombook->pros_id = $request['pros_id'];
 		$roombook->room_id = $request['room_id'];
