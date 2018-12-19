@@ -353,35 +353,69 @@
     </div>
 	<div id="5" class="tab-pane fade">
         <div class="box box-primary arrow_box border-light-blue">
-			<div class="box-body padding-top-5" style="height:190px">	
+			<div class="box-body padding-top-5" style="height:320px">	
 				<?php $signing = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', "Lease-Signing"]])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
 				@if($signing == NULL)
-					<h4 class="font-500 text-uppercase font-15">@lang("msg.Lease Signing") <a href="../add_prospect_record/Lease-Signing/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">ADD RECORD</span></a></h4>
+				<h4 class="font-500 text-uppercase font-15">@lang("msg.Lease Signing")</h4>
 				<div class="form-inline border-top">
-					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">@lang("msg.No Records Found")</div> 
+					<div class="row">
+						<form action="{{ action('ProspectiveController@new_records_pros_add') }}" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="_method" value="PATCH">
+							{{ csrf_field() }}
+							<input type="hidden" class="form-control" value="Lease-Signing" name="sales_stage" id="sales_stage" readonly />
+							<input type="hidden" class="form-control" value="{{ $row->id }}" name="pipeline_id" id="pipeline_id" readonly />
+							<div class="col-md-8 col-md-offset-2">
+								<div class="box box-primary">				
+									<div class="box-body padding-bottom-15">
+										<div class="row">
+												<div class="col-lg-6">
+												<input type="hidden" class="form-control" name="pros_id" value="{{ $row->id }}" />
+												<div class="form-group has-feedback">
+														<label>Lead Type </label>
+														<select name="lead_id" id="lead_id" class="form-control" required >							
+															<option value="">Select Lead Type</option>
+															@foreach($leads as $lead)
+																<option value="{{ $lead->lead_id}}">{{ $lead->lead_type }}</option>
+															@endforeach							
+														</select>
+													</div>
+												<div class="form-group has-feedback">
+													<input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="Document name" required/>
+												</div>
+												<div class="form-group has-feedback">
+												@lang("msg.Upload the document here")
+												<input id="file" type="file" class="form-control" name="doc_file" accept="image/*,.doc, .docx,.pdf,.odf,.odt" size="2MB" required/>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="form-group has-feedback">
+													<p style=""><strong>Supported file types:<span style="color:#bfbfbf"> .jpeg, .jpg, .png, .gif, .tiff, .bmp, .doc, .docx, .pdf, .odf, .odt </span></strong></p>
+													<p style=""><strong>Max-Size:<span style="color:#bfbfbf"> 5MB </span></strong></p>
+												</div>
+												<div class="form-group has-feedback">
+													<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
+												</div>
+												<div class="form-group has-feedback">
+													<a href="{{  url('screening') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
+												</div>
+											</div>
+										</div>
+										   
+												
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 				@endif
 				@if($signing != NULL)
 					
 				<h4 class="font-500 text-uppercase font-15">Lease Signing @if($signing->status == 1)<span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Active State")</span> @endif </h4>
-				
-					<div class="form-inline border-top">
-					
-					<div style="margin-top:10px"></div>
-					
-					<label class="text-capitalize font-500 font-14">@lang("msg.Date")</label> : <span class="font-14">{{ $signing->date }}</span>					
-					<div style="clear:both; margin-top:7px"></div>
-					
-					<?php $lead = DB::table('leads')->where('lead_id', $signing->lead_id)->first(); ?>
-						<label class="text-capitalize font-500 font-14">@lang("msg.Lead Status")</label> : <span class="font-14">{{ $lead->lead_type }}</span>
-						<div style="clear:both; margin-top:7px"></div>
-					
-						<label class="text-capitalize font-500 font-14">@lang("msg.Note")</label> : <span class="font-14">{{ $signing->notes }}</span>
-					
-						<div style="clear:both; margin-top:7px"></div>
-						<label class="text-capitalize font-500 font-14">@lang("msg.Communication Method")</label> : <span class="font-14">{{ $tour->moc }}</span>
-					</div>						
-					@endif
+				<div class="form-inline border-top">
+					<div class='font-500 text-uppercase font-15' style="padding-top:10px; padding-bottom:7px">Lease Document Uploaded!</div>
+				</div>		
+				@endif
 					
 				</div>
 			

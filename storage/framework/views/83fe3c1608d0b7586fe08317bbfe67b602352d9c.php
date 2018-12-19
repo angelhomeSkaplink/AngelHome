@@ -1,15 +1,13 @@
-@extends('layouts.app')
-
-@section('htmlheader_title')
+<?php $__env->startSection('htmlheader_title'); ?>
     Prospective Add
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('contentheader_title')
+<?php $__env->startSection('contentheader_title'); ?>
 <?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-  <p class="text-danger"><b>Upload legal document for {{ $name->pros_name }}</b></p>
-@endsection
+  <p class="text-danger"><b>Upload legal document for <?php echo e($name->pros_name); ?></b></p>
+<?php $__env->stopSection(); ?>
 
-@section('main-content')
+<?php $__env->startSection('main-content'); ?>
 <style>
 	.content-header
 	{
@@ -40,31 +38,31 @@
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left:-14px; margin-right:-14px; margin-top:1px">
       <li class="nav-item">
-        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONAL</a>
+        <a class="nav-link" href="../resposible_personal/<?php echo e($id); ?>">RESPOSIBLE PERSONAL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONAL</a>
+        <a class="nav-link" href="../significant_personal/<?php echo e($id); ?>">SIGNIFICANT PERSONAL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../resident_details/{{ $id }}">RESIDENT DETAILS</a>
+        <a class="nav-link" href="../resident_details/<?php echo e($id); ?>">RESIDENT DETAILS</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../primary_doctor/{{ $id }}">PHYSICIAN & DENTIST</a>
+        <a class="nav-link" href="../primary_doctor/<?php echo e($id); ?>">PHYSICIAN & DENTIST</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../pharmacy/{{ $id }}">HOSPITAL & PHARMACY</a>
+        <a class="nav-link" href="../pharmacy/<?php echo e($id); ?>">HOSPITAL & PHARMACY</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../medical_equipment/{{ $id }}">MEDICAL EQUIPMENT</a>
+        <a class="nav-link" href="../medical_equipment/<?php echo e($id); ?>">MEDICAL EQUIPMENT</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="../legal_doc/{{ $id }}">LEGAL DOCUMENT</a>
+        <a class="nav-link" href="../legal_doc/<?php echo e($id); ?>">LEGAL DOCUMENT</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../insurance/{{ $id }}">INSURANCE</a>
+        <a class="nav-link" href="../insurance/<?php echo e($id); ?>">INSURANCE</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../funeral_home/{{ $id }}">FUNERAL HOME</a>
+        <a class="nav-link" href="../funeral_home/<?php echo e($id); ?>">FUNERAL HOME</a>
       </li>
     </ul>
     <div style="margin-top:35px"></div>
@@ -73,20 +71,21 @@
                 <div class="col-md-12">
                     
                         <div class="row">
-                            <form action="{{ action('ScreeningController@add_legal_doc') }}" method="post" enctype="multipart/form-data">
+                            <form action="<?php echo e(action('ScreeningController@add_legal_doc')); ?>" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="_method" value="PATCH">
-                                {{ csrf_field() }}
+                                <?php echo e(csrf_field()); ?>
+
                                 <div class="col-md-8 col-md-offset-2">
                                     <div class="box box-primary">				
                                         <div class="box-body padding-bottom-15">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <input type="hidden" class="form-control" name="pros_id" value="{{ $id }}" />
+                                                    <input type="hidden" class="form-control" name="pros_id" value="<?php echo e($id); ?>" />
                                                     <div class="form-group has-feedback">
                                                         <input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="Document name" required/>
                                                     </div>
                                                     <div class="form-group has-feedback">
-                                                    @lang("msg.Upload the document here")
+                                                    <?php echo app('translator')->get("msg.Upload the document here"); ?>
                                                     <input id="file" type="file" class="form-control" name="doc_file" accept="image/*,.doc, .docx,.pdf,.odf,.odt" size="2MB" required/>
                                                     </div>
                                                 </div>
@@ -96,10 +95,10 @@
                                                         <p style=""><strong>Max-Size:<span style="color:#bfbfbf"> 5MB </span></strong></p>
                                                     </div>
                                                     <div class="form-group has-feedback">
-                                                        <button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
+                                                        <button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm"><?php echo app('translator')->get("msg.Submit"); ?></button>
                                                     </div>
                                                     <div class="form-group has-feedback">
-                                                        <a href="{{  url('screening') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
+                                                        <a href="<?php echo e(url('screening')); ?>" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px"><?php echo app('translator')->get("msg.Cancel"); ?></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -116,7 +115,7 @@
         </div>
     </div>
 </div>
-@include('layouts.partials.scripts_auth')
+<?php echo $__env->make('layouts.partials.scripts_auth', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
     var uploadField = document.getElementById("file");
     uploadField.onchange = function() {
@@ -126,4 +125,6 @@
         };
     };
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

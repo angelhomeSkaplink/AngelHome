@@ -12,6 +12,7 @@ use App\Appointment;
 use App\ResidentInjury;
 use App\NextAssessment;
 use App\FileUpload;
+use App\LegalDocUpload;
 use DB, Auth, Validator, App;
 use Kamaln7\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Route;
@@ -204,12 +205,12 @@ class ProspectiveController extends Controller
 	public function view_records(Request $request, $pipeline_id){
 	    $val = $request['language'];
 		App::setlocale($val);
-		
+		$leads = DB::table('leads')->get();
         $row = DB::table('sales_pipeline')->where('id', $pipeline_id)->first();
 		$details = DB::table('change_pross_record')->where([['pros_id', $pipeline_id],['status', 1]])->first();
 		$stages = DB::table('stage_pipeline')->where('pipeline_id', $pipeline_id)->orderBy('stage_pipeline_id', 'DESC')->get();
 		
-		return view('crm.view_records', compact('row', 'stages', 'details'));
+		return view('crm.view_records', compact('row', 'stages', 'details','leads'));
     }
 	
 	public function sales_stage_pipeline(Request $request){	
@@ -640,7 +641,7 @@ class ProspectiveController extends Controller
 	}
 	
 	public function new_records_pros_add(Request $request){
-		
+		// dd($request['sales_stage']);
 		$marketing_id = Auth::user()->user_id;
 		
 // 		$j = DB::table('sales_pipeline')->where('id', $request['pipeline_id'])->update(['marketing_id' => $marketing_id]);
@@ -650,7 +651,7 @@ class ProspectiveController extends Controller
 		$sales = new stage();		
 		$sales->lead_id = $request['lead_id'];
 		$sales->sales_stage = $request['sales_stage'];
-		$sales->date = $request['date'];
+		$sales->date = date('Y/m/d');
 		$sales->pipeline_id = $request['pipeline_id'];
 		$sales->status = 1;
 		$sales->notes = $request['notes'];
@@ -668,10 +669,41 @@ class ProspectiveController extends Controller
 			$appointment->status = 1;	
 			$appointment->save();
 		}
-		
+		if($request['sales_stage']=='Lease-Signing'){
+			$new_doc = new LegalDocUpload();		
+			
+		$file = $request->file('doc_file');    
+		       
+		$fileName = $file->getClientOriginalName();
+		$fileName = uniqid().$fileName;
+		$fileType = substr($fileName, -4);
+		$fileType = strtolower($fileType);
+		if($fileType ==".jpg" || $fileType =="jpeg" || $fileType ==".png" || $fileType ==".gif" || $fileType =="tiff" || $fileType ==".bmp" || $fileType ==".pdf" || $fileType ==".odf" || $fileType ==".doc" || $fileType =="docx"){
+			$fileSize = $file->getClientSize();
+			if($fileSize>5242880){
+				Toastr::warning("You can not upload file more than 5MB!");
+			}else{
+				$destinationPath = public_path().'/legal_doc/';	
+
+				$new_doc->pros_id = $request['pros_id'];
+				$file->move($destinationPath,$fileName);
+				$new_doc->doc_name = $request['doc_name'];
+				$new_doc->doc_file = $fileName ;
+				$new_doc->file_type = $fileType ;
+				$new_doc->user_id = Auth::user()->user_id;
+				$new_doc->facility_id = Auth::user()->facility_id;
+				$new_doc->upload_date = date('Y/m/d');
+				$new_doc->save();
+				Toastr::success("File Uploaded Successfully !!");
+			}	
+		}else{
+				Toastr::warning("Oops ! unsupported file type.");
+		}
+
+		}
 		if($request['sales_stage']=='MoveIn'){
-			Toastr::success("Sales Stages Update Successfully !!<br/> Add Personal Details");
-			return redirect('details/'.$request['pipeline_id']);
+			Toastr::success("Move In Completed !!<br/> Add Personal Details");
+			return redirect('view_records/'.$request['pipeline_id']);
 		}else{
 			Toastr::success("Sales Stages Update Successfully !!");
 			return redirect('view_records/'.$request['pipeline_id']);
