@@ -90,7 +90,7 @@ class AssessmentController extends Controller
     public function preadmin_resident_assessment(Request $request){	
 	    $val = $request['language'];
 		App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
+		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->paginate(6);
 		//$crms = crm::all()->where('facility_id', Auth::user()->facility_id);
 		return view('assessment.preadmin_resident_assessment', compact('crms'));
 		
@@ -107,8 +107,8 @@ class AssessmentController extends Controller
     public function preadmin_select_assessments(Request $request, $id){
 	    $val = $request['language'];
 		App::setlocale($val);
-// 		$assessments = Assessment::all();	
-        $assessments = Assessment::where('sl no',0)->get();
+		$assessments = Assessment::orderby('sl no','asc')->get();	
+        // $assessments = Assessment::where('sl no',0)->get();
         return view('assessment.select_assessment_view', compact('assessments', 'id'));
     }
 	
