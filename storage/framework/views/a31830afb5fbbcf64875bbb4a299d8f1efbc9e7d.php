@@ -1,17 +1,14 @@
-
-@extends('layouts.app')
-
-@section('htmlheader_title')
+<?php $__env->startSection('htmlheader_title'); ?>
     Facility Room Report 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('contentheader_title')
+<?php $__env->startSection('contentheader_title'); ?>
     <p class="text-danger"><b>Facility room report</b>
-	<a href="{{ url('facility_room_graph/' . $id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:150px !important; height:26px !important; margin-right: 15px; !important;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> Back to graph</a>
+	<a href="<?php echo e(url('facility_room_graph/' . $id)); ?>" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:150px !important; height:26px !important; margin-right: 15px; !important;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> Back to graph</a>
     </p>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('main-content')
+<?php $__env->startSection('main-content'); ?>
 <style>	
 	.content-header{
 		padding: 2px 0px 1px 20px;
@@ -42,17 +39,17 @@
 							?>	
 							<tr>								
 								<td><div style="width: 80px">
-									@if($facility_info->facility_logo == NULL)
+									<?php if($facility_info->facility_logo == NULL): ?>
    										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/images.png"/>
-   									@else
-   										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/{{ $facility_info->facility_logo }}" />
-   									@endif
+   									<?php else: ?>
+   										<img src="http://seniorsafetech.com/angel_home_s_admin/hsfiles/public/facility_logo/<?php echo e($facility_info->facility_logo); ?>" />
+   									<?php endif; ?>
 								</div></td>							
 								<td colspan="7">
 									<p><b></b><br/>
-									<b>{{ $facility_info->facility_name }}, {{ $facility_info->address }}, {{ $facility_info->address_two }}</b><br/>
-									<b>{{ $facility_info->phone }}</b><br/>
-									<b>{{ $facility_info->facility_email }}</b></p>
+									<b><?php echo e($facility_info->facility_name); ?>, <?php echo e($facility_info->address); ?>, <?php echo e($facility_info->address_two); ?></b><br/>
+									<b><?php echo e($facility_info->phone); ?></b><br/>
+									<b><?php echo e($facility_info->facility_email); ?></b></p>
 									
 								</td>								
 							</tr>								
@@ -66,33 +63,33 @@
    								<th class="th-position text-uppercase font-500 font-12">Our Room Rate</th>
    								<th class="th-position text-uppercase font-500 font-12">By</th>
    							</tr>
-   							@foreach ($reports as $report)
+   							<?php $__currentLoopData = $reports; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $report): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
    							<tr>
-   								<td>{{ $report->room_no }}</a></td>
-   								<td>{{ $report->room_type }}</td>
-   								@if($report->room_status==0)
+   								<td><?php echo e($report->room_no); ?></a></td>
+   								<td><?php echo e($report->room_type); ?></td>
+   								<?php if($report->room_status==0): ?>
    								<td class="text-danger"><b>Vacant<b/></td>
-   								<td>{{ $report->price }}</td>
+   								<td><?php echo e($report->price); ?></td>
    								<td>0</td>
    								<td></td>
-   								@endif
-								   @if($report->room_status==1)
+   								<?php endif; ?>
+								   <?php if($report->room_status==1): ?>
 								   <?php 
 										$doc = DB::table('resident_room')
 											->Join('sales_pipeline', 'resident_room.pros_id', '=', 'sales_pipeline.id')
 											->where([['room_id',$report->room_id]])->first();
 									?>
-									@if($doc->stage === "MoveIn")
+									<?php if($doc->stage === "MoveIn"): ?>
 								   		<td class="text-success"><b>Occupied</b></td>
-									@else
+									<?php else: ?>
 										<td class="text-success"><b>Booked</b></td>
-									@endif
-									<td>{{ $report->price }}</td>
-									<td>{{ $doc->price }}</td>
-									<td>{{ $doc->pros_name }}</td>
-   								@endif
+									<?php endif; ?>
+									<td><?php echo e($report->price); ?></td>
+									<td><?php echo e($doc->price); ?></td>
+									<td><?php echo e($doc->pros_name); ?></td>
+   								<?php endif; ?>
    							</tr>
-   							@endforeach
+   							<?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                         </tbody>
 						<tfoot>
 							<tr>
@@ -106,8 +103,8 @@
         </div>
     </div>
 </div>
-@endsection
-@section('scripts-extra')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts-extra'); ?>
 <script>
 	function printDiv(printableDiv) {
 		var printContents = document.getElementById(printableDiv).innerHTML;
@@ -117,4 +114,5 @@
 		document.body.innerHTML = originalContents;
 	}
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
