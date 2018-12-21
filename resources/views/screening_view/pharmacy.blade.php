@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Hospital & Pharmacy
 @endsection
 
 @section('contentheader_title')
@@ -27,10 +27,10 @@
         <div class="col-lg-12">
             <ul class="nav nav-tabs" id="myTab" role="tablist" sstyle="margin-left:-14px; margin-right:-14px; margin-top:1px">
                 <li class="nav-item">
-                 <a class="nav-link" href="../screening_view/{{ $id }}">RESPOSIBLE PERSONAL</a>
+                 <a class="nav-link" href="../screening_view/{{ $id }}">RESPOSIBLE PERSONNEL</a>
                </li>
                <li class="nav-item">
-                 <a class="nav-link" href="../significant_view/{{ $id }}">SIGNIFICANT PERSONAL</a>
+                 <a class="nav-link" href="../significant_view/{{ $id }}">SIGNIFICANT PERSONNEL</a>
                </li>
                <li class="nav-item">
                  <a class="nav-link" href="../details_view/{{ $id }}">RESIDENT DETAILS</a>

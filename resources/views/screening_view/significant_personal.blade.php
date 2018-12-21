@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Significant Personnel
 @endsection
 
 @section('contentheader_title')
   <?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-    <p class="text-danger"><b>significant personal details for {{ $name->pros_name }}</b></p>
+    <p class="text-danger"><b>significant personnel details for {{ $name->pros_name }}</b></p>
 @endsection
 
 @section('main-content')
@@ -27,10 +27,10 @@
         <div class="col-lg-12">
             <ul class="nav nav-tabs" id="myTab" role="tablist" sstyle="margin-left:-14px; margin-right:-14px; margin-top:1px">
                 <li class="nav-item">
-                 <a class="nav-link" href="../screening_view/{{ $id }}">RESPOSIBLE PERSONAL</a>
+                 <a class="nav-link" href="../screening_view/{{ $id }}">RESPOSIBLE PERSONNEL</a>
                </li>
                <li class="nav-item active">
-                 <a class="nav-link" href="../significant_view/{{ $id }}">SIGNIFICANT PERSONAL</a>
+                 <a class="nav-link" href="../significant_view/{{ $id }}">SIGNIFICANT PERSONNEL</a>
                </li>
                <li class="nav-item">
                  <a class="nav-link" href="../details_view/{{ $id }}">RESIDENT DETAILS</a>
