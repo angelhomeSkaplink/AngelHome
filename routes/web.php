@@ -178,7 +178,7 @@ Route::get('main_task_list', 'AssessmentController@main_task_list');
 Route::get('all_member_list', 'AddMemberController@all_member_list');
 Route::get('add_new_member', 'AddMemberController@add_new_member');
 Route::post('member_details', 'AddMemberController@store_member_details');
-Route::get('screening_view/{id}', 'ScreeningController@screening_view');
+Route::get('screening_view/{id}', 'ScreeningController@resposible_view');
 Route::get('screening_next/{id}', 'ScreeningController@screening_next');
 Route::get('screening_status/{id}', 'ScreeningController@screening_status');
 Route::get('screening_data/{id}', 'ScreeningController@screening_data');
@@ -425,6 +425,16 @@ Route::post('storeNote','WellnessController@storeNote');
 Route::get('reassessment/{assessment_id}/{id}', 'AssessmentController@reassessment');
 Route::get('find_assessment/{assessment_id}/{pros_id}', 'AssessmentController@find_assessment');
 Route::post('save_temporary_json', 'AssessmentController@save_temporary_json');
+
+// Screening View
+Route::get('significant_view/{id}', 'ScreeningController@significant_view');
+Route::get('details_view/{id}', 'ScreeningController@details_view');
+Route::get('physician_view/{id}', 'ScreeningController@physician_view');
+Route::get('hospital_view/{id}', 'ScreeningController@hospital_view');
+Route::get('equipment_view/{id}', 'ScreeningController@equipment_view');
+Route::get('doc_view/{id}', 'ScreeningController@doc_view');
+Route::get('insurance_view/{id}', 'ScreeningController@insurance_view');
+Route::get('funeral_view/{id}', 'ScreeningController@funeral_view');
 //END
 
 Auth::routes();

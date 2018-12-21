@@ -44,7 +44,7 @@
                   <div class="box box-primary" style="padding-top:5px;padding-bottom:5px;margin-bottom:0px;">
                       <div class="row" style="padding:20px;">
                         <div class="col-lg-3">
-                            <h4 class="pull-right"><storng>Select TSP Type to Add</storng></h4>
+                            <h4 class="pull-right"><strong>Select TSP Type to Add</strong></h4>
                         </div>
                         <div class="col-lg-9">
                           <div class="row">

@@ -354,6 +354,7 @@ class ScreeningController extends Controller
     }
 
 	public function add_equipment(Request $request){
+		// dd($request->all());
 		$screening = Screening::where('pros_id',$request['pros_id'])->first();
 		if ($screening) {
 			$update = MedicalEquipSuppResidentNeed::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
@@ -1399,6 +1400,36 @@ class ScreeningController extends Controller
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['contact_person', 'like', '%' .$pros_id. '%']])->get();
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
         return view('screening.screening_pros_view', compact('crms', 'prospectives'));
-    }
+	}
+	// Screening Views
+	public function resposible_view($id){
+		return view('screening_view.resposible_personal',compact('id'));
+	}
+	public function significant_view($id){
+		return view('screening_view.significant_personal',compact('id'));
+	}
+	public function details_view($id){
+		return view('screening_view.resident_details',compact('id'));
+	}
+	public function physician_view($id){
+		return view('screening_view.primary_doctor',compact('id'));
+	}
+	public function hospital_view($id){
+		return view('screening_view.pharmacy',compact('id'));
+	}
+	public function equipment_view($id){
+		return view('screening_view.medical_equipment',compact('id'));
+	}
+	public function doc_view($id){
+		$data = DB::table('legal_doc_upload')->where([['pros_id',$id]])->paginate(4);
+		return view('screening_view.legal_doc',compact('id','data'));
+	}
+	public function insurance_view($id){
+		return view('screening_view.insurance',compact('id'));
+	}
+	public function funeral_view($id){
+		return view('screening_view.funeral_home',compact('id'));
+	}
+	
 	// Finish
 }
