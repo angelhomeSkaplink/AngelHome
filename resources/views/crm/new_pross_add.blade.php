@@ -36,11 +36,31 @@
 	<form action="new_prospective" name="form_p" method="post" enctype="multipart/form-data">		
 		<div class="col-md-4">
 			<div class="box box-primary">				
-				<div class="box-body" style="height:500px">
-					<div class="form-group has-feedback">					
-						<!--<label>Prospective Name*</label>-->
-						<input type="text" class="form-control" placeholder="Prospective Name*" oninvalid="this.setCustomValidity('Enter Prospective Name')" oninput="this.setCustomValidity('')" required pattern="[A-Za-z\s]+" name="pros_name" />
-					</div> 					
+				<div class="box-body" style="height:520px">
+					<h4>Prospective</h4>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">					
+									{{-- <label>Prospective Name*</label> --}}
+								<input type="text" class="form-control" placeholder="First Name*" pattern="[A-Za-z\s]+" name="pros_name[]" />
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">					
+								{{-- <label>Prospective Name*</label> --}}
+								<input type="text" class="form-control" placeholder="Middle Name" pattern="[A-Za-z\s]+" name="pros_name[]" />
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">					
+								{{-- <label>Prospective Name*</label> --}}
+								<input type="text" class="form-control" placeholder="Last Name*" pattern="[A-Za-z\s]+" name="pros_name[]" />
+							</div>
+						</div>
+						
+						
+						
+					</div>		
 					<div class="form-group has-feedback">
 					<!--<label>Phone No*</label>-->
 						<input type="text" class="form-control" placeholder="Phone No"  pattern="[0-9]{10}" name="phone_p" />
@@ -85,11 +105,28 @@
 		</div>
 		<div class="col-md-4">
 			<div class="box box-primary">
-				<div class="box-body" style="height:500px">
-					<div class="form-group has-feedback">
-					<!--<label>Contact Person*</label>-->
-						<input type="text" class="form-control" placeholder="Contact Person*" name="contact_person" oninvalid="this.setCustomValidity('Enter Name')" oninput="this.setCustomValidity('')" required pattern="[A-Za-z\s]+" />
-					</div> 
+				<div class="box-body" style="height:520px">
+					<h4>Contact Person</h4>
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+							<!--<label>Contact Person*</label>-->
+								<input type="text" class="form-control" placeholder="First Name*" name="contact_person_firstname" />
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<!--<label>Contact Person*</label>-->
+								<input type="text" class="form-control" placeholder="Middle Name" name="contact_person_middlename" pattern="[A-Za-z\s]+" />
+							</div> 
+						</div>
+						<div class="col-lg-4">
+							<div class="form-group">
+								<!--<label>Contact Person*</label>-->
+								<input type="text" class="form-control" placeholder="Last Name*" name="contact_person_lastname" />
+							</div>
+						</div>
+					</div>
 					<div class="form-group has-feedback">
 						<!--<label>Phone No*</label>-->
 						<input type="text" class="form-control" placeholder="Phone No" name="phone_c" pattern="[0-9]{10}" />
@@ -134,14 +171,14 @@
 		</div>
 		<div class="col-md-4">
 			<div class="box box-primary">
-				<div class="box-body" style="height:500px">
+				<div class="box-body" style="height:520px">
 					<div class="form-group has-feedback">
 					<!--<label>Relation*</label>-->
 						<input type="text" class="form-control" placeholder="Relation" name="relation" id="relation" pattern="[A-Za-z\s]+" />
 					</div>
 					<!--<div class="form-group has-feedback">
 						<label>Source*</label>
-						<input type="text" class="form-control" placeholder="Source*" name="source" id="source" pattern="[A-Za-z\s]+" oninvalid="this.setCustomValidity('Enter Source')" oninput="this.setCustomValidity('')" required />
+						<input type="text" class="form-control" placeholder="Source*" name="source" id="source" pattern="[A-Za-z\s]+" oninvalid="this.setCustomValidity('Enter Source')" oninput="this.setCustomValidity('')"    />
 					</div>-->
 					<div class="form-group has-feedback">
 					<!--<label>Select State*</label>-->

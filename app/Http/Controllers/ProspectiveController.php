@@ -91,10 +91,11 @@ class ProspectiveController extends Controller
     }
 	
 	public function new_prospective(Request $request){
-		
+		$name = implode(",",$request['pros_name']);
+		// dd($name);
 		$pross = new crm();
 		$pross->pros_unique_id = uniqid();
-		$pross->pros_name = $request['pros_name'];
+		$pross->pros_name = $name;
 		$pross->phone_p = $request['phone_p'];
 		$pross->email_p = $request['email_p'];
 		$pross->address_p = $request['address_p'];
@@ -266,7 +267,7 @@ class ProspectiveController extends Controller
 	public function change_pross_records(Request $request){
 		
 		$j = DB::table('change_pross_record')->where('pros_id', $request['pros_id'])->update(['status' => 0]);
-		
+		$name = implode(",",$request['contact_person']);
 		$prosspect = new Change_Records();
 		$prosspect->pros_id = $request['pros_id'];
 		$prosspect->phone_p = $request['phone_p'];
@@ -276,7 +277,7 @@ class ProspectiveController extends Controller
 		$prosspect->city_p = $request['city_p'];
 		$prosspect->state_id_p = $request['state_id_p'];
 		$prosspect->zip_p = $request['zip_p'];
-		$prosspect->contact_person = $request['contact_person'];
+		$prosspect->contact_person = $name;
 		$prosspect->phone_c = $request['phone_c'];
 		$prosspect->email_c = $request['email_c'];
 		$prosspect->address_c = $request['address_c'];
