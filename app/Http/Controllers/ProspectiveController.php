@@ -267,7 +267,8 @@ class ProspectiveController extends Controller
 	public function change_pross_records(Request $request){
 		
 		$j = DB::table('change_pross_record')->where('pros_id', $request['pros_id'])->update(['status' => 0]);
-		$name = implode(",",$request['contact_person']);
+		$contact_name = implode(",",$request['contact_person']);
+		$update_contact = DB::table('sales_pipeline')->where('id',$request['pros_id'])->update(['contact_person'=>$contact_name]);
 		$prosspect = new Change_Records();
 		$prosspect->pros_id = $request['pros_id'];
 		$prosspect->phone_p = $request['phone_p'];
@@ -277,7 +278,7 @@ class ProspectiveController extends Controller
 		$prosspect->city_p = $request['city_p'];
 		$prosspect->state_id_p = $request['state_id_p'];
 		$prosspect->zip_p = $request['zip_p'];
-		$prosspect->contact_person = $name;
+		$prosspect->contact_person = $contact_name;
 		$prosspect->phone_c = $request['phone_c'];
 		$prosspect->email_c = $request['email_c'];
 		$prosspect->address_c = $request['address_c'];
@@ -320,7 +321,8 @@ class ProspectiveController extends Controller
 	public function change_pro_record(Request $request){
 		
 		$j = DB::table('change_pross_record')->where('pros_id', $request['pros_id'])->update(['status' => 0]);
-		
+		$contact_name = implode(",",$request['contact_person']);
+		$update_contact = DB::table('sales_pipeline')->where('id',$request['pros_id'])->update(['contact_person'=>$contact_name]);
 		$prosspect = new Change_Records();
 		$prosspect->pros_id = $request['pros_id'];
 		$prosspect->phone_p = $request['phone_p'];
@@ -330,7 +332,7 @@ class ProspectiveController extends Controller
 		$prosspect->city_p = $request['city_p'];
 		$prosspect->state_id_p = $request['state_id_p'];
 		$prosspect->zip_p = $request['zip_p'];
-		$prosspect->contact_person = $request['contact_person'];
+		$prosspect->contact_person = $contact_name;
 		$prosspect->phone_c = $request['phone_c'];
 		$prosspect->email_c = $request['email_c'];
 		$prosspect->address_c = $request['address_c'];

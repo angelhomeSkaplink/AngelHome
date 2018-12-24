@@ -26,13 +26,16 @@
 			@endif
 			<div class="box-body padding-top-5">
 				<h4 class="font-500 text-uppercase font-15">@lang("msg.Future Resident Details")</h4>
-				
-				<form class="form-inline border-top">
+				@php
+					$n=explode(",",$row->pros_name);
+					$m=explode(",",$details->contact_person);
+				@endphp
+				<div class="form-inline border-top">
 					
 						<div style="margin-top:10px"></div>
 						
 						<label class="text-capitalize font-500 font-14">@lang("msg.Future Resident Name") : </label>
-						<span class="font-14">{{ $row->pros_name }} </span>
+						<span class="font-14">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</span>
 					
 					<div style="clear:both; margin-top:7px"></div>
 						<label class="text-capitalize font-500 font-14">@lang("msg.Phone No") : </label>
@@ -59,7 +62,7 @@
 						<span class="font-14"> {{ $details->zip_p }} </span>
 				<div style="clear:both; margin-top:7px"></div>
 				</div>
-			</form>
+			</div>
 			
 		</div>
 	</div>
@@ -71,7 +74,7 @@
 				<div style="margin-top:10px"></div>
 					
 						<label class="text-capitalize font-500 font-14">@lang("msg.Contact Person") : </label>
-						<span class="font-14">{{ $details->contact_person }}  </span>
+						<span class="font-14">{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</span>
 					
 					
 					<div style="clear:both; margin-top:7px"></div>

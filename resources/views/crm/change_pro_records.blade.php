@@ -33,14 +33,32 @@
 			<div class="box-body">					
 				
 				<input type="hidden" class="form-control" name="pros_id" value="{{ $row->pros_id }}"  />
-				<?php $name = DB::table('sales_pipeline')->where('id', $row->pros_id)->first(); ?>
-				<div class="form-group has-feedback">
-					<label>@lang("msg.Name")</label>
-					<input type="text" class="form-control" value="{{ $name->pros_name }}" readonly />
-				</div>				
+				<?php $name = DB::table('sales_pipeline')->where('id', $row->pros_id)->first();
+					$n = explode(",",$name->pros_name);
+				?>
+				<div class="row">
+				<div class="col-lg-4">
+					<div class="form-group has-feedback">
+						<label>@lang("msg.First Name")</label>
+					<input type="text" class="form-control" value="{{ $n[0] }}" readonly />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="form-group has-feedback">
+						<label>@lang("msg.Middle Name")</label>
+					<input type="text" class="form-control" value="{{ $n[1] }}" readonly />
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="form-group has-feedback">
+						<label>@lang("msg.Last Name")</label>
+						<input type="text" class="form-control" value="{{ $n[2] }}" readonly />
+					</div>
+				</div>
+				</div>			
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Phone No")</label>
-					<input type="text" class="form-control" value="{{ $row->phone_p }}" name="phone_p" pattern="[0-9]{10}" Title="Numeric Value. 10 Digit"  />
+					<input type="text" class="form-control" value="{{ $row->phone_p }}" name="phone_p" pattern="[0-9]{10}" />
 				</div>
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Email")</label>
@@ -57,7 +75,7 @@
 				
 				<div class="form-group has-feedback">
 					<label>@lang("msg.City")</label>
-					<input type="text" class="form-control" value="{{ $row->city_p }}" name="city_p" required pattern="[A-Za-z\s]+" Title="Alphabate Character Only"  />
+					<input type="text" class="form-control" value="{{ $row->city_p }}" name="city_p" required pattern="[A-Za-z\s]+" />
 				</div>
 				<!--<div class="form-group has-feedback">
 					State
@@ -65,7 +83,7 @@
 				</div>-->
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Zip")</label>
-					<input type="number" class="form-control" value="{{ $row->zip_p }}" name="zip_p" pattern="[0-9]" Title="Numeric Value."  />
+					<input type="number" class="form-control" value="{{ $row->zip_p }}" name="zip_p" pattern="[0-9]" />
 				</div>
 			</div>
 		</div>
@@ -73,13 +91,32 @@
 	<div class="col-md-4">
 		<div class="box box-primary">
 			<div class="box-body">
-				<div class="form-group has-feedback">
-					<label>@lang("msg.Contact Person")</label>
-					<input type="text" class="form-control" value="{{ $row->contact_person }}" name="contact_person" required pattern="[A-Za-z\s]+" Title="Alphabate Character Only"  />
-				</div> 
+				@php
+					$n=explode(",",$row->contact_person);
+				@endphp
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="form-group has-feedback">
+							<label>@lang("msg.First Name")</label>
+							<input type="text" class="form-control" value="{{ $n[0] }}" name="contact_person[]" required pattern="[A-Za-z\s]+"/>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="form-group has-feedback">
+							<label>@lang("msg.Middle Name")</label>
+							<input type="text" class="form-control" value="{{ $n[1] }}" name="contact_person[]" required pattern="[A-Za-z\s]+"/>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="form-group has-feedback">
+							<label>@lang("msg.Last Name")</label>
+							<input type="text" class="form-control" value="{{ $n[2] }}" name="contact_person[]" required pattern="[A-Za-z\s]+"/>
+						</div>
+					</div>
+				</div>
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Phone")</label>
-					<input type="text" class="form-control" value="{{ $row->phone_c }}" name="phone_c" pattern="[0-9]{10}" Title="Numeric Value. 10 Digit"  />
+					<input type="text" class="form-control" value="{{ $row->phone_c }}" name="phone_c" pattern="[0-9]{10}"  />
 				</div>
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Email")</label>
@@ -95,7 +132,7 @@
 				</div>
 				<div class="form-group has-feedback">
 					<label>@lang("msg.City")</label>
-					<input type="text" class="form-control" value="{{ $row->city_c }}" name="city_c" required pattern="[A-Za-z\s]+" Title="Alphabate Character Only"  />
+					<input type="text" class="form-control" value="{{ $row->city_c }}" name="city_c" required pattern="[A-Za-z\s]+" />
 				</div>
 				<!--<div class="form-group has-feedback">
 					State
@@ -104,7 +141,7 @@
 				</div>-->
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Zip")</label>
-					<input type="number" class="form-control" value="{{ $row->zip_c }}" name="zip_c" pattern="[0-9]" Title="Numeric Value."  />
+					<input type="number" class="form-control" value="{{ $row->zip_c }}" name="zip_c" pattern="[0-9]" />
 				</div>
 					
 			</div>
@@ -115,11 +152,11 @@
 			<div class="box-body">
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Relation")</label>
-					<input type="text" class="form-control" value="{{ $row->relation }}" name="relation" id="relation" pattern="[A-Za-z\s]+" Title="Alphabate Character Only"  />
+					<input type="text" class="form-control" value="{{ $row->relation }}" name="relation" id="relation" pattern="[A-Za-z\s]+" />
 				</div>
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Source")</label>
-					<input type="text" class="form-control" value="{{ $row->source }}" name="source" id="source" pattern="[A-Za-z\s]+" Title="Alphabate Character Only"  />
+					<input type="text" class="form-control" value="{{ $row->source }}" name="source" id="source" pattern="[A-Za-z\s]+" />
 				</div>	
 				<div class="form-group has-feedback">
 						<label>@lang("msg.Photograph")</label>
@@ -130,7 +167,7 @@
             	</div>
 
 				<div class="form-group has-feedback">
-                    <a href="{{  url('sales_stage_pipeline') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
+                    <a href="{{  url('sales_pipeline') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
        			</div><br/><br/><br/>
 
 			</div>
