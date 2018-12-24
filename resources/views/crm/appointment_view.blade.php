@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+Appointment Schedule 
 @endsection
 
 @section('contentheader_title')
-   <p class="text-danger"><b>Future resident</b>
-		<!--<a href="{{ url('appointment_schedule') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a>-->
+	<p class="text-danger"><b>Appointment Schedule</b>
 	</p>
 @endsection
 
@@ -44,14 +43,17 @@
     							<th class="th-position text-uppercase font-500 font-12">Appointment Time</th>
     							<th class="th-position text-uppercase font-500 font-12">Reschedule Appointment</th>
     						</tr>
-    						@foreach ($appointments as $appointment)
+								@foreach ($appointments as $appointment)
+								@php
+									$n=explode(",",$appointment->pros_name);
+								@endphp
     						<tr>
     							@if($appointment->service_image == NULL)
     							<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
     							@else
     							<td><img src="hsfiles/public/img/{{ $appointment->service_image }}" class="img-circle" width="40" height="40"></td>
     							@endif
-    							<td>{{ $appointment->pros_name }}</td>								
+    							<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>								
     							<td>{{ $appointment->appointment_date }}</td>
     							<td>{{ $appointment->appointment_time }}</td>
     							<td class="padding-left-82"><a href="reschedule/{{ $appointment->appoiuntment_id }}"><i class="material-icons gray md-22">schedule </i></a></td>
