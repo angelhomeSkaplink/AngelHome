@@ -366,8 +366,9 @@ class ProspectiveController extends Controller
 	public function reports(Request $request){	
 	    $val = $request['language'];
 		App::setlocale($val);
-		$reports = DB::table('sales_pipeline')->where([['stage', 'Inquiery'], ['marketing_id', '!=', NULL]])->paginate(6);
-        return view('crm.inquery_reports', compact('reports'));
+		$reports = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=','MoveIn'], ['marketing_id', '!=', NULL]])->orderby('id','DESC')->paginate(6);
+		// dd($reports);
+		return view('crm.inquery_reports', compact('reports'));
     }
 	
 	public function inquiery_reports(Request $request){
