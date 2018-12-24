@@ -5,8 +5,11 @@
 @endsection
 
 @section('contentheader_title')
-	<?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-    <p class="text-danger"><b>change room for {{ $name->pros_name }}</b>
+	@php
+		$name = DB::table('sales_pipeline')->where('id', $id)->first();
+		$n = explode(",",$name->pros_name);
+	@endphp
+    <p class="text-danger"><b>change room for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b>
 	@if( $name->service_image == NULL)
 	<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
 	@else
