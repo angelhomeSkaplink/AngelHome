@@ -12,12 +12,15 @@ TSP
   </div>
 </div>
 <div class="row" style="padding-top:20px;">
+@php
+  $n = explode(",",$residents->pros_name);
+@endphp
   <div class="col-lg-12">
     <h3 style="margin:0px;padding:0px;">@if($residents->service_image == NULL)
       <img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
       @else
       <img src="../hsfiles/public/img/{{ $residents->service_image }}" class="img-circle" width="40" height="40">
-      @endif<b><span class="text-danger">{{ $residents->pros_name }} </span></b></h3>
+      @endif<b><span class="text-danger">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }} </span></b></h3>
     </div>
   </div>
   @endsection
