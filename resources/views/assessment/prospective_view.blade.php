@@ -50,20 +50,24 @@
     							</th>
     							<th class="th-position text-uppercase font-400 font-13">Upload Recording</th>
     						</tr>
-    						@foreach ($crms as $crm)
+							@foreach ($crms as $crm)
+							@php
+								$n = explode(",",$crm->pros_name);
+								$m = explode(",",$crm->contact_person);
+							@endphp
     						<tr>
     							@if($crm->service_image == NULL)
     							<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
     							@else
     							<td><img src="hsfiles/public/img/{{ $crm->service_image }}" class="img-circle" width="40" height="40"></td>
     							@endif
-    							<td>{{ $crm->pros_name }}</td>
+								<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     							<?php 
     								$basic = DB::table('change_pross_record')->where([['pros_id', $crm->id], ['status', 1]])->first();{
     							?>
     							<td>{{ $basic->phone_p }}</td>
     							<td>{{ $basic->email_p }}</td>
-    							<td>{{ $basic->contact_person }}</td>
+    							<td>{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</td>
     							<?php } ?>
     							<td><a href="upload_file/{{ $crm->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400">Upload Recording</a></span></td>
     						</tr>
