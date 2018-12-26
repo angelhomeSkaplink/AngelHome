@@ -44,7 +44,10 @@
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessment History")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Next Assessment Date")</th>
     						</tr>
-    						@foreach ($crms as $crm)
+							@foreach ($crms as $crm)
+							@php
+    							$n = explode(",",$crm->pros_name);
+							@endphp
     						<tr>
     							<input type="hidden" class="form-control" value="{{ $crm->id }}" name="id"/>
     							@if($crm->service_image == NULL)
@@ -52,7 +55,7 @@
     							@else
     							<td><img src="hsfiles/public/img/{{ $crm->service_image }}" class="img-circle" width="40" height="40"></td>
     							@endif
-    							<td>{{ $crm->pros_name }}</td>
+								<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     							<?php 
     								$basic = DB::table('change_pross_record')->where([['pros_id', $crm->id], ['status', 1]])->first();{
     							?>
