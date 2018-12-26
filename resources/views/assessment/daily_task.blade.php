@@ -65,7 +65,10 @@
     								<th class="th-position text-uppercase font-500 font-12">@lang("msg.End Time")</th>
     								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Special Equipment")</th>
     							</tr>
-    							@foreach ($tasks as $medicine)
+								@foreach ($tasks as $medicine)
+								@php
+									$n = explode(",",$medicine->pros_name);
+								@endphp
     							<tr>
     								@if($medicine->frequency=='Daily')
     									@if($medicine->service_image == NULL)
@@ -74,7 +77,7 @@
     									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
     									@endif
     									
-    									<td>{{ $medicine->pros_name }}</td>
+										<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     									<td>{{ $medicine->person_required }}</td>	
     									<td>{{ $medicine->s_time }}</td>	
     									<td>{{ $medicine->e_time }}</td>	
@@ -92,7 +95,7 @@
     									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
     									@endif
     									
-    									<td>{{ $medicine->pros_name }}</td>
+										<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     									<td>{{ $medicine->person_required }}</td>	
     									<td>{{ $medicine->s_time }}</td>	
     									<td>{{ $medicine->e_time }}</td>	
@@ -111,7 +114,7 @@
     									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
     									@endif
     									
-    									<td>{{ $medicine->pros_name }}</td>
+										<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     									<td>{{ $medicine->person_required }}</td>	
     									<td>{{ $medicine->s_time }}</td>	
     									<td>{{ $medicine->e_time }}</td>	
@@ -130,7 +133,7 @@
     									<td><img src="../hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
     									@endif
     									
-    									<td>{{ $medicine->pros_name }}</td>
+										<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     									<td>{{ $medicine->person_required }}</td>	
     									<td>{{ $medicine->s_time }}</td>	
     									<td>{{ $medicine->e_time }}</td>	
