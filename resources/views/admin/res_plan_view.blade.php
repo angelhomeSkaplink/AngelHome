@@ -48,20 +48,24 @@
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.View Plan Details")</th>
     						</tr>
-    						@foreach ($crms as $crm)
+							@foreach ($crms as $crm)
+							@php
+								$n = explode(",",$crm->pros_name);
+								$m = explode(",",$crm->contact_person);
+							@endphp
     						<tr>
     							@if($crm->service_image == NULL)
     								<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
     								@else
     								<td><img src="hsfiles/public/img/{{ $crm->service_image }}" class="img-circle" width="40" height="40"></td>
     								@endif
-    							<td>{{ $crm->pros_name }}</td>
+    							<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     							<?php 
     								$basic = DB::table('change_pross_record')->where([['pros_id', $crm->id], ['status', 1]])->first();{
     							?>
     							<td>{{ $basic->phone_p }}</td>
     							<td>{{ $basic->email_p }}</td>
-    							<td>{{ $basic->contact_person }}</td>
+    							<td>{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</td>
     							<?php } ?>
     							<td style="padding-left:55px !important">
     								<a  href="view_plan_details/{{ $crm->id }}">
