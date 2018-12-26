@@ -47,12 +47,6 @@ $(document).ready(function() {
     								<div class="autocomplete" style="width:200px;">
     									<input id="myInput" type="text" placeHolder="RESIDENT">
     								</div>
-    								<!--<select name="id" id="id" class="form-control" >
-    									<option value=""> @lang("msg.FUTURE RESIDENT")</option>
-    									@foreach ($prospectives as $prospective)
-    										<option value="{{ $prospective->id }}"> {{ $prospective->pros_name }} </option>	
-    									@endforeach
-    								</select>-->
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">Phone No</th>
     							<th class="th-position text-uppercase font-500 font-12">
@@ -68,23 +62,27 @@ $(document).ready(function() {
     							<!--<th class="th-position text-uppercase font-500 font-12">Add Records</th>-->
     							<th class="th-position text-uppercase font-500 font-12">View Records</th>
     						</tr>
-    						@foreach ($crms as $crm)
+							@foreach ($crms as $crm)
+							@php
+								$n = explode(",",$crm->pros_name);
+								$m = explode(",",$crm->contact_person);
+							@endphp
     						<tr>
     							@if($crm->service_image == NULL)
     								<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
     								@else
     								<td><img src="hsfiles/public/img/{{ $crm->service_image }}" class="img-circle" width="40" height="40"></td>
     								@endif
-    							<td>{{ $crm->pros_name }}</td>
+    							<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     							<?php 
     								$basic = DB::table('change_pross_record')->where([['pros_id', $crm->id], ['status', 1]])->first();{
     							?>
     							<td>{{ $basic->phone_p }}</td>
     							<td>{{ $basic->email_p }}</td>
-    							<td>{{ $basic->contact_person }}</td>
+    							<td>{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</td>
     							<?php } ?>
     							<!--<td class="padding-left-35"><a href="details/{{ $crm->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="Add Records"><i class="material-icons gray md-22"> add_circle</i></a></td>-->
-    							<td class="padding-left-35"><a href="details_view/{{ $crm->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="view Records"><i class="material-icons gray md-22"> visibility </i></a></td>
+    							<td class="padding-left-35"><a href="screening_view/{{ $crm->id }}" data-toggle="tooltip" data-placement="bottom" data-original-title="view Records"><i class="material-icons gray md-22"> visibility </i></a></td>
     						</tr>
     						@endforeach
                         </tbody>
