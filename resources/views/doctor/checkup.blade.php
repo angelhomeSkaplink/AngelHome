@@ -4,6 +4,9 @@
     Vital Statistics
 @endsection
 @section('contentheader_title')
+@php
+    $n = explode(",",$name->pros_name);
+@endphp
     <p><b> <span class="text-danger" style="text-align:center;"> 
         @if($name->service_image == NULL)
 		<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
@@ -11,7 +14,7 @@
 		<img src="../hsfiles/public/img/{{ $name->service_image }}" class="img-circle" width="40" height="40">
 	@endif
     
-    {{ $name->pros_name }}</span> </b>
+    {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</span> </b>
     <h4><p style="text-align:center;"><strong>Vital Statistics</strong></p></h4>
 @endsection
 @section('main-content')
