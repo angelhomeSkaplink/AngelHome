@@ -214,7 +214,7 @@
 									</a>
 								</li>
 								<li>
-								    <a href="{{ url('preadmin_resident_assessment') }}">
+								    <a href="{{ url('initial_assessment') }}">
 								        <i class="material-icons md-18 dark-gray"> assessment </i>
 								        <span class="padding-left-10">@lang("msg.Assessment")</span>
 							        </a>
@@ -617,7 +617,7 @@
 									</a>
 								</li>
 								<li>
-								    <a href="{{ url('preadmin_resident_assessment') }}">
+								    <a href="{{ url('initial_assessment') }}">
 								        <i class="material-icons md-18 dark-gray"> assessment </i>
 								        <span class="padding-left-10">@lang("msg.Assessment")</span>
 							        </a>

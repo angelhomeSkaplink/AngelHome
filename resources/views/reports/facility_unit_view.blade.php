@@ -66,7 +66,7 @@
    								<th class="th-position text-uppercase font-500 font-12">Our Room Rate</th>
    								<th class="th-position text-uppercase font-500 font-12">By</th>
    							</tr>
-   							@foreach ($reports as $report)
+							@foreach ($reports as $report)
    							<tr>
    								<td>{{ $report->room_no }}</a></td>
    								<td>{{ $report->room_type }}</td>
@@ -81,6 +81,7 @@
 										$doc = DB::table('resident_room')
 											->Join('sales_pipeline', 'resident_room.pros_id', '=', 'sales_pipeline.id')
 											->where([['room_id',$report->room_id]])->first();
+											$n = explode(",",$doc->pros_name);
 									?>
 									@if($doc->stage === "MoveIn")
 								   		<td class="text-success"><b>Occupied</b></td>
@@ -89,7 +90,7 @@
 									@endif
 									<td>{{ $report->price }}</td>
 									<td>{{ $doc->price }}</td>
-									<td>{{ $doc->pros_name }}</td>
+									<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
    								@endif
    							</tr>
    							@endforeach

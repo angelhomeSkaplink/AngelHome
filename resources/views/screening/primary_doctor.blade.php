@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Physician and Dentist
 @endsection
 
 @section('contentheader_title')
-<?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-  <p class="text-danger"><b>ADD PHYSICIAN & DENTIST details for {{ $name->pros_name }}</b></p>
+<?php $name = DB::table('sales_pipeline')->where('id', $id)->first();
+$n = explode(",",$name->pros_name);
+?>
+  <p class="text-danger"><b>ADD PHYSICIAN & DENTIST details for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
 @endsection
 
 @section('main-content')
@@ -40,10 +42,10 @@
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left:-14px; margin-right:-14px; margin-top:1px">
        <li class="nav-item">
-        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONAL</a>
+        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONNEL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONAL</a>
+        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONNEL</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../resident_details/{{ $id }}">RESIDENT DETAILS</a>
@@ -66,39 +68,6 @@
       <li class="nav-item">
         <a class="nav-link" href="../funeral_home/{{ $id }}">FUNERAL HOME</a>
       </li>
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../mental_status/{{ $id }}">MENTAL STATUS</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../bathing/{{ $id }}">BATHING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../dressing/{{ $id }}">DRESSING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../toileting/{{ $id }}">TOILETING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../ambulation_transfer/{{ $id }}">AMBULATION/TRANSFER</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../personal_grooming_hygiene/{{ $id }}">PERSONAL GROOMING/HYGIENE</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../feeding_nutrition/{{ $id }}">FEEDING/NUTRITION</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../communication_abilities/{{ $id }}">COMMUNICATION ABILITIES</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../night_need/{{ $id }}">NIGHT NEED</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../emergency_exiting/{{ $id }}">EMERGENCY EXITING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../overall/{{ $id }}">OVERALL LEVEL OF FUNCTIONING</a>-->
-      <!--</li>-->
     </ul>
     <div style="margin-top:35px"></div>
     <div class="tab-content" id="myTabContent">
@@ -110,41 +79,68 @@
 				<div class="box-body">				
 					<div class="col-md-4">
 						<input type="hidden" class="form-control" placeholder="" name="pros_id" value="{{ $id }}"/>
-						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Primary Doctor" name="primary_doctor_primary" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" required />
+						<label>Primary Doctor</label>
+						@php
+							$name = explode(",",$data->primary_doctor_primary);
+						@endphp
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name[0]}}" placeholder="First Name*" pattern="[A-Za-z\s]+" name="primary_doctor_primary[]" required/>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name[1]}}" placeholder="Middle Name" pattern="[A-Za-z\s]+" name="primary_doctor_primary[]"/>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name[2]}}" placeholder="Last Name*" pattern="[A-Za-z\s]+" name="primary_doctor_primary[]" required/>
+								</div>
+							</div>
 						</div>
+						<label>City</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="City" name="city_primary" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" required />
+							<input type="text" class="form-control" placeholder="" name="city_primary" value="{{ $data->city_primary }}" pattern="[A-Za-z\s]+" required />
 						</div>
+						<label>Phone No</label>
 						<div class="form-group has-feedback">
-							<input type="number" class="form-control" placeholder="Phone No" name="phone_primary_doctor" required />
+							<input type="number" class="form-control" placeholder="" name="phone_primary_doctor" value="{{ $data->phone_primary_doctor }}" required />
 						</div>
+						<label>Email</label>
 						<div class="form-group has-feedback">
-							<input type="email" class="form-control" placeholder="Email" name="email_primary_doctor" required />									
+							<input type="email" class="form-control" placeholder="" name="email_primary_doctor" value="{{ $data->email_primary_doctor }}" required />									
 						</div>
 					</div>
 					<div class="col-md-4">
+					    <label>Adderss 1</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Adderss 1" name="address1_primary" required />
+							<input type="text" class="form-control" placeholder="" name="address1_primary" value="{{ $data->address1_primary }}" required />
 						</div>
+						<label>Zip</label>
 						<div class="form-group has-feedback">
-							<input type="number" class="form-control" placeholder="Zip" name="zipcode_primary" required />
+							<input type="number" class="form-control" placeholder="" name="zipcode_primary" value="{{ $data->zipcode_primary }}" required />
 						</div>
+						<label>Medical Diagnosis</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Medical Diagnosis" name="medical_diagnosis"/>
+							<input type="text" class="form-control" placeholder="" name="medical_diagnosis" value="{{ $data->medical_diagnosis }}" />
 						</div>
+						<label>Fax</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Fax" name="fax_primary_doctor"/>						
+							<input type="text" class="form-control" placeholder="" name="fax_primary_doctor" value="{{ $data->fax_primary_doctor }}" />						
 						</div>
 					</div>
 					
 					<div class="col-md-4">
+					    <label>Address 2</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Address 2" name="address2_primary"/>
+							<input type="text" class="form-control" placeholder="" name="address2_primary" value="{{ $data->address2_primary }}" />
 						</div>
+						<label>State</label>
 						<div class="form-group has-feedback">
 							<select name="state_primary" id="state_id" class="form-control" required >
-								<option value="">Select State</option>
+								<option value="{{$data->state_primary}}">{{$data->state_primary}}</option>
 								<?php
 									$states = DB::table('state')->get();
 									foreach ($states as $state)
@@ -160,31 +156,55 @@
 				</div>
 				<div class="box-body">				
 					<div class="col-md-4">
-						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Specialist  Doctor" name="specialist_doctor_primary" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" />
+					  <label>Specialist  Doctor</label>
+						@php
+							$name1 = explode(",",$data->specialist_doctor_primary);
+						@endphp
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name1[0]}}" placeholder="First Name*" pattern="[A-Za-z\s]+" name="specialist_doctor_primary[]"/>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name1[1]}}" placeholder="Middle Name" pattern="[A-Za-z\s]+" name="specialist_doctor_primary[]"/>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name1[2]}}" placeholder="Last Name*" pattern="[A-Za-z\s]+" name="specialist_doctor_primary[]"/>
+								</div>
+							</div>
 						</div>
+						<label>City</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="City" name="specialist_city_primary" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" />
+							<input type="text" class="form-control" placeholder="" name="specialist_city_primary" value="{{ $data->specialist_city_primary }}" pattern="[A-Za-z\s]+" />
 						</div>
+						<label>Phone No</label>
 						<div class="form-group has-feedback">
-							<input type="number" class="form-control" placeholder="Phone No" name="specialist_phone_primary_doctor" />
+							<input type="number" class="form-control" placeholder="" name="specialist_phone_primary_doctor" value="{{ $data->specialist_phone_primary_doctor }}" />
 						</div>
 					</div>
 					<div class="col-md-4">
+					    <label>Adderss 1</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Adderss 1" name="specialist_address1_primary" />
+							<input type="text" class="form-control" placeholder="" name="specialist_address1_primary" value="{{ $data->specialist_address1_primary }}" />
 						</div>
+						<label>Zip</label>
 						<div class="form-group has-feedback">
-							<input type="number" class="form-control" placeholder="Zip" name="specialist_zipcode_primary" />
+							<input type="number" class="form-control" placeholder="" name="specialist_zipcode_primary" value="{{ $data->specialist_zipcode_primary }}" />
 						</div>
 					</div>
 					<div class="col-md-4">
+					    <label>Address 2</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Address 2" name="specialist_address2_primary"/>
+							<input type="text" class="form-control" placeholder="" name="specialist_address2_primary" value="{{ $data->specialist_address2_primary }}"/>
 						</div>
+						<label>State</label>
 						<div class="form-group has-feedback">
 							<select name="specialist_state_primary" id="state_id" class="form-control" >
-								<option value="">Select State</option>
+								<option value="{{$data->specialist_state_primary}}">{{$data->specialist_state_primary}}</option>
 								<?php
 									$states = DB::table('state')->get();
 									foreach ($states as $state)
@@ -200,31 +220,55 @@
 					</div>
 					<div class="box-body">				
 					<div class="col-md-4">
-						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Dentist" name="dentist" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" />
+					    <label>Dentist</label>
+							@php
+							$name2 = explode(",",$data->dentist);
+						@endphp
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name2[0]}}" placeholder="First Name*" pattern="[A-Za-z\s]+" name="dentist[]"/>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name2[1]}}" placeholder="Middle Name" pattern="[A-Za-z\s]+" name="dentist[]"/>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group">
+									<input type="text" class="form-control" value="{{$name2[2]}}" placeholder="Last Name*" pattern="[A-Za-z\s]+" name="dentist[]"/>
+								</div>
+							</div>
 						</div>
+						<label>City</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="City" name="dentist_city" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" />
+							<input type="text" class="form-control" placeholder="" name="dentist_city" value="{{ $data->dentist_city }}" pattern="[A-Za-z\s]+"/>
 						</div>
+						<label>Phone No</label>
 						<div class="form-group has-feedback">
-							<input type="number" class="form-control" placeholder="Phone No" name="dentist_phone" />
+							<input type="number" class="form-control" placeholder="" name="dentist_phone" value="{{ $data->dentist_phone }}" pattern="[0-9]"/>
 						</div>
 					</div>
 					<div class="col-md-4">
+					    <label>Adderss 1</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Adderss 1" name="dentist_address1" />
+							<input type="text" class="form-control" placeholder="" name="dentist_address1" value="{{ $data->dentist_address1 }}" />
 						</div>
+						<label>Zip</label>
 						<div class="form-group has-feedback">
-							<input type="number" class="form-control" placeholder="Zip" name="dentist_zip" />
+							<input type="number" class="form-control" placeholder="" name="dentist_zip" value="{{ $data->dentist_zip }}" />
 						</div>
 					</div>
 					<div class="col-md-4">
+					    <label>Address 2</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Address 2" name="dentist_address2"/>
+							<input type="text" class="form-control" placeholder="" name="dentist_address2" value="{{ $data->dentist_address2 }}"/>
 						</div>
+						<label>State</label>
 						<div class="form-group has-feedback">
 							<select name="dentist_state" id="state_id" class="form-control" >
-								<option value="">Select State</option>
+								<option value="{{$data->dentist_state}}">{{$data->dentist_state}}</option>
 								<?php
 									$states = DB::table('state')->get();
 									foreach ($states as $state)
@@ -240,7 +284,7 @@
 							<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
 						</div>
 						<div class="form-group has-feedback">
-							<button type="submit" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
+							<button type="button" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
 						</div>
 						</br></br><br/>
 					</div>					

@@ -34,10 +34,11 @@
 				var products  = JSON.parse(data);
 				var $template = ''; 		
 						
-				products.forEach((product, index) => {					
+				products.forEach((product, index) => {
+					var name = 	product.pros_name.split(",");			
 					$template += `
 					<div class="user_info">						
-						<h4>${product.pros_name}</h4>
+						<h4>${name[0]} ${name[1]} ${name[2]}</h4>
 						<h4>${product.attenedee_status}</h4>
 					</div>
 				`;					

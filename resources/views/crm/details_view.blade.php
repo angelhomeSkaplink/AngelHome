@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('htmlheader_title')

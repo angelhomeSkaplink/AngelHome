@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Personal Details
 @endsection
 
 @section('contentheader_title')
-<?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-  <p class="text-danger"><b>ADD resident details for {{ $name->pros_name }}</b></p>
+<?php $name = DB::table('sales_pipeline')->where('id', $id)->first();
+    $n = explode(",",$name->pros_name);
+?>
+  <p class="text-danger"><b>ADD Personal details for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
 @endsection
 
 @section('main-content')
@@ -40,10 +42,10 @@
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left:-14px; margin-right:-14px; margin-top:1px">
        <li class="nav-item">
-        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONAL</a>
+        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONNEL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONAL</a>
+        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONNEL</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="../resident_details/{{ $id }}">RESIDENT DETAILS</a>
@@ -66,39 +68,6 @@
       <li class="nav-item">
         <a class="nav-link" href="../funeral_home/{{ $id }}">FUNERAL HOME</a>
       </li>
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../mental_status/{{ $id }}">MENTAL STATUS</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../bathing/{{ $id }}">BATHING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../dressing/{{ $id }}">DRESSING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../toileting/{{ $id }}">TOILETING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../ambulation_transfer/{{ $id }}">AMBULATION/TRANSFER</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../personal_grooming_hygiene/{{ $id }}">PERSONAL GROOMING/HYGIENE</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../feeding_nutrition/{{ $id }}">FEEDING/NUTRITION</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../communication_abilities/{{ $id }}">COMMUNICATION ABILITIES</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../night_need/{{ $id }}">NIGHT NEED</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../emergency_exiting/{{ $id }}">EMERGENCY EXITING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../overall/{{ $id }}">OVERALL LEVEL OF FUNCTIONING</a>-->
-      <!--</li>-->
     </ul>
     <div style="margin-top:35px"></div>
     <!--Gender :  Male Date Of Birth :  1980-02-05 Place Of Birth :  Guwahati Marital Status :  Single Religion :  Hindu-->
@@ -113,9 +82,9 @@
 								<div class="col-md-6">
 									<input type="hidden" class="form-control" placeholder="" name="pros_id" value="{{ $id }}"/>
 									<div class="form-group has-feedback">
-										<label></label>
+										<label>Height</label>
 										<select name="height_resident" id="height_resident"  class="form-control" required >
-											<option value="">Select Height(feet inc)</option>
+											<option value="{{ $data->height_resident }}">{{ $data->height_resident }}</option>
 											<option value="4.0">4.0</option>
 											<option value="4.1">4.1</option>
 											<option value="4.2">4.2</option>
@@ -156,77 +125,77 @@
 										</select>
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
-										<input type="date" class="form-control" placeholder="Date Of Birth" name="dob" id="dob"/>
+										<label>Date Of Birth</label>
+										<input type="date" class="form-control" placeholder="" name="dob" value="{{ $data->dob }}" id="dob"/>
 										<!--<script type="text/javascript"> $('#dob').datepicker({format: 'yyyy/mm/dd'});</script>-->
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
+										<label>Gender</label>
 										<select name="gender" id="gender" class="form-control" required >
-											<option value="">Select Gender</option>
+											<option value="{{$data->gender}}"> {{$data->gender}} </option>
 											<option value="Male">Male</option>
 											<option value="Female">Female</option>
 											<option value="Other">Other</option>
 										</select>
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
-										<input type="text" class="form-control" placeholder="Religion" name="religion" pattern="[A-Za-z\s]+"/>
+										<label>Religion</label>
+										<input type="text" class="form-control" placeholder="" name="religion" value="{{ $data->religion }}" pattern="[A-Za-z\s]+"/>
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
+										<label>Medicare</label>
 										<select name="medicare_resident" id="medicare_resident" class="form-control" required >
-											<option value="">Select Medicare</option>
+											<option value="{{ $data->medicare_resident }}"> {{ $data->medicare_resident }} </option>
 											<option value="Yes">Yes</option>
 											<option value="No">No</option>
 										</select>
 									</div>
 									<div class="form-group has-feedback">
-										<label> </label>
-										<input type="text" class="form-control" placeholder="Social Security" name="social_security_resident" required />
+										<label>Social Security</label>
+										<input type="text" class="form-control" placeholder="" name="social_security_resident" value="{{ $data->social_security_resident }}" required />
 									</div>
 								</div>
 								<div class="col-md-6">
 								    <div class="form-group has-feedback">
-										<label></label>
+										<label>Weight</label>
 										<select name="weight_resident" id="weight_resident" class="form-control" required >
-											<option value="">Select Weight(LB)</option>
+											<option value="{{ $data->weight_resident }}">{{ $data->weight_resident }}</option>
 											<?php for($i=60; $i<=300; $i++){?>
 											<option value="<?php echo $i?>"><?php echo $i?></option>
 											<?php }?>
 										</select>
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
-										<input type="text" class="form-control" placeholder="Place of Birth" name="pob" pattern="[A-Za-z\s]+"/>
+										<label>Place of Birth</label>
+										<input type="text" class="form-control" placeholder="" name="pob" value="{{ $data->pob }}" pattern="[A-Za-z\s]+"/>
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
+										<label>Marital Status</label>
 										<select name="marital" id="marital_status" class="form-control" required >
-											<option value="">Marital Status</option>
+											<option value="{{ $data->marital }}"> {{ $data->marital }} </option>
 											<option value="Single">Single</option>
 											<option value="Married">Married</option>
 										</select>
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
+										<label>VA</label>
 										<select name="va_resident" id="va_resident" class="form-control" required >
-											<option value="">Select VA</option>
+											<option value="{{ $data->va_resident }}"> {{ $data->va_resident }} </option>
 											<option value="Yes">Yes</option>
 											<option value="No">No</option>
 										</select>
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
-										<input type="text" class="form-control" placeholder="Other Insurance Name" name="other_insurance_name_resident" pattern="[A-Za-z\s]+" Title="Alphabate Character Only"/>
+										<label>Other Insurance Name</label>
+										<input type="text" class="form-control" placeholder="" name="other_insurance_name_resident" value="{{ $data->other_insurance_name_resident }}" pattern="[A-Za-z\s]+" Title="Alphabate Character Only"/>
 									</div>
 									<div class="form-group has-feedback">
 										<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
 									</div>
 									<div class="form-group has-feedback">
-										<button type="submit" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
+										<button type="button" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
 									</div>
-									</br></br><br/>
+									<br/><br/><br/>
 								</div>
 							</form>
 						</div>

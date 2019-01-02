@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Leagl Document
 @endsection
 
 @section('contentheader_title')
-<?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-  <p class="text-danger"><b>Upload legal document for {{ $name->pros_name }}</b></p>
+<?php $name = DB::table('sales_pipeline')->where('id', $id)->first();
+    $n = explode(",",$name->pros_name);
+?>
+  <p class="text-danger"><b>Upload legal document for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
 @endsection
 
 @section('main-content')
@@ -40,10 +42,10 @@
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left:-14px; margin-right:-14px; margin-top:1px">
       <li class="nav-item">
-        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONAL</a>
+        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONNEL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONAL</a>
+        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONNEL</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../resident_details/{{ $id }}">RESIDENT DETAILS</a>
@@ -73,20 +75,22 @@
                 <div class="col-md-12">
                     
                         <div class="row">
-                            <form action="{{ action('ScreeningController@add_legal_doc') }}" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="_method" value="PATCH">
-                                {{ csrf_field() }}
-                                <div class="col-md-8 col-md-offset-2">
+                            
+                                <div class="col-md-7">
+                                <form action="{{ action('ScreeningController@add_legal_doc') }}" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="_method" value="PATCH">
+                                    {{ csrf_field() }}
                                     <div class="box box-primary">				
                                         <div class="box-body padding-bottom-15">
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <input type="hidden" class="form-control" name="pros_id" value="{{ $id }}" />
+                                                    <label>Document name</label>
                                                     <div class="form-group has-feedback">
-                                                        <input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="Document name" required/>
+                                                        <input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="" required/>
                                                     </div>
                                                     <div class="form-group has-feedback">
-                                                    @lang("msg.Upload the document here")
+                                                    <label>Upload the document here</label>
                                                     <input id="file" type="file" class="form-control" name="doc_file" accept="image/*,.doc, .docx,.pdf,.odf,.odt" size="2MB" required/>
                                                     </div>
                                                 </div>
@@ -107,8 +111,24 @@
                                                 	
                                         </div>
                                     </div>
+                                    </form>
                                 </div>
-                            </form>
+                                <div class="col-lg-5">
+                                    <div class="box box-primary" >	
+                                        <div class="box-body padding-bottom-15" style="height:178px;overflow:scroll">
+                                            <h4 style="margin:0px;padding-bottom:5px;"><strong><u>Document Uploaded:</u></strong></h4>
+                                            @if($isDoc)
+                                                <ol>
+                                                @foreach($data as $d)
+                                                    <li style="border-bottom:1px solid #e3e3e3;"> <a href="../hsfiles/public/legal_doc/{{ $d->doc_file }}" target=_blank> {{$d->doc_name}}  <i class="material-icons">get_app</i></a> <a class="pull-right" href="../delete_doc/{{$d->doc_id}}"><i class="material-icons">delete</i></a> </li>
+                                                @endforeach
+                                                </ol>
+                                            @else
+                                                <p class="text-center" style="padding-top:50px;color:#999999;">No document found</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     
                 </div>

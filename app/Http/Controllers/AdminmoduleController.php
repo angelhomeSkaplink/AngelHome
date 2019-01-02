@@ -59,7 +59,7 @@ class AdminmoduleController extends Controller
 	public function resident_service_plan(Request $request){		
 	    $val = $request['language'];
 		App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
+		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage',"MoveIn"]])->paginate(6);
 		return view('admin.res_plan_view', compact('crms'));
     }
 	

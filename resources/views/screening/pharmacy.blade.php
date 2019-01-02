@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Hospital And Pharmacy
 @endsection
 
 @section('contentheader_title')
-<?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-  <p class="text-danger"><b>Add Hospita & Pharmacy details for {{ $name->pros_name }}</b></p>
+<?php $name = DB::table('sales_pipeline')->where('id', $id)->first();
+    $n = explode(",",$name->pros_name);
+?>
+  <p class="text-danger"><b>Add Hospita & Pharmacy details for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
 @endsection
 
 @section('main-content')
@@ -40,10 +42,10 @@
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left:-14px; margin-right:-14px; margin-top:1px">
        <li class="nav-item">
-        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONAL</a>
+        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONNEL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONAL</a>
+        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONNEL</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../resident_details/{{ $id }}">RESIDENT DETAILS</a>
@@ -66,39 +68,6 @@
       <li class="nav-item">
         <a class="nav-link" href="../funeral_home/{{ $id }}">FUNERAL HOME</a>
       </li>
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../mental_status/{{ $id }}">MENTAL STATUS</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../bathing/{{ $id }}">BATHING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../dressing/{{ $id }}">DRESSING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../toileting/{{ $id }}">TOILETING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../ambulation_transfer/{{ $id }}">AMBULATION/TRANSFER</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../personal_grooming_hygiene/{{ $id }}">PERSONAL GROOMING/HYGIENE</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../feeding_nutrition/{{ $id }}">FEEDING/NUTRITION</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../communication_abilities/{{ $id }}">COMMUNICATION ABILITIES</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../night_need/{{ $id }}">NIGHT NEED</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../emergency_exiting/{{ $id }}">EMERGENCY EXITING</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--  <a class="nav-link" href="../overall/{{ $id }}">OVERALL LEVEL OF FUNCTIONING</a>-->
-      <!--</li>-->
     </ul>
     <div style="margin-top:35px"></div>
     <div class="tab-content" id="myTabContent">
@@ -112,40 +81,40 @@
 								<div class="col-md-6">
 									<input type="hidden" class="form-control" placeholder="" name="pros_id" value="{{ $id }}"/>
 									<div class="form-group has-feedback">
-										<label></label>
-										<input type="text" class="form-control" placeholder="Hospital" name="hospital" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" />
+										<label>Hospital</label>
+										<input type="text" class="form-control" placeholder="" name="hospital" value="{{$data->hospital}}" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" />
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
-										<input type="text" class="form-control" placeholder="Pharmacy" name="pharmacy" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" />
+										<label>Pharmacy</label>
+										<input type="text" class="form-control" placeholder="" name="pharmacy" value="{{ $data->pharmacy }}" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" />
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
-										<input type="text" class="form-control" placeholder="Mortuary" name="mortuary"/>
+										<label>Mortuary</label>
+										<input type="text" class="form-control" placeholder="" name="mortuary" value="{{ $data->mortuary }}"/>
 									</div>
 									<div class="form-group has-feedback">
-										<label> </label>
-										<input type="text" class="form-control" placeholder="Special Medical Needs" name="special_med_needs_pharmacy" />
+										<label>Special Medical Needs</label>
+										<input type="text" class="form-control" placeholder="" name="special_med_needs_pharmacy" value="{{ $data->special_med_needs_pharmacy }}" />
 									</div>
 								</div>
 								<div class="col-md-6">
 								    <div class="form-group has-feedback">
-										<label> </label>
-										<input type="number" class="form-control" placeholder="Hospital Phone No" name="phone_hospital" />
+										<label>Hospital Phone No</label>
+										<input type="number" class="form-control" placeholder="" name="phone_hospital" value="{{ $data->phone_hospital }}"/>
 									</div>
 									<div class="form-group has-feedback">
-										<label> </label>
-										<input type="number" class="form-control" placeholder="Pharmacy Phone No" name="phone_pharmacy" />
+										<label>Pharmacy Phone No</label>
+										<input type="number" class="form-control" placeholder="" name="phone_pharmacy" value="{{ $data->phone_pharmacy }}"/>
 									</div>
 									<div class="form-group has-feedback">
-										<label></label>
-										<input type="number" class="form-control" placeholder="Mortuary Phone" name="phone2_mortuary"/>
+										<label>Mortuary Phone</label>
+										<input type="number" class="form-control" placeholder="" name="phone2_mortuary" value="{{ $data->phone2_mortuary }}"/>
 									</div>
 									<div class="form-group has-feedback">
 										<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
 									</div>
 									<div class="form-group has-feedback">
-										<button type="submit" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
+										<button type="button" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
 									</div>
 								</br></br><br/>
 								</div>

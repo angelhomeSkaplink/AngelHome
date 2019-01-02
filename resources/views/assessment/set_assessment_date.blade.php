@@ -6,7 +6,10 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>set next assessment date for {{ $name->pros_name }}</b></p>
+@php
+	$n = explode(",",$name->pros_name);
+@endphp
+    <p class="text-danger"><b>set next assessment date for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
 @endsection
 
 @section('main-content')

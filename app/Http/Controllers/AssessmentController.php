@@ -90,9 +90,18 @@ class AssessmentController extends Controller
     public function preadmin_resident_assessment(Request $request){	
 	    $val = $request['language'];
 		App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->paginate(6);
+// 		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
+		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id]])->paginate(6);
 		//$crms = crm::all()->where('facility_id', Auth::user()->facility_id);
 		return view('assessment.preadmin_resident_assessment', compact('crms'));
+		
+    }
+     public function initial_assessment(Request $request){	
+	    $val = $request['language'];
+		App::setlocale($val);
+		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','DESC')->paginate(6);
+		//$crms = crm::all()->where('facility_id', Auth::user()->facility_id);
+		return view('assessment.initial_assessment', compact('crms'));
 		
     }
 	
@@ -103,12 +112,20 @@ class AssessmentController extends Controller
         $assessments = Assessment::where('sl no','!=',0)->orderby('sl no','asc')->get();
         return view('assessment.select_assessment_view', compact('assessments', 'id'));
     }
-    
+    public function all_assesment(Request $request, $id){
+	    $val = $request['language'];
+		App::setlocale($val);
+// 		$assessments = Assessment::all();	
+        // $assessments = Assessment::where('sl no',0)->get();
+		$assessments = Assessment::orderby('sl no','asc')->get();	
+        return view('assessment.select_assessment_view', compact('assessments', 'id'));
+    }
     public function preadmin_select_assessments(Request $request, $id){
 	    $val = $request['language'];
 		App::setlocale($val);
-		$assessments = Assessment::orderby('sl no','asc')->get();	
-        // $assessments = Assessment::where('sl no',0)->get();
+// 		$assessments = Assessment::all();	
+        $assessments = Assessment::where('sl no',0)->get();
+// 		$assessments = Assessment::orderby('sl no','asc')->get();	
         return view('assessment.select_assessment_view', compact('assessments', 'id'));
     }
 	
@@ -295,6 +312,7 @@ class AssessmentController extends Controller
 	public function add_task_history($task_id,$task){
 		//return $task_id;
 		$assignee = DB::table('tasksheet')->where([['task_id', $task_id], ['status', 1]])->first();
+		dd($assignee);
 		
         $taskhistory = new TaskHistory();
         $taskhistory->task_id = $task_id;
@@ -316,8 +334,10 @@ class AssessmentController extends Controller
 		->join('sales_pipeline', 'sales_pipeline.id', '=', 'tasksheet.pros_id')
 		->where([['tasksheet.title', $task],['tasksheet.e_date', '>=', $dayOfYear],['status', 1],['sales_pipeline.facility_id', Auth::user()->facility_id]])
 		->select('sales_pipeline.*', 'tasksheet.*')->get();
+		// dd($tasks);
 		$user_id = Auth::user()->user_id;
-		return view('assessment.task_assignee', compact('tasks', 'task', 'user_id'));
+		// dd($user_id);
+		return view('assessment.task_assignee', compact('tasks','task'));
     }
     
     public function score_view($assessment_form_name){
@@ -402,6 +422,123 @@ class AssessmentController extends Controller
 		$residenttemporaryassessment->facility_id = Auth::user()->facility_id;
 		$residenttemporaryassessment->assessment_status = 0;
 		$residenttemporaryassessment->save();		
+	}
+	
+	public function assessment_period($pros_id){	
+		$data = DB::table('resident_assessment')->where('pros_id', $pros_id)->first();
+		if($data){
+			return view('assessment.assessment_period', compact('pros_id'));
+		}else{
+			Toastr::error("NO ASSESSMENT RECORD FOUND");
+			return back();
+		}				
+    }
+	
+	public function Monthly($pros_id){		
+		$data = DB::table('next_assessment')->where([['period', 'Monthly'], ['pros_id', $pros_id]])->first();
+		if($data){
+			$reports = DB::table('resident_assessment')
+                    ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
+					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')
+					->where('resident_assessment.pros_id', $pros_id)
+                    ->select('resident_assessment.*','assessment_entry.*')
+                    ->paginate(7);
+			$resident = DB::table('sales_pipeline')->where('id', $pros_id)->first();
+			return view('assessment.assessment_history_view', compact('reports', 'resident', 'pros_id'));
+		}else{
+			Toastr::error("NO MONTHLY ASSESSMENT RECORD FOUND");
+			return back();
+		}	
+    }
+	
+	public function Quarterly($pros_id){		
+		$data = DB::table('next_assessment')->where([['period', 'Quarterly'], ['pros_id', $pros_id]])->first();
+		if($data){
+			$reports = DB::table('resident_assessment')
+                    ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
+					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')
+					->where('resident_assessment.pros_id', $pros_id)
+                    ->select('resident_assessment.*','assessment_entry.*')
+                    ->paginate(7);
+			$resident = DB::table('sales_pipeline')->where('id', $pros_id)->first();
+			return view('assessment.assessment_history_view', compact('reports', 'resident', 'pros_id'));
+		}else{
+			Toastr::error("NO QUARTERLY ASSESSMENT RECORD FOUND");
+			return back();
+		}	
+    }
+	
+	public function HalfYearly($pros_id){		
+		$data = DB::table('next_assessment')->where([['period', 'Half-Yearly'], ['pros_id', $pros_id]])->first();
+		if($data){
+			$reports = DB::table('resident_assessment')
+                    ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
+					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')
+					->where('resident_assessment.pros_id', $pros_id)
+                    ->select('resident_assessment.*','assessment_entry.*')
+                    ->paginate(7);
+			$resident = DB::table('sales_pipeline')->where('id', $pros_id)->first();
+			return view('assessment.assessment_history_view', compact('reports', 'resident', 'pros_id'));
+		}else{
+			Toastr::error("NO HALF-YEARLY ASSESSMENT RECORD FOUND");
+			return back();
+		}	
+    }
+	
+	public function Annual($pros_id){		
+		$data = DB::table('next_assessment')->where([['period', 'Annual'], ['pros_id', $pros_id]])->first();
+		if($data){
+			$reports = DB::table('resident_assessment')
+                    ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
+					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')
+					->where('resident_assessment.pros_id', $pros_id)
+                    ->select('resident_assessment.*','assessment_entry.*')
+                    ->paginate(7);
+			$resident = DB::table('sales_pipeline')->where('id', $pros_id)->first();
+			return view('assessment.assessment_history_view', compact('reports', 'resident', 'pros_id'));
+		}else{
+			Toastr::error("NO ANNUAL ASSESSMENT RECORD FOUND");
+			return back();
+		}	
+    }
+	
+	public function Adhoc($pros_id){		
+		$data = DB::table('next_assessment')->where([['period', 'Ad-hoc'], ['pros_id', $pros_id]])->first();
+		if($data){
+			$reports = DB::table('resident_assessment')
+                    ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
+					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')
+					->where('resident_assessment.pros_id', $pros_id)
+                    ->select('resident_assessment.*','assessment_entry.*')
+                    ->paginate(7);
+			$resident = DB::table('sales_pipeline')->where('id', $pros_id)->first();
+			return view('assessment.assessment_history_view', compact('reports', 'resident', 'pros_id'));
+		}else{
+			Toastr::error("NO AD-HOC ASSESSMENT RECORD FOUND");
+			return back();
+		}	
+    }
+	
+	public function Initial($pros_id){		
+		$reports = DB::table('resident_assessment')
+            ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
+			->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')
+			->where('resident_assessment.pros_id', $pros_id)
+            ->select('resident_assessment.*','assessment_entry.*')
+            ->paginate(7);
+		$resident = DB::table('sales_pipeline')->where('id', $pros_id)->first();
+		return view('assessment.assessment_history_view', compact('reports', 'resident', 'pros_id'));
+		
+    }
+	
+	public function find_reassessment($assessment_id){
+		$data = DB::table('assessment_entry')->select('assessment_json')->where('assessment_id', $assessment_id)->first();
+		return json_encode($data);
+	}
+	
+	public function find_answer($assessment_id, $pros_id){
+		$data1= DB::table('resident_assessment')->select('assessment_json')->where([['assessment_id', $assessment_id], ['pros_id', $pros_id], ['assessment_status', 1]])->first();
+		return json_encode($data1);
 	}
 	
 	//END

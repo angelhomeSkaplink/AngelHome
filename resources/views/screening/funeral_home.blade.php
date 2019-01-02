@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Funeral Home
 @endsection
 
 @section('contentheader_title')
-<?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-  <p class="text-danger"><b>ADD FUNERAL HOME for {{ $name->pros_name }}</b></p>
+<?php $name = DB::table('sales_pipeline')->where('id', $id)->first();
+    $n = explode(",",$name->pros_name);
+?>
+  <p class="text-danger"><b>ADD FUNERAL HOME for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
 @endsection
 
 @section('main-content')
@@ -40,10 +42,10 @@
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left:-14px; margin-right:-14px; margin-top:1px">
       <li class="nav-item">
-        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONAL</a>
+        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONNEL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONAL</a>
+        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONNEL</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../resident_details/{{ $id }}">RESIDENT DETAILS</a>
@@ -78,29 +80,32 @@
 				<div class="box-body">		
 				
 					<div class="col-md-6">
-						<input type="hidden" class="form-control" placeholder="" name="pros_id" value="{{ $id }}"/>
+						<input type="hidden" class="form-control" name="pros_id" value="{{ $id }}"/>
+						<label>NAME</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Funeral Home" name="funeral_home" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" required />
+							<input type="text" class="form-control" name="funeral_home" value="{{ $data->funeral_home }}" pattern="[A-Za-z\s]+" required />
 						</div>
-						
+						<label>PHONE</label>
 						<div class="form-group has-feedback">
-							<input type="number" class="form-control" placeholder="Phone No" name="funeral_phone" required />
+							<input type="number" class="form-control" name="funeral_phone" value="{{ $data->phone }}" required />
 						</div>
 						
 				    	
 					</div>
 					<div class="col-md-6">
+					    <label>City</label>
 					    <div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="City" name="funeral_city" pattern="[A-Za-z\s]+" Title="Alphabate Character Only" required />
+							<input type="text" class="form-control" name="funeral_city" value="{{ $data->city }}" pattern="[A-Za-z\s]+" required />
 						</div>
+						<label>Address</label>
 						<div class="form-group has-feedback">
-							<input type="text" class="form-control" placeholder="Adderss 1" name="funeral_address" required />
+							<input type="text" class="form-control" name="funeral_address" value="{{ $data->address }}" required />
 						</div>
 						<div class="form-group has-feedback">
 							<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
 						</div>
 						<div class="form-group has-feedback">
-							<button type="submit" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
+							<button type="button" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
 						</div>
 						</br></br><br/>
 					</div>

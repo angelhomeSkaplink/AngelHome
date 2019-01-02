@@ -12,12 +12,15 @@ List of Patients
     </div>
 </div>
 <div class="row" style="margin-top:20px;">
+	@php
+		$n = explode(",",$name->pros_name);
+	@endphp
 	<div class="col-lg-4">
 		<h3 style="margin:0px;padding:0px;">@if($name->service_image == NULL)
 		<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
 		@else
 		<img src="../hsfiles/public/img/{{ $name->service_image }}" class="img-circle" width="40" height="40">
-	@endif<b><span class="text-danger">{{ $name->pros_name }} </span></b></h3>
+	@endif<b><span class="text-danger">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</span></b></h3>
 	</div>
 	
 	<div class="col-lg-4 text-center">

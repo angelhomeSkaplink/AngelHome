@@ -36,8 +36,8 @@ class ScreeningController extends Controller
 	public function screening(Request $request){
 	    $val = $request['language'];
 	    App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
-		$crms_all = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
+		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','desc')->paginate(6);
+		$crms_all = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','desc')->get();
         return view('screening.screening', compact('crms','crms_all'));
     }
 
@@ -48,11 +48,12 @@ class ScreeningController extends Controller
 	public function add_responsible_person(Request $request){
 		// $query = Responsibleperson::where('pros_id',$request['pros_id'])->first();
 		$screening = Screening::where('pros_id',$request['pros_id'])->first();
+    	$name = implode(",",$request['responsible_person_responsible']);
 		if ($screening) {
 		$update = Responsibleperson::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
 		$responsibleperson = new Responsibleperson();
 		$responsibleperson->pros_id = $request['pros_id'];
-		$responsibleperson->responsible_person_responsible = $request['responsible_person_responsible'];
+		$responsibleperson->responsible_person_responsible = $name;
 		$responsibleperson->address1_responsible = $request['address1_responsible'];
 		$responsibleperson->address2_responsible = $request['address2_responsible'];
 		$responsibleperson->city_responsible = $request['city_responsible'];
@@ -67,14 +68,15 @@ class ScreeningController extends Controller
 		$update_scr = Screening::where('pros_id',$request['pros_id'])->update(['resp_per' => 1]);
 		$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
 		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
-		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 ) {
+            		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+            		$check_scr->funeral_home == 1 ) {
 			$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
 		}
 		}
 		else{
 			$responsibleperson = new Responsibleperson();
 		$responsibleperson->pros_id = $request['pros_id'];
-		$responsibleperson->responsible_person_responsible = $request['responsible_person_responsible'];
+		$responsibleperson->responsible_person_responsible = $name;
 		$responsibleperson->address1_responsible = $request['address1_responsible'];
 		$responsibleperson->address2_responsible = $request['address2_responsible'];
 		$responsibleperson->city_responsible = $request['city_responsible'];
@@ -99,11 +101,12 @@ class ScreeningController extends Controller
 
 	public function add_significant_person(Request $request){
 		$screening = Screening::where('pros_id',$request['pros_id'])->first();
+		$name = implode(",",$request['other_significant_person_significant']);
 		if ($screening) {
-			$update = SignificantPerson::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
-			$significant = new SignificantPerson();	
+		$update = SignificantPerson::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
+		$significant = new SignificantPerson();	
 		$significant->pros_id = $request['pros_id'];
-		$significant->other_significant_person_significant = $request['other_significant_person_significant'];				
+		$significant->other_significant_person_significant = $name;				
 		$significant->address1_significant = $request['address1_significant'];				
 		$significant->state_significant = $request['state_significant'];				
 		$significant->phone_significant = $request['phone_significant'];
@@ -119,14 +122,15 @@ class ScreeningController extends Controller
 
 		$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
 		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
-		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 ) {
+			$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+			$check_scr->funeral_home == 1 ) {
 			$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
 		}
 		}
 		else{
 			$significant = new SignificantPerson();	
 			$significant->pros_id = $request['pros_id'];
-			$significant->other_significant_person_significant = $request['other_significant_person_significant'];				
+			$significant->other_significant_person_significant = $name;				
 			$significant->address1_significant = $request['address1_significant'];				
 			$significant->state_significant = $request['state_significant'];				
 			$significant->phone_significant = $request['phone_significant'];
@@ -177,7 +181,8 @@ class ScreeningController extends Controller
 		$update_scr = Screening::where('pros_id',$request['pros_id'])->update(['res_details' => 1]);
 		$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
 		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
-		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 ) {
+            		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+            		$check_scr->funeral_home == 1 ) {
 			$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
 		}
 		}
@@ -215,11 +220,14 @@ class ScreeningController extends Controller
 
 	public function add_primary_doctor(Request $request){
 		$screening = Screening::where('pros_id',$request['pros_id'])->first();
+		$n = explode(",",$request['primary_doctor_primary']);
+		$m = explode(",",$request['specialist_doctor_primary']);
+		$o = explode(",",$request['dentist']);
 		if ($screening) {
 			$update = PrimaryDoctorDetails::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
 			$primarydoctor = new PrimaryDoctorDetails();
 			$primarydoctor->pros_id = $request['pros_id'];
-			$primarydoctor->primary_doctor_primary = $request['primary_doctor_primary'];
+			$primarydoctor->primary_doctor_primary = $n;
 			$primarydoctor->address1_primary = $request['address1_primary'];
 			$primarydoctor->address2_primary = $request['address2_primary'];
 			$primarydoctor->city_primary = $request['city_primary'];
@@ -230,19 +238,19 @@ class ScreeningController extends Controller
 			$primarydoctor->other_m_p_prob_primary = $request['other_m_p_prob_primary'];
 			$primarydoctor->email_primary_doctor = $request['email_primary_doctor'];
 			$primarydoctor->fax_primary_doctor = $request['fax_primary_doctor'];
-			$primarydoctor->specialist_doctor_primary = $request['specialist_doctor_primary'];
+			$primarydoctor->specialist_doctor_primary = $m;
 			$primarydoctor->specialist_address1_primary = $request['specialist_address1_primary'];
 			$primarydoctor->specialist_address2_primary = $request['specialist_address2_primary'];
 			$primarydoctor->specialist_city_primary = $request['specialist_city_primary'];
 			$primarydoctor->specialist_state_primary = $request['specialist_state_primary'];
 			$primarydoctor->specialist_zipcode_primary = $request['specialist_zipcode_primary'];
 			$primarydoctor->specialist_phone_primary_doctor = $request['specialist_phone_primary_doctor'];
-			$primarydoctor->dentist = $request['dentist'];
+			$primarydoctor->dentist = $o;
 			$primarydoctor->dentist_city = $request['dentist_city'];
 			$primarydoctor->dentist_phone = $request['dentist_phone'];
 			$primarydoctor->dentist_address1 = $request['dentist_address1'];
 			$primarydoctor->dentist_zip = $request['dentist_zip'];
-			$primarydoctor->dentist_address1 = $request['dentist_address1'];
+			$primarydoctor->dentist_address2 = $request['dentist_address2'];
 			$primarydoctor->dentist_state = $request['dentist_state'];
 			$primarydoctor->date = date('Y/m/d');
 			$primarydoctor->user_id = Auth::user()->user_id;
@@ -252,14 +260,15 @@ class ScreeningController extends Controller
 			$update_scr = Screening::where('pros_id',$request['pros_id'])->update(['doctor' => 1]);
 			$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
 		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
-		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 ) {
+            		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+            		$check_scr->funeral_home == 1 ) {
 			$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
 		}
 		}
 		else{
 		$primarydoctor = new PrimaryDoctorDetails();
 		$primarydoctor->pros_id = $request['pros_id'];
-		$primarydoctor->primary_doctor_primary = $request['primary_doctor_primary'];
+		$primarydoctor->primary_doctor_primary = $n;
 		$primarydoctor->address1_primary = $request['address1_primary'];
 		$primarydoctor->address2_primary = $request['address2_primary'];
 		$primarydoctor->city_primary = $request['city_primary'];
@@ -270,14 +279,14 @@ class ScreeningController extends Controller
 		$primarydoctor->other_m_p_prob_primary = $request['other_m_p_prob_primary'];
 		$primarydoctor->email_primary_doctor = $request['email_primary_doctor'];
 		$primarydoctor->fax_primary_doctor = $request['fax_primary_doctor'];
-		$primarydoctor->specialist_doctor_primary = $request['specialist_doctor_primary'];
+		$primarydoctor->specialist_doctor_primary = $m;
 		$primarydoctor->specialist_address1_primary = $request['specialist_address1_primary'];
 		$primarydoctor->specialist_address2_primary = $request['specialist_address2_primary'];
 		$primarydoctor->specialist_city_primary = $request['specialist_city_primary'];
 		$primarydoctor->specialist_state_primary = $request['specialist_state_primary'];
 		$primarydoctor->specialist_zipcode_primary = $request['specialist_zipcode_primary'];
 		$primarydoctor->specialist_phone_primary_doctor = $request['specialist_phone_primary_doctor'];
-		$primarydoctor->dentist = $request['dentist'];
+		$primarydoctor->dentist = $o;
 		$primarydoctor->dentist_city = $request['dentist_city'];
 		$primarydoctor->dentist_phone = $request['dentist_phone'];
 		$primarydoctor->dentist_address1 = $request['dentist_address1'];
@@ -322,7 +331,8 @@ class ScreeningController extends Controller
 			$update_scr = Screening::where('pros_id',$request['pros_id'])->update(['pharmacy' => 1]);
 			$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
 		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
-		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 ) {
+            		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+            		$check_scr->funeral_home == 1 ) {
 			$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
 		}
 		}
@@ -354,7 +364,6 @@ class ScreeningController extends Controller
     }
 
 	public function add_equipment(Request $request){
-		// dd($request->all());
 		$screening = Screening::where('pros_id',$request['pros_id'])->first();
 		if ($screening) {
 			$update = MedicalEquipSuppResidentNeed::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
@@ -384,7 +393,8 @@ class ScreeningController extends Controller
 		$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
 		
 		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
-		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->insurance == 1 && $check_scr->funeral_home == 1 ) {
+            		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+            		$check_scr->funeral_home == 1 ) {
 		$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
 		}
 		}
@@ -417,12 +427,13 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Medical Equipment Added Successfully !!");
-		return redirect('mental_status/'.$request['pros_id']);
+		return redirect('legal_doc/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
     
     public function add_legal_doc(Request $request){
+		$screening = Screening::where('pros_id',$request['pros_id'])->first();
 		$new_doc = new LegalDocUpload();		
 			
 		$file = $request->file('doc_file');    
@@ -446,7 +457,25 @@ class ScreeningController extends Controller
 				$new_doc->user_id = Auth::user()->user_id;
 				$new_doc->facility_id = Auth::user()->facility_id;
 				$new_doc->upload_date = date('Y/m/d');
+				$new_doc->status = 1;
 				$new_doc->save();
+				if($screening){
+            		$update_scr = Screening::where('pros_id',$request['pros_id'])->update(['legal_doc' => 1]);
+            		$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
+		
+            		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
+            		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+            		$check_scr->funeral_home == 1 ) {
+            		$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
+            		}
+                }
+                else{
+                    $add_scr = new Screening();
+            		$add_scr->pros_id=$request['pros_id'];
+            		$add_scr->facility_id=Auth::user()->facility_id;
+            		$add_scr->legal_doc = 1;
+            		$add_scr->save();
+                }
 				Toastr::success("File Uploaded Successfully !!");
 			}	
 		}else{
@@ -476,7 +505,8 @@ class ScreeningController extends Controller
 		$update_scr = Screening::where('pros_id',$request['pros_id'])->update(['insurance' => 1]);
 		$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
 		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
-		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->insurance == 1 && $check_scr->funeral_home == 1) {
+            		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+            		$check_scr->funeral_home == 1 ) {
 			$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
 		}
 		}
@@ -523,7 +553,8 @@ class ScreeningController extends Controller
 		$update_scr = Screening::where('pros_id',$request['pros_id'])->update(['funeral_home' => 1]);
 		$check_scr=DB::table('screening')->where([['pros_id',$request['pros_id']],['facility_id',Auth::user()->facility_id]])->first();
 		if ($check_scr->resp_per == 1 && $check_scr->sign_per == 1 && $check_scr->res_details == 1 && $check_scr->doctor == 1 &&
-		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->insurance == 1 && $check_scr->funeral_home == 1 ) {
+            		$check_scr->pharmacy == 1 && $check_scr->med_equip == 1 && $check_scr->legal_doc == 1 && $check_scr->insurance == 1 &&
+            		$check_scr->funeral_home == 1 ) {
 			$update_allscr = Screening::where('pros_id',$request['pros_id'])->update(['all_scr' => 1]);
 		}
 		}
@@ -1306,38 +1337,168 @@ class ScreeningController extends Controller
 
         return view('screening.screening_data_status', compact('reports_1', 'reports_2', 'id'));
     }
-    public function resposible_personal($id){
-      return view('screening.resposible_personal',compact('id'));
+     public function resposible_personal($id){
+		$data = Responsibleperson::where('pros_id',$id)->where('status',1)->first();	
+		if(!$data){
+			$data=(object) null;
+			$data->responsible_person_responsible = ",,";			
+			$data->address1_responsible = "";
+			$data->address2_responsible = "";
+			$data->city_responsible = "";
+			$data->state_responsible = "Select State";
+			$data->zipcode_responsible = "";
+			$data->phone_responsible = "";
+			$data->email_responsible = "";	
+		}
+      	return view('screening.resposible_personal',compact('id','data'));
     }
     public function significant_personal($id){
-      return view('screening.significant_personal',compact('id'));
+		$data = SignificantPerson::where('pros_id',$id)->where('status',1)->first();
+		if(!$data){
+			$data=(object) null;
+			$data->other_significant_person_significant = ",,";				
+			$data->address1_significant = "";			
+			$data->state_significant = "Select State";				
+			$data->phone_significant = "";
+			$data->email_significant = "";
+			$data->address2_significant = "";			
+			$data->city_significant = "";			
+			$data->zipcode_significant = "";				
+		}
+      return view('screening.significant_personal',compact('id','data'));
     }
     public function resident_details($id){
-      return view('screening.resident_details',compact('id'));
+		$data = ResidentDetails::where('pros_id',$id)->where('status',1)->first();
+		if(!$data){
+			$data=(object) null;
+			$data->height_resident = "Select Height(feet inc)";
+			$data->weight_resident = "Select Weight(LB)";
+			$data->gender = "Select Gender";
+			$data->dob = "";
+			$data->pob = "";
+			$data->marital = "Select Marital Status";
+			$data->religion = "";
+			$data->social_security_resident = "";
+			$data->medicare_resident = "Select Medicare";
+			$data->va_resident = "Select VA";
+			$data->other_insurance_name_resident = "";
+		}
+      return view('screening.resident_details',compact('id','data'));
     }
     public function primary_doctor($id)
     {
-      return view('screening.primary_doctor',compact('id'));
+		$data = PrimaryDoctorDetails::where('pros_id',$id)->where('status',1)->first();
+	  	if(!$data){
+			$data=(object) null;
+			$data->primary_doctor_primary = ",,";
+			$data->address1_primary = "";
+			$data->address2_primary = "";
+			$data->city_primary = "";
+			$data->state_primary = "Select State";
+			$data->zipcode_primary = "";
+			$data->phone_primary_doctor = "";
+			$data->medical_diagnosis = "";
+			$data->other_m_p_prob_primary = "";
+			$data->email_primary_doctor = "";
+			$data->fax_primary_doctor = "";
+			$data->specialist_doctor_primary = ",,";
+			$data->specialist_address1_primary = "";
+			$data->specialist_address2_primary = "";
+			$data->specialist_city_primary = "";
+			$data->specialist_state_primary = "Select State";
+			$data->specialist_zipcode_primary = "";
+			$data->specialist_phone_primary_doctor = "";
+			$data->dentist = ",,";
+			$data->dentist_city = "";
+			$data->dentist_phone = "";
+			$data->dentist_address1 = "";
+			$data->dentist_zip = "";
+			$data->dentist_address2 = "";
+			$data->dentist_state = "Select State";
+		}
+		// dd($data);  
+      return view('screening.primary_doctor',compact('id','data'));
     }
     public function pharmacy($id)
     {
-      return view('screening.pharmacy',compact('id'));
+		$data = PharmacyDetails::where('pros_id',$id)->where('status',1)->first();
+		if(!$data){
+			$data=(object) null;
+			$data->hospital = "";
+			$data->phone_hospital = "";
+			$data->pharmacy = "";
+			$data->phone_pharmacy = "";
+			$data->mortuary = "";
+			$data->phone2_mortuary = "";
+			$data->special_med_needs_pharmacy = "";
+		}
+      return view('screening.pharmacy',compact('id','data'));
     }
     public function medical_equipment($id)
     {
-      return view('screening.medical_equipment',compact('id'));
+		$data = MedicalEquipSuppResidentNeed::where('pros_id',$id)->where('status',1)->first();
+		if(!$data){
+			$data=(object) null;
+			$data->inconsistency_supplies_type = "";
+			$data->pressure_relief_dev_type = "";
+			$data->bed_pan_medical = "";
+			$data->walker_medical = "";
+			$data->trapeze_medical = "";
+			$data->comode_medical = "";
+			$data->wheelchair_medical = "";
+			$data->oxygen_medical = "";
+			$data->urinal_medical = "";
+			$data->cane_medical = "";
+			$data->protective_pads_medical = "";
+			$data->crutches_medical = "";
+			$data->hospital_beds_medical = "";
+			$data->other_medical = "";
+		}
+      return view('screening.medical_equipment',compact('id','data'));
     }
     public function legal_doc($id)
 	{
-		return view('screening.legal_doc',compact('id'));
+		$data = DB::table('legal_doc_upload')->where('pros_id',$id)->where('status',1)->get();
+// 		dd($data);
+		$isDoc=true;
+		if($data->isEmpty()){
+			$isDoc=false;
+		}
+		return view('screening.legal_doc',compact('id','data','isDoc'));
+	}
+	public function delete_doc($id){
+	    $data = DB::table('legal_doc_upload')->where('doc_id',$id)->update(['status'=> 0]);
+	    $pros_id = DB::table('legal_doc_upload')->where('doc_id',$id)->select('legal_doc_upload.pros_id')->first();
+	    Toastr::success("Document deleted successfully!!");
+	    return redirect('/legal_doc/'.$pros_id->pros_id);
 	}
     public function funeral_home($id)
     {
-      return view('screening.funeral_home',compact('id'));
+		$data = FuneralHome::where('pros_id',$id)->where('status',1)->first();
+		if(!$data){
+			$data=(object) null;
+			$data->funeral_home = "";
+			$data->city = "";
+			$data->phone = "";
+			$data->address = "";
+		}
+      return view('screening.funeral_home',compact('id','data'));
     }
     public function insurance($id)
     {
-      return view('screening.insurance',compact('id'));
+		$data = Insurance::where('pros_id',$id)->where('status',1)->first();
+		if(!$data){
+			$data=(object) null;
+			$data->ss = "";
+			$data->medicare = "";
+			$data->supplemental_insurance_name = "";
+			$data->policy = "";
+			$data->medicaid = "";
+			$data->personal_responcible = ",,";
+			$data->case_manager = ",,";
+			$data->manager_phone = "";
+		}
+      return view('screening.insurance',compact('id','data'));
     }
     public function mental_status($id)
     {
@@ -1400,8 +1561,8 @@ class ScreeningController extends Controller
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['contact_person', 'like', '%' .$pros_id. '%']])->get();
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
         return view('screening.screening_pros_view', compact('crms', 'prospectives'));
-	}
-	// Screening Views
+    }
+    // Screening Views
 	public function resposible_view($id){
 		return view('screening_view.resposible_personal',compact('id'));
 	}
@@ -1421,7 +1582,7 @@ class ScreeningController extends Controller
 		return view('screening_view.medical_equipment',compact('id'));
 	}
 	public function doc_view($id){
-		$data = DB::table('legal_doc_upload')->where([['pros_id',$id]])->paginate(4);
+		$data = DB::table('legal_doc_upload')->where([['pros_id',$id],['status',1]])->paginate(6);
 		return view('screening_view.legal_doc',compact('id','data'));
 	}
 	public function insurance_view($id){
@@ -1430,6 +1591,5 @@ class ScreeningController extends Controller
 	public function funeral_view($id){
 		return view('screening_view.funeral_home',compact('id'));
 	}
-	
 	// Finish
 }

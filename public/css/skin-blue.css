@@ -56,12 +56,12 @@
   background-color: #3c8dbc;
 }
 .skin-blue .content-header {
-  background: transparent;
+  background: #ebecf7;
 }
 .skin-blue .wrapper,
 .skin-blue .main-sidebar,
 .skin-blue .left-side {
-  background-color: #ffffff;
+  background-color: #b6b6b6;
 }
 .skin-blue .user-panel > .info,
 .skin-blue .user-panel > .info > a {
@@ -71,9 +71,7 @@
   color: #4b646f;
   background: #1a2226;
 }
-.skin-blue .sidebar-menu > li > a {
-  /* border-left: 3px solid transparent; */
-}
+
 .skin-blue .sidebar-menu > li:hover > a,
 .skin-blue .sidebar-menu > li.active > a {
   color: #2196F3;

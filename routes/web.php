@@ -152,6 +152,8 @@ Route::get('assessment_form_view/{assessment_id}', 'AssessmentController@assessm
 Route::get('assessment_edit_preview', 'AssessmentController@assessment_edit_preview');
 Route::get('assessment_edit/{assessment_id}', 'AssessmentController@assessment_edit');
 Route::get('assessment', 'AssessmentController@assessment');
+Route::get('initial_assessment', 'AssessmentController@initial_assessment');
+Route::get('all_assessment/{id}','AssessmentController@all_assesment');
 Route::get('upload_file/{id}', 'AssessmentController@upload_file');
 Route::patch('file_upload', 'ProspectiveController@file_upload');
 Route::get('resident_assessment', 'AssessmentController@resident_assessment');
@@ -184,7 +186,7 @@ Route::get('screening_status/{id}', 'ScreeningController@screening_status');
 Route::get('screening_data/{id}', 'ScreeningController@screening_data');
 Route::get('screening_data_next/{id}', 'ScreeningController@screening_data_next');
 Route::get('screening_data_status/{id}', 'ScreeningController@screening_data_status');
-Route::get('details_view/{id}', 'ProspectiveController@details_view');
+Route::get('personal_details_view/{id}', 'ProspectiveController@details_view');
 Route::get('patient_medicine', 'DoctorController@patient_medicine');
 // Route::get('add_history/{pat_medi_id}', 'DoctorController@add_history');
 Route::post('add_history', 'DoctorController@add_history'); //edited by Zaman
@@ -426,7 +428,17 @@ Route::get('reassessment/{assessment_id}/{id}', 'AssessmentController@reassessme
 Route::get('find_assessment/{assessment_id}/{pros_id}', 'AssessmentController@find_assessment');
 Route::post('save_temporary_json', 'AssessmentController@save_temporary_json');
 
-// Screening View
+Route::get('assessment_period/{pros_id}', 'AssessmentController@assessment_period');
+Route::get('Monthly/{pros_id}', 'AssessmentController@Monthly');
+Route::get('Quarterly/{pros_id}', 'AssessmentController@Quarterly');
+Route::get('Half-Yearly/{pros_id}', 'AssessmentController@HalfYearly');
+Route::get('Annual/{pros_id}', 'AssessmentController@Annual');
+Route::get('Ad-hoc/{pros_id}', 'AssessmentController@Adhoc');
+Route::get('Initial/{pros_id}', 'AssessmentController@Initial');
+Route::get('find_reassessment/{assessment_id}', 'AssessmentController@find_reassessment');
+Route::get('find_answer/{assessment_id}/{pros_id}', 'AssessmentController@find_answer');
+
+// Screening View by Bikram
 Route::get('significant_view/{id}', 'ScreeningController@significant_view');
 Route::get('details_view/{id}', 'ScreeningController@details_view');
 Route::get('physician_view/{id}', 'ScreeningController@physician_view');
@@ -435,6 +447,13 @@ Route::get('equipment_view/{id}', 'ScreeningController@equipment_view');
 Route::get('doc_view/{id}', 'ScreeningController@doc_view');
 Route::get('insurance_view/{id}', 'ScreeningController@insurance_view');
 Route::get('funeral_view/{id}', 'ScreeningController@funeral_view');
+
+// document delete
+Route::get('delete_doc/{id}','ScreeningController@delete_doc');
+// Emoji by Zaman
+Route::get('get_emoji','EmojiController@get_emoji');
+Route::post('add_new_emoji','EmojiController@add_new_emoji');
+Route::post('update_emoji','EmojiController@update_emoji');
 //END
 
 Auth::routes();

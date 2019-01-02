@@ -66,11 +66,12 @@ $(document).ready(function() {
 								<select name="pros_id" id="pros_id"  class="form-control" required>
 									<option value="">@lang("msg.Select Resident")</option>
 									<?php
-										$pros = DB::table('sales_pipeline')->select('pros_name', 'id')->get();
+										$pros = DB::table('sales_pipeline')->where('facility_id',Auth::user()->facility_id)->select('pros_name', 'id')->get();
 										foreach ($pros as $pros)
 										{
+												$n = explode(",",$pros->pros_name);
 											?>
-												<option value="{{ $pros->id}}">{{ $pros->pros_name }}</option>
+												<option value="{{ $pros->id}}">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</option>
 											<?php
 										}
 									?>

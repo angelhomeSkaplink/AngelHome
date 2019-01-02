@@ -96,14 +96,6 @@ $(document).ready(function() {
                     <tbody>
 						<tr>
 							<th class="th-position text-uppercase font-500 font-12">###</th>
-							<!--<th class="th-position text-uppercase font-500 font-13">
-								<select name="pros_id" id="id" class="form-control">
-									<option value="">FUTURE RESIDENT</option>
-									@foreach ($reports as $prospect)
-									<option value="{{ $prospect->id}}">{{ $prospect->pros_name }}</option>
-									@endforeach
-								</select>
-							</th>-->
 							<th class="th-position text-uppercase font-500 font-12">Residents</th>
 							<th class="th-position text-uppercase font-500 font-12">Phone No</th>
 							<th class="th-position text-uppercase font-500 font-12">Email</th>
@@ -115,13 +107,16 @@ $(document).ready(function() {
 							<th class="th-position text-uppercase font-500 font-12">Work done by</th>
 						</tr>
 						@foreach ($reports as $report)
+						@php
+							$n = explode(",",$report->pros_name);
+						@endphp
 						<tr>
 							@if($report->service_image == NULL)
 							<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
 							@else
 							<td><img src="../hsfiles/public/img/{{ $report->service_image }}" class="img-circle" width="40" height="40"></td>
 							@endif
-							<td>{{ $report->pros_name }}</td>
+							<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
 							<?php 
 								$basic = DB::table('change_pross_record')->where([['pros_id', $report->id], ['status', 1]])->first();{
 							?>

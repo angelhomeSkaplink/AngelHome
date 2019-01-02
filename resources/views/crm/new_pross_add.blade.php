@@ -57,9 +57,6 @@
 								<input type="text" class="form-control" placeholder="Last Name*" pattern="[A-Za-z\s]+" name="pros_name[]" />
 							</div>
 						</div>
-						
-						
-						
 					</div>		
 					<div class="form-group has-feedback">
 					<!--<label>Phone No*</label>-->

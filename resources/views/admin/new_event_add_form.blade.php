@@ -64,7 +64,11 @@
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Name")</label>
 						<input type="text" class="form-control" name="event_name" required />
-					</div>					
+					</div>
+					<div class="form-group has-feedback">
+						{{-- <label>@lang("msg.Name")</label> --}}
+						<a href="#modal" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="material-icons md-36" style="color:#fff;"> add_circle </i> Add Emoji</a>
+					</div>
 					<div class="form-group has-feedback">
 						<label>@lang("msg.description") </label>
 						<textarea class="form-control" name="event_description" type="text" rows="4" ></textarea>
@@ -121,9 +125,163 @@
 		<div class="col-md-10"></div>					
 	</form>
 </div>
-<script type="text/javascript">
-	$(".myselect").select2();
-</script>
-@include('layouts.partials.scripts_auth')
+<div id="myModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+			<div class="modal-header" style="background-color:#1a1a1a;">
+				<button type="button" class="close" data-dismiss="modal"><span style="color:#fff;">&times;</span></button>
+				<h4 class="modal-title"><span style="color:#fff;">&#x1F605; Add Emoji to the EVENT!</span></h4>
+			</div>
+			<div class="modal-content">
+				<div class="modal-body">
+						<div class="panel panel-default">
+								<div class="panel-body">
+								  <div class="row">
+									  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+										<h4><strong><u>Smileys & People</u></strong></h4>
+										<?php
+											$data1 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',1)->get();
+										?>
+										@if($data1->isEmpty())
+										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+										@else
+										  @foreach($data1 as $emoji1)
+										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji1->code}}; {{$emoji1->title}} <span class=""></span></p>
+										  @endforeach
+										@endif
+									  </div>
+									  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+										<h4><strong><u>Animals & Nature</u></strong></h4>
+										<?php
+											$data2 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',2)->get();
+										?>
+										@if($data2->isEmpty())
+										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+										@else
+										  @foreach($data2 as $emoji2)
+										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji2->code}}; {{$emoji2->title}} <span class=""></span></p>
+										  @endforeach
+										@endif
+									  </div>
+									  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+										<h4><strong><u>Food & Drink</u></strong></h4>
+										<?php
+											$data3 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',3)->get();
+										?>
+										@if($data3->isEmpty())
+										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+										@else
+										  @foreach($data3 as $emoji3)
+										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji3->code}}; {{$emoji3->title}}  <span class=""></span></p>
+										  @endforeach
+										@endif
+									  </div>
+					  
+								  </div>
+								  <div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+									  <h4><strong><u>Activity</u></strong></h4>
+									  <?php
+										  $data4 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',4)->get();
+									  ?>
+									  @if($data4->isEmpty())
+										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+									  @else
+										@foreach($data4 as $emoji4)
+										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji4->code}}; {{$emoji4->title}} <span class=""></span></p>
+										@endforeach
+									  @endif
+									</div>
+									  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+										<h4><strong><u>Travel & Places</u></strong></h4>
+										<?php
+											$data5 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',5)->get();
+										?>
+										@if($data5->isEmpty())
+										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+										@else
+										  @foreach($data5 as $emoji5)
+										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji5->code}}; {{$emoji5->title}} <span class=""></span></p>
+										  @endforeach
+										@endif
+									  </div>
+									  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+										<h4><strong><u>Objects</u></strong></h4>
+										<?php
+											$data6 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',6)->get();
+										?>
+										@if($data6->isEmpty())
+										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+										@else
+										  @foreach($data6 as $emoji6)
+										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji6->code}}; {{$emoji6->title}} <span class=""></span></p>
+										  @endforeach
+										@endif
+									  </div>
+					  
+					  
+								  </div>
+								  <div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+									  <h4><strong><u>Symbols</u></strong></h4>
+									  @php
+										  $data7 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',7)->get();
+									  @endphp
+									  @if($data7->isEmpty())
+										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+									  @else
+										@foreach($data7 as $emoji7)
+										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji7->code}}; {{$emoji7->title}} <span class=""></span></p>
+										@endforeach
+									  @endif
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+									  <h4><strong><u>Flags</u></strong></h4>
+									  <?php
+										  $data8 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',8)->get();
+									  ?>
+									  @if($data8->isEmpty())
+										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+									  @else
+										@foreach($data8 as $emoji8)
+										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji8->code}}; {{$emoji8->title}} <span class=""></span></p>
+										@endforeach
+									  @endif
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+									  <h4><strong><u>Skin Tones</u></strong></h4>
+									  <?php
+										  $data9 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',9)->get();
+									  ?>
+									  @if($data9->isEmpty())
+										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+									  @else
+										@foreach($data9 as $emoji9)
+										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji9->code}}; {{$emoji9->title}} <span class=""></span></p>
+										@endforeach
+									  @endif
+									</div>
+								  </div>
+								  <div class="row">
+									<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+									  <h4><strong><u>Uncategorized</u></strong></h4>
+									  <?php
+										  $data10 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',10)->get();
+									  ?>
+									  @if($data10->isEmpty())
+										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
+									  @else
+										@foreach($data10 as $emoji10)
+										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji10->code}}; {{$emoji10->title}} <span class=""></span></p>
+										@endforeach
+									  @endif
+									</div>
+								  </div>
+								</div>
+							</div>
+				</div>
+			</div>
+	</div>
+</div>
+{{-- @include('layouts.partials.scripts_auth') --}}
 
 @endsection

@@ -22,9 +22,7 @@ class DoctorController extends Controller
     {
         $val = $request['language'];
 		App::setlocale($val);
-        $patients = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)
-					->select('sales_pipeline.id', 'sales_pipeline.pros_name', 'sales_pipeline.contact_person', 'sales_pipeline.phone_p', 'sales_pipeline.city_p','sales_pipeline.service_image')
-                    ->get();
+        $patients = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage',"MoveIn"]])->get();
         return view('doctor.patients_list', compact('patients'));
     }
 
@@ -113,6 +111,7 @@ class DoctorController extends Controller
 		        }
 			$arr = $request['time_to_take_med'];
 			$freq_day = $request['frequency'];
+			$doctor = implode(",",$request['doctor_name']);
 			$pat_id = [];
 			for ($i=0; $i<$freq_day; $i++) {
 				$new_data = new PatientMedicalInfo();
@@ -131,7 +130,7 @@ class DoctorController extends Controller
 				$new_data->on_saturday = $day_array[5];
 				$new_data->on_sunday = $day_array[6];
 				$new_data->apply_on = $request['apply_on'];
-				$new_data->doctor_name = $request['doctor_name'];
+				$new_data->doctor_name = $doctor;
 				$new_data->allergy= $request['allergy'];
 				$new_data->diet= $request['diet'];
 				$new_data->is_prn = $is_prn;

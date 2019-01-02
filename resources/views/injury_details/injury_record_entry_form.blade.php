@@ -47,7 +47,10 @@
 							<select name="pros_id" id="pros_id" class="form-control" style="width:100%; height: 34px;" required >
 								<option value="">@lang("msg.Select Resident")</option>
 								@foreach ($prospects as $prospect)
-								<option value="{{ $prospect->id}}">{{ $prospect->pros_name }}</option>
+								@php
+									$n = explode(",",$prospect->pros_name);
+								@endphp
+								<option value="{{ $prospect->id}}">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</option>
 								@endforeach
 							</select>
 						</div>

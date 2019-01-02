@@ -35,8 +35,9 @@
     							<tr>
     								@if($medicine->frequency=='Daily')
     									<?php 
-    										$user = DB::table('task_assingee')->where([['user_id', $user_id], ['task', $medicine->title], ['task_date', date("Y-m-d",time())]])->count(); 
-    										if($user>0){
+    										$user = DB::table('task_assingee')->where([['task', $medicine->title], ['task_date', date("Y-m-d",time())]])->count(); 
+											// dd($user);
+											if($user>0){
     									?>
     									@if($medicine->service_image == NULL)
     									<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	

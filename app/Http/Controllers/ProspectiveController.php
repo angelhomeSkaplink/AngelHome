@@ -450,7 +450,7 @@ class ProspectiveController extends Controller
 					->where('personal_details.pros_id', $id)
                     ->select('personal_details.*','emergency_contact.*')
                     ->first();
-
+		// dd($reports_1);
         return view('crm.details_view', compact('reports_1', 'reports_2'));
     }
 	//Finished

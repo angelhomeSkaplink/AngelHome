@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Medical Equipment
 @endsection
 
 @section('contentheader_title')
-<?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-  <p class="text-danger"><b>ADD medical equipment details for {{ $name->pros_name }}</b></p>
+<?php $name = DB::table('sales_pipeline')->where('id', $id)->first();
+    $n = explode(",",$name->pros_name);
+?>
+  <p class="text-danger"><b>ADD medical equipment details for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
 @endsection
 
 @section('main-content')
@@ -40,10 +42,10 @@
   <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left:-14px; margin-right:-14px; margin-top:1px">
        <li class="nav-item">
-        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONAL</a>
+        <a class="nav-link" href="../resposible_personal/{{ $id }}">RESPOSIBLE PERSONNEL</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONAL</a>
+        <a class="nav-link" href="../significant_personal/{{ $id }}">SIGNIFICANT PERSONNEL</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../resident_details/{{ $id }}">RESIDENT DETAILS</a>
@@ -77,13 +79,15 @@
 								{{ csrf_field() }}
 								<input type="hidden" class="form-control" placeholder="" name="pros_id" value="{{ $id }}"/>
 								<div class="col-md-6">
+								    <label>Incontinency Supplies/Type*</label>
 									<div class="form-group has-feedback">
-										<input type="text" placeholder="Incontinency Supplies/Type*" name="inconsistency_supplies_type" id="" value="" class="form-control">
+										<input type="text" placeholder="" name="inconsistency_supplies_type" value="{{ $data->inconsistency_supplies_type }}" id="" value="" class="form-control" required>
 									</div>
 								</div>
 								<div class="col-md-6">
+								    <label>Pressure Relief Device Type*</label>
 									<div class="form-group has-feedback">
-										<input type="text" placeholder="Pressure Relief Device Type*" name="pressure_relief_dev_type" id="" value="" class="form-control">
+										<input type="text" placeholder="" name="pressure_relief_dev_type" value="{{ $data->pressure_relief_dev_type }}" id="" value="" class="form-control" required>
 									</div>
 								</div>
 								<div class="col-md-12">	 <br/>
@@ -166,7 +170,7 @@
 										<div class="col-md-4">
 											<div class="form-check">
 												<label>
-													<input type="checkbox" id="protective_pads_medical"> <span class="label-text">PROTECTIVE PADS</span>
+													<input type="checkbox" id="protective_pads_medical" name="protective_pads_medical"> <span class="label-text">PROTECTIVE PADS</span>
 												</label>
 											</div>
 										</div>
@@ -176,7 +180,9 @@
 											<div class="col-md-4">
 												<div class="form-check">
 													<div class="col-md-2" style="padding-left:0; padding-right:0"><label style="margin-top:7px">Others: </label> </div>
-													<div class="col-md-10" style="padding-left:7px"><input type="text" id="protective_pads_medical" name="protective_pads_medical" class="form-control"> </div>
+													<div class="col-md-10" style="padding-left:7px">
+													<input type="text" id="other_medical" placeholder="" name="other_medical" value="{{$data->other_medical}}" class="form-control"> 
+													</div>
 
 												</div>
 											</div>
@@ -224,5 +230,53 @@
   </div>
 </div>
 @include('layouts.partials.scripts_auth')
+<script type="text/javascript">
+	$('document').ready(function(){
+			var BED_PAN = "<?php echo $data->bed_pan_medical; ?>";
+			var COMODE = "<?php echo $data->comode_medical ; ?>";
+			var URINAL = "<?php echo $data->urinal_medical ; ?>";
+			var CRUTCHES = "<?php echo $data->crutches_medical ; ?>";
+			var WALKER = "<?php echo $data->walker_medical ?>";
+			var WHEELCHAIR = "<?php echo $data->wheelchair_medical ; ?>";
+			var CANE = "<?php echo $data->cane_medical ; ?>";
+			var HOSPITAL_BED = "<?php echo $data->hospital_beds_medical ; ?>";
+			var TRAPEZE = "<?php echo $data->trapeze_medical; ?>";
+			var OXYGEN = "<?php echo $data->oxygen_medical ; ?>";
+			var ROTECTIVE_PADS = "<?php echo $data->protective_pads_medical ; ?>";
 
+			if(BED_PAN=="on"){
+				$("#bed_pan_medical").prop('checked', true);
+			}
+			if(COMODE=="on"){
+				$("#comode_medical").prop('checked', true);
+			}
+			if(URINAL=="on"){
+				$("#urinal_medical").prop('checked', true);
+			}
+			if(CRUTCHES=="on"){
+				$("#crutches_medical").prop('checked', true);
+			}
+			if(WALKER=="on"){
+				$("#walker_medical").prop('checked', true);
+			}
+			if(WHEELCHAIR=="on"){
+				$("#wheelchair_medical").prop('checked', true);
+			}
+			if(CANE=="on"){
+				$("#cane_medical").prop('checked', true);
+			}
+			if(HOSPITAL_BED=="on"){
+				$("#hospital_beds_medical").prop('checked', true);
+			}
+			if(TRAPEZE=="on"){
+				$("#trapeze_medical").prop('checked', true);
+			}
+			if(OXYGEN=="on"){
+				$("#oxygen_medical").prop('checked', true);
+			}
+			if(ROTECTIVE_PADS=="on"){
+				$("#protective_pads_medical").prop('checked', true);
+			}
+	});
+</script>
 @endsection

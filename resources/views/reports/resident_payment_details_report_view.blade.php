@@ -100,8 +100,11 @@
 								<th class="th-position text-uppercase font-500 font-12">Status</th>	
 							</tr>
 							@foreach ($reports as $report)
+							@php
+								$n = explode(",",$report->pros_name);
+							@endphp
 							<tr>
-								<td><label>{{ $report->pros_name }}</label></td>
+								<td><label>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</label></td>
 								<td><label>{{ $report->ammount_pay }}</label></td>								
 								<td><label>{{ $report->ammount_paid }}</label></td>
 								<td><label>{{ $report->due_ammount }}</label></td>

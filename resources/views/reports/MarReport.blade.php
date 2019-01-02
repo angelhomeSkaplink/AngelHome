@@ -38,14 +38,17 @@
 								<th class="th-position text-uppercase font-500 font-12">Resident</th>
 								<th class="th-position text-uppercase font-500 font-12">View Report</th>
 							</tr>
-              @foreach($join as $r)
-							<tr>
+			  @foreach($join as $r)
+			@php
+				$n = explode(",",$r->pros_name);
+			@endphp
+			<tr>
                 @if($r->service_image == NULL)
 								<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>
 								@else
 								<td><img src="hsfiles/public/img/{{ $r->service_image }}" class="img-circle" width="40" height="40"></td>
 								@endif
-                <td>{{$r->pros_name}}</td>
+							<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
                 <td>
                     <a href="resident_mar_rep/{{ $r->id }}">
                         <i class="material-icons gray md-22"> remove_red_eye </i>

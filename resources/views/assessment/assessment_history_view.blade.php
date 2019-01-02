@@ -8,8 +8,11 @@
 	 @if($reports->isEmpty())
 		<p class="text-danger">&nbsp;&nbsp;<b>@lang("msg.No Assessment Record Found")</b></p>
 	@endif
-	@if(!$reports->isEmpty())	
-		<p class="text-success"><b>@lang("msg.Assessment Records Of") <span class="text-uppercase">{{ $resident->pros_name }}</span></b>
+	@if(!$reports->isEmpty())
+	@php
+		$n = explode(",",$resident->pros_name);
+	@endphp
+		<p class="text-success"><b>@lang("msg.Assessment Records Of") <span class="text-uppercase">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</span></b>
 		<a href="../next_assessment_date/{{ $resident->id }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:187px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> add </i> @lang("msg.Next Assessment Date")</a>
 		</p>
 	@endif

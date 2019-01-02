@@ -59,6 +59,9 @@
     
                             @if(count($stocks) != 0)
                             @foreach($stocks as $stock)
+                            @php
+                                $n = explode(",",$stock->pros_name);
+                            @endphp
                             <tr>
                                 <td class="th-position font-12">
                                     <!-- <a href="view_stock_details/{{ $stock->medicine_name }}">{{ $stock->medicine_name }}</a> -->
@@ -72,7 +75,7 @@
     								@else
     								<td><img src="hsfiles/public/img/{{ $stock->service_image }}" class="img-circle" width="30" height="30"></td>
     								@endif
-                                <td class="th-position font-12">{{ $stock->pros_name }}</td>
+                                <td class="th-position font-12">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
     
                                 @if($stock->order_status == 0)
                                 <td class="th-position font-12">Request Sent</td>

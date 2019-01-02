@@ -371,11 +371,11 @@ a:focus {
     top: 0;
     right: 0;
     float: none;
-    background: #cdcfd3;
+    background: #97999b;
     padding-left: 10px;
   }
   .content-header > .breadcrumb li:before {
-    color: #97a0b3;
+    color: #909296;
   }
 }
 .navbar-toggle {

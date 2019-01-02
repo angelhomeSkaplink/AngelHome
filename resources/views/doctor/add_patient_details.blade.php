@@ -6,17 +6,20 @@
 @endsection
 
 @section('contentheader_title')
-    <p><b> <span class="text-danger" style="text-align:center;"> 
+	<p><b> <span class="text-danger" style="text-align:center;"> 
+		@php
+			$n = explode(",",$name->pros_name);
+		@endphp
         @if($name->service_image == NULL)
 		<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
 		@else
 		<img src="../hsfiles/public/img/{{ $name->service_image }}" class="img-circle" width="40" height="40">
 	@endif
     
-    {{ $name->pros_name }}</span> </b>
+    {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</span> </b>
     
     <a href="{{ url('view_patient_details/' . $id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:115px !important"><i class="material-icons md-14 font-weight-600"> details </i>  @lang("msg.All Details")</a></p>
-    <h4><p align="center" style="text-align:center;">Add Medical Information</p></h4>
+    <h4><p style="text-align:center;">Add Medical Information</p></h4>
 @endsection
 
 @section('main-content')
@@ -44,22 +47,30 @@
 					<div class=""></div>
             		<div class="col-md-4">
             			<input type="hidden" class="form-control" name="pros_id" value="{{ $id }}" >
-            			<div class="form-group has-feedback">
+            			<div class="form-group">
 								<label>@lang("msg.Doctor Name")*</label><br/>
-								<div class="autocomplete" style="width:320px;">
-									<input id="myInput" type="text" name="doctor_name" autocomplete="off" required >
-								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">					
+											<input type="text" class="form-control" placeholder="First Name*" pattern="[A-Za-z\s]+" name="doctor_name[]" />
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">					
+											<input type="text" class="form-control" placeholder="Middle Name" pattern="[A-Za-z\s]+" name="doctor_name[]" />
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">					
+											<input type="text" class="form-control" placeholder="Last Name*" pattern="[A-Za-z\s]+" name="doctor_name[]" />
+										</div>
+									</div>
+								</div>	
 							</div>
-                        <div class="form-group has-feedback">
-								<label>@lang("msg.Medicine Name")*</label><br/>
-								<div class="autocomplete" style="width:320px;">
-									<input id="myInput" type="text" name="medicine_name" autocomplete="off" required >
-								</div>
-							</div>
-						<div id="othereventShow" style="display: none">
-							<div class="form-group has-feedback">
-								<label>@lang("msg.Medicine Name")</label><br/>
-								<input type="text" class="form-control" name="med_name" id="med_name" />
+						<div class="form-group has-feedback">
+							<label>@lang("msg.Medicine Name")*</label><br/>
+							<div class="form-group">
+								<input class="form-control" type="text" name="medicine_name" required >
 							</div>
 						</div>
                         <div class="form-group has-feedback">
@@ -146,14 +157,14 @@
 					<div class="col-md-4">
                         <div class="form-group has-feedback">
 								<label>@lang("msg.Allergy")</label><br/>
-								<div class="autocomplete" style="width:320px;">
-									<input id="myInput" type="text" name="allergy" autocomplete="off">
+								<div class="">
+									<input class="form-control" type="text" name="allergy">
 								</div>
 							</div>
 							<div class="form-group has-feedback">
 								<label>@lang("msg.Diet")</label><br/>
-								<div class="autocomplete" style="width:320px;">
-									<input id="myInput" type="text" name="diet" autocomplete="off" >
+								<div class="">
+									<input class="form-control" type="text" name="diet" >
 								</div>
 							</div>
 						<div class="form-group has-feedback">

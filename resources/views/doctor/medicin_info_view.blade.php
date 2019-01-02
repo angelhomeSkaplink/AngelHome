@@ -29,6 +29,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div class="row">
+    <div class="col-lg-12">
+        <p><strong>Note:- <br> </strong> <i class="material-icons md-36"> offline_pin</i>  Given in due time <strong>::</strong> <i class="material-icons md-36">  check_circle_outline </i>  Given either early or late <strong>::</strong> <i class="material-icons md-36"> hourglass_empty</i> PRN action pending <strong>::</strong> <i class="material-icons md-36"> cancel</i> Not given <strong>::</strong> <i class="material-icons md-36"> email</i> Refused-Mail sent to Doctor</p>
+    </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         <div class="box box-primary border">
 			<div id="DivIdToPrint">
@@ -45,24 +50,27 @@
 								<th class="th-position text-uppercase font-500 font-12">MAR Action</th>
 								<th class="th-position text-uppercase font-500 font-12">Affect Time</th>
 								<th class="th-position text-uppercase font-500 font-12">Prn Action</th>
-                                <th class="th-position text-uppercase font-500 font-12">Administered By</th>
-                                <th class="th-position text-uppercase font-500 font-12">Action Time</th>
+                <th class="th-position text-uppercase font-500 font-12">Administered By</th>
+                <th class="th-position text-uppercase font-500 font-12">Action Time</th>
 							</tr>
-							@foreach ($medicines as $medicine)
+              @foreach ($medicines as $medicine)
+              @php
+                      $n = explode(",",$medicine->pros_name);
+              @endphp
 							<?php
 								$history = DB::table('medicine_history')->where('pat_medi_id', $medicine->pat_medi_id)
                   					  ->where('mar_date',$current_date)
 									  ->select('med_history_id','time_to_take_med','effect_after','user_id','pat_medi_id','status','action_performed_on','reason_title','reason_desc')->first();
 									  if($history){
-                                        $due_time=date('h:i A', strtotime($medicine->time_to_take_med));
-                            ?>
+                                $due_time=date('h:i A', strtotime($medicine->time_to_take_med));
+                ?>
 							<tr>
 								@if($medicine->service_image == NULL)
 								<td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>
 								@else
 								<td><img src="hsfiles/public/img/{{ $medicine->service_image }}" class="img-circle" width="40" height="40"></td>
 								@endif
-								<td>{{ $medicine->pros_name }}</td>
+                <td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
 								<td>{{ $medicine->medicine_name }}</td>
 								<td>{{ $medicine->quantity_of_med }}</td>
 								<td>{{ $due_time }}</td>
@@ -156,9 +164,15 @@
 
                    </div>
 				</td>
-				<td>
-				    {{ date('h:i A', strtotime($history->effect_after)) }}
-				</td>
+				<td><?php
+				if($medicine->is_prn ==1){
+			   ?>
+			   {{ date('h:i A', strtotime($history->effect_after))}}
+				<?php
+			    }else{
+			    	?> Non-PRN
+					<?php } ?>
+					</td>
                 <td>----------</td>
                 <td>----------</td>
                 <td>----------</td>
@@ -300,11 +314,11 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-        <p><strong>Note:- <br> </strong> <i class="material-icons md-36"> offline_pin</i>  Given in due time <strong>::</strong> <i class="material-icons md-36">  check_circle_outline </i>  Given either early or late <strong>::</strong> <i class="material-icons md-36"> hourglass_empty</i> PRN action pending <strong>::</strong> <i class="material-icons md-36"> cancel</i> Not given <strong>::</strong> <i class="material-icons md-36"> email</i> Refused-Mail sent to Doctor</p>
-    </div>
-</div>
+<!--<div class="row">-->
+<!--    <div class="col-lg-12">-->
+<!--        <p><strong>Note:- <br> </strong> <i class="material-icons md-36"> offline_pin</i>  Given in due time <strong>::</strong> <i class="material-icons md-36">  check_circle_outline </i>  Given either early or late <strong>::</strong> <i class="material-icons md-36"> hourglass_empty</i> PRN action pending <strong>::</strong> <i class="material-icons md-36"> cancel</i> Not given <strong>::</strong> <i class="material-icons md-36"> email</i> Refused-Mail sent to Doctor</p>-->
+<!--    </div>-->
+<!--</div>-->
 @endsection
 @section('scripts-extra')
 <script>
