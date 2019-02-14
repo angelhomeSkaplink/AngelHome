@@ -93,7 +93,7 @@
                             <div style="border-bottom:1px solid #e3e3e3;">
                             <span class="" style="color:#999999;"> <i class="material-icons">access_time</i> {{ $e->event_time }}</span> 
                                 <h5> 
-                                <span style="color:#337ab7;">{{ $e->event_name}}:</span>
+                                <span style="color:#337ab7;">&#x{{$e->emoji_code}};{{ $e->event_name}}:</span>
                                 <span style="padding-left:2px;color:#999999;padding-top:0px;text-transform:lowercase;">{{ $e->event_description}}</span>
                                 </h5>
                             </div>
@@ -181,7 +181,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="panel panel-default zoom">
-                    <a href="">
+                    <a href="get_emoji">
                     <div class="panel-heading wiget-head text-center"> 
                         <h4><strong> WIDGET TITLE</strong></h4>
                     </div>

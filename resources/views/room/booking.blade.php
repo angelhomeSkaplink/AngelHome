@@ -6,7 +6,11 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>Residents</b></p>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Room Booking</strong></h3>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
@@ -54,13 +58,13 @@
     							<th class="th-position text-uppercase font-500 font-12">#</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="myInput" type="text" placeHolder="RESIDENT">
+    									<input id="myInput" type="text" placeHolder="&#61442; RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">Phone No</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="emailautocomplete" style="width:200px;">
-    									<input id="emailInput" type="text" placeHolder="EMAIL">
+    									<input id="emailInput" type="text" placeHolder="&#61442; EMAIL" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<!--<th class="th-position text-uppercase font-500 font-12">Book Room</th>-->

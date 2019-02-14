@@ -1,78 +1,17 @@
-<!-- Nilutpal Boruah Jr. -->
-
 @extends('layouts.app')
 
 @section('htmlheader_title')
-List of Patients
+MAR
 @endsection
 @section('contentheader_title')
-<div class="row" style="padding:0px;margin:0px;">
-    <div class="col-lg-12 text-center">
-        <h3 style="padding:0px;margin:0px;"><strong>Medication Administration Record (MAR)</strong></h3>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Medication Administration Record (MAR)</strong></h3>
     </div>
-</div>
-<div class="row" style="margin-top:20px;">
-	@php
-		$n = explode(",",$name->pros_name);
-	@endphp
-	<div class="col-lg-4">
-		<h3 style="margin:0px;padding:0px;">@if($name->service_image == NULL)
-		<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
-		@else
-		<img src="../hsfiles/public/img/{{ $name->service_image }}" class="img-circle" width="40" height="40">
-	@endif<b><span class="text-danger">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</span></b></h3>
-	</div>
-	
-	<div class="col-lg-4 text-center">
-		<form action="{{ action('ReportController@mar_monthly_report')}}" method="post">
-			<input name="_method" type="hidden" value="POST">
-			{!! csrf_field() !!}
-			<input type="hidden" name="user_id" value="{{ $name->id }}">
-			<div class="row">
-			    
-				<div class="col-lg-8 col-lg-offset-2">
-					<div class="row">
-						<div class="col-lg-4" style="padding-right:0px;">
-							<select type="text" name="mar_month" id="mar_month" class="form-control" placeholder="">
-								<option value=""></option>
-								<option value="01">Jan</option>
-								<option value="02">Feb</option>
-								<option value="03">Mar</option>
-								<option value="04">Apr</option>
-								<option value="05">May</option>
-								<option value="06">Jun</option>
-								<option value="07">Jul</option>
-								<option value="08">Aug</option>
-								<option value="09">Sep</option>
-								<option value="10">Oct</option>
-								<option value="11">Nov</option>
-								<option value="12">Dec</option>
-							</select>
-						</div>
-						<div class="col-lg-4" style="padding-left:0px;padding-right:0px;">
-							<select type="text" name="mar_year" id="mar_year" class="form-control" placeholder="">
-							    <option value=""></option>
-							    @php 
-							    for($i=2018;$i<=2050;$i++){
-							    @endphp
-								<option value="{{ $i }}">{{ $i }}</option>
-								@php
-								}
-								@endphp
-							</select>
-						</div>
-						<div class="col-lg-4" style="padding-left:0px;">
-							<button class="btn btn-default form-control" type="submit" name="submit"><i class="material-icons md-36" style="color:#000;"> search </i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-	<div class="col-lg-4" style="padding-right:30px;">
-		<button class="btn btn-info pull-right" id="printButton" type="submit" onclick="printDiv('printableDiv')">Print<i class="material-icons md-22" aria-hidden="true"> description </i></button>
-	</div>
-	
+    <div class="col-lg-4">
+      <span class="pull-right" style="padding-right:30px;"><button class="btn btn-primary" onclick="printDiv('printableDiv')" id="printButton"><i class="material-icons md-22"> print </i> Print</button></span>
+	<a href="{{ url('mar_report') }}" class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+    </div>
 </div>
 @endsection
 
@@ -103,6 +42,104 @@ List of Patients
 	.print-header{ display:block; }
 	.print-footer{ display:block; }
 </style>
+{{-- start of resident info header --}}
+@php
+$person = DB::table('sales_pipeline')->where('id',$name->id)
+			->join('resident_details','sales_pipeline.id','=','resident_details.pros_id')
+			->first();
+$room = DB::table('resident_room')
+		->join('facility_room','resident_room.room_id','=','facility_room.room_id')
+		->where([['resident_room.pros_id',$name->id],['resident_room.status',1]])->first();
+if($room){
+	$room_no = $room->room_no;
+}
+else{
+	$room_no = "No Room Booked";
+}
+if($person){
+	$age = (date('Y') - date('Y',strtotime($person->dob)))." years";
+}
+else{
+	$person = DB::table('sales_pipeline')->where('id',$name->id)->first();
+	$age = "Not specified";
+}
+$name =  explode(",",$person->pros_name);
+@endphp
+<div class="row" >
+	<div class="col-lg-12 table-responsive">
+		<table class="table">
+			<tr style="background-color:rgb(49, 68, 84) !important;margin:0.5px;">
+				<td>
+						<h4>@if($person->service_image == null)
+								<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+							@else
+								<img src="../hsfiles/public/img/{{ $person->service_image }}" class="img-circle" width="40" height="40">
+							@endif
+							<span class="text-success" style="color:aliceblue;"><strong>{{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong>
+						</h4>
+				</td>				
+				<td>
+						<h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>Room No: {{ $room_no }} </strong></span></h4>
+				</td>
+				<td>
+						<h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>Age: {{ $age }} </strong></span></h4>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="row text-center">
+		<p><strong>Note: </strong><i class="material-icons md-36"> schedule</i> To be administered <strong>::</strong> <i class="material-icons md-36"> offline_pin</i>  Given in due time <strong>::</strong> <i class="material-icons md-36">  check_circle_outline </i>  Given either early or late <strong>::</strong> <i class="material-icons md-36"> cancel</i> Not given <strong>::</strong> <i class="material-icons md-36"> email</i> Refused-Mail sent to Doctor</p>
+		<p><span class="text-danger"><strong>Print Setting:</strong></span><span><b>Paper:</b></span>  legal; <span><b>Layout:</b></span> landscape</p>
+	</div>
+	<div class="row">
+	<div class="col-lg-4"></div>
+	<div class="col-lg-4 text-center">
+		<form action="{{ action('ReportController@mar_monthly_report')}}" method="post">
+			<input name="_method" type="hidden" value="POST">
+			{!! csrf_field() !!}
+			<input type="hidden" name="user_id" value="{{ $person->id }}">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<div class="row">
+						<div class="col-lg-4" style="padding-right:0px;">
+							<select type="text" name="mar_month" id="mar_month" class="form-control" placeholder="">
+								<option value=""></option>
+								<option value="01">Jan</option>
+								<option value="02">Feb</option>
+								<option value="03">Mar</option>
+								<option value="04">Apr</option>
+								<option value="05">May</option>
+								<option value="06">Jun</option>
+								<option value="07">Jul</option>
+								<option value="08">Aug</option>
+								<option value="09">Sep</option>
+								<option value="10">Oct</option>
+								<option value="11">Nov</option>
+								<option value="12">Dec</option>
+							</select>
+						</div>
+						<div class="col-lg-4" style="padding-left:0px;padding-right:0px;">
+							<select type="text" name="mar_year" id="mar_year" class="form-control" placeholder="">
+							    <option value=""></option>
+							    @for($i=2018;$i<=2050;$i++)
+								<option value="{{ $i }}">{{ $i }}</option>
+								@endfor
+							</select>
+						</div>
+						<div class="col-lg-4" style="padding-left:0px;">
+							<button class="btn btn-default form-control" type="submit" name="submit"><i class="material-icons md-36" style="color:#000;"> search </i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+
+
+{{-- end --}}
 <div class="tableContainer" style="background-color:#fff;">
 	<div>
 	<!-- Bootstrap core CSS -->
@@ -137,7 +174,9 @@ List of Patients
 					</div>
 					<div class="row">
 						<div class="col-lg-12">
-							<h4><strong>Resient Name: {{ $name->pros_name }}</strong></h4>
+							<h4><strong>Resient Name: {{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong></h4>
+							<h5><strong>Age: </strong> {{ $age }}</h5>
+							<h5><strong>Room: </strong> {{ $room_no }}</h5>
 						</div>
 					</div>
 				</div>
@@ -248,10 +287,7 @@ List of Patients
 				<!--Table-->
 			
 				</div>
-				<div>
-				    <p><strong>Note: </strong><i class="material-icons md-36"> schedule</i> To be administered <strong>::</strong> <i class="material-icons md-36"> offline_pin</i>  Given in due time <strong>::</strong> <i class="material-icons md-36">  check_circle_outline </i>  Given either early or late <strong>::</strong> <i class="material-icons md-36"> cancel</i> Not given <strong>::</strong> <i class="material-icons md-36"> email</i> Refused-Mail sent to Doctor</p>
-				    
-				</div>
+				
 				<div class="print-footer">
 					<div class="row">
 						<div class="col-lg-12 text-center">
@@ -297,6 +333,7 @@ List of Patients
 		document.body.innerHTML = printContents;
 		window.print();
 		document.body.innerHTML = originalContents;
+		window.location.reload(true);
 	}
 </script>
 <script type="text/javascript">

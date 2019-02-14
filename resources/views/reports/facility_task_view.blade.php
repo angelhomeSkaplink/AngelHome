@@ -2,43 +2,28 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Facility Info 
+    Task Sheet Report 
 @endsection
 
 @section('contentheader_title')
-    Facility List
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Facility Task Sheet Report</strong></h3>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
-    <!--<div class="row">
-		<form action="inquiery_reports" method="post" enctype="multipart/form-data">
-			{!! csrf_field() !!}
-			<div class="col-md-4">
-				<div class="form-group has-feedback">
-					<label class="sm-heading">From Date</label>
-					<input type="text" class="form-control" placeholder="From Date" name="from" id="from" onkeyup="getdateofretirement();" autocomplete="off"/>
-					<script type="text/javascript"> $('#from').datepicker({format: 'yyyy/mm/dd'});</script> 
-				</div>			
-			</div>
-			<div class="col-md-4">
-				<div class="form-group has-feedback">
-					<label class="sm-heading">To Date</label>
-					<input type="text" class="form-control" placeholder="To Date" name="to" id="to" onkeyup="getdateofretirement();" autocomplete="off" />
-					<script type="text/javascript"> $('#to').datepicker({format: 'yyyy/mm/dd'});</script> 
-				</div>			
-			</div>			
-			<div class="col-md-4">
-				<div class="form-group has-feedback">
-					<button type="submit" class="btn btn-primary btn-block btn-flat padding-top-bottom-4" style="width:90% !important; margin-top:24px">
-						<i class="material-icons"> search </i> Search
-					</button>
-				</div>			
-			</div>
-		</form>
-	</div>
-	<script type="text/javascript">
-		$(".myselect").select2();
-	</script>-->
+<style>
+	.content-header
+	{
+		padding: 2px 0px 1px 20px;
+		margin-bottom: -10px;
+	}
+	.content {
+		margin-top: 15px;
+	}
+</style>
 	<div class="row">
 	<br/>
         <div class="col-md-12">	

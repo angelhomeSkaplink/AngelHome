@@ -110,9 +110,9 @@
             <div class="row">
               <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <h4><strong><u>Symbols</u></strong></h4>
-                @php
+                <?php
                     $data7 = DB::table('emoji_library')->select('emoji_library.*')->where('category','=',7)->get();
-                @endphp
+                ?>
                 @if($data7->isEmpty())
                   <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
                 @else
@@ -198,6 +198,7 @@
                   <option value="9">Skin Tones</option>
                   <option value="10">Uncategorized</option>
               </select>
+              <!-- <input type="text" class="form-control" name="emoji_category" id="emoji_category"> -->
             </div>
             <div class="form-group">
               <label for="title">Emoji Title:</label>

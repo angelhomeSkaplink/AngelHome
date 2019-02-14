@@ -398,6 +398,7 @@ class RoomController extends Controller
 
         $activitycalendar = new ActivityCalendar();
 		$activitycalendar->event_name = $request['event_name'];
+		$activitycalendar->emoji_code = $request['emoji_code'];
 		$activitycalendar->event_description = $request['event_description'];
 		$activitycalendar->event_place = $request['event_place'];
 		$activitycalendar->event_date = $request['event_date'];
@@ -418,7 +419,7 @@ class RoomController extends Controller
 		$val = $request['language'];
 		App::setlocale($val);
 		
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();			
+		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage',"MoveIn"]])->get();			
 			
 		return view('admin.attendee_form', compact('event_id', 'crms'));
 	}

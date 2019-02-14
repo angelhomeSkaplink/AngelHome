@@ -20,6 +20,7 @@ class MedicineStockHistoryController extends Controller
 	
     public function medicine_stocks_list(Request $request)
     {
+
 		$val = $request['language'];
 		if(!$val){
 			$qry_data = DB::table('medicine_stock_history')

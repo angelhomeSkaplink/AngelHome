@@ -2,25 +2,29 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Service plan
+    Service Plan
 @endsection
 
 @section('contentheader_title')
-    
-	<p class="text-danger"><b>@lang("msg.Service plan")</b>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Service Plan</strong></h3>
+	</div>
+	<div class="col-lg-4">
 	@if(Auth::user()->role == '1' || Auth::user()->role == '11')
-	<a href="{{ url('new_plan_add_form') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:130px !important; margin-top: -2px; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> add </i>@lang("msg.Add new plan")</a>
+		<a href="{{ url('new_plan_add_form') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">add</i>Add New Plan</a>
 	@endif
-	</p>
+	</div>
+</div>
 @endsection
+
 
 @section('main-content')
 <style>
 	.content-header
 	{
-		//display:none;
 		padding: 2px 0px 1px 20px;
-		margin-bottom: -18px;
+		margin-bottom: -10px;
 	}	
 	.content {
 		margin-top: 15px;

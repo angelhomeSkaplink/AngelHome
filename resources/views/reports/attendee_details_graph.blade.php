@@ -1,12 +1,18 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    @lang("msg.Facility Info")
+Attendee Report Graph
 @endsection
 
 @section('contentheader_title')
-    <b>@lang("msg.Attendee Status")</b>
-    <a href="{{ url('activity_report') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:150px !important"><i class="material-icons md-14 font-weight-600"> details </i> @lang("msg.Go  Back")</a>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Attendee Report Graph</strong></h3>
+    </div>
+    <div class="col-lg-4">
+      <a href="{{ url('activity_report') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">details</i>Back</a>
+    </div>
+</div>
 @endsection
 
 @section('main-content')

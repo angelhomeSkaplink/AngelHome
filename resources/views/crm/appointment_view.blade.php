@@ -5,8 +5,11 @@ Appointment Schedule
 @endsection
 
 @section('contentheader_title')
-	<p class="text-danger"><b>Appointment Schedule</b>
-	</p>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Appointment Schedule</strong></h3>
+	</div>
+</div>   
 @endsection
 
 @section('main-content')
@@ -36,7 +39,7 @@ Appointment Schedule
     							<th class="th-position text-uppercase font-500 font-12">#</th>
     							<th class="th-position text-uppercase font-700 font-12">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="myInput" type="text" placeHolder="FUTURE RESIDENT">
+    									<input id="myInput" type="text" placeHolder="&#61442; FUTURE RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">Appointment Date</th>

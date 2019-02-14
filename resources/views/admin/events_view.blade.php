@@ -6,7 +6,10 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>@lang("msg.Upcoming Events")</b>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Sales Reports</strong></h3>
+	</div>
 	<?php
 		$us = Auth::user()->user_id;
 		$roles = DB::table('role')->where('u_id',$us)->where('status',1)->get();
@@ -14,14 +17,13 @@
 		foreach ($roles as $r) {
 			array_push($role_arr,$r->id);
 		}
-	?>
-	@if(in_array(1,$role_arr))
-	<a href="{{ url('new_event_add_form') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:187px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> add </i>@lang("msg.Add New Event")</a>
-	@endif
-	@if(in_array(11,$role_arr))
-	<a href="{{ url('new_event_add_form') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:187px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> add </i>@lang("msg.Add New Event")</a>
-	@endif
-	</p>
+	?>	
+	<div class="col-lg-4">
+		@if(in_array(1,$role_arr) || in_array(11,$role_arr))
+			<a href="{{ url('new_event_add_form') }}" class="btn btn-success btn-sm pull-right"><i class="material-icons">add</i>Add New Event</a>
+		@endif
+	</div>
+</div>
 @endsection
 
 @section('main-content')
@@ -110,17 +112,17 @@
 							<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Event")</b></th>
 							<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Date")</b></th>
 							<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Venue")</b></th>
-							@if(in_array(9,$role_arr))
+							@if(in_array(11,$role_arr))
 							<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Attendee")</b></th>
 							@endif
 						</tr>
 							
 						@foreach ($side_events as $side_event)
 						<tr>
-							<td>{{ $side_event->event_name }}</td>								
+							<td>&#x{{$side_event->emoji_code}};{{ $side_event->event_name }}</td>								
 							<td>{{ $side_event->event_date }}</td>
 							<td>{{ $side_event->event_place }}</td>
-							@if(in_array(9,$role_arr))
+							@if(in_array(11,$role_arr))
 							<td><a href="attendee/{{ $side_event->event_id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400">Attendee</a></span></td>
 							@endif
 						</tr>

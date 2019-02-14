@@ -96,7 +96,7 @@ class ScreeningController extends Controller
 		}
 		
     Toastr::success("Responsible Personal Details Added Successfully !!");
-		return redirect('significant_personal/'.$request['pros_id']);
+		return redirect('screening/'.$request['pros_id']);
     }
 
 	public function add_significant_person(Request $request){
@@ -150,7 +150,7 @@ class ScreeningController extends Controller
 			$add_scr->save();
 		}
 			Toastr::success("Significant Personal Details Added Successfully !!");
-			return redirect('resident_details/'.$request['pros_id']);
+			return redirect('screening/'.$request['pros_id']);
 		
 
 		//return redirect('/sales_stage_pipeline');
@@ -213,16 +213,16 @@ class ScreeningController extends Controller
 		}
 		
     Toastr::success("Resident Details Added Successfully !!");
-		return redirect('primary_doctor/'.$request['pros_id']);
+		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
 
 	public function add_primary_doctor(Request $request){
 		$screening = Screening::where('pros_id',$request['pros_id'])->first();
-		$n = explode(",",$request['primary_doctor_primary']);
-		$m = explode(",",$request['specialist_doctor_primary']);
-		$o = explode(",",$request['dentist']);
+		$n = implode(",",$request['primary_doctor_primary']);
+		$m = implode(",",$request['specialist_doctor_primary']);
+		$o = implode(",",$request['dentist']);
 		if ($screening) {
 			$update = PrimaryDoctorDetails::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
 			$primarydoctor = new PrimaryDoctorDetails();
@@ -305,7 +305,7 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Primary Doctor Details Added Successfully !!");
-		return redirect('pharmacy/'.$request['pros_id']);
+		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -358,7 +358,7 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Pharmacy Details Added Successfully !!");
-		return redirect('medical_equipment/'.$request['pros_id']);
+		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -427,7 +427,7 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Medical Equipment Added Successfully !!");
-		return redirect('legal_doc/'.$request['pros_id']);
+		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -481,7 +481,7 @@ class ScreeningController extends Controller
 		}else{
 				Toastr::warning("Oops ! unsupported file type.");
 		}
-		return redirect('legal_doc/'.$request['pros_id']);
+		return redirect('screening/'.$request['pros_id']);
 	}
     // pros_id', 'ss', 'medicare', 'supplemental_insurance_name', 'policy', 'medicaid', 'personal_responcible', 'case_manager', 'manager_phone', 'user_id', 'status'
     public function add_insurance(Request $request){
@@ -532,7 +532,7 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Insurace Details Added Successfully !!");
-		return redirect('funeral_home/'.$request['pros_id']);
+		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -576,7 +576,7 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("FuneralHome Details Added Successfully !!");
-		return redirect('resposible_personal/'.$request['pros_id']);
+		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -1336,7 +1336,10 @@ class ScreeningController extends Controller
                     ->first();
 
         return view('screening.screening_data_status', compact('reports_1', 'reports_2', 'id'));
-    }
+	}
+	public function master_view($id){
+		return view('screening.master',compact('id'));
+	}
      public function resposible_personal($id){
 		$data = Responsibleperson::where('pros_id',$id)->where('status',1)->first();	
 		if(!$data){
@@ -1564,7 +1567,9 @@ class ScreeningController extends Controller
     }
     // Screening Views
 	public function resposible_view($id){
-		return view('screening_view.resposible_personal',compact('id'));
+		$name = DB::table('sales_pipeline')->where('id',$id)->first();
+		$facility = DB::table('facility')->where('id',Auth::user()->facility_id)->first();
+		return view('screening_view.all_screening',compact('name','facility','id'));
 	}
 	public function significant_view($id){
 		return view('screening_view.significant_personal',compact('id'));
@@ -1590,6 +1595,11 @@ class ScreeningController extends Controller
 	}
 	public function funeral_view($id){
 		return view('screening_view.funeral_home',compact('id'));
+	}
+	public function AllScreen($id){
+		$name = DB::table('sales_pipeline')->where('id',$id)->first();
+		$facility = DB::table('facility')->where('id',Auth::user()->facility_id)->first();
+		return view('screening_view.all_screening',compact('name','facility','id'));
 	}
 	// Finish
 }

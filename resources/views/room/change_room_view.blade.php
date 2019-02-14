@@ -5,16 +5,14 @@
 @endsection
 
 @section('contentheader_title')
-	@php
-		$name = DB::table('sales_pipeline')->where('id', $id)->first();
-		$n = explode(",",$name->pros_name);
-	@endphp
-    <p class="text-danger"><b>change room for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b>
-	@if( $name->service_image == NULL)
-	<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
-	@else
-	<img src="../hsfiles/public/img/{{ $name->service_image }}" class="img-circle" width="40" height="40">
-	@endif
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Reschedule Appointment</strong></h3>
+	</div>
+	<div class="col-lg-4">
+		<a href="../booking" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
@@ -56,6 +54,31 @@
     border-radius: 25px;
   }
 </style>
+@php
+$person = DB::table('sales_pipeline')->where('id',$id)
+			->join('resident_details','sales_pipeline.id','=','resident_details.pros_id')
+			->first();
+if($person){
+	$age = (date('Y') - date('Y',strtotime($person->dob)))." years";
+}
+else{
+	$person = DB::table('sales_pipeline')->where('id',$id)->first();
+	$age = "Not specified";
+}
+$name =  explode(",",$person->pros_name); 
+@endphp
+<div class="row" style="background-color:rgb(49, 68, 84) !important;">
+	<div class="col-lg-12">
+		<h4>@if($person->service_image == NULL)
+			<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+		@else
+			<img src="../hsfiles/public/img/{{ $person->service_image }}" class="img-circle" width="40" height="40">
+		@endif
+		<span class="text-success" style="color:aliceblue;"><strong>{{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong>
+		<span class="pull-right" style="color:aliceblue;padding-top:10px;"><strong>Age: {{ $age }} </strong></span>		
+		</h4>
+	</div>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary border">

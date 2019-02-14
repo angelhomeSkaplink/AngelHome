@@ -2,19 +2,30 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Resident Info 
+Facility Sales Reports 
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>sales report</b></p>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Facility Sales Reports</strong></h3>
+	</div>
+	<div class="col-lg-4">
+	<a href="{{ url('facility_sales_reports') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
 <style>	
-	.content
+	.content-header
 	{
-		margin-top: -20px;
-	}	
+		padding: 2px 0px 1px 20px;
+		margin-bottom: -10px;
+	}
+	.content {
+		margin-top: 15px;
+	}
 </style>
 <script>
 $(document).ready(function() {
@@ -109,6 +120,7 @@ $(document).ready(function() {
 						@foreach ($reports as $report)
 						@php
 							$n = explode(",",$report->pros_name);
+							$m = explode(",",$report->contact_person)
 						@endphp
 						<tr>
 							@if($report->service_image == NULL)
@@ -123,7 +135,7 @@ $(document).ready(function() {
 							<td>{{ $basic->phone_p }}</td>
 							<td>{{ $basic->email_p }}</td>
 							<td>{{ $basic->address_p }}</td>
-							<td>{{ $basic->contact_person }}</td>
+							<td>{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</td>
 							<td>{{ $basic->phone_c }}</td>
 							<td>{{ $basic->email_c }}</td>
 							<td>{{ $basic->address_c }}</td>

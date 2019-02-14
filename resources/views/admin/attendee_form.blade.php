@@ -43,14 +43,17 @@
 								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Notes")</th>
 							</tr>
 							
-							@foreach ($crms as $crm)							
+							@foreach ($crms as $crm)
+							@php
+							    $n = explode(",",$crm->pros_name);
+							@endphp
 							<tr>
 								@if($crm->service_image == NULL)
 								<td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>	
 								@else
 								<td><img src="../hsfiles/public/img/{{ $crm->service_image }}" class="img-circle" width="40" height="40"></td>
 								@endif
-								<td>{{ $crm->pros_name }}</td>
+								<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
 								<input type="hidden" class="form-control" placeholder="" name="pros_id[]" value="{{  $crm->id }}" required />
 								<input type="hidden" class="form-control" placeholder="" name="event_id[]" value="{{ $event_id }}" required />
 								<td>

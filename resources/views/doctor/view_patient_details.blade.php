@@ -7,18 +7,17 @@
 @endsection
 
 @section('contentheader_title')
-
-    @lang("msg.Medical Information")
-
-	<div class="form-group has-feedback pull-right" >
-        <a href="{{ url('add_patient_details/' . $id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom"><i class="material-icons md-14 font-weight-600" > add </i> @lang("msg.Add New")</a>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+        <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Medical Information</strong></h3>
     </div>
-
-    <div class="form-group has-feedback pull-right" style="margin-right: 15px;">
-        <a href="{{  url('patients_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-back"> <i class="material-icons md-14 font-weight-600"> arrow_back </i>@lang("msg.Go Back")</a>
+    <div class="col-lg-4"> 
+        <span class="pull-right">
+        <a href="{{ url('patients_list') }}" class="btn btn-success btn-sm " style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+        <a href="{{ url('add_patient_details/'.$id) }}" class="btn btn-primary btn-sm " style="margin-right:15px;border-radius:5px;"><i class="material-icons">add</i>Add New</a>
+        </span>
     </div>
-
-
+</div>
 @endsection
 
 @section('main-content')

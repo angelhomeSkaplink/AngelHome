@@ -2,11 +2,15 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    @lang("msg.Resident Add")
+    Prospective Add
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>@lang("msg.Add New Resident")</b></p>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Prospective Add</strong></h3>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
@@ -21,7 +25,7 @@
 	{
 		//display:none;
 		padding: 2px 0px 1px 20px;
-		margin-bottom: -18px;
+		margin-bottom: -10px;
 	}
 	.content {
 		margin-top: 15px;

@@ -6,7 +6,7 @@ function ShowotherEvent() {
 	var fallInfo = document.getElementById("fallInfo");
 	fallInfo.style.display = event_code.value == "Fall" ? "block" : "none";
 }
-
+	
 function ShowotherLocation() {
     var location_code = document.getElementById("location_code");
     var otherlocationShow = document.getElementById("otherlocationShow");
@@ -109,4 +109,20 @@ function ShowRulledOut(){
     var rulled_out = document.getElementById("rulled_out");
     var how_rulled_out = document.getElementById("rulled_txt");
     how_rulled_out.style.display = rulled_out.value == "yes" ? "block" : "none";
-}
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

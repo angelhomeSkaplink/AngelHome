@@ -1,12 +1,18 @@
 @extends('layouts.app')
 @section('htmlheader_title')
-    Prospective Info 
+Future Resident 
 @endsection
 @section('contentheader_title')
-	<p class="text-danger"><b>Future resident</b>
-		<a href="{{ url('new_pross_add') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:187px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> add </i> Add New Prospective</a>
-	</p>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Future Resident</strong></h3>
+    </div>
+    <div class="col-lg-4">
+      <a href="{{ url('new_pross_add') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">add</i>Add New Prospective</a>
+    </div>
+</div>
 @endsection
+
 @section('main-content')
 <style>
 	.wickedpicker{
@@ -34,18 +40,18 @@
     							<th class="th-position text-uppercase font-400 font-13">######</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="myInput" type="text" placeHolder="FUTURE RESIDENT">
+    									<input id="myInput" type="text" placeHolder="&#61442; FUTURE RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-400 font-13">Phone No</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="emailautocomplete" style="width:200px;">
-    									<input id="emailInput" type="text" placeHolder="EMAIL">
+    									<input id="emailInput" type="text" placeHolder="&#61442; EMAIL" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="contactautocomplete" style="width:200px;">
-    									<input id="contactInput" type="text" placeHolder="CONTACT PERSON">
+    									<input id="contactInput" type="text" placeHolder="&#61442; CONTACT PERSON" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-400 font-13">Change Records</th>

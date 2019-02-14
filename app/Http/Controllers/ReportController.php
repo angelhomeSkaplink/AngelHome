@@ -378,16 +378,6 @@ class ReportController extends Controller
 			
 	}
 	public function mar_report(){
-		// $today = date('Y-m-d H:i:s');
-		// $today = Carbon\Carbon::now(get_local_time());
-		// $ip = file_get_contents("http://ipecho.net/plain");
-		//
-		// $url = 'http://ip-api.com/json/'.$ip;
-		//
-		// $tz = file_get_contents($url);
-		//
-		// $tz = json_decode($tz,true)['timezone'];
-		// $today = Carbon\Carbon::now($tz)->toDateString();
 		$today = Carbon\Carbon::now()->toDateString();
 		$join = DB::table('patient_medical_info')
 		->join('sales_pipeline','patient_medical_info.pros_id','=','sales_pipeline.id')
@@ -448,6 +438,143 @@ class ReportController extends Controller
 		return view('reports.MarReportDetails',compact('start_month','facility','result','name','days','year','month','query'));
 	}
 	
+	public function resident_service_plan_graph(){
+        return view('reports.resident_service_plan_report');
+    }
+	public function resident_service_plan_graph_data(Request $request){
+				$data = DB::table('pros_service')
+								->where([['pros_service.status',1],['pros_service.facility_id',Auth::user()->facility_id]])
+								->join('service_plan','service_plan.service_plan_id','=','pros_service.service_plan_id')
+								->join('sales_pipeline','pros_service.pros_id','=','sales_pipeline.id')
+								->where('sales_pipeline.stage',"MoveIn")
+								->select('pros_service.*','service_plan.*')
+								->get();
+				// dd($data);
+				$arr = array();
+                if($data->isEmpty()){
+        						array_push($arr,0,'None');
+                    return json_encode($arr);
+                }else{
+                    $service_plan = DB::table('service_plan')->where([['service_plan_status', 1], ['facility_id', Auth::user()->facility_id]])->get();
+                    foreach($service_plan as $p){
+                        $c=0;
+                        foreach($data as $d){
+                            if($p->service_plan_name === $d->service_plan_name){
+                                $c=$c+1;
+                            }
+                        }
+                        array_push($arr,$c,$p->service_plan_name);
+                    }
+                    return json_encode($arr);
+                }
+            }
+
+		public function residents_in_each_service_plan($plan){
+			$data = DB::table('service_plan')
+							->join('pros_service','service_plan.service_plan_id','=','pros_service.service_plan_id')
+							->join('sales_pipeline','sales_pipeline.id','=','pros_service.pros_id')
+							->where([['service_plan.service_plan_name',$plan],['service_plan.facility_id', Auth::user()->facility_id],['service_plan.service_plan_status',1],['pros_service.status',1],['sales_pipeline.facility_id',Auth::user()->facility_id],['sales_pipeline.stage',"MoveIn"]])
+							->get();
+			// dd($data);
+			return view('reports.res_in_each_service_plan', compact('plan','data'));
+		}
+		public function assessment_report_graph(){
+			return view('reports.assessment_report_graph');
+		}
+		public function assessment_report_graph_data(Request $request){
+			$data = DB::table('resident_assessment')->where([['assessment_id',"5c0a218643f78"],['assessment_status',1]])->get();
+			$return_arr= array();
+            if($data->isEmpty()){
+    			array_push($return_arr,0,'None');
+            }else{
+                $lebel_arr=json_decode($data[0]->result_json);
+    			$len = count($lebel_arr);
+    			$ans_arr = array_fill(0,$len,0);
+    			foreach($data as $d){
+    				$data_array = json_decode($d->result_json);
+    				for($i=0;$i<count($data_array);$i++){
+    					if($data_array[$i]->Ans == "yes"){
+    						$ans_arr[$i] = $ans_arr[$i]+1;
+    					}
+    				}				
+    			}
+    			for($i=0;$i<$len;$i++){
+    				$obj= new \stdClass();
+    				$obj->Page = $lebel_arr[$i]->Page;
+    				$obj->Count = $ans_arr[$i];
+    				array_push($return_arr, $obj);
+    			}
+            }
+			return json_encode($return_arr);
+		}
+		
+		public function residents_in_each_assessment($assessment_index){
+		  //$assessment = str_replace('_', '/', $assessment);
+		    $data = DB::table('resident_assessment')->where([['assessment_id',"5c0a218643f78"],['assessment_status',1]])->get();
+			$pros_arr= array();
+			foreach($data as $d){
+				$data_array = json_decode($d->result_json);
+				if($data_array[$assessment_index]->Ans == "yes"){
+				   array_push($pros_arr, $d->pros_id); 
+				}
+				
+				$assessment = $data_array[$assessment_index]->Page;
+			}
+			$residents = DB::table('sales_pipeline')
+			                  ->select('sales_pipeline.*')
+			                  ->where('facility_id',Auth::user()->facility_id)
+			                  ->wherein('id',$pros_arr)
+			                  ->get();
+		    return view('reports.res_in_each_assessment', compact('assessment','residents'));
+		}
+		
+		public function individual_page_in_main_assessment($pros_id, $assessment){
+		  $assessment_page = str_replace('_', '/', $assessment);
+		  
+		  $assessment_qs = DB::table('assessment_entry')
+            ->where('assessment_entry.assessment_id','5c0a218643f78')
+            ->select('assessment_entry.*')
+            ->first();
+		  $assessment_qs = json_decode($assessment_qs->assessment_json)->pages;
+		  
+           
+		  foreach($assessment_qs as $key=>$qs){
+		      if($qs->name == $assessment_page){
+		          $question_set = $qs->elements;
+		          // dd($qs->element);
+		          $page_index = $key;
+		      }
+		  }
+		  
+    	  $data = DB::table('resident_assessment')->where([['pros_id',$pros_id],['assessment_id',"5c0a218643f78"],['assessment_status',1]])->first();
+    	  $assessment_ans=json_decode($data->assessment_json);
+		  $qs_ans_arr = array();
+		  foreach($question_set as $q){
+    		  foreach($assessment_ans->data as $key=>$value){
+    		      if($q->name == $key){
+    		          $obj= new \stdClass();
+    		          if(property_exists($q,'choices')){
+    		             foreach($q->choices as $ch){
+    		                 if($ch->value==$value){
+    		                   $obj->Answer = $ch->text;  
+    		                 }
+    		             } 
+    		          }else{
+    		            $obj->Answer = $value; 
+    		          }
+        			  $obj->Question = $q->title;
+        			  array_push($qs_ans_arr, $obj);
+    		      }
+    		  }
+		  }
+		  $pros_details = DB::table('sales_pipeline')->where([['id',$pros_id],['facility_id',Auth::user()->facility_id]])
+		                      ->join('resident_details','resident_details.pros_id','=','sales_pipeline.id')->where('resident_details.status',1)
+		                      ->first();
+		  $dob=$pros_details->dob;
+          $age = (date('Y') - date('Y',strtotime($dob)));
+          $facility = DB::table('facility')->where('id',Auth::user()->facility_id)->first();
+		  return view('assessment.main_assessment_individual_page_qs_ans', compact('pros_details','qs_ans_arr','assessment_page','page_index','age','facility'));  
+		}
 	//public function get_medicine(){		
 		//$medicines = DB::table('medicine')->select('medicine_name')->where('facility_id', Auth::user()->facility_id)->get();
 		//return($medicines);		

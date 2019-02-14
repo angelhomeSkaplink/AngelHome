@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('htmlheader_title')
@@ -6,21 +5,24 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>Payment History</b>
-	<a href="{{ url('facility_graph_reports/' . $id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-right:15px !important;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> Back to graph</a>
-	</p>
-	@endsection
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Payment History</strong></h3>
+    </div>
+    <div class="col-lg-4">
+	  <span class="pull-right" style="padding-right:30px;">
+		<a href="{{ url('facility_graph_reports/'.$id) }}" class="btn btn-success btn-sm" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back to graph</a>
+		<button class="btn btn-primary" onclick="printDiv('printableDiv')" id="printButton"><i class="material-icons md-22"> print </i> Print</button>
+      </span>
+    </div>
+</div>
+@endsection
 
 @section('main-content')
 <style>	
 	.content-header{
 		padding: 2px 0px 1px 20px;
-		margin-bottom: -18px;
-	}
-	#printButton {
-		position: fixed;
-		bottom: 30px;
-		right: 25px; 
+		margin-bottom: -10px;
 	}
 </style>
 
@@ -31,41 +33,11 @@
 	thead{ display:none;}
 	tfoot{ display:none; }
 </style>
-<!--<div class="row">
-	<form action="{{action('ReportController@date_range_report')}}" method="post">					
-		<input type="hidden" name="_method" value="PATCH">
-	
-		{!! csrf_field() !!}
-		
-		<input type="hidden" class="form-control" name="facility_id" id="facility_id" value="{{ $id }}" />					
-		<div class="col-md-4">
-			<div class="form-group has-feedback">
-				<label class="sm-heading">From Date</label>
-				<input type="text" class="form-control" placeholder="From Date" name="from" id="from" autocomplete="off"/>
-				<script type="text/javascript"> $('#from').datepicker({format: 'yyyy/mm/dd'});</script> 
-			</div>			
-		</div>
-		<div class="col-md-4">
-			<div class="form-group has-feedback">
-				<label class="sm-heading">To Date</label>
-				<input type="text" class="form-control" placeholder="To Date" name="to" id="to" autocomplete="off" />
-				<script type="text/javascript"> $('#to').datepicker({format: 'yyyy/mm/dd'});</script> 
-			</div>			
-		</div>			
-		<div class="col-md-4">
-			<div class="form-group has-feedback">
-				<button type="submit" class="btn btn-primary btn-block btn-flat padding-top-bottom-4" style="width:90% !important; margin-top:24px">
-					<i class="material-icons"> search </i> Search
-				</button>
-			</div>			
-		</div>
-	</form>
-</div>-->
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary border">
             <div class="box-body border padding-top-0 padding-left-right-0">
-				<div id="printableDiv">
+				<div class="table-responsive" id="printableDiv">
 					<table class="table">
 						<thead>
 							<?php 
@@ -126,9 +98,7 @@
 							</tr>
 						</tfoot>
 					</table>									
-				</div>
-				<button class="btn btn-info pull-right" id="printButton" type="submit" onclick="printDiv('printableDiv')">Print<i class="material-icons md-22" aria-hidden="true"> description </i></button>
-					
+				</div>					
             </div>                
         </div>
     </div>
@@ -142,6 +112,7 @@
 		document.body.innerHTML = printContents;
 		window.print();
 		document.body.innerHTML = originalContents;
+		window.location.reload(true);
 	}
 </script>
 @endsection

@@ -84,26 +84,6 @@ Route::patch('add_others', 'PersonalDetailsController@add_others');
 
 
 
-/*Route::get('screening', 'ScreeningController@screening');
-Route::get('screening_details/{id}', 'ScreeningController@screening_details');
-Route::post('add_responsible_person', 'ScreeningController@add_responsible_person');
-Route::post('add_significant_person', 'ScreeningController@add_significant_person');
-Route::patch('add_resident_details', 'ScreeningController@add_resident_details');
-Route::patch('add_primary_doctor', 'ScreeningController@add_primary_doctor');
-Route::patch('add_pharmacy', 'ScreeningController@add_pharmacy');
-Route::patch('add_equipment', 'ScreeningController@add_equipment');
-Route::patch('add_mental_status', 'ScreeningController@add_mental_status');
-Route::patch('add_bathing', 'ScreeningController@add_bathing');
-Route::patch('add_dressing', 'ScreeningController@add_dressing');
-Route::patch('add_toileting', 'ScreeningController@add_toileting');
-Route::patch('add_transfer', 'ScreeningController@add_transfer');
-Route::patch('add_grooming', 'ScreeningController@add_grooming');
-Route::patch('add_feeding', 'ScreeningController@add_feeding');
-Route::patch('add_communucation', 'ScreeningController@add_communucation');
-Route::patch('add_night_need', 'ScreeningController@add_night_need');
-Route::patch('add_exiting', 'ScreeningController@add_exiting');
-Route::patch('add_overall_fuctioning', 'ScreeningController@add_overall_fuctioning');*/
-
 
 Route::get('room_details', 'RoomController@room_details');
 Route::get('new_room_add', 'RoomController@new_room_add');
@@ -138,7 +118,7 @@ Route::get('service_plan', 'AdminmoduleController@service_plan');
 Route::get('new_plan_add_form', 'AdminmoduleController@new_plan_add_form');
 Route::post('add_new_service_plan', 'AdminmoduleController@add_new_service_plan');
 Route::get('resident_service_plan', 'AdminmoduleController@resident_service_plan');
-Route::get('view_plan_details/{id}', 'AdminmoduleController@view_plan_details');
+// Route::get('view_plan_details/{id}', 'AdminmoduleController@view_plan_details');
 
 // Bikram change
 Route::get('plan_edit/{plan_id}','AdminmoduleController@plan_edit');
@@ -163,7 +143,7 @@ Route::get('preadmin_select_assessments/{id}', 'AssessmentController@preadmin_se
 Route::get('assessment_choose/{assessment_id}/{id}', 'AssessmentController@assessment_choose');
 Route::post('assessment_store', 'AssessmentController@assessment_store');
 Route::get('assessment_history/{id}', 'AssessmentController@assessment_history');
-Route::get('care_plan/{id}', 'AssessmentController@care_plan');
+// Route::get('care_plan/{id}', 'AssessmentController@care_plan');
 Route::post('save_care_plan', 'AssessmentController@save_care_plan');
 Route::get('assessment_set_point/{assessment_id}', 'AssessmentController@assessment_set_point');
 Route::patch('set_points', 'AssessmentController@set_points');
@@ -186,7 +166,7 @@ Route::get('screening_status/{id}', 'ScreeningController@screening_status');
 Route::get('screening_data/{id}', 'ScreeningController@screening_data');
 Route::get('screening_data_next/{id}', 'ScreeningController@screening_data_next');
 Route::get('screening_data_status/{id}', 'ScreeningController@screening_data_status');
-Route::get('personal_details_view/{id}', 'ProspectiveController@details_view');
+Route::get('details_view/{id}', 'ProspectiveController@details_view');
 Route::get('patient_medicine', 'DoctorController@patient_medicine');
 // Route::get('add_history/{pat_medi_id}', 'DoctorController@add_history');
 Route::post('add_history', 'DoctorController@add_history'); //edited by Zaman
@@ -319,7 +299,7 @@ Route::patch('add_overall_fuctioning', 'ScreeningController@add_overall_fuctioni
 Route::patch('add_insurance', 'ScreeningController@add_insurance');
 Route::patch('add_funeralhome', 'ScreeningController@add_funeralhome');
 
-
+Route::get('screening/{id}','ScreeningController@master_view');
 Route::get('resposible_personal/{id}','ScreeningController@resposible_personal');
 Route::get('significant_personal/{id}','ScreeningController@significant_personal');
 Route::get('resident_details/{id}','ScreeningController@resident_details');
@@ -428,7 +408,7 @@ Route::get('reassessment/{assessment_id}/{id}', 'AssessmentController@reassessme
 Route::get('find_assessment/{assessment_id}/{pros_id}', 'AssessmentController@find_assessment');
 Route::post('save_temporary_json', 'AssessmentController@save_temporary_json');
 
-Route::get('assessment_period/{pros_id}', 'AssessmentController@assessment_period');
+Route::get('assessment_period/{flag}/{pros_id}', 'AssessmentController@assessment_period');
 Route::get('Monthly/{pros_id}', 'AssessmentController@Monthly');
 Route::get('Quarterly/{pros_id}', 'AssessmentController@Quarterly');
 Route::get('Half-Yearly/{pros_id}', 'AssessmentController@HalfYearly');
@@ -450,12 +430,65 @@ Route::get('funeral_view/{id}', 'ScreeningController@funeral_view');
 
 // document delete
 Route::get('delete_doc/{id}','ScreeningController@delete_doc');
+//END
+
 // Emoji by Zaman
 Route::get('get_emoji','EmojiController@get_emoji');
 Route::post('add_new_emoji','EmojiController@add_new_emoji');
 Route::post('update_emoji','EmojiController@update_emoji');
-//END
+
+Route::get('AllScreen/{id}','ScreeningController@AllScreen');
+
+// new routes added 7 jan
+Route::get('select_period/{flag}/{id}', 'AssessmentController@select_period');
+Route::get('select_assessments/{period}/{id}', 'AssessmentController@select_assessments');
+Route::get('assessment_choose/{assessment_id}/{id}/{period}/{cur_date}', 'AssessmentController@assessment_choose');
+Route::get('care_plan_period/{period}/{id}', 'AssessmentController@care_plan_period');
+Route::get('care_plan_periodic/{period}/{id}', 'AssessmentController@care_plan_periodic');
+Route::get('care_plan/{id}/{period}', 'AssessmentController@care_plan');
+Route::get('assessment_history_detail_view/{pros_id}/{cp_id}', 'AssessmentController@assessment_history_detail_view');
+Route::get('view_plan_details/{id}/{cp_id}', 'AdminmoduleController@view_plan_details');
+Route::get('service_plan_period/{id}', 'AdminmoduleController@service_plan_period');
+//end
+
+//service plan graph
+Route::get('resident_service_plan_graph_data','ReportController@resident_service_plan_graph_data');
+Route::get('resident_service_plan_graph','ReportController@resident_service_plan_graph');
+Route::get('residents_in_each_service_plan/{plan}','ReportController@residents_in_each_service_plan');
+
+//main assessment report graph
+Route::get('assessment_report_graph','ReportController@assessment_report_graph');
+Route::get('assessment_report_graph_data','ReportController@assessment_report_graph_data');
+Route::get('residents_in_each_assessment/{assessment_index}', 'ReportController@residents_in_each_assessment');
+Route::get('individual_page_in_main_assessment/{pros_id}/{assessment}','ReportController@individual_page_in_main_assessment');
+
+// assessment filled details
+Route::get('history/{pros_id}/{id}','AssessmentController@assessment_history_view');
+// Error pages
+Route::get('page-not-found', function () {
+    return view('error.404');
+});
+Route::get('int-server-error', function () {
+    return view('error.500');
+});
+Route::get('access-forbidden', function () {
+    return view('error.403');
+});
+Route::get('bad-request', function () {
+    return view('error.400');
+});
+Route::get('error', function () {
+    return view('error.default_err');
+});
+
+//End error pages
+// Route::post('test','AssessmentController@test');
+// Policy Doc Upload by Bikram
+Route::get('policy_doc_form','UploadController@create');
+Route::post('upload_doc','UploadController@store');
+Route::get('delete_policy/{doc_id}','UploadController@destroy');
 
 Auth::routes();
+
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

@@ -480,7 +480,7 @@
 		'Screening/Assessment' => 'Screening/Assessment',
 		'No Records Found' => 'No Records Found',
 		'Main Assessment' => 'Main Assessment',
-		'' => '',
+		'Back' => 'Back',
 		'' => '',
 		'' => '',
 		'' => '',

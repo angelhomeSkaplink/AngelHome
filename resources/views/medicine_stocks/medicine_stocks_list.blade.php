@@ -3,24 +3,29 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Stocks List
+    Medicine Stocks List
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>Stocks List</b>
-        <?php
-            $count_alert = 0;
-            foreach ($stocks as $stock)
-            {
-                if ($stock->stock_alert == 1) {
-                    $count_alert += 1;
-                }
-            }
-            // echo "<p>".$count_alert."</p>";
-        ?>
-       <a href="{{ url('add_stocks') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:100px !important; margin-top: -2px; margin-bottom: 9px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600" > add </i> Add new</a>
-       <a href="{{ url('renew_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:90px !important; margin-top: -2px; margin-bottom: 9px !important; margin-right: 10px;">Renew ({{ $count_alert }})</a>
-    </p>
+<?php
+    $count_alert = 0;
+    foreach ($stocks as $stock)
+    {
+        if ($stock->stock_alert == 1) {
+            $count_alert += 1;
+        }
+    }
+?>
+<div class="row">
+	<div class="col-sm-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Medicine Stock List</strong></h3>
+    </div>
+    <div class="col-sm-4">
+       <span class="pull-right"> <a href="{{ url('add_stocks') }}" class="btn btn-success btn-sm " style="margin-right:15px;border-radius:5px;" ><i class="material-icons">add</i>Add New</a>
+        <a href="{{ url('renew_list') }}" class="btn btn-warning btn-sm " style="margin-right:15px;border-radius:5px;" ><i class="material-icons">warning</i>Renew ({{ $count_alert }})</a>
+       </span>
+    </div>
+</div>
 @endsection
 
 @section('main-content')
@@ -28,7 +33,7 @@
 	.content-header
 	{
 		padding: 2px 0px 1px 20px;
-		margin-bottom: -18px;
+		margin-bottom: -10px;
 	}
 	.content {
 		margin-top: 15px;

@@ -51,10 +51,22 @@
 		var ampm = H < 12 ? "AM" : "PM";
 		addMinute = h + addMinute.substr(2, 3);
 
-		document.getElementById('end_time').value = addMinute + " " + ampm;
-		
+		document.getElementById('end_time').value = addMinute + " " + ampm;	
 	}
-	
+	function set_emoji(code){
+		document.getElementById("emoji_code").value = code;
+		var showEmoji = document.getElementById('showEmojiId');
+		showEmoji.innerHTML = "&#x"+code+";";	
+		$('#myModal').modal('hide');
+	}
+	function DoSubmit(){
+		var emoji_code = document.getElementById("emoji_code").value;
+		if(emoji_code == ""){
+			toastr.warning('Please add an emoji for the event.');
+			document.getElementById('emoji_btn').focus();
+			return false;
+		}
+	}
 </script>
 <div class="row">
 	<form action="new_event_add" method="post" enctype="multipart/form-data">
@@ -65,32 +77,33 @@
 						<label>@lang("msg.Name")</label>
 						<input type="text" class="form-control" name="event_name" required />
 					</div>
-					<div class="form-group has-feedback">
-						{{-- <label>@lang("msg.Name")</label> --}}
-						<a href="#modal" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="material-icons md-36" style="color:#fff;"> add_circle </i> Add Emoji</a>
+					<div class="form-group has-feedback form-inline">
+						<a href="#modal" id="emoji_btn" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="material-icons md-36" style="color:#fff;"> add_circle </i> Add Emoji</a>
+						<h2><span id="showEmojiId"></span></h2>
+						<input type="text" class="form-control hidden" class="hidden" placeholder="Add an icon" value="" id="emoji_code" name="emoji_code" required />
 					</div>
 					<div class="form-group has-feedback">
 						<label>@lang("msg.description") </label>
-						<textarea class="form-control" name="event_description" type="text" rows="4" ></textarea>
+						<textarea class="form-control" name="event_description" type="text" rows="4" required ></textarea>
 					</div>
 					<div class="form-group has-feedback">
 						<label>@lang("msg.venue")</label>
 						<input type="text" class="form-control" name="event_place" id="event_place" required />
 					</div>
 					<div class="form-group has-feedback">
-						<label class="sm-heading">@lang("msg.start Date")</label>
-						<input type="text" class="form-control" name="event_date" id="event_date" autocomplete="off"/>
+						<label>@lang("msg.start Date")</label>
+						<input type="text" class="form-control" name="event_date" id="event_date" autocomplete="off" required/>
 						<script type="text/javascript"> $('#event_date').datepicker({format: 'yyyy-mm-dd',startDate: new Date()});</script> 
 					</div>
 					<div class="form-group has-feedback">
-						<label class="sm-heading">@lang("msg.end Date")</label>
-						<input type="text" class="form-control" name="event_end_date" id="event_end_date" autocomplete="off"/>
+						<label>@lang("msg.end Date")</label>
+						<input type="text" class="form-control" name="event_end_date" id="event_end_date" autocomplete="off" required/>
 						<script type="text/javascript"> $('#event_end_date').datepicker({format: 'yyyy-mm-dd', startDate: new Date()});</script> 
 					</div>
 					<div class="form-group has-feedback">
 						<label>@lang("msg.start Time")</label>
 						<div class='input-group date' id='datetimepicker3' >
-							<input type="text" name="event_time" id="event_time"  class="form-control timepicker" onchange="calculateEndTime();"/>
+							<input type="text" name="event_time" id="event_time"  class="form-control timepicker" onchange="calculateEndTime();" required/>
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-time"></span>
 							</span>
@@ -99,7 +112,7 @@
 					
 					<div class="form-group has-feedback" >
 						<label>@lang("msg.duration")</label>
-						<select name="duration" id="duration" class="form-control" onchange="calculateEndTime();">
+						<select name="duration" id="duration" class="form-control" onchange="calculateEndTime();" required>
 							<option value="">Select duration</option>
 							<option value="15">15</option>
 							<option value="30">30</option>
@@ -113,7 +126,7 @@
 					</div>
 					<div class="form-group has-feedback">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-            			<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
+            			<button type="submit" onClick="DoSubmit();" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
             		</div>
 
 					<div class="form-group has-feedback">
@@ -125,7 +138,7 @@
 		<div class="col-md-10"></div>					
 	</form>
 </div>
-<div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade" role="dialog" style="z-index:9999999;">
 	<div class="modal-dialog">
 			<div class="modal-header" style="background-color:#1a1a1a;">
 				<button type="button" class="close" data-dismiss="modal"><span style="color:#fff;">&times;</span></button>
@@ -145,7 +158,7 @@
 										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 										@else
 										  @foreach($data1 as $emoji1)
-										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji1->code}}; {{$emoji1->title}} <span class=""></span></p>
+										   <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji1->code ?>')">&#x{{$emoji1->code}}; {{$emoji1->title}}</a> <span class=""></span></p>
 										  @endforeach
 										@endif
 									  </div>
@@ -158,7 +171,7 @@
 										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 										@else
 										  @foreach($data2 as $emoji2)
-										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji2->code}}; {{$emoji2->title}} <span class=""></span></p>
+										   <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji2->code ?>')">&#x{{$emoji2->code}}; {{$emoji2->title}} </a><span class=""></span></p>
 										  @endforeach
 										@endif
 									  </div>
@@ -171,7 +184,7 @@
 										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 										@else
 										  @foreach($data3 as $emoji3)
-										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji3->code}}; {{$emoji3->title}}  <span class=""></span></p>
+										   <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji3->code ?>')">&#x{{$emoji3->code}}; {{$emoji3->title}} </a> <span class=""></span></p>
 										  @endforeach
 										@endif
 									  </div>
@@ -187,7 +200,7 @@
 										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 									  @else
 										@foreach($data4 as $emoji4)
-										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji4->code}}; {{$emoji4->title}} <span class=""></span></p>
+										 <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji4->code ?>')">&#x{{$emoji4->code}}; {{$emoji4->title}} </a><span class=""></span></p>
 										@endforeach
 									  @endif
 									</div>
@@ -200,7 +213,7 @@
 										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 										@else
 										  @foreach($data5 as $emoji5)
-										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji5->code}}; {{$emoji5->title}} <span class=""></span></p>
+										   <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji5->code ?>')">&#x{{$emoji5->code}}; {{$emoji5->title}} </a> <span class=""></span></p>
 										  @endforeach
 										@endif
 									  </div>
@@ -213,7 +226,7 @@
 										  <p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 										@else
 										  @foreach($data6 as $emoji6)
-										   <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji6->code}}; {{$emoji6->title}} <span class=""></span></p>
+										   <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji6->code ?>')">&#x{{$emoji6->code}}; {{$emoji6->title}} </a><span class=""></span></p>
 										  @endforeach
 										@endif
 									  </div>
@@ -230,7 +243,7 @@
 										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 									  @else
 										@foreach($data7 as $emoji7)
-										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji7->code}}; {{$emoji7->title}} <span class=""></span></p>
+										 <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji7->code ?>')">&#x{{$emoji7->code}}; {{$emoji7->title}} </a> <span class=""></span></p>
 										@endforeach
 									  @endif
 									</div>
@@ -243,7 +256,7 @@
 										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 									  @else
 										@foreach($data8 as $emoji8)
-										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji8->code}}; {{$emoji8->title}} <span class=""></span></p>
+										 <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji8->code ?>')">&#x{{$emoji8->code}}; {{$emoji8->title}} </a><span class=""></span></p>
 										@endforeach
 									  @endif
 									</div>
@@ -256,7 +269,7 @@
 										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 									  @else
 										@foreach($data9 as $emoji9)
-										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji9->code}}; {{$emoji9->title}} <span class=""></span></p>
+										 <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji9->code ?>')">&#x{{$emoji9->code}}; {{$emoji9->title}} </a><span class=""></span></p>
 										@endforeach
 									  @endif
 									</div>
@@ -271,7 +284,7 @@
 										<p style="font-size:0.8em;color:#b3b3b3;">Not available</p>
 									  @else
 										@foreach($data10 as $emoji10)
-										 <p style="font-size:1.3em;color:#b3b3b3;">&#x{{$emoji10->code}}; {{$emoji10->title}} <span class=""></span></p>
+										 <p style="font-size:1.3em;color:#b3b3b3;"><a href="#" onClick="set_emoji('<?php echo $emoji10->code ?>')">&#x{{$emoji10->code}}; {{$emoji10->title}} </a><span class=""></span></p>
 										@endforeach
 									  @endif
 									</div>
@@ -283,5 +296,4 @@
 	</div>
 </div>
 {{-- @include('layouts.partials.scripts_auth') --}}
-
 @endsection

@@ -5,16 +5,17 @@
 @endsection
 
 @section('contentheader_title')
-    
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Prospective Details</strong></h3>
+	</div>
+	<div class="col-lg-4">
+		<a href="../sales_stage_pipeline" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+	</div>
+</div>   
 @endsection
 
 @section('main-content')
-<style>	
-	.content-header
-	{
-		display:none;
-	}	
-</style>
 
 <div class="row">
 	<div class="col-md-4">
@@ -163,7 +164,7 @@
 		<li class="active"><a href="#1" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Discovery")</span></a></li>
 		<li class=""><a href="#2" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Tour")</span></a></li>
 		<li class=""><a href="#3" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Re-Tour")</span></a></li>
-		<li class=""><a href="#4" data-toggle="tab" aria-expanded="false"><span class="nmbr"></span><span class="text">@lang("msg.Screening/Assessment")</span></a></li>
+		<li class=""><a href="#4" data-toggle="tab" aria-expanded="false" style="height:77px !important;"><span class="nmbr"></span><span class="text">@lang("msg.Screening")/<br>@lang("Assessment")</span></a></li>
 		<li class=""><a href="#5" data-toggle="tab" aria-expanded="true"><span class="nmbr"></span><span class="text">@lang("msg.Lease Signing")</span></a></li>
 		<li class=""><a href="#6" data-toggle="tab" aria-expanded="true"><span class="nmbr"></span><span class="text">@lang("msg.Move In")</span></a></li>
 	 </ul>
@@ -313,12 +314,12 @@
                             </div>			
         				@else 
         					<h4 class="font-500 text-uppercase font-15">@lang("msg.Screening/Assessment")
-        						<!--<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Preadmission Assessment</span></a>-->
         					</h4>
-                                <div class="form-inline border-top">
-        							<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete Main Assessment! </div> 
-			        				<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Main Assessment</a>
-                                </div>
+							<div class="form-inline border-top">
+								<div class='text-danger' style="padding-top:10px; padding-bottom:7px">All Required Screening is DONE! Kindly Complete Main Assessment! </div> 
+								<a href="../select_assessments/Initial/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Main Assessment</a>
+								<a href="../screening_view/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">View Screening</a>
+							</div>
                         @endif
                     @else
                         @php
@@ -327,17 +328,16 @@
                         @endphp
                         @if($assessment)
             				<h4 class="font-500 text-uppercase font-15">@lang("msg.Screening/Assessment")
-            					<!--<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">Screening</span></a>-->
             				</h4>
                             <div class="form-inline border-top">
-            					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening!</div>
-			        				<a href="../resposible_personal/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Screening</span></a>
+								<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening!</div>
+								<a href="../resposible_personal/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Screening</span></a>
             				</div>
         				@else
             				<h4 class="font-500 text-uppercase font-15">@lang("msg.Screening/Assessment")</h4>
             				<div class="form-inline border-top">
             					<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete All Screening and Assessment</div>
-            					<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Main Assessment</a>
+            					<a href="../select_assessments/Initial/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Main Assessment</a>
 		        				<a href="../resposible_personal/{{ $row->id }}"><span class="button label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400" style="">Screening</span></a>
             				</div>
             			@endif
@@ -347,7 +347,7 @@
         			</h4>
                     <div class="form-inline border-top">
         				<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Kindly Complete Screening and Main Assessment First!</div>
-        				<a href="../preadmin_select_assessments/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 " style="">Main Assessment</a>
+        				<a href="../select_assessments/Initial/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 " style="">Main Assessment</a>
         				<a href="../resposible_personal/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 " style="">Screening</span></a>
                     </div>
                 @endif			
@@ -383,10 +383,10 @@
 														</select>
 													</div>
 												<div class="form-group has-feedback">
-													<input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="Document name" required/>
+													<input type="hidden" class="form-control" name="doc_name" maxlength="100" placeholder="" value="Lease - Signing Document"/>
 												</div>
 												<div class="form-group has-feedback">
-												@lang("msg.Upload the document here")
+												<label>Upload the document here</label>
 												<input id="file" type="file" class="form-control" name="doc_file" accept="image/*,.doc, .docx,.pdf,.odf,.odt" size="2MB" required/>
 												</div>
 											</div>
@@ -396,10 +396,10 @@
 													<p style=""><strong>Max-Size:<span style="color:#bfbfbf"> 5MB </span></strong></p>
 												</div>
 												<div class="form-group has-feedback">
-													<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
+													<a href="{{  url('sales_stage_pipeline') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
 												</div>
 												<div class="form-group has-feedback">
-													<a href="{{  url('screening') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
+													<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
 												</div>
 											</div>
 										</div>

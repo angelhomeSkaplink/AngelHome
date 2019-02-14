@@ -7,7 +7,14 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>@lang("msg.Today's Task List For") {{ $task }}</b></p>
+<div class="row">
+		<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Today's Task List for: {{$task}}</strong></h3>
+		</div>
+		<div class="col-lg-4">
+		  <a href=" {{url('main_task')}} " class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+		</div>
+	</div>
 @endsection
 
 @section('main-content')

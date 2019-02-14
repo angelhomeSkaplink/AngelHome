@@ -5,8 +5,10 @@
 @endsection
 
 @section('contentheader_title')
-  <?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-    <p class="text-danger"><b>resposible personnel details for {{ $name->pros_name }}</b></p>
+  <?php $name = DB::table('sales_pipeline')->where('id', $id)->first();
+  $n = explode(",",$name->pros_name)?>
+    <p class="text-danger"><b>resposible personnel details for {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
+    <span class="pull-right" style="padding-right:20px;"><button class="btn btn-primary" onclick="printDiv('printable')" id="printButton"><i class="material-icons md-22"> print </i> Print</button></span>
 @endsection
 
 @section('main-content')
@@ -62,13 +64,16 @@
     @endphp
     <div class="col-md-12">
         @if($data)
+        @php
+        $n = explode(",",$data->responsible_person_responsible);
+        @endphp
         <div class="box box-primary border-light-blue">
           <div class="box-body padding-top-5" style="padding-bottom:10px">
             <h4 class="font-500 text-uppercase font-15" >Responsible Personal Information</h4>
                     <div class="form-inline border-top" style="padding-top:10px">
               <div class="col-md-4" style="padding-left: 0; padding-right:0">
                 <label class="text-capitalize font-500 font-14">Name : </label>
-                <span class="font-14">{{ $data->responsible_person_responsible }} </span>
+                <span class="font-14">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }} </span>
               </div>	
     
               <div class="col-md-4" style="padding-left: 0; padding-right:0">
@@ -115,6 +120,13 @@
       </div>
     </div>
 </div>
+<div class="hidden" id="printable">
+      
+</div>
 @include('layouts.partials.scripts_auth')
-
+<script>
+  $('document').ready(function(){
+      $('#printable').load('../AllScreen/'+{{ $id }});
+  });
+</script>
 @endsection

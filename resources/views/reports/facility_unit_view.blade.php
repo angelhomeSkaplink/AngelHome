@@ -6,21 +6,31 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>Facility room report</b>
-	<a href="{{ url('facility_room_graph/' . $id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:150px !important; height:26px !important; margin-right: 15px; !important;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> Back to graph</a>
-    </p>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Facility Room Report</strong></h3>
+    </div>
+    <div class="col-lg-4">
+      <span class="pull-right" style="padding-right:30px;">
+	  <a href="{{ url('facility_room_graph/'.$id) }}" class="btn btn-success btn-sm" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back To Graph</a>
+	  <button class="btn btn-primary" onclick="printDiv('printableDiv')" id="printButton"><i class="material-icons md-22"> print </i> Print</button>
+	</span>
+    </div>
+</div>
 @endsection
 
 @section('main-content')
 <style>	
-	.content-header{
-		padding: 2px 0px 1px 20px;
-		margin-bottom: -18px;
+	.wickedpicker{
+		z-index:999 !important;
 	}
-	#printButton {
-		position: fixed;
-		bottom: 30px;
-		right: 25px; 
+	.content-header
+	{
+		padding: 2px 0px 1px 20px;
+		margin-bottom: -10px;
+	}
+	.content {
+		margin-top: 15px;
 	}
 </style>
 <style  type = "text/css" media = "screen">
@@ -30,11 +40,9 @@
 </style>
 <div class="row">
     <div class="col-md-12">	
-        <div class="box box-primary border">				
-            <div class="box-header with-border col-sm-2 pull-right">                   
-            </div>
-            <div class="box-body border padding-top-0 padding-left-right-0">
-                <div id="printableDiv">
+        <div class="box box-primary border">
+			<div class="box-body border padding-top-0 padding-left-right-0">
+                <div class="table-responsive" id="printableDiv">
    					<table class="table">
 						<thead>
 							<?php 
@@ -102,7 +110,6 @@
 						</tfoot>
                     </table>
                 </div>
-                <button class="btn btn-info pull-right" id="printButton" type="submit" onclick="printDiv('printableDiv')">Print<i class="material-icons md-22" aria-hidden="true"> description </i></button>
 			</div>                
         </div>
     </div>
@@ -116,6 +123,7 @@
 		document.body.innerHTML = printContents;
 		window.print();
 		document.body.innerHTML = originalContents;
+		window.location.reload(true);
 	}
 </script>
 @endsection

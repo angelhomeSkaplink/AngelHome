@@ -6,19 +6,25 @@
 @endsection
 
 @section('contentheader_title')
-    @lang("msg.New Resident")
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Change Records</strong></h3>
+	</div>
+	<div class="col-lg-4">
+		{{-- <a href="../resident_service_plan" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="width:105px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Back")</a> --}}
+		<a href="../sales_stage_pipeline" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+	</div>
+</div> 
 @endsection
 
 @section('main-content')
 <style>	
-	.content-header
-	{
-		display:none;
-	}
+	
 	.content {
 		margin-top: 0px;
 	}
 </style>
+
 <div class="row">	
 	<form action="{{action('ProspectiveController@change_pro_record')}}" method="post" enctype="multipart/form-data">					
 	<input type="hidden" name="_method" value="PATCH">

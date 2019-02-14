@@ -6,9 +6,14 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>total revenue of each facility</b>
-	<a href="{{ url('facility_aggregated_revenue_graph') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:230px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> details </i> aggregated group report</a>
-	</p>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Total Revenue Of Each Facility</strong></h3>
+    </div>
+    <div class="col-lg-4">
+      <a href="{{ url('facility_aggregated_revenue_graph') }}" class="btn btn-info btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">details</i>Aggregated Group Report</a>
+    </div>
+</div>
 @endsection
 
 @section('main-content')

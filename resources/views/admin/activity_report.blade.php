@@ -6,7 +6,11 @@
 @endsection
 
 @section('contentheader_title')
-    @lang("msg.Upcoming Events")
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Event Details</strong></h3>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
@@ -15,7 +19,11 @@
 <style>	
 	.content-header
 	{
-		display:none;
+		padding: 2px 0px 1px 20px;
+		margin-bottom: -10px;
+	}
+	.content {
+		margin-top: 15px;
 	}
 	.user_info{
 		    display: flex;

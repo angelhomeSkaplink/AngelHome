@@ -5,7 +5,14 @@
 @endsection
 
 @section('contentheader_title')
-     <p class="text-danger"><b>total revenue graph report</b></p>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Total Revenue Graph Report</strong></h3>
+    </div>
+    <div class="col-lg-4">
+      <a href="{{ url('total_revenue') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+    </div>
+</div>
 @endsection
 
 @section('main-content')

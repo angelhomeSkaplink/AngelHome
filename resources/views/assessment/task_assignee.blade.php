@@ -3,11 +3,19 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    @lang("msg.List of Patients")
+    Tasks Resident
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>@lang("msg.Today's TASK LIST FOR") {{ $task }}</b></p>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+	<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Today's Residents For Task: {{$task}}</strong></h3>
+	</div>
+	<div class="col-lg-4">
+		{{-- <span class="pull-right" style="padding-right:30px;"><button class="btn btn-primary" onclick="printDiv('DivIdToPrint')" id="printButton"><i class="material-icons md-22"> print </i> Print</button></span> --}}
+		<a href=" {{url('main_task_list')}} " class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
@@ -164,15 +172,6 @@
 					</div>
 					<br/>
 				</div>
-				<!--<div class="col-md-10"></div>
-				<div class="col-md-2">
-					<div class="form-group has-feedback">
-						<button type="submit" class="btn btn-primary btn-block btn-flat padding-top-bottom-4" id='btn' value='Print' onclick='printDiv();' style="width:90% !important;">
-						PRINT
-						</button>
-					</div>
-				</div>
-				<br/><br/>-->
 			</div>						
         </div>
     </div>

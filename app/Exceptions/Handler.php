@@ -46,6 +46,30 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+    // public function render($request, Exception $exception)
+    // {
+    //     if ($this->isHttpException($exception)) {
+    //         switch($exception->getStatusCode()){
+    //                 case 404:
+    //                 return redirect('page-not-found');
+    //                 break;
+    //                 case 500:
+    //                 return redirect('internal-server-error');
+    //                 break;
+    //                 case 403:
+    //                 return redirect('access-forbidden');
+    //                 break;
+    //                 case 400:
+    //                 return redirect('bad-request');
+    //                 break;
+    //                 default:
+    //                 return redirect('error');
+    //         }
+    //     }
+    //     else {
+    //         return redirect('error');
+    //     }
+    // }
 
     /**
      * Convert an authentication exception into an unauthenticated response.

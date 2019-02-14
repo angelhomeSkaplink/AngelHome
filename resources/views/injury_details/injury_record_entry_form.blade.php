@@ -5,7 +5,11 @@
 @endsection
 
 @section('contentheader_title')
-   <p class="text-danger"><b>Incident Record</b></p>   
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Injury Form</strong></h3>
+	</div>
+</div>  
 @endsection
 
 @section('main-content')

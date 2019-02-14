@@ -18,10 +18,11 @@ use DB, Auth, Carbon;
 class tspController extends Controller
 {
     public function viewResidents(){
-        $residents = DB::table('resident_room')->join('sales_pipeline','resident_room.pros_id','=','sales_pipeline.id')
-        ->where('sales_pipeline.facility_id','=',Auth::user()->facility_id)
-        ->where('resident_room.status','=',1)->select('sales_pipeline.*')
-        ->get();
+        // $residents = DB::table('resident_room')->join('sales_pipeline','resident_room.pros_id','=','sales_pipeline.id')
+        // ->where('sales_pipeline.facility_id','=',Auth::user()->facility_id)
+        // ->where('resident_room.status','=',1)->select('sales_pipeline.*')
+        // ->get();
+        $residents = DB::table('sales_pipeline')->where('stage',"MoveIn")->get();
         // dd($residents);
         return view('tsp.allResident',compact('residents'));
     }

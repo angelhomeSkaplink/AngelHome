@@ -7,6 +7,7 @@
 @section('contentheader_title')
   <?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
     <p class="text-danger"><b>Funeral Home Details For {{ $name->pros_name }}</b></p>
+    <span class="pull-right" style="padding-right:20px;"><button class="btn btn-primary" onclick="printDiv('printable')" id="printButton"><i class="material-icons md-22"> print </i> Print</button></span>
 @endsection
 
 @section('main-content')
@@ -95,6 +96,13 @@
       </div>
     </div>
 </div>
+<div class="hidden" id="printable">
+      
+</div>
 @include('layouts.partials.scripts_auth')
-
+<script>
+  $('document').ready(function(){
+    $('#printable').load('../AllScreen/'+{{ $id }});
+  });
+</script>
 @endsection

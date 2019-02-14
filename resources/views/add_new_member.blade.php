@@ -1,11 +1,30 @@
 @extends('layouts.app')
+@section('htmlheader_title')
+    All Member List
+@endsection
+@section('contentheader_title')
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Add New Member</strong></h3>
+	</div>
+</div>
+@endsection
 
 @section('main-content')
 <br/>
 <style>	
-	.content-header{
-		display:none;
-	}	
+	<style>
+	.wickedpicker{
+		z-index:999 !important;
+	}
+	.content-header
+	{
+		padding: 2px 0px 1px 20px;
+		margin-bottom: -10px;
+	}
+	.content {
+		margin-top: 15px;
+	}
 </style>
 @include ('layouts.errors')
 <div class="card">
@@ -15,7 +34,7 @@
 		<div class="col-md-2"></div>
 		<div class="col-md-4">
 			<div class="box box-primary">
-				<div class="box-body" style="height:376px; padding-top:0">
+				<div class="box-body" style="height:400px; padding-top:0">
 					<div class="form-group has-feedback">
 					<!-- <label>ID</label> -->
 						<input type="hidden" class="form-control" value="{{ $new_id }}" name="new_id" required readonly />
@@ -53,7 +72,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="box box-primary">
-				<div class="box-body" style="padding-top:25px;">					
+				<div class="box-body" style="padding-top:25px; height:400px;">					
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Password")*</label>
 						<input type="password" class="form-control" name="_password" id="txtPassword" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,}$"
@@ -86,10 +105,10 @@
 							<input type="checkbox" name="role[]" value="5">
 							<span class="label-text">@lang("msg.Back Office")</span>
 						</label>
-						<label style="padding-right:10px;">
-							<input type="checkbox" name="role[]" value="6">
-							<span class="label-text">@lang("msg.Doctor")</span>
-						</label>
+						<!--<label style="padding-right:10px;">-->
+						<!--	<input type="checkbox" name="role[]" value="6">-->
+						<!--	<span class="label-text">@lang("msg.Doctor")</span>-->
+						<!--</label>-->
 						<label style="padding-right:10px;">
 							<input type="checkbox" name="role[]" value="7">
 							<span class="label-text">@lang("msg.Wellness Director")</span>
@@ -122,7 +141,6 @@
 					<div class="form-group has-feedback">
                         <a href="{{  url('all_member_list') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
             		</div>
-					</br></br>
 				</div>
 			</div>
 		</div>

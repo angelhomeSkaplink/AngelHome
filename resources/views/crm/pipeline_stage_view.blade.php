@@ -6,16 +6,14 @@
 @endsection
 
 @section('contentheader_title')
-     Info
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Sales Pipeline</strong></h3>
+	</div>
+</div>   
 @endsection
 
 @section('main-content')
-<style>	
-	.content-header
-	{
-		display:none;
-	}	
-</style>
 <link href="{{ asset('/css/type_ahead.css') }}" rel="stylesheet" type="text/css"/>
 <script>
 $(document).ready(function() {
@@ -46,13 +44,13 @@ $(document).ready(function() {
     							<th class="th-position text-uppercase font-500 font-12">#</th>
     							<th class="th-position text-uppercase font-400 font-12">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="myInput" type="text" name="room_type" autocomplete="off" placeHolder="FUTURE RESIDENT">
+    									<input id="myInput" type="text" name="room_type" autocomplete="off" placeHolder="&#61442; FUTURE RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">
 									</div>
 								</th>
     							<th class="th-position text-uppercase font-500 font-12">Phone No</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="emailInput" type="text" name="room_type" autocomplete="off" placeHolder="EMAIL">
+    									<input id="emailInput" type="text" name="room_type" autocomplete="off" placeHolder="&#61442; EMAIL" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">View Record</th>

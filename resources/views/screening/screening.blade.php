@@ -6,7 +6,11 @@
 @endsection
 
 @section('contentheader_title')
-    Prospective Info
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Screening</strong></h3>
+	</div>
+</div> 
 @endsection
 
 @section('main-content')
@@ -27,11 +31,6 @@
 		});
 	});
 </script>
-<style>	
-	.content-header{
-		display:none;
-	}	
-</style>
 <link href="{{ asset('/css/type_ahead.css') }}" rel="stylesheet" type="text/css"/>
 <div class="row">
     <div class="col-md-12">
@@ -48,18 +47,18 @@
     							<th class="th-position text-uppercase font-500 font-12">#</th>
     							<th class="th-position text-uppercase font-500 font-13">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="myInput" type="text" placeHolder="FUTURE RESIDENT">
+    									<input id="myInput" type="text" placeHolder="&#61442; FUTURE RESIDENT"  style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">Phone No</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="emailautocomplete" style="width:200px;">
-    									<input id="emailInput" type="text" placeHolder="EMAIL">
+    									<input id="emailInput" type="text" placeHolder="&#61442; EMAIL" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							{{-- <th class="th-position text-uppercase font-500 font-12">
     								<div class="contactautocomplete" style="width:200px;">
-    									<input id="contactInput" type="text" placeHolder="CONTACT PERSON">
+    									<input id="contactInput" type="text" placeHolder="&#61442;CONTACT PERSON">
     								</div>
     							</th> --}}
     							<th class="th-position text-uppercase font-500 font-12">Add Screening Records</th>
@@ -83,7 +82,7 @@
     							<td>{{ $basic->email_p }}</td>
     							{{-- <td>{{ $basic->contact_person }}</td> --}}
     							<?php } ?>
-    							<td style="padding-left:70px"><a data-toggle="tooltip" data-placement="bottom" data-original-title="Add Screening Records" href="resposible_personal/{{ $crm->id }}"><i class="material-icons gray md-22"> add_circle</i></a></td>
+    							<td style="padding-left:70px"><a data-toggle="tooltip" data-placement="bottom" data-original-title="Add Screening Records" href="screening/{{ $crm->id }}"><i class="material-icons gray md-22"> add_circle</i></a></td>
     							<td style="padding-left:70px"><a data-toggle="tooltip" data-placement="bottom" data-original-title="View Screening Records" href="screening_view/{{ $crm->id }}"><i class="material-icons gray md-22"> visibility </i></a></td>
     						</tr>
     						@endforeach

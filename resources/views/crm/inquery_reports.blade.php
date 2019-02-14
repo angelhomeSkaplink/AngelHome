@@ -5,7 +5,11 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>@lang("msg.Sales Reports")</b></p>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Sales Reports</strong></h3>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
@@ -132,7 +136,7 @@ $(document).ready(function() {
     							<td>{{ $basic->phone_p }}</td>
     							<td>{{ $basic->email_p }}</td>
     							<td>{{ $basic->address_p }}</td>
-    							<td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
+    							<td>{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</td>
     							<td>{{ $basic->phone_c }}</td>
     							<td>{{ $basic->email_c }}</td>
     							<td>{{ $basic->address_c }}</td>

@@ -207,14 +207,6 @@ class DoctorController extends Controller
 		->get();
 
 		return view('doctor.view_patient_details', compact('qry_data', 'id'));
-        // $qry_data = DB::table('patient_medical_info')
-        //             ->Join('sales_pipeline', 'sales_pipeline.id', '=', 'patient_medical_info.pros_id')
-        //             ->select('patient_medical_info.*')
-        //             ->where('patient_medical_info.pros_id', $id)
-        //             ->orderBy('patient_medical_info.pat_medi_id', 'DESC')
-        //             ->get();
-
-        // return view('doctor.view_patient_details', compact('qry_data', 'id'));
     }
 
     public function delete_records($pat_medi_id, $pros_id)
@@ -374,9 +366,8 @@ class DoctorController extends Controller
         return view('doctor.search_patient', compact('crms', 'prospectives'));
     }
     public function checkup_view(){
-		$residents = DB::table('resident_room')->join('sales_pipeline','resident_room.pros_id','=','sales_pipeline.id')
-        ->where('sales_pipeline.facility_id','=',Auth::user()->facility_id)
-        ->where('resident_room.status','=',1)->select('sales_pipeline.*')
+		$residents = DB::table('sales_pipeline')
+        ->where([['stage',"MoveIn"],['facility_id',Auth::user()->facility_id]])
         ->get();
 		return view('doctor.allResident',compact('residents'));
 	}

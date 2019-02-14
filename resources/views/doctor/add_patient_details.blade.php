@@ -6,7 +6,19 @@
 @endsection
 
 @section('contentheader_title')
-	<p><b> <span class="text-danger" style="text-align:center;"> 
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Assessment History</strong></h3>
+	</div>
+	<div class="col-lg-4">
+		<span class="pull-right">
+		<a href="{{ url('patients_list') }}" class="btn btn-success btn-sm " style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+		<a href="{{ url('view_patient_details/'.$id) }}" class="btn btn-info btn-sm " style="margin-right:15px;border-radius:5px;"><i class="material-icons">details</i>View Details</a>
+		</span>
+	</div>
+</div>
+@endsection
+	{{-- <p><b> <span class="text-danger" style="text-align:center;"> 
 		@php
 			$n = explode(",",$name->pros_name);
 		@endphp
@@ -18,21 +30,22 @@
     
     {{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</span> </b>
     
-    <a href="{{ url('view_patient_details/' . $id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:115px !important"><i class="material-icons md-14 font-weight-600"> details </i>  @lang("msg.All Details")</a></p>
+    <a href="{{ url('view_patient_details/'.$id) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:115px !important"><i class="material-icons md-14 font-weight-600"> details </i>  @lang("msg.All Details")</a></p>
     <h4><p style="text-align:center;">Add Medical Information</p></h4>
-@endsection
+@endsection --}}
 
 @section('main-content')
 <style>
-	.content-header{
-		padding: 0px 0px 0px 20px;
-		margin-bottom: 0px;
-	}
-	.content{
-		margin-top: 15px;
-	}
 	.wickedpicker{
 		z-index:999 !important;
+	}
+	.content-header
+	{
+		padding: 2px 0px 1px 20px;
+		margin-bottom: -10px;
+	}
+	.content {
+		margin-top: 15px;
 	}
 </style>
 <link href="{{ asset('/css/type_ahead.css') }}" rel="stylesheet" type="text/css"/>

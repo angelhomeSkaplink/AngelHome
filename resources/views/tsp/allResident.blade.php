@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    All Residents
+    Temporary Service Plan
 @endsection
 
 @section('contentheader_title')
-	All Residents
+<div class="row">
+		<div class="col-lg-4 col-lg-offset-4 text-center">
+			<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Temporary Service Plan</strong></h3>
+		</div>
+	</div>
 @endsection
 
 @section('main-content')

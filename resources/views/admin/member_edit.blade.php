@@ -2,14 +2,34 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-edit user details
+Edit User Details
 @endsection
 
 @section('contentheader_title')
-edit user details
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Edit User Details</strong></h3>
+    </div>
+    <div class="col-lg-4">
+      <a href="{{ url('all_member_list') }}" class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+    </div>
+</div>
 @endsection
 
 @section('main-content')
+<style>
+  .wickedpicker{
+    z-index:999 !important;
+  }
+  .content-header
+  {
+    padding: 2px 0px 1px 20px;
+    margin-bottom: -10px;
+  }
+  .content {
+    margin-top: 15px;
+  }
+</style>
 @include ('layouts.errors')
 <div class="row">
   <form action="{{action('AddMemberController@update_member_role')}}" method="post" enctype="multipart/form-data">
@@ -66,12 +86,12 @@ edit user details
               <?php endif; ?>>
               <span class="label-text">back-office</span>
             </label>
-            <label style="padding-right:10px;">
-              <input type="checkbox" name="role[]" value="6"<?php if (in_array(6,$role_arr)): ?>
-                checked
-              <?php endif; ?>>
-              <span class="label-text">doctor</span>
-            </label>
+            <!--<label style="padding-right:10px;">-->
+            <!--  <input type="checkbox" name="role[]" value="6"<?php if (in_array(6,$role_arr)): ?>-->
+            <!--    checked-->
+              <!--<?php endif; ?>>-->
+            <!--  <span class="label-text">doctor</span>-->
+            <!--</label>-->
             <label style="padding-right:10px;">
               <input type="checkbox" name="role[]" value="7"<?php if (in_array(7,$role_arr)): ?>
                 checked
@@ -95,6 +115,18 @@ edit user details
                 checked
               <?php endif; ?>>
               <span class="label-text">dietacian</span>
+            </label>
+            <label style="padding-right:10px;">
+              <input type="checkbox" name="role[]" value="12"<?php if (in_array(12,$role_arr)): ?>
+                checked
+              <?php endif; ?>>
+              <span class="label-text">Med Tech</span>
+            </label>
+            <label style="padding-right:10px;">
+              <input type="checkbox" name="role[]" value="13"<?php if (in_array(13,$role_arr)): ?>
+                checked
+              <?php endif; ?>>
+              <span class="label-text">BOM</span>
             </label>
           </div>
           <div class="form-group has-feedback">

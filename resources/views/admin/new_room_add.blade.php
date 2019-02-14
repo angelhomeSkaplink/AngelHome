@@ -2,27 +2,37 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    new room details
+    Add New Room
 @endsection
 
 @section('contentheader_title')
-   @lang("msg.new room details")
-   
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Add New Room</strong></h3>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
 <br/>
-<style>	
+<style>
+	.wickedpicker{
+		z-index:999 !important;
+	}
 	.content-header
 	{
-		display:none;
-	}	
+		padding: 2px 0px 1px 20px;
+		margin-bottom: -10px;
+	}
+	.content {
+		margin-top: 15px;
+	}
 </style>
 <link href="{{ asset('/css/type_ahead.css') }}" rel="stylesheet" type="text/css"/>
 <div class="row">
 	<form action="new_room" method="post" enctype="multipart/form-data">	
 		
-		<div class="col-md-6 col-md-offset-2">
+		<div class="col-md-6 col-md-offset-3">
 			<div class="box box-primary">
 				@if(Session::has('msg'))
 					<div class="alert alert-danger">

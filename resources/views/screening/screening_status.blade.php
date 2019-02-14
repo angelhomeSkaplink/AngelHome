@@ -46,6 +46,7 @@
 						<object data="../hsfiles/public/legal_doc/{{ $reports_0->doc_file }}" type="application/pdf" width="600" height="200">
 								<embed src="../hsfiles/public/legal_doc/{{ $reports_0->doc_file }}" width="400px" height="200px" />
 	
+							<!-- <object type="application/pdf"  data="../legal_doc/{{ $reports_0->doc_file"><a href="../legal_doc/{{ $reports_0->doc_file">file</a></object> -->
 						<?php
 							}else{
 						?>

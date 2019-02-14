@@ -10,17 +10,14 @@ use DB, Auth, App, Carbon;
 class WellnessController extends Controller
 {
     public function note_view(){
-		$residents = DB::table('resident_room')->join('sales_pipeline','resident_room.pros_id','=','sales_pipeline.id')
-        ->where('sales_pipeline.facility_id','=',Auth::user()->facility_id)
-        ->where('resident_room.status','=',1)->select('sales_pipeline.*')
-        ->get();
+        $residents = DB::table('sales_pipeline')->where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->get();
 		return view('wellness.allResident',compact('residents'));
 	}
 	public function take_note($id){
 		$notes = DB::table('note_taker')->where('res_id',$id)->orderby('id','desc')->get();
-		// dd($checkups);
+		$facility = DB::table('facility')->where('id',Auth::user()->facility_id)->first();
 		$name = DB::table('sales_pipeline')->where('id',$id)->first();
-		return view('wellness.noteTaker',compact('id','name','notes'));
+		return view('wellness.noteTaker',compact('id','name','notes','facility'));
 	}
 	public function storeNote(Request $request){
 		$rules = [

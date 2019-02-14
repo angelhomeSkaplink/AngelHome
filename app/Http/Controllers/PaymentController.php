@@ -69,7 +69,7 @@ class PaymentController extends Controller
 	public function resident_payment(Request $request){	
 	    $val = $request['language'];
 		App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
+		$crms = DB::table('sales_pipeline')->where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->paginate(6);
         return view('payment.pipeline_view', compact('crms'));
     }
 	
@@ -82,8 +82,8 @@ class PaymentController extends Controller
 		$check_payment = DB::table('payment_info')->where([['pros_id', $check_id->id], ['payment_status', 1]])->first();		
 		
 		$reports = DB::table('resident_room')
-                    ->Join('care_plan', 'resident_room.pros_id', '=', 'care_plan.assessment_id')
-					->where([['resident_room.pros_id',$check_id->id], ['care_plan.assessment_id', $check_id->id]])
+                    ->Join('care_plan', 'resident_room.pros_id', '=', 'care_plan.pros_id')
+					->where([['resident_room.pros_id',$check_id->id], ['care_plan.pros_id', $check_id->id]])
 					->where([['resident_room.status', 1], ['care_plan.care_plan_status', 1]])
                     ->select('resident_room.*','care_plan.*')->first();
 		if($reports!=NULL){
@@ -101,7 +101,7 @@ class PaymentController extends Controller
 			$service_plan_price = 0;
 			$total_payable_ammount = 0;
 		}	
-		return view('payment.resident_payment_history_view', compact('unique_id', 'check_payment', 'check_id', 'reports', 'service_plan_price', 'total_payable_ammount')); 
+		return view('payment.resident_payment_history_view', compact('unique_id', 'check_payment', 'check_id', 'reports', 'service_plan_price','id','total_payable_ammount')); 
     }
 	
 	public function make_payment_res(Request $request){
@@ -131,7 +131,7 @@ class PaymentController extends Controller
 	    $val = $request['language'];
 		App::setlocale($val);
 		$reports = DB::table('resident_room')
-                    ->Join('care_plan', 'resident_room.pros_id', '=', 'care_plan.assessment_id')
+                    ->Join('care_plan', 'resident_room.pros_id', '=', 'care_plan.pros_id')
 					->Join('sales_pipeline', 'resident_room.pros_id', '=', 'sales_pipeline.id')
 					->where([['resident_room.status', 1], ['care_plan.care_plan_status', 1], ['sales_pipeline.facility_id', Auth::user()->facility_id]])
                     ->select('resident_room.*','care_plan.*', 'sales_pipeline.*')->get();
@@ -143,7 +143,7 @@ class PaymentController extends Controller
 					->Join('sales_pipeline', 'payment_info.pros_id', '=', 'sales_pipeline.id')
 					->where('payment_info.pros_id', '=', $id)
                     ->select('payment_info.*', 'sales_pipeline.*')->paginate(8);
-		return view('payment.resident_payment_details_report_view', compact('reports')); 
+		return view('payment.resident_payment_details_report_view', compact('reports','id')); 
 	}
 	
 	public function payment_pros($pros_id){		

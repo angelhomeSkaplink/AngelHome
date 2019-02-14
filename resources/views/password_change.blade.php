@@ -5,7 +5,11 @@
 @endsection
 
 @section('contentheader_title')
-    @lang("msg.Change Your Password")
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4 text-center">
+    <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Change Your Password</strong></h3>
+  </div>
+</div>
 @endsection
 
 @section('header-extra')

@@ -6,27 +6,43 @@ TSP
 
 
 @section('contentheader_title')
-<div class="row" style="padding:0px;margin:0px;">
-  <div class="col-lg-12 text-center">
-    <h3 style="padding:0px;margin:0px;"><strong>Temporary Service Plan(TSP)</strong></h3>
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4 text-center">
+    <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>TSP HISTORY</strong></h3>
+  </div>
+  <div class="col-lg-4">
+    <a href="../temporary_service_plan" class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>
   </div>
 </div>
-<div class="row" style="padding-top:20px;">
-@php
-  $n = explode(",",$residents->pros_name);
-@endphp
-  <div class="col-lg-12">
-    <h3 style="margin:0px;padding:0px;">@if($residents->service_image == NULL)
-      <img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
-      @else
-      <img src="../hsfiles/public/img/{{ $residents->service_image }}" class="img-circle" width="40" height="40">
-      @endif<b><span class="text-danger">{{ $n[0] }} {{ $n[1] }} {{ $n[2] }} </span></b></h3>
-    </div>
-  </div>
-  @endsection
+@endsection
 
-  @section('main-content')
-  <div class="" style="padding:10px;margin-top:-20px;">
+@section('main-content')
+@php
+$person = DB::table('sales_pipeline')->where('id',$residents->id)
+			->join('resident_details','sales_pipeline.id','=','resident_details.pros_id')
+			->first();
+if($person){
+	$age = (date('Y') - date('Y',strtotime($person->dob)))." years";
+}
+else{
+	$person = DB::table('sales_pipeline')->where('id',$residents->id)->first();
+	$age = "Not specified";
+}
+$name =  explode(",",$person->pros_name);
+@endphp
+<div class="row" style="background-color:rgb(49, 68, 84) !important;margin:0.5px;">
+	<div class="col-lg-12">
+		<h4>@if($person->service_image == null)
+			<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+		@else
+			<img src="../hsfiles/public/img/{{ $person->service_image }}" class="img-circle" width="40" height="40">
+		@endif
+		<span class="text-success" style="color:aliceblue;"><strong>{{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong>
+		<span class="pull-right" style="color:aliceblue;padding-top:10px;"><strong>Age: {{ $age }} </strong></span>
+		</h4>
+	</div>
+</div>
+  <div class="" style="padding:0.5px;margin-top:10px;">
     <div class="panel-group" id="accordion">
       @foreach ($tsps as $tsp)
         <div class="panel panel-primary">

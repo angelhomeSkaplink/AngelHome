@@ -5,16 +5,15 @@
 @endsection
 
 @section('contentheader_title')
-@php
-	$n=explode(",",$pros->pros_name);
-@endphp
-   <p class="text-danger"><b>reschedule appointment date for
-   	@if($pros->service_image == NULL)
-		<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
-	@else
-		<img src="../hsfiles/public/img/{{ $pros->service_image }}" class="img-circle" width="40" height="40">
-	@endif
-	{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</b></p>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Reschedule Appointment</strong></h3>
+	</div>
+	<div class="col-lg-4">
+		<a href="../appointment_schedule" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+	</div>
+</div>
+
 @endsection
 
 @section('main-content')
@@ -23,12 +22,25 @@
 		z-index:999 !important;
 	}
 	.content-header{
-		//display:none;
 		padding: 2px 0px 1px 20px;
 		margin-bottom: -18px;
 	}
 
 </style>
+@php
+$n=explode(",",$pros->pros_name);
+@endphp
+<div class="row" style="background-color:rgb(49, 68, 84) !important;margin:0.5px;">
+	<div class="col-lg-12">
+		<h4>@if($pros->service_image == NULL)
+			<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+		@else
+			<img src="../hsfiles/public/img/{{ $pros->service_image }}" class="img-circle" width="40" height="40">
+		@endif
+		<span class="text-success" style="color:aliceblue;"><strong>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</strong>
+		</h4>
+	</div>
+</div>
 <div class="row">	
 	<form action="{{action('ProspectiveController@change_appointment')}}" method="post">					
 	<input type="hidden" name="_method" value="PATCH">

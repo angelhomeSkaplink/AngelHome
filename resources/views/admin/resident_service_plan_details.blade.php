@@ -6,107 +6,135 @@
 @endsection
 
 @section('contentheader_title')
-    
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Service Plan Details</strong></h3>
+	</div>
+	<div class="col-lg-4">
+		<a class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
 <style>
-	.content-header
-	{
-		//display:none;
+	.content-header{
 		padding: 2px 0px 1px 20px;
 		margin-bottom: -18px;
 	}
 	.content {
 		margin-top: 15px;
 	}
-	.form-control{
-		//text-transform: uppercase;
-	}
 </style>
-
+@php
+$person = DB::table('sales_pipeline')->where('id',$id)
+			->join('resident_details','sales_pipeline.id','=','resident_details.pros_id')
+			->first();
+$room = DB::table('resident_room')
+		->join('facility_room','resident_room.room_id','=','facility_room.room_id')
+		->where([['resident_room.pros_id',$id],['resident_room.status',1]])->first();
+if($room){
+	$room_no = $room->room_no;
+}
+else{
+	$room_no = "No Room Booked";
+}
+if($person){
+	$age = (date('Y') - date('Y',strtotime($person->dob)))." years";
+}
+else{
+	$person = DB::table('sales_pipeline')->where('id',$id)->first();
+	$age = "Not specified";
+}
+$name =  explode(",",$person->pros_name);
+@endphp
+<div class="row" >
+	<div class="col-lg-12 table-responsive">
+		<table class="table">
+			<tr style="background-color:rgb(49, 68, 84) !important;margin:0.5px;">
+				<td>
+					<h4>@if($person->service_image == null)
+							<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+						@else
+							<img src="../hsfiles/public/img/{{ $person->service_image }}" class="img-circle" width="40" height="40">
+						@endif
+						<span class="text-success" style="color:aliceblue;"><strong>{{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong>
+					</h4>
+				</td>				
+				<td>
+					<h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>Room No: {{ $room_no }} </strong></span></h4>
+				</td>
+				<td>
+					<h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>Age: {{ $age }} </strong></span></h4>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
 <div class="row">
-
-<div class="col-md-12"><h4 class="font-500 text-uppercase font-15">Assessment details <a href="{{ url('resident_service_plan') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-top: -7px; margin-right: 10px margin-bottom: 13px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a></h4>	 </div>
 	<div class="col-md-12">
 		<div class="box box-primary border-light-blue">			
 			<div class="box-body padding-top-5">
-				
-				<!--<div class="box-body border padding-top-0 padding-left-right-0">-->
-					@if($reports->isEmpty())
-						<div class="alert alert-info"><b>&nbsp;&nbsp;NO ASSESSMENT RECORDS FOUND</b></div>
-					@endif
-					@if(!$reports->isEmpty())
-					
-                    <table class="table">
-                        <tbody>
-							<tr>
-								<th class="th-position text-uppercase font-500 font-12">Assessment</th>								
-								<th class="th-position text-uppercase font-500 font-12">date</th>	
-								<th class="th-position text-uppercase font-500 font-12">Point</th>
+				@if(count($reports)<=0)
+					<p class="text-danger"><b>&nbsp;&nbsp;NO ASSESSMENT RECORDS FOUND</b></p>
+				@endif
+				@if(count($reports)>0)
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<tbody>
+							<tr style="background-color:rgba(0, 0, 0, 0.87);color:aliceblue;">
+								<th class="th-position text-uppercase font-500 font-12"><strong>Assessment</strong></th>								
+								<th class="th-position text-uppercase font-500 font-12"><strong>date</strong></th>	
+								<th class="th-position text-uppercase font-500 font-12"><strong>Point</strong></th>
+								<th class="th-position text-uppercase font-500 font-12 text-center"><span class="pull-right" style="margin-right:15px;"><strong>Action</strong></span></th>
 							</tr>
 							@foreach ($reports as $report)
 							<tr>
-								<td><a href="../score_view/{{ $report->assessment_form_name }}">{{ $report->assessment_form_name }}</a></td>
+								<td><i class="material-icons">library_books</i> &nbsp; {{ $report->assessment_form_name }}</td>
 								<td>{{ $report->assessment_date }}</td>
 								<td>{{ $report->score }}</td>
+								<td class="text-center" width="12%"><a class="btn btn-default btn-block" href="../../../history/{{$report->pros_id}}/{{$report->id}}"><i class="material-icons md-22"> visibility </i> View</a></span></td>
 							</tr>
 							@endforeach
-							<tr>
-								<td><label>Total Assessment score</label></td>
+							<tr style="background-color: #e3e3e3;color:black">
+								<td><label><strong>Total Assessment score</strong></label></td>
 								<td></td>
-								<td>{{ $total_score }}</td>								
+								<td><strong>{{ $total_score }}</strong></td>	
+								<td></td>
 							</tr>
-                        </tbody>
-                    </table>
-					@endif
-                <!--</div>-->
+						</tbody>
+					</table>
+				</div>
+				@endif
 			</div>
 		</div>
 	</div>
-	@if(!$reports->isEmpty())
-		<br/>
-	<div class="col-md-12"><h4 class="font-500 text-uppercase font-15">Service plan details</h4> </div>
+	@if(count($reports)>0)
+	<br/>
+	<div class="col-md-12"><h4 class="font-500 text-uppercase font-15">Service plan details</h4></div>
 	<div class="col-md-12">
-		<div class="box box-primary border-light-blue">
-			
+		<div class="box box-primary border-light-blue">			
 			<div class="box-body padding-top-5">
-				
-				<!--<div class="box-body border padding-top-0 padding-left-right-0">-->
-                    <table class="table">
-                        <tbody>							
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>	
+							<tr style="background-color:rgba(0, 0, 0, 0.87);color:aliceblue;">
+								<th>Service Plan Total score(From all Assessments)</th>
+								<th>Note</th>
+								<th>Resident Service Plan</th>
+								<th>Price</th>
+							</tr>	
 							<tr>
-								<td><label>Service Plan score</label></td>
-								<td>{{ $totalpointcount->total_point }}</td>	
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							<tr>
-								<td>Note</td>
-								<td>{{ $totalpointcount->care_plan_detail }}</td>	
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							<tr>
-								<?php $plan = DB::table('service_plan')->where('to_range', '>=', $totalpointcount->total_point)->orderBy('to_range', 'ASC')->first(); ?>
-								<td>Resident Service Plan</td>
-								@if($totalpointcount->total_point>$plan->to_range)
-									<td>No Service Plan Found</td>
-								@endif
-								@if($totalpointcount->total_point<=$plan->to_range)
-								<td>{{ $plan->service_plan_name }}</td>	
-								<td></td><td></td><td></td><td></td><td></td><td></td>								
-							</tr>
-							<tr>
-								<td>Price</td>								
-								<td>{{ $plan->price }}</td>	
-								<td></td><td></td><td></td><td></td><td></td><td></td>
-							</tr>
-							@endif
-                        </tbody>
-                    </table>					
-                <!--</div>-->
+								<td>{{ $cp_data->total_point }}</td>
+								<td>{{ $cp_data->care_plan_detail }}</td>
+								<td>{{ $service_plan->service_plan_name }}</td>
+								<td>{{ $service_plan->price }}</td>
+							</tr>	
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
-		
+		</div>		
 	</div>
 	@endif
 </div>

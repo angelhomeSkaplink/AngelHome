@@ -2,11 +2,15 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    edit room details
+    Edit Room Details
 @endsection
 
 @section('contentheader_title')
-   edit room details
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Edit Room Details</strong></h3>
+	</div>
+</div>
 @endsection
 
 @section('main-content')
@@ -15,7 +19,7 @@
 	<form action="{{action('RoomController@new_room_edit')}}" method="post">
 		<input type="hidden" name="_method" value="PATCH">
 			{{ csrf_field() }}
-		<div class="col-md-6 col-md-offset-2">
+		<div class="col-md-6 col-md-offset-3">
 			<div class="box box-primary">				
 				<div class="box-body" style="height:500px">
 					<input type="hidden" class="form-control" name="room_id" value="{{ $row->room_id }}" />

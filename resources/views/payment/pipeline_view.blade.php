@@ -1,9 +1,13 @@
 @extends('layouts.app')
 @section('htmlheader_title')
-    Prospective Info 
+Resident Payment 
 @endsection
 @section('contentheader_title')
-	<p class="text-danger"><b>residents</b></p>
+<div class="row">
+	<div class="col-lg-4 col-lg-offset-4 text-center">
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Resident Payment</strong></h3>
+	</div>
+</div>
 @endsection
 @section('main-content')
 <style>
@@ -32,18 +36,18 @@
     							<th class="th-position text-uppercase font-400 font-13">###</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="myInput" type="text" placeHolder="RESIDENTS">
+    									<input id="myInput" type="text" placeHolder="&#61442; RESIDENTS" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-400 font-13">Phone No</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="emailautocomplete" style="width:200px;">
-    									<input id="emailInput" type="text" placeHolder="EMAIL">
+    									<input id="emailInput" type="text" placeHolder="&#61442; EMAIL" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="contactautocomplete" style="width:200px;">
-    									<input id="contactInput" type="text" placeHolder="CONTACT PERSON">
+    									<input id="contactInput" type="text" placeHolder="&#61442; CONTACT PERSON" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-400 font-13">Make Payment</th>

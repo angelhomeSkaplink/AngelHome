@@ -1,12 +1,18 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    @lang("msg.Facility Info") 
+Aggregated Report 
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>@lang("msg.Aggregated Report Of The Group") {{ $group->group_name }}</b><a href="{{ url('total_revenue') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:150px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> details </i>@lang("msg.Back")</a>
-	</p>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Aggregated Report Of The Group</strong></h3>
+    </div>
+    <div class="col-lg-4">
+      <a href="{{ url('total_revenue') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+    </div>
+</div>
 @endsection
 
 @section('main-content')
@@ -14,7 +20,7 @@
 	.content-header
 	{
 		padding: 2px 0px 1px 20px;
-		margin-bottom: -18px;
+		margin-bottom: -10px;
 	}	
 </style>
 <script type="text/javascript" language="javascript" src="{{ asset('/js/chart/Chart.min.js') }}"></script>
