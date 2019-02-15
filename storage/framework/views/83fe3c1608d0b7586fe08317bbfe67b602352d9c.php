@@ -27,8 +27,18 @@
                                     <div class="col-lg-6">
                                         <input type="hidden" class="form-control" name="pros_id" value="<?php echo e($id); ?>" />
                                         <label>Document name</label>
+                                        <?php 
+                                            $documents = DB::table('documents')
+                                            ->where([['doc_type',"legal_doc"],['facility_id',Auth::user()->facility_id],['status',1]])
+                                            ->get();
+                                         ?>
                                         <div class="form-group has-feedback">
-                                            <input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="" required/>
+                                            <select class="form-control" name="doc_name" id="" required>
+                                                <?php $__currentLoopData = $documents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                                    <option value="<?php echo e($item->doc_name); ?>"> <?php echo e($item->doc_name); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                                            </select>
+                                            
                                         </div>
                                         <div class="form-group has-feedback">
                                         <label>Upload the document here</label>
