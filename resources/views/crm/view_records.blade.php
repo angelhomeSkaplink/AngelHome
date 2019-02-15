@@ -360,57 +360,52 @@
 				<?php $signing = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', "Lease-Signing"]])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
 				@if($signing == NULL)
 				<h4 class="font-500 text-uppercase font-15">@lang("msg.Lease Signing")</h4>
-				<div class="form-inline border-top">
-					<div class="row">
-						<form action="{{ action('ProspectiveController@new_records_pros_add') }}" method="post" enctype="multipart/form-data">
-							<input type="hidden" name="_method" value="PATCH">
-							{{ csrf_field() }}
-							<input type="hidden" class="form-control" value="Lease-Signing" name="sales_stage" id="sales_stage" readonly />
-							<input type="hidden" class="form-control" value="{{ $row->id }}" name="pipeline_id" id="pipeline_id" readonly />
-							<div class="col-md-8 col-md-offset-2">
-								<div class="box box-primary">				
-									<div class="box-body padding-bottom-15">
-										<div class="row">
-												<div class="col-lg-6">
-												<input type="hidden" class="form-control" name="pros_id" value="{{ $row->id }}" />
-												<div class="form-group has-feedback">
-														<label>Lead Type </label>
-														<select name="lead_id" id="lead_id" class="form-control" required >							
-															<option value="">Select Lead Type</option>
-															@foreach($leads as $lead)
-																<option value="{{ $lead->lead_id}}">{{ $lead->lead_type }}</option>
-															@endforeach							
-														</select>
-													</div>
-												<div class="form-group has-feedback">
-													<input type="hidden" class="form-control" name="doc_name" maxlength="100" placeholder="" value="Lease - Signing Document"/>
-												</div>
-												<div class="form-group has-feedback">
-												<label>Upload the document here</label>
-												<input id="file" type="file" class="form-control" name="doc_file" accept="image/*,.doc, .docx,.pdf,.odf,.odt" size="2MB" required/>
-												</div>
+					<form action="{{ action('ProspectiveController@new_records_pros_add') }}" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="_method" value="PATCH">
+						{{ csrf_field() }}
+						<input type="hidden" class="form-control" value="Lease-Signing" name="sales_stage" id="sales_stage" readonly />
+						<input type="hidden" class="form-control" value="{{ $row->id }}" name="pipeline_id" id="pipeline_id" readonly />
+						<div class="col-md-12">
+							<div class="box box-primary">				
+								<div class="box-body padding-bottom-15">
+									<div class="row">
+										<div class="col-md-6">
+											<input type="hidden" class="form-control" name="pros_id" value="{{ $row->id }}" />
+											<input type="hidden" name ="lead_id" value="Lease-Signing"/>
+											@php
+												$documents = DB::table('documents')
+												->where([['doc_type',"lease_signing"],['facility_id',Auth::user()->facility_id],['status',1]])->get();
+											@endphp
+											<div class="form-group has-feedback">
+												<label>Document Name</label>
+												<select class="form-control" name="doc_name" id="">
+													@foreach ($documents as $item)
+														<option class="form-control" value="{{ $item->doc_name }}">{{ $item->doc_name }}</option>
+													@endforeach
+												</select>
 											</div>
-											<div class="col-lg-6">
-												<div class="form-group has-feedback">
-													<p style=""><strong>Supported file types:<span style="color:#bfbfbf"> .jpeg, .jpg, .png, .gif, .tiff, .bmp, .doc, .docx, .pdf, .odf, .odt </span></strong></p>
-													<p style=""><strong>Max-Size:<span style="color:#bfbfbf"> 5MB </span></strong></p>
-												</div>
-												<div class="form-group has-feedback">
-													<a href="{{  url('sales_stage_pipeline') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
-												</div>
-												<div class="form-group has-feedback">
-													<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
-												</div>
+											<div class="form-group has-feedback">
+												<label>Upload the document here</label>
+												<input id="file" type="file" class="form-control" name="doc_file" accept="image/*,.doc, .docx,.pdf,.odf,.odt" size="5MB" required/>
 											</div>
 										</div>
-										   
-												
+										<div class="col-md-6">
+											<div class="form-group has-feedback">
+												<p style=""><strong>Supported file types:<span style="color:#bfbfbf"> .jpeg, .jpg, .png, .gif, .tiff, .bmp, .doc, .docx, .pdf, .odf, .odt </span></strong></p>
+												<p style=""><strong>Max-Size:<span style="color:#bfbfbf"> 5MB </span></strong></p>
+											</div>
+											<div class="form-group has-feedback">
+												<a href="{{  url('sales_stage_pipeline') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
+											</div>
+											<div class="form-group has-feedback">
+												<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Submit")</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</form>
-					</div>
-				</div>
+						</div>
+					</form>
 				@endif
 				@if($signing != NULL)
 					

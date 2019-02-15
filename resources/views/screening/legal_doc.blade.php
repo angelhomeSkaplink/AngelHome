@@ -26,8 +26,18 @@
                                     <div class="col-lg-6">
                                         <input type="hidden" class="form-control" name="pros_id" value="{{ $id }}" />
                                         <label>Document name</label>
+                                        @php
+                                            $documents = DB::table('documents')
+                                            ->where([['doc_type',"legal_doc"],['facility_id',Auth::user()->facility_id],['status',1]])
+                                            ->get();
+                                        @endphp
                                         <div class="form-group has-feedback">
-                                            <input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="" required/>
+                                            <select class="form-control" name="doc_name" id="" required>
+                                                @foreach ($documents as $item)
+                                                    <option value="{{ $item->doc_name }}"> {{ $item->doc_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="" required/> --}}
                                         </div>
                                         <div class="form-group has-feedback">
                                         <label>Upload the document here</label>

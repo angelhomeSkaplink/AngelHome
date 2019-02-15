@@ -13,6 +13,8 @@ use App\ResidentInjury;
 use App\NextAssessment;
 use App\FileUpload;
 use App\LegalDocUpload;
+use App\MedicationIncident;
+use App\MedicationIncidentAction;
 use DB, Auth, Validator, App;
 use Kamaln7\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Route;
@@ -882,6 +884,139 @@ class ProspectiveController extends Controller
 		$appointments = $appointments->get();
 		return view('crm.search_appointment', compact('appointments'));
 		}
+    }
+    
+    // public function medication_incident_report(){
+    //   $prospects = crm::where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->get();
+    //   $incidents = DB::table('med_incident_record')->where([['med_incident_record.facility_id',Auth::user()->facility_id],['med_incident_record.status',1],['med_incident_record.action',0]])
+    //                 ->join('sales_pipeline','sales_pipeline.id','=','med_incident_record.pros_id')
+    //                 ->get();
+    //   // dd($incidents);
+    //   return view('injury_details.medication_incident_report',compact('prospects','incidents'));
+    // }
+
+    // public function medication_incident_entry(Request $request){
+    //   // dd(Auth::user());
+    //   $new_incident = new MedicationIncident();
+    //   $new_incident->pros_id = $request['resident_name'];
+    //   $new_incident->err_made_emp = $request['error_done_by'];
+    //   $new_incident->emp_role = $request['emp_role'];
+    //   $new_incident->dt_incident = $request['incident_date'];
+    //   $new_incident->shift_incident = $request['shift'];
+    //   $new_incident->time_incident = $request['incident_time'];
+    //   $new_incident->dt_recording = date('Y/m/d');
+    //   $new_incident->err_desc = $request['error_desc'];
+    //   $new_incident->err_contribution = $request['error_contrib'];
+    //   $new_incident->dt_physcn_infrmd = $request['physician_informed_date'];
+    //   $new_incident->tm_physcn_infrmd = $request['physician_informed_time'];
+    //   $new_incident->resident_infrmd = $request['resident_informed'];
+    //   $new_incident->physcn_response = $request['physician_response'];
+    //   $new_incident->physcn_action = $request['action_taken'];
+    //   $new_incident->resp_person_infrmd = $request['Res_party_informed'];
+    //   $new_incident->direction_received = $request['direction_received'];
+    //   $new_incident->user_err_entry = Auth::user()->user_id;
+    //   $new_incident->facility_id = Auth::user()->facility_id;
+    //   $new_incident->save();
+    //   Toastr::success("Medication Incident Report Added Successfully !!");
+    //   return redirect('medication_incident_report');
+    // }
+
+    // public function medication_incident_action(Request $request){
+    //   // dd($request);
+    //   $new_action = new MedicationIncidentAction();
+    //   $new_action->med_incident_record_id = $request['incident_id'];
+    //   $new_action->res_diagnosis = $request['resident_diagnosis'];
+    //   $new_action->medication = $request['Medication'];
+    //   $new_action->other_err = $request['other_err'];
+    //   $new_action->scope_severity = $request['scope_severity'];
+    //   $new_action->action_taken = $request['action_taken'];
+    //   $new_action->prevention_step = $request['prevention_step'];
+    //   $new_action->user_supervised = Auth::user()->user_id;
+    //   $new_action->updated_datetime = date('Y/m/d', time());
+    //   $new_action->status = 1;
+    //   $new_action->save();
+
+    //   $update_incident = DB::table('med_incident_record')->where('med_incident_record_id',$request['incident_id'])->update(['action' => 1]);
+    //   Toastr::success("Medication Incident Action Report Saved Successfully !!");
+    //   return redirect('medication_incident_report');
+    // }
+    
+    public function medication_incident_report(){
+      $prospects = crm::where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->get();
+      $incidents = DB::table('med_incident_record')->where([['med_incident_record.facility_id',Auth::user()->facility_id],['med_incident_record.status',1],['med_incident_record.action',0]])
+                    ->join('sales_pipeline','sales_pipeline.id','=','med_incident_record.pros_id')
+                    ->get();
+      // dd($prospects);
+      $facility_desig = DB::table('staff_position')->where('facility_id', Auth::user()->facility_id)->get();
+      $employee = DB::table('users')->where([['users.facility_id', Auth::user()->facility_id],['users.status',1]])
+  						->join('staff_position','staff_position.staff_position_id','=','users.staff_position_id')
+  						->get();
+      return view('injury_details.medication_incident_report',compact('prospects','incidents','employee'));
+    }
+
+    public function medication_incident_resident_report($pros_id){
+      // dd($pros_id);
+      $employee = DB::table('users')->where([['users.facility_id', Auth::user()->facility_id],['users.status',1]])
+  						->join('staff_position','staff_position.staff_position_id','=','users.staff_position_id')
+  						->get();
+      return view('injury_details.medication_incident_resident_report', compact('pros_id','employee'));
+    }
+
+    public function medication_incident_resident_history($pros_id){
+      $history = DB::table('med_incident_record')->where([['med_incident_record.pros_id',$pros_id],['med_incident_record.facility_id',Auth::user()->facility_id],['med_incident_record.status',1]])
+                  ->join('users','users.user_id','=','med_incident_record.err_made_emp')
+                  ->join('staff_position','staff_position.staff_position_id','=','users.staff_position_id')
+                  ->where([['staff_position.facility_id',Auth::user()->facility_id],['staff_position.status',1]])
+                  ->get();
+
+      // dd($history);
+      return view('injury_details.medication_incident_resident_history',compact('pros_id','history'));
+    }
+
+    public function medication_incident_entry(Request $request){
+      // dd($request);
+      $new_incident = new MedicationIncident();
+      $new_incident->pros_id = $request['pros_id'];
+      $new_incident->err_made_emp = $request['error_done_by'];
+      // $new_incident->emp_role = $request['emp_role'];
+      $new_incident->dt_incident = $request['incident_date'];
+      $new_incident->shift_incident = $request['shift'];
+      $new_incident->time_incident = $request['incident_time'];
+      $new_incident->dt_recording = date('Y/m/d');
+      $new_incident->err_desc = $request['error_desc'];
+      $new_incident->err_contribution = $request['error_contrib'];
+      $new_incident->dt_physcn_infrmd = $request['physician_informed_date'];
+      $new_incident->tm_physcn_infrmd = $request['physician_informed_time'];
+      $new_incident->resident_infrmd = $request['resident_informed'];
+      $new_incident->physcn_response = $request['physician_response'];
+      $new_incident->physcn_action = $request['action_taken'];
+      $new_incident->resp_person_infrmd = $request['Res_party_informed'];
+      $new_incident->direction_received = $request['direction_received'];
+      $new_incident->user_err_entry = Auth::user()->user_id;
+      $new_incident->facility_id = Auth::user()->facility_id;
+      $new_incident->save();
+      Toastr::success("Medication Incident Report Added Successfully !!");
+      return redirect('medication_incident_resident_report/'.$request['pros_id']);
+    }
+
+    public function medication_incident_action(Request $request){
+      // dd($request);
+      $new_action = new MedicationIncidentAction();
+      $new_action->med_incident_record_id = $request['incident_id'];
+      $new_action->res_diagnosis = $request['resident_diagnosis'];
+      $new_action->medication = $request['Medication'];
+      $new_action->other_err = $request['other_err'];
+      $new_action->scope_severity = $request['scope_severity'];
+      $new_action->action_taken = $request['action_taken'];
+      $new_action->prevention_step = $request['prevention_step'];
+      $new_action->user_supervised = Auth::user()->user_id;
+      $new_action->updated_datetime = date('Y/m/d', time());
+      $new_action->status = 1;
+      $new_action->save();
+
+      $update_incident = DB::table('med_incident_record')->where('med_incident_record_id',$request['incident_id'])->update(['action' => 1]);
+      Toastr::success("Medication Incident Action Report Saved Successfully !!");
+      return redirect('medication_incident_report');
     }
 
 	

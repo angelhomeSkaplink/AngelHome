@@ -1462,7 +1462,6 @@ class ScreeningController extends Controller
     public function legal_doc($id)
 	{
 		$data = DB::table('legal_doc_upload')->where('pros_id',$id)->where('status',1)->get();
-// 		dd($data);
 		$isDoc=true;
 		if($data->isEmpty()){
 			$isDoc=false;
