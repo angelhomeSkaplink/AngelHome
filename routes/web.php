@@ -482,7 +482,7 @@ Route::get('error', function () {
 });
 
 //End error pages
-// Route::post('test','AssessmentController@test');
+Route::get('test','AssessmentController@test');
 // Policy Doc Upload by Bikram
 Route::get('policy_doc_form','UploadController@create');
 Route::post('upload_doc','UploadController@store');

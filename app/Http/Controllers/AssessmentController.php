@@ -173,6 +173,8 @@ class AssessmentController extends Controller
             }
 		}
 	$chk_care = DB::table('care_plan')->where([['pros_id',$request['prosId']],['period',$request['assessment_period']]])->first();
+	$chk_assess = DB::table('resident_assessment')
+	->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']],['assessment_status',1]])->first();
 	if(!$chk_care){
 		// create new CARE PLAN
 		$newCarePlan = new CareplanSave();
@@ -185,6 +187,11 @@ class AssessmentController extends Controller
 		$newCarePlan->care_plan_status = 1;
 		$newCarePlan->save();
 		// Insert Assessment Data
+		if($chk_assess){
+			$update_assess = DB::table('resident_assessment')
+			->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']]])
+			->update(['assessment_status' => 0]);
+		}
 		$assessmentstore = new AssessmentStore();
 		$assessmentstore->pros_id = $request['prosId'];
 		$assessmentstore->assessment_id = $request['surveyId'];
@@ -203,6 +210,11 @@ class AssessmentController extends Controller
 	else{
 		$chk_care = DB::table('care_plan')->where([['pros_id',$request['prosId']],['period',$request['assessment_period']],['date',null]])->first();
 		if($chk_care){
+			if($chk_assess){
+				$update_assess = DB::table('resident_assessment')
+				->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']]])
+				->update(['assessment_status' => 0]);
+			}
 			$assessmentstore = new AssessmentStore();
 			$assessmentstore->pros_id = $request['prosId'];
 			$assessmentstore->assessment_id = $request['surveyId'];
@@ -228,6 +240,11 @@ class AssessmentController extends Controller
 			$newCarePlan->care_plan_status = 1;
 			$newCarePlan->save();
 
+			if($chk_assess){
+				$update_assess = DB::table('resident_assessment')
+				->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']]])
+				->update(['assessment_status' => 0]);
+			}
 			$assessmentstore = new AssessmentStore();
 			$assessmentstore->pros_id = $request['prosId'];
 			$assessmentstore->assessment_id = $request['surveyId'];
@@ -246,14 +263,20 @@ class AssessmentController extends Controller
 }
 	
 // 	Testing
-	public function test(Request $request){
-		$chk_care = DB::table('care_plan')->where([['pros_id',1],['period',"Initial"]])->first();
-		if(!$chk_care){
-			dd("done");
-		}
-		else{
-			dd("not done");
-		}
+	public function test(){
+		$chk_assess = DB::table('resident_assessment')
+	->where([['pros_id',18],['assessment_id','5c0a218643f78'],['assessment_period',"Initial"],['assessment_status',1]])->first();
+	$update_assess = DB::table('resident_assessment')
+				->where([['pros_id',18],['assessment_id','5c0a218643f78'],['assessment_period','Initial']])
+				->update(['assessment_status' => 0]);
+	// dd($chk_assess);	
+	// $chk_care = DB::table('care_plan')->where([['pros_id',1],['period',"Initial"]])->first();
+		// if(!$chk_care){
+		// 	dd("done");
+		// }
+		// else{
+		// 	dd("not done");
+		// }
 	    
 	}
 	
@@ -805,7 +828,7 @@ class AssessmentController extends Controller
 		$elements = array();
 		$final = array();
 		$pages = json_decode($assessment_json->assessment_json)->pages;
-// 		dd($pages);
+		// dd($pages);
 		foreach($pages as $p){
 			foreach($p->elements as $e)
 			array_push($elements,$e);
@@ -813,33 +836,28 @@ class AssessmentController extends Controller
 		
 		$resident = DB::table('sales_pipeline')->where('id',$result->pros_id)->first();
 		$ans_elements = json_decode($result->assessment_json);
-// 		dd($ans_elements);
-// 		foreach($ans_elements->data as $key => $value){
-// 			for($i=0;$i<count($elements);$i++){
-// 				if($key == $elements[$i]->name){
-// 					if(property_exists($elements[$i],'choices')){
-// 						foreach($elements[$i]->choices as $e){
-// 							if($e->value == $value){
-// 								$value = $e->text;
-// 							}
-// 						}
-// 					}
-// 					$obj = new \stdClass();
-// 					$obj->qs = $elements[$i]->title;
-					
-// 					$obj->ans = $value;
-// 					array_push($final,$obj);
-// 				}
-// 			}
-// 		}
+		// $val_arr = array();
+		// dd($elements);
+		// dd($ans_elements);
+		// dd($elements[30]->choices);
         foreach($ans_elements->data as $key => $value){
 			for($i=0;$i<count($elements);$i++){
 				if($key == $elements[$i]->name){
 				    $obj = new \stdClass();
 					if(property_exists($elements[$i],'choices')){
-					    $val="";
+						$val="";
+						$val_arr = array();
 						foreach($elements[$i]->choices as $e){
-    							if($e->value == $value){
+							
+							if(is_array($value)){
+								foreach($value as $v){
+									if($e->value == $v){
+										array_push($val_arr,$e->text);
+									}
+								}
+							}
+							$val = implode(",",$val_arr);
+    						if($e->value == $value){
     								$val = $e->text;
     							}
 						}
@@ -855,24 +873,3 @@ class AssessmentController extends Controller
 		return view('assessment.assessment_history',compact('final','resident'));
 	}
 }
-
-// 	foreach($ans_elements->data as $key => $value){
-// 			for($i=0;$i<count($elements);$i++){
-// 				if($key == $elements[$i]->name){
-// 					if(property_exists($elements[$i],'choices')){
-// 						foreach($elements[$i]->choices as $e){
-// 						    for($k=0;$k<count($value);$k++){
-//     							if($e->value == $value[$k]){
-//     								$value = $value . $e->text;
-//     							}
-// 						    }
-// 						}
-// 					}
-// 					$obj = new \stdClass();
-// 					$obj->qs = $elements[$i]->title;
-					
-// 					$obj->ans = $value;
-// 					array_push($final,$obj);
-// 				}
-// 			}
-// 		}

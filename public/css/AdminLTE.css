@@ -5471,8 +5471,7 @@ span.text
 
 /* Checkbox style start */
 input[type="checkbox"], input[type="radio"]{
-	position: absolute;
-	right: 9000px;
+	position: relative;
 }
 
 
