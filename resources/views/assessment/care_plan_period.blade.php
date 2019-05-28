@@ -2,12 +2,12 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    ASSESSMENT PERIOD
+    @lang("msg.Assessment Period")
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>ASSESSMENT PERIOD</b>
-	<a href="../../select_assessments/{{ $id }}/{{ $period }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:105px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Back")</a>
+    <p class="text-danger"><b>@lang("msg.Assessment Period")</b>
+	<a href="{{ url('select_assessments/'.$id.'/'.$period) }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:105px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Back")</a>
 	</p>
 @endsection
 
@@ -33,19 +33,19 @@
 					<table class="table">
 						<tbody>
 							<tr>
-								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Initial/{{ $period }}">Initial</a></b></th>
+								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Initial/{{ $period }}">@lang("msg.Initial")</a></b></th>
 								
-								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Monthly/{{ $period }}">Monthly</a></b></th>
+								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Monthly/{{ $period }}">@lang("msg.Monthly")</a></b></th>
 							
-								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Quarterly/{{ $period }}">Quarterly</a></b></th>
+								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Quarterly/{{ $period }}">@lang("msg.Quarterly")</a></b></th>
 							
-								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/HalfYearly/{{ $period }}">Half-Yearly</a></b></th>
+								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/HalfYearly/{{ $period }}">@lang("msg.Half-Yearly")</a></b></th>
 							
-								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Annual/{{ $period }}">Annual</a></b></th>
+								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Annual/{{ $period }}">@lang("msg.Annual")</a></b></th>
 							
-								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Adhoc/{{ $period }}">Ad-Hoc</a></b></th>
+								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan_periodic/Adhoc/{{ $period }}">@lang("msg.Change Of Condition")</a></b></th>
 								
-								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan/{{ $period }}">Total Score</a></b></th>
+								<th class="th-position text-uppercase font-500 font-12"><b><a href="../../care_plan/{{ $period }}">@lang("msg.Total Score")</a></b></th>
 							</tr>						
 						</tbody>
 					</table>

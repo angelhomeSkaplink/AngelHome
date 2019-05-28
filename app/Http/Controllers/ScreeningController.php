@@ -34,14 +34,16 @@ class ScreeningController extends Controller
         $this->middleware('auth');
     }
 	public function screening(Request $request){
-	    $val = $request['language'];
-	    App::setlocale($val);
+	    
+	    App::setlocale(session('locale'));
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','desc')->paginate(6);
 		$crms_all = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','desc')->get();
         return view('screening.screening', compact('crms','crms_all'));
     }
 
-	public function screening_details($id){
+	public function screening_details(Request $request,$id){
+	    
+	    App::setlocale(session('locale'));
         return view('screening.screening_add_form', compact('id'));
     }
 
@@ -96,7 +98,8 @@ class ScreeningController extends Controller
 		}
 		
     Toastr::success("Responsible Personal Details Added Successfully !!");
-		return redirect('screening/'.$request['pros_id']);
+    return redirect()->back();
+// 		return redirect('screening/'.$request['pros_id']);
     }
 
 	public function add_significant_person(Request $request){
@@ -150,13 +153,38 @@ class ScreeningController extends Controller
 			$add_scr->save();
 		}
 			Toastr::success("Significant Personal Details Added Successfully !!");
-			return redirect('screening/'.$request['pros_id']);
+// 			return redirect('screening/'.$request['pros_id']);
+            return redirect()->back();
 		
 
 		//return redirect('/sales_stage_pipeline');
     }
 
 	public function add_resident_details(Request $request){
+	    $pros_name = implode(",",$request['pros_name']);
+	    $check_room = DB::table('resident_room')
+		->where([['pros_id', $request['pros_id']],['release_date',null]])
+		->first();
+		if($check_room == null){
+			$check_room = DB::table('resident_room')
+		->where([['pros_id', $request['pros_id']],['release_date','>=',date('Y-m-d')]])
+		->orderby('release_date','dsc')
+		->first();
+		}
+	    if($request['moveout_date'] == ""){
+	        $moveout_date = null;
+	    }else{
+	        $moveout_date = $request['moveout_date'];
+	    }
+		$up_prosName = DB::table('sales_pipeline')->where('id',$request['pros_id'])->update(['pros_name' => $pros_name]);
+// 		update moveout date
+		$up_DOM = DB::table('sales_pipeline')->where('id',$request['pros_id'])->update(['moveout_date' => $moveout_date]);
+// 		Update resident Rooms and facility Rooms
+		if($check_room != null){
+			$update_resident_room = DB::table('resident_room')->where([['pros_id', $request['pros_id']],['resident_room_id',$check_room->resident_room_id]])->update(['release_date'=> $moveout_date]);
+			$update_facility_room = DB::table('facility_room')->where('room_id',$check_room->room_id)->update(['release_date'=> $moveout_date]);
+		}
+	    $soc_sec = $this->GetSecretText($request['social_security_resident']);
 		$screening = Screening::where('pros_id',$request['pros_id'])->first();
 		if ($screening) {
 		$update = ResidentDetails::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
@@ -169,7 +197,7 @@ class ScreeningController extends Controller
 		$residentdetails->pob = $request['pob'];
 		$residentdetails->marital = $request['marital'];
 		$residentdetails->religion = $request['religion'];
-		$residentdetails->social_security_resident = $request['social_security_resident'];
+		$residentdetails->social_security_resident = $soc_sec;
 		$residentdetails->medicare_resident = $request['medicare_resident'];
 		$residentdetails->va_resident = $request['va_resident'];
 		$residentdetails->other_insurance_name_resident = $request['other_insurance_name_resident'];
@@ -199,7 +227,7 @@ class ScreeningController extends Controller
 		$residentdetails->social_security_resident = $request['social_security_resident'];
 		$residentdetails->medicare_resident = $request['medicare_resident'];
 		$residentdetails->va_resident = $request['va_resident'];
-		$residentdetails->other_insurance_name_resident = $request['other_insurance_name_resident'];
+		$residentdetails->other_insurance_name_resident = $soc_sec;
 		$residentdetails->date_resident = date('Y/m/d');
 		$residentdetails->user_id = Auth::user()->user_id;
 		$residentdetails->status = 1;
@@ -213,7 +241,8 @@ class ScreeningController extends Controller
 		}
 		
     Toastr::success("Resident Details Added Successfully !!");
-		return redirect('screening/'.$request['pros_id']);
+    return redirect()->back();
+// 		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -305,7 +334,8 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Primary Doctor Details Added Successfully !!");
-		return redirect('screening/'.$request['pros_id']);
+    return redirect()->back();
+// 		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -358,7 +388,8 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Pharmacy Details Added Successfully !!");
-		return redirect('screening/'.$request['pros_id']);
+    return redirect()->back();
+// 		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -427,7 +458,8 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Medical Equipment Added Successfully !!");
-		return redirect('screening/'.$request['pros_id']);
+    return redirect()->back();
+// 		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -481,10 +513,13 @@ class ScreeningController extends Controller
 		}else{
 				Toastr::warning("Oops ! unsupported file type.");
 		}
-		return redirect('screening/'.$request['pros_id']);
+		return redirect()->back();
+// 		return redirect('screening/'.$request['pros_id']);
 	}
     // pros_id', 'ss', 'medicare', 'supplemental_insurance_name', 'policy', 'medicaid', 'personal_responcible', 'case_manager', 'manager_phone', 'user_id', 'status'
     public function add_insurance(Request $request){
+        $resposible_per = implode(",",$request['personal_responcible']);
+        $case_manager = implode(",",$request['case_manager']);
 		$screening = Screening::where('pros_id',$request['pros_id'])->first();
 		if ($screening) {
 			$update = Insurance::where('pros_id',$request['pros_id'])->update(['status'=> 0]);
@@ -495,8 +530,8 @@ class ScreeningController extends Controller
 		$insurance->supplemental_insurance_name = $request['insurance_name'];
 		$insurance->policy = $request['policy'];
 		$insurance->medicaid = $request['medicaid'];
-		$insurance->personal_responcible = $request['resposible'];
-		$insurance->case_manager = $request['manager'];
+		$insurance->personal_responcible = $resposible_per;
+		$insurance->case_manager = $case_manager;
 		$insurance->manager_phone = $request['manager_phone'];
 		$insurance->inc_date = date('Y/m/d');
 		$insurance->user_id = Auth::user()->user_id;
@@ -518,8 +553,8 @@ class ScreeningController extends Controller
 		$insurance->supplemental_insurance_name = $request['insurance_name'];
 		$insurance->policy = $request['policy'];
 		$insurance->medicaid = $request['medicaid'];
-		$insurance->personal_responcible = $request['resposible'];
-		$insurance->case_manager = $request['manager'];
+		$insurance->personal_responcible = $resposible_per;
+		$insurance->case_manager = $case_manager;
 		$insurance->manager_phone = $request['manager_phone'];
 		$insurance->inc_date = date('Y/m/d');
 		$insurance->user_id = Auth::user()->user_id;
@@ -532,7 +567,8 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("Insurace Details Added Successfully !!");
-		return redirect('screening/'.$request['pros_id']);
+    return redirect()->back();
+// 		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -576,7 +612,8 @@ class ScreeningController extends Controller
 		$add_scr->save();
 		}
     Toastr::success("FuneralHome Details Added Successfully !!");
-		return redirect('screening/'.$request['pros_id']);
+    return redirect()->back();
+// 		return redirect('screening/'.$request['pros_id']);
 
 		//return redirect('/sales_stage_pipeline');
     }
@@ -1141,8 +1178,9 @@ class ScreeningController extends Controller
 	}
 
 	//Added by Nilotpal
-    public function screening_view($id){
-
+    public function screening_view(Request $request,$id){
+        
+        App::setlocale(session('locale'));
         $reports_1 = DB::table('responsible_person_details')
                     ->Join('mental_status', 'responsible_person_details.pros_id', '=', 'mental_status.pros_id')
                     ->Join('medical_equip_supp_resident_need', 'responsible_person_details.pros_id', '=', 'medical_equip_supp_resident_need.pros_id')
@@ -1173,8 +1211,9 @@ class ScreeningController extends Controller
         return view('screening.screening_view', compact('reports_1', 'reports_2', 'id'));
     }
 	
-	public function screening_next($id){
-
+	public function screening_next(Request $request,$id){
+        
+        App::setlocale(session('locale'));
         $reports_1 = DB::table('responsible_person_details')
                     ->Join('mental_status', 'responsible_person_details.pros_id', '=', 'mental_status.pros_id')
                     ->Join('medical_equip_supp_resident_need', 'responsible_person_details.pros_id', '=', 'medical_equip_supp_resident_need.pros_id')
@@ -1205,7 +1244,9 @@ class ScreeningController extends Controller
         return view('screening.screening_next', compact('reports_1', 'reports_2', 'id'));
     }
 	
-	public function screening_status($id){
+	public function screening_status(Request $request,$id){
+	    
+        App::setlocale(session('locale'));
         $reports_0  = DB::table('legal_doc_upload')
 										->where('legal_doc_upload.pros_id', $id)
 										->where('legal_doc_upload.facility_id', Auth::user()->facility_id)
@@ -1242,8 +1283,9 @@ class ScreeningController extends Controller
         return view('screening.screening_status', compact('reports_0','reports_1', 'reports_2', 'id'));
     }
 	
-	public function screening_data($id){
-
+	public function screening_data(Request $request,$id){
+        
+        App::setlocale(session('locale'));
         $reports_1 = DB::table('responsible_person_details')
                     ->Join('mental_status', 'responsible_person_details.pros_id', '=', 'mental_status.pros_id')
                     ->Join('medical_equip_supp_resident_need', 'responsible_person_details.pros_id', '=', 'medical_equip_supp_resident_need.pros_id')
@@ -1274,8 +1316,9 @@ class ScreeningController extends Controller
         return view('screening.screening_data', compact('reports_1', 'reports_2', 'id'));
     }
 	
-	public function screening_data_next($id){
-
+	public function screening_data_next(Request $request,$id){
+        
+        App::setlocale(session('locale'));
         $reports_1 = DB::table('responsible_person_details')
                     ->Join('mental_status', 'responsible_person_details.pros_id', '=', 'mental_status.pros_id')
                     ->Join('medical_equip_supp_resident_need', 'responsible_person_details.pros_id', '=', 'medical_equip_supp_resident_need.pros_id')
@@ -1306,8 +1349,9 @@ class ScreeningController extends Controller
         return view('screening.screening_data_next', compact('reports_1', 'reports_2', 'id'));
     }
 	
-	public function screening_data_status($id){
-
+	public function screening_data_status(Request $request,$id){
+        
+        App::setlocale(session('locale'));
         $reports_1 = DB::table('responsible_person_details')
                     ->Join('mental_status', 'responsible_person_details.pros_id', '=', 'mental_status.pros_id')
                     ->Join('medical_equip_supp_resident_need', 'responsible_person_details.pros_id', '=', 'medical_equip_supp_resident_need.pros_id')
@@ -1336,11 +1380,13 @@ class ScreeningController extends Controller
                     ->first();
 
         return view('screening.screening_data_status', compact('reports_1', 'reports_2', 'id'));
-	}
-	public function master_view($id){
+    }
+    public function master_view(Request $request,$id){
+        
+        App::setlocale(session('locale'));
 		return view('screening.master',compact('id'));
 	}
-     public function resposible_personal($id){
+    public function resposible_personal($id){
 		$data = Responsibleperson::where('pros_id',$id)->where('status',1)->first();	
 		if(!$data){
 			$data=(object) null;
@@ -1462,6 +1508,7 @@ class ScreeningController extends Controller
     public function legal_doc($id)
 	{
 		$data = DB::table('legal_doc_upload')->where('pros_id',$id)->where('status',1)->get();
+// 		dd($data);
 		$isDoc=true;
 		if($data->isEmpty()){
 			$isDoc=false;
@@ -1472,7 +1519,7 @@ class ScreeningController extends Controller
 	    $data = DB::table('legal_doc_upload')->where('doc_id',$id)->update(['status'=> 0]);
 	    $pros_id = DB::table('legal_doc_upload')->where('doc_id',$id)->select('legal_doc_upload.pros_id')->first();
 	    Toastr::success("Document deleted successfully!!");
-	    return redirect('/legal_doc/'.$pros_id->pros_id);
+	    return redirect('screening/'.$pros_id->pros_id);
 	}
     public function funeral_home($id)
     {
@@ -1599,6 +1646,160 @@ class ScreeningController extends Controller
 		$name = DB::table('sales_pipeline')->where('id',$id)->first();
 		$facility = DB::table('facility')->where('id',Auth::user()->facility_id)->first();
 		return view('screening_view.all_screening',compact('name','facility','id'));
+	}
+	private function GetSecretText($originalText){
+		return encrypt($originalText);
+	}
+	private function GetOriginalText($cipherText){
+		return decrypt($cipherText);
+	}
+	public function editResidentDetails($scr,$id){
+		switch($scr){
+			case "responsible_personnel" :
+				$data = Responsibleperson::where('pros_id',$id)->where('status',1)->first();	
+				if(!$data){
+					$data=(object) null;
+					$data->responsible_person_responsible = ",,";			
+					$data->address1_responsible = "";
+					$data->address2_responsible = "";
+					$data->city_responsible = "";
+					$data->state_responsible = "Select State";
+					$data->zipcode_responsible = "";
+					$data->phone_responsible = "";
+					$data->email_responsible = "";	
+				}
+				break;
+			case "significant_personnel" :
+				$data = SignificantPerson::where('pros_id',$id)->where('status',1)->first();
+				if(!$data){
+					$data=(object) null;
+					$data->other_significant_person_significant = ",,";				
+					$data->address1_significant = "";			
+					$data->state_significant = "Select State";				
+					$data->phone_significant = "";
+					$data->email_significant = "";
+					$data->address2_significant = "";			
+					$data->city_significant = "";			
+					$data->zipcode_significant = "";				
+				}
+				break;
+			case "resident_details" :
+				$data = ResidentDetails::where('pros_id',$id)->where('status',1)->first();
+				if(!$data){
+					$data=(object) null;
+					$data->height_resident = "Select Height(feet inc)";
+					$data->weight_resident = "Select Weight(LB)";
+					$data->gender = "Select Gender";
+					$data->dob = "";
+					$data->pob = "";
+					$data->marital = "Select Marital Status";
+					$data->religion = "";
+					$data->social_security_resident = "";
+					$data->medicare_resident = "Select Medicare";
+					$data->va_resident = "Select VA";
+					$data->other_insurance_name_resident = "";
+				}
+				break;
+			case "physician" :
+				$data = PrimaryDoctorDetails::where('pros_id',$id)->where('status',1)->first();
+				if(!$data){
+					$data=(object) null;
+					$data->primary_doctor_primary = ",,";
+					$data->address1_primary = "";
+					$data->address2_primary = "";
+					$data->city_primary = "";
+					$data->state_primary = "Select State";
+					$data->zipcode_primary = "";
+					$data->phone_primary_doctor = "";
+					$data->medical_diagnosis = "";
+					$data->other_m_p_prob_primary = "";
+					$data->email_primary_doctor = "";
+					$data->fax_primary_doctor = "";
+					$data->specialist_doctor_primary = ",,";
+					$data->specialist_address1_primary = "";
+					$data->specialist_address2_primary = "";
+					$data->specialist_city_primary = "";
+					$data->specialist_state_primary = "Select State";
+					$data->specialist_zipcode_primary = "";
+					$data->specialist_phone_primary_doctor = "";
+					$data->dentist = ",,";
+					$data->dentist_city = "";
+					$data->dentist_phone = "";
+					$data->dentist_address1 = "";
+					$data->dentist_zip = "";
+					$data->dentist_address2 = "";
+					$data->dentist_state = "Select State";
+				}
+				break;
+			case "pharmacy" :
+				$data = PharmacyDetails::where('pros_id',$id)->where('status',1)->first();
+				if(!$data){
+					$data=(object) null;
+					$data->hospital = "";
+					$data->phone_hospital = "";
+					$data->pharmacy = "";
+					$data->phone_pharmacy = "";
+					$data->mortuary = "";
+					$data->phone2_mortuary = "";
+					$data->special_med_needs_pharmacy = "";
+				}
+				break;
+			case "medical_equipment" :
+				$data = MedicalEquipSuppResidentNeed::where('pros_id',$id)->where('status',1)->first();
+				if(!$data){
+					$data=(object) null;
+					$data->inconsistency_supplies_type = "";
+					$data->pressure_relief_dev_type = "";
+					$data->bed_pan_medical = "";
+					$data->walker_medical = "";
+					$data->trapeze_medical = "";
+					$data->comode_medical = "";
+					$data->wheelchair_medical = "";
+					$data->oxygen_medical = "";
+					$data->urinal_medical = "";
+					$data->cane_medical = "";
+					$data->protective_pads_medical = "";
+					$data->crutches_medical = "";
+					$data->hospital_beds_medical = "";
+					$data->other_medical = "";
+				}
+				break;
+			case "legal_document" :
+				$data = DB::table('legal_doc_upload')->where('pros_id',$id)->where('status',1)->get();
+				$isDoc=true;
+				if($data->isEmpty()){
+					$isDoc=false;
+				}
+				break;
+			case "insurance" :
+			$data = Insurance::where('pros_id',$id)->where('status',1)->first();
+				if(!$data){
+					$data=(object) null;
+					$data->ss = "";
+					$data->medicare = "";
+					$data->supplemental_insurance_name = "";
+					$data->policy = "";
+					$data->medicaid = "";
+					$data->personal_responcible = ",,";
+					$data->case_manager = ",,";
+					$data->manager_phone = "";
+				}
+				break;
+			case "funeral_home" :
+				$data = FuneralHome::where('pros_id',$id)->where('status',1)->first();
+				if(!$data){
+					$data=(object) null;
+					$data->funeral_home = "";
+					$data->city = "";
+					$data->phone = "";
+					$data->address = "";
+				}
+				break;
+		}
+		return view('screening.details_edit',compact('scr','id','data','isDoc'));
+	}
+	public function Loader(){
+	    return view('loader');
 	}
 	// Finish
 }

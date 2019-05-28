@@ -2,13 +2,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Events Details
+    @lang("msg.Events Details")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Sales Reports</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Activity Calendar")</strong></h3>
 	</div>
 	<?php
 		$us = Auth::user()->user_id;
@@ -20,7 +20,7 @@
 	?>	
 	<div class="col-lg-4">
 		@if(in_array(1,$role_arr) || in_array(11,$role_arr))
-			<a href="{{ url('new_event_add_form') }}" class="btn btn-success btn-sm pull-right"><i class="material-icons">add</i>Add New Event</a>
+			<a href="{{ url('new_event_add_form') }}" class="btn btn-success btn-sm pull-right"><i class="material-icons">add</i>@lang("msg.Add New Event")</a>
 		@endif
 	</div>
 </div>
@@ -42,53 +42,6 @@
 		border: 1px solid #ab8383 !important;
 	}
 </style>
-<!--<div class="row margin-left-right-15">
-	<form action="{{action('RoomController@search_event')}}" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="_method" value="PATCH">
-		{{ csrf_field() }}
-		
-		<div class="col-md-4">
-			<div class="form-group has-feedback">
-				<label class="sm-heading">@lang("msg.SELECT event")</label>
-				
-				<select name="event_name" id="event_name" class="form-control" >
-					<option value=""> @lang("msg.SELECT event")</option>
-					@foreach ($venues as $venue)
-						<option value="{{ $venue->event_name }}"> {{ $venue->event_name }} </option>	
-					@endforeach
-				</select>
-					
-			</div>			
-		</div>
-		<div class="col-md-4">
-			<div class="form-group has-feedback">
-				<label class="sm-heading">@lang("msg.SELECT venue")</label>					
-				<select name="event_place" id="event_place" class="form-control" >
-					<option value=""> @lang("msg.SELECT venue") </option>
-					@foreach ($venues as $venue)
-					<option value="{{ $venue->event_place }}"> {{ $venue->event_place }} </option>
-					@endforeach						
-				</select>
-				
-			</div>			
-		</div>
-		<div class="col-md-2">
-			<div class="form-group has-feedback">
-				<button type="submit" class="btn btn-primary btn-block btn-flat padding-top-bottom-4" style="width:90% !important; margin-top:24px">
-					<i class="material-icons"> search </i> @lang("msg.Search")
-				</button>
-			</div>			
-		</div>
-		@if(Auth::user()->role == '1')
-		<div class="col-md-2">
-			<div class="form-group has-feedback">
-				<a href="{{ url('new_event_add_form') }}"><span class="label label-primary font-size-85pc padding-7 custom-lebel"> <i class="material-icons md-15" style="vertical-align:sub !important"> add </i> @lang("msg.Add New Event")</a>					
-           
-			</div>			
-		</div>
-		@endif
-	</form>
-</div>-->
 <div class="row">
     <div class="col-md-6">
         <div class="box box-primary border">			
@@ -113,6 +66,7 @@
 							<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Date")</b></th>
 							<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Venue")</b></th>
 							@if(in_array(11,$role_arr))
+							<th class="th-position text-uppercase font-400 font-13"><b>@lang('msg.Edit')</b></th>
 							<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Attendee")</b></th>
 							@endif
 						</tr>
@@ -123,6 +77,7 @@
 							<td>{{ $side_event->event_date }}</td>
 							<td>{{ $side_event->event_place }}</td>
 							@if(in_array(11,$role_arr))
+							<td><a href="edit_event/{{ $side_event->event_id }}"><span><i class="material-icons">edit</i></span></a></td>
 							<td><a href="attendee/{{ $side_event->event_id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400">Attendee</a></span></td>
 							@endif
 						</tr>

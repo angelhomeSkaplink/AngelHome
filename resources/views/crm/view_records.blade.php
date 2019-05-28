@@ -7,7 +7,7 @@
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Prospective Details</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Future Resident Details</strong></h3>
 	</div>
 	<div class="col-lg-4">
 		<a href="../sales_stage_pipeline" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
@@ -360,6 +360,7 @@
 				<?php $signing = DB::table('stage_pipeline')->where([['pipeline_id', $row->id], ['sales_stage', "Lease-Signing"]])->orderBy('stage_pipeline_id', 'DESC')->first(); ?>
 				@if($signing == NULL)
 				<h4 class="font-500 text-uppercase font-15">@lang("msg.Lease Signing")</h4>
+				<div class="form-inline border-top">
 					<form action="{{ action('ProspectiveController@new_records_pros_add') }}" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="_method" value="PATCH">
 						{{ csrf_field() }}
@@ -398,7 +399,7 @@
 												<a href="{{  url('sales_stage_pipeline') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
 											</div>
 											<div class="form-group has-feedback">
-												<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Submit")</button>
+												<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
 											</div>
 										</div>
 									</div>
@@ -406,6 +407,7 @@
 							</div>
 						</div>
 					</form>
+				</div>
 				@endif
 				@if($signing != NULL)
 					
@@ -446,11 +448,14 @@
 							<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Book A Room!</div> 
 						</div>
 					@else
-						<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")	
+						<h4 class="font-500 text-uppercase font-15">@lang("msg.Move In")
 							<a href="../add_prospect_record/MoveIn/{{ $row->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400 pull-right" style="position:relative; top:-5px">@lang("msg.Add Record")</span></a>
+							<a class="btn btn-primary" href="{{ url('bundle_print/'.$row->id) }}" style="margin-left:50px;">Bundle Print Preview</a>
 						</h4>
 						<div class="form-inline border-top">
-							<div class='text-danger' style="padding-top:10px; padding-bottom:7px">Add Details by Clicking on Add Record</div> 
+							<label for="">Move In Date</label>
+							<input type="date" name="moveinDate" class="form-control">
+							{{-- <div class='text-danger' style="padding-top:10px; padding-bottom:7px">Add Details by Clicking on Add Record</div>  --}}
 						</div>
 					@endif
 								

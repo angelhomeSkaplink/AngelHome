@@ -1,17 +1,3 @@
-@section('main-content')
-
-<style>
-	.content-header
-	{
-		//display:none;
-		padding: 2px 0px 1px 20px;
-		margin-bottom: -10px;
-	}
-		
-	.content {
-		margin-top: 15px;
-	}
-</style>
 <div class="box box-primary">
     <div class="tab-content" id="myTabContent">
         <div class="col-md-12">
@@ -26,7 +12,7 @@
                                     <div class="col-lg-6">
                                         <input type="hidden" class="form-control" name="pros_id" value="{{ $id }}" />
                                         <label>Document name</label>
-                                        @php
+                                       @php
                                             $documents = DB::table('documents')
                                             ->where([['doc_type',"legal_doc"],['facility_id',Auth::user()->facility_id],['status',1]])
                                             ->get();
@@ -37,7 +23,6 @@
                                                     <option value="{{ $item->doc_name }}"> {{ $item->doc_name }}</option>
                                                 @endforeach
                                             </select>
-                                            {{-- <input type="text" class="form-control" name="doc_name" maxlength="100" placeholder="" required/> --}}
                                         </div>
                                         <div class="form-group has-feedback">
                                         <label>Upload the document here</label>
@@ -53,7 +38,7 @@
                                             <button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
                                         </div>
                                         <div class="form-group has-feedback">
-                                            <a href="{{  url('screening') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
+						                	<a type="button" href="{{ url('screening/'.$id) }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">Cancel</a> 
                                         </div>
                                     </div>
                                 </div>  
@@ -68,7 +53,7 @@
                             @if($isDoc)
                                 <ol>
                                 @foreach($data as $d)
-                                    <li style="border-bottom:1px solid #e3e3e3;"> <a href="../hsfiles/public/legal_doc/{{ $d->doc_file }}" target=_blank> {{$d->doc_name}}  <i class="material-icons">get_app</i></a> <a class="pull-right" href="../delete_doc/{{$d->doc_id}}"><i class="material-icons">delete</i></a> </li>
+                                    <li style="border-bottom:1px solid #e3e3e3;"> <a href="../hsfiles/public/legal_doc/{{ $d->doc_file }}" target=_blank> {{$d->doc_name}}  <i class="material-icons">get_app</i></a> <a class="pull-right" href="javascript:Dlt({{ $d->doc_id }})"><i class="material-icons">delete</i></a> </li>
                                 @endforeach
                                 </ol>
                             @else
@@ -96,4 +81,17 @@
         this.value = "";
         };
     };
+    function Dlt(id){
+        $.confirm({
+            title: 'Confirm!',
+            content: 'Simple confirm!',
+            buttons: {
+                confirm: function(){
+                    window.location.replace("../delete_doc/"+id);
+                },
+                cancel: function(){
+                }
+            }
+        });
+    }
 </script>

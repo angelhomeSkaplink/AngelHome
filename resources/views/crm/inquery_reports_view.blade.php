@@ -145,7 +145,7 @@
     						</tbody>
     						<tfoot>
     							<tr>
-    								<td colspan="8">Powered by Senior Safe Technology LCC</td>
+    								<td colspan="8">Powered by Senior Safe Technology LLC</td>
     							</tr>
     						</tfoot>
     					</table>

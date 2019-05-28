@@ -1,16 +1,3 @@
-@section('main-content')
-<style>
-	.content-header
-	{
-		//display:none;
-		padding: 2px 0px 1px 20px;
-		margin-bottom: -10px;
-	}
-		
-	.content {
-		margin-top: 15px;
-	}
-</style>
 <div class="box box-primary">
     <div class="tab-content" id="myTabContent">
       <!-- <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> -->
@@ -90,7 +77,7 @@
 										<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
 									</div>
 									<div class="form-group has-feedback">
-										<button type="button" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
+						            	<a type="button" href="{{ url('screening/'.$id) }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">Cancel</a>
 									</div>
 										<br/><br/><br/>
 								</div>

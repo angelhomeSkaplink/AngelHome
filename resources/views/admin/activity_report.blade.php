@@ -2,13 +2,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Events Details
+    @lang("msg.Events Details")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Event Details</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Event Details")</strong></h3>
 	</div>
 </div>
 @endsection
@@ -39,7 +39,11 @@
         $("#roomModal").on("show.bs.modal", function(e) {
             var id = $(e.relatedTarget).data('target-id');
             $.get( 'view_activity/' + id, function( data ) {
+				console.log(data);
+				
 				var products  = JSON.parse(data);
+				console.log(products);
+				
 				var $template = ''; 		
 						
 				products.forEach((product, index) => {
@@ -50,7 +54,7 @@
 						<h4>${product.attenedee_status}</h4>
 					</div>
 				`;					
-					console.log(product);
+					// console.log(product);
 				});	
 				$(".modal-body").html($template);
             });
@@ -95,7 +99,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				
-				<h4 class="modal-title" id="myModalLabel"><b>#</b><b>@lang("msg.Attendee")</b> <b></b></h4>				
+				<h4 class="modal-title" id="myModalLabel"><b>@lang("msg.Attendee")</b> <b></b></h4>				
 			</div>
 			
 			<div class="modal-body">

@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    @lang("msg.Future Resident Info") 
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>Resident ASSESSMENT</b>
+    <p class="text-danger"><b>@lang("msg.Resident") @lang("msg.Assessment")</b>
 		<a href="{{ url('resident_assessment') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a>
 	</p>
 @endsection

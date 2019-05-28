@@ -1,17 +1,17 @@
 @extends('layouts.app')
 @section('htmlheader_title')
-    {{$assessment_page}} Assessment Report
+    {{$assessment_page}} @lang("msg.Assessment Report")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4 text-center">
-      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Assessment History</strong></h3>
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Assessment History")</strong></h3>
     </div>
     <div class="col-lg-4">
       <span class="pull-right" style="padding-right:30px;">
-        <a href="{{ url('residents_in_each_assessment/'.$page_index) }}" class="btn btn-success btn-sm" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
-        <button class="btn btn-primary" onclick="printDiv('printableDiv')" id="printButton"><i class="material-icons md-22"> print </i> Print</button>
+        <a href="{{ url('residents_in_each_assessment/'.$page_index) }}" class="btn btn-success btn-sm" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>@lang("msg.Back")</a>
+        <button class="btn btn-primary" onclick="printDiv('printableDiv')" id="printButton"><i class="material-icons md-22"> print </i>@lang("msg.Print")</button>
     </span>
     </div>
 </div>
@@ -73,10 +73,10 @@ $name =  explode(",",$person->pros_name);
                     </h4>
 				</td>				
 				<td>
-                    <h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>Room No: {{ $room_no }} </strong></span></h4>
+                    <h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>@lang("msg.Room No"): {{ $room_no }} </strong></span></h4>
 				</td>
 				<td>
-                    <h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>Age: {{ $age }} </strong></span></h4>
+                    <h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>@lang("msg.Age"): {{ $age }} </strong></span></h4>
 				</td>
 			</tr>
 		</table>
@@ -113,7 +113,7 @@ $name =  explode(",",$person->pros_name);
                         <img src="../../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
                       @else
                         <img src="../../hsfiles/public/img/{{ $pros_details->service_image }}" class="img-circle" width="40" height="40">
-                     @endif {{ $name[0] }} {{ $name[1] }} {{ $name[2] }}<span class="pull-right" style="padding-right:20px;">Age: {{$age}} Room No: {{$room_no}}</span></span></td>
+                     @endif {{ $name[0] }} {{ $name[1] }} {{ $name[2] }}<span class="pull-right" style="padding-right:20px;">@lang("msg.Age"): {{$age}} @lang("msg.Room No"): {{$room_no}}</span></span></td>
                     </tr>
                 </table>
               </div>
@@ -129,10 +129,10 @@ $name =  explode(",",$person->pros_name);
 						<tbody>
 						   @foreach($qs_ans_arr as $qa)
 							<tr class="Active">
-								<td><h4><strong>Question: </strong>{{$qa->Question}}</h4></td>	
+								<td><h4><strong>@lang("msg.Question"): </strong>{{$qa->Question}}</h4></td>	
                             </tr>  
 							<tr>
-								<td><h6><strong>Answer:</strong> {{$qa->Answer}}</h6></td>
+								<td><h6><strong>@lang("msg.Answer"):</strong> {{$qa->Answer}}</h6></td>
                             </tr>
 							@endforeach                           
 						</tbody>
@@ -144,7 +144,7 @@ $name =  explode(",",$person->pros_name);
     </div>
 </div>
 <div class="print-footer text-center" style="border-top:5px solid #333;">
-    Powered by Senior Safe Technology LCC
+    @lang("msg.Powered By") Senior Safe Technology LLC
 </div>
 </div>
 @endsection

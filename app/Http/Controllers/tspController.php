@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 use App\TemporaryServicePlan;
 use App\FallTsp;
 use App\DeclineTsp;
@@ -12,21 +13,25 @@ use App\CastSplintTsp;
 use App\EyeProblemTsp;
 use App\GastroProblemTsp;
 use App\UrinaryProblemTsp;
-use Request;
-use DB, Auth, Carbon;
+// use Request;
+use DB, Auth, Carbon,App;
 
 class tspController extends Controller
 {
-    public function viewResidents(){
+    public function viewResidents(Request $request){
+        
+        App::setlocale(session('locale'));
         // $residents = DB::table('resident_room')->join('sales_pipeline','resident_room.pros_id','=','sales_pipeline.id')
         // ->where('sales_pipeline.facility_id','=',Auth::user()->facility_id)
         // ->where('resident_room.status','=',1)->select('sales_pipeline.*')
         // ->get();
-        $residents = DB::table('sales_pipeline')->where('stage',"MoveIn")->get();
+        $residents = DB::table('sales_pipeline')->where([['stage',"MoveIn"],['facility_id',Auth::user()->facility_id]])->get();
         // dd($residents);
         return view('tsp.allResident',compact('residents'));
     }
-    public function all_tsp($id){
+    public function all_tsp(Request $request,$id){
+        
+        App::setlocale(session('locale'));
         $residents = DB::table('sales_pipeline')
         ->where('id','=',$id)
         ->where('facility_id','=',Auth::user()->facility_id)->select('sales_pipeline.*')
@@ -34,34 +39,54 @@ class tspController extends Controller
         // dd($residents);
         return view('tsp.allTsp',compact('id','residents'));
     }
-    public function fall_tsp() {
+    public function fall_tsp(Request $request) {
+        
+        App::setlocale(session('locale'));
         return view('tsp.fallTsp');
     }
-    public function decline_tsp() {
+    public function decline_tsp(Request $request) {
+        
+        App::setlocale(session('locale'));
         return view('tsp.declineApetiteTsp');
     }
-    public function cast_splint() {
+    public function cast_splint(Request $request) {
+        
+        App::setlocale(session('locale'));
       return view('tsp.castOrSplintTsp');
     }
-    public function eye_problem() {
+    public function eye_problem(Request $request) {
+        
+        App::setlocale(session('locale'));
       return  view('tsp.eyeProblemTsp');
     }
-    public function gastrointestinal() {
+    public function gastrointestinal(Request $request) {
+        
+        App::setlocale(session('locale'));
       return view('tsp.gastrointestinalTsp');
     }
-   public function increase_pain(){
+   public function increase_pain(Request $request){
+       
+        App::setlocale(session('locale'));
        return view('tsp.increasePainTsp');
    }
-   public function new_medication(){
+   public function new_medication(Request $request){
+       
+        App::setlocale(session('locale'));
        return view('tsp.newMedicationTsp');
    }
-   public function skin_problem(){
+   public function skin_problem(Request $request){
+       
+        App::setlocale(session('locale'));
        return view('tsp.skinProblemTsp');
    }
-   public function respiratory_problem(){
+   public function respiratory_problem(Request $request){
+       
+        App::setlocale(session('locale'));
        return view('tsp.respiratoryTsp');
    }
-   public function urinary() {
+   public function urinary(Request $request) {
+       
+        App::setlocale(session('locale'));
      return view('tsp.utiTsp');
    }
 
@@ -247,6 +272,8 @@ class tspController extends Controller
    }
 
    public function view_resident_tsp(Request $request, $id){
+       
+        App::setlocale(session('locale'));
      $residents = DB::table('sales_pipeline')
      ->where('id','=',$id)
      ->where('facility_id','=',Auth::user()->facility_id)->select('sales_pipeline.*')

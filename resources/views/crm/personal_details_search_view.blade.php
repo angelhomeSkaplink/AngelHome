@@ -2,12 +2,12 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    Future Resident Info 
 @endsection
 
 @section('contentheader_title')
     <p class="text-danger"></b>
-    <a href="/personal_details" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:100px !important; height:26px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_backspace </i> Go Back</a>
+    <a href="/personal_details" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:100px !important; height:26px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_backspace </i>Back</a>
     </p>
 @endsection
 

@@ -35,7 +35,7 @@
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-400 font-13">#</th>
+    							<th class="th-position text-uppercase font-400 font-13"></th>
     							<th class="th-position text-uppercase font-400 font-13">Resident</th>
     							<th class="th-position text-uppercase font-400 font-13">Phone No</th>
     							<th class="th-position text-uppercase font-400 font-13">Email</th>

@@ -2,17 +2,15 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Assessment history
+    @lang("msg.Assessment History")
 @endsection
 
 @section('contentheader_title')
     @if($reports->isEmpty())
-		<p class="text-danger">&nbsp;&nbsp;<b>NO ASSESSMENT RECORDS FOUND</b></p>
+		<p class="text-danger">&nbsp;&nbsp;<b>@lang("msg.No Assessment Record Found")</b></p>
 	@endif
 	@if(!$reports->isEmpty())	
-		<p class="text-danger"><b>ASSESSMENT RECORDS  OF <span class="text-uppercase">{{ $resident->pros_name }}</span></b>
-		<!--<a href="../next_assessment_date/{{ $resident->id }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:187px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> add </i> NEXT ASSESSMENT DATE</a>-->
-		--></p>
+		<p class="text-danger"><b>@lang("msg.Assessment Record Of") <span class="text-uppercase">{{ $resident->pros_name }}</span></b></p>
 	@endif
 @endsection
 @section('main-content')
@@ -37,9 +35,9 @@
 					<table class="table">
 						<tbody>
 							<tr>
-								<th class="th-position text-uppercase font-500 font-12">Assessment Done</th>
-								<th class="th-position text-uppercase font-500 font-12">Date of assessment</th>
-								<th class="th-position text-uppercase font-500 font-12">Assessment point</th>
+								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessment Done")</th>
+								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Date Of Assessment")</th>
+								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessment Point")</th>
 							</tr>
 							@foreach ($reports as $report)							
 							<tr>

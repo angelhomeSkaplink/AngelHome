@@ -3,16 +3,16 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    List Of Patients
+    @lang("msg.List Of Patients")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 		<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Today's Task List for: {{$task}}</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Today's Task List For"): {{$task}}</strong></h3>
 		</div>
 		<div class="col-lg-4">
-		  <a href=" {{url('main_task')}} " class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+		  <a href=" {{url('main_task')}} " class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>@lang("msg.Back")</a>
 		</div>
 	</div>
 @endsection
@@ -50,7 +50,7 @@
 		<div class="col-md-2">
 			<div class="form-group has-feedback">
 				<button type="submit" class="btn btn-primary btn-block btn-flat padding-top-bottom-4" style="width:90% !important;">
-					SET
+					@lang("msg.Set")
 				</button>
 			</div>			
 		</div>
@@ -65,7 +65,7 @@
     					<table class="table">
     						<tbody>
     							<tr>
-    								<th class="th-position text-uppercase font-500 font-12">#</th>
+    								<th class="th-position text-uppercase font-500 font-12"></th>
     								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Resident")</th>
     								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Person Required") </th>
     								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Start Time")</th>

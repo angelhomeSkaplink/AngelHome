@@ -8,7 +8,7 @@
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Assessment History</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Pharmacy</strong></h3>
 	</div>
 	<div class="col-lg-4">
 		<span class="pull-right">
@@ -16,6 +16,17 @@
 		<a href="{{ url('view_patient_details/'.$id) }}" class="btn btn-info btn-sm " style="margin-right:15px;border-radius:5px;"><i class="material-icons">details</i>View Details</a>
 		</span>
 	</div>
+</div>
+<div class="row">
+    <div class="col-md-2 col-md-offset-10" style="padding-right:30px;padding-top:5px;">
+      <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+        <option value="#" selected>Quick Links</option>
+        <option value="{{url('patient_medicine')}}">MAR</option>
+        <option value="{{url('resident_mar_rep/'.$id)}}">MAR Report</option>
+        <option value="{{url('medicine_stocks_list')}}">Medicine Stock</option>
+        <!--<option value="{{url('add_patient_details/'.$id)}}">Pharmacy</option>-->
+      </select>
+    </div>
 </div>
 @endsection
 	{{-- <p><b> <span class="text-danger" style="text-align:center;"> 
@@ -398,6 +409,7 @@
     });
     });
     </script>
+@include('quick_link.quicklink')
 @endsection
 @section('scripts-extra')
 

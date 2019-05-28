@@ -2,16 +2,16 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    @lang("msg.Future Resident Info") 
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Assessment History</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Assessment History")</strong></h3>
 	</div>
 	<div class="col-lg-4">
-		<a href="" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+		<a href="" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>@lang("msg.Back")</a>
 	</div>
 </div>
 @endsection
@@ -58,18 +58,18 @@ $name =  explode(",",$person->pros_name);
 			<tr style="background-color:rgb(49, 68, 84) !important;margin:0.5px;">
 				<td>
 						<h4>@if($person->service_image == null)
-								<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
-							@else
-								<img src="../hsfiles/public/img/{{ $person->service_image }}" class="img-circle" width="40" height="40">
+								<img src="{{ asset('hsfiles/public/img/538642-user_512x512.png') }}" class="img-circle" width="40" height="40">
+    				    	@else
+    						    <img src="{{ asset('hsfiles/public/img/'.$person->service_image ) }}" class="img-circle" width="40" height="40">
 							@endif
 							<span class="text-success" style="color:aliceblue;"><strong>{{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong>
 						</h4>
 				</td>				
 				<td>
-						<h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>Room No: {{ $room_no }} </strong></span></h4>
+						<h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>@lang("msg.Room No"): {{ $room_no }} </strong></span></h4>
 				</td>
 				<td>
-						<h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>Age: {{ $age }} </strong></span></h4>
+						<h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>@lang("msg.Age"): {{ $age }} </strong></span></h4>
 				</td>
 			</tr>
 		</table>
@@ -83,10 +83,10 @@ $name =  explode(",",$person->pros_name);
 					<table class="table">
 						<tbody>
 							<tr>
-								<th class="th-position text-uppercase font-500 font-12">ASSESSMENTS</b></th>
-								<th class="th-position text-uppercase font-500 font-12">Date</b></th>
-								<th class="th-position text-uppercase font-500 font-12">Points</b></th>						
-								<th class="th-position text-uppercase font-500 font-12">View</th>
+								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessments")</b></th>
+								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Date")</b></th>
+								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Points")</b></th>						
+								<th class="th-position text-uppercase font-500 font-12">@lang("msg.View")</th>
 							</tr>
 							@foreach ($datas as $data)
 							<tr>

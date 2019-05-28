@@ -8,9 +8,29 @@
     <div class="col-lg-4 col-lg-offset-4 text-center">
       <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Vital Statistics</strong></h3>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 pull-right">
+    <div class="col-md-6">
+      <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+        <option value="#" selected>Quick Links</option>
+        <option value="{{url('screening_view/'.$name->id)}}">Resident Details</option>
+        <option value="{{url('assessment_period/resident/'.$name->id)}}">Assessment History</option>
+        <option value="{{url('select_period/resident/'.$name->id)}}">Assessment</option>
+        <option value="{{url('service_plan_period/'.$name->id)}}">Service Plan</option>
+        <option value="{{url('all_tsp/'.$name->id)}}">Temporary Service Plan</option>
+        <option value="{{url('change_own_room/'.$name->id)}}">Room Book</option>
+        <option value="{{url('injury_history/'.$pros_id)}}">Incident</option>
+        <option value="{{url('medication_incident_resident_report/'.$name->id)}}">Medication Incident</option>
+        <!--<option value="{{url('checkup/'.$name->id)}}">Vital Statistics</option>-->
+        <option value="{{url('take_note/'.$name->id)}}">Notes</option>
+      </select>
+    </div>
+    <div class="col-md-6">
       <a href="../all_res_checkup" class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>
     </div>
+  </div>
+    <!--<div class="col-lg-4">-->
+    <!--  <a href="../all_res_checkup" class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>-->
+    <!--</div>-->
 </div>
 @endsection
 @section('main-content')
@@ -196,4 +216,5 @@ $name =  explode(",",$person->pros_name);
         </div>
     </div> --}}
 </div>
+@include('quick_link.quicklink')
 @endsection

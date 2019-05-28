@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    assessments
+    @lang("msg.Assessments")
 @endsection
 
 @section('contentheader_title')
-    assessments
+    @lang("msg.Assessments") 
 @endsection
 
 @section('main-content')
@@ -19,9 +19,9 @@
                         <table class="table">
                             <tbody>
     							<tr>
-    								<th class="th-position text-uppercase font-500 font-12">assessment ID</th>
-    								<th class="th-position text-uppercase font-500 font-12">assessments</th>
-    								<th class="th-position text-uppercase font-500 font-12">View assessment</th>
+    								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessment ID")</th>
+    								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Assessments")</th>
+    								<th class="th-position text-uppercase font-500 font-12">@lang("msg.View Assessment")</th>
     							</tr>
     							@foreach ($assessments as $assessment)
     							<tr>

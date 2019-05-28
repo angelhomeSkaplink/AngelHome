@@ -25,7 +25,21 @@
 		@endif
 		<a class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;" onclick="history.back();"><strong><i class="material-icons">keyboard_arrow_left</i>@lang("msg.Back")</strong></a>
 		</div>
-	</div> 
+	</div>
+	@if($period == "Initial")
+	<div class="row">
+        <div class="col-md-2 col-md-offset-10" style="padding-right:30px;padding-top:5px;">
+          <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+            <option value="#" selected>Quick Links</option>
+            <option value="{{url('change_records/'.$id)}}">Inquiry</option>
+            <option value="{{url('change_pro_records/'.$id)}}">Sales Pipeline</option>
+            <option value="{{url('reschedule/'.$id)}}">Appointment Schedule</option>
+            <option value="{{url('screening/'.$id)}}">Screening</option>
+            <option value="{{url('change_own_room/'.$id)}}">Room Book</option>
+          </select>
+        </div>
+    </div>
+	@endif
 @endsection
 
 @section('main-content')
@@ -70,9 +84,9 @@
 				<tr style="background-color:rgb(49, 68, 84) !important;margin:0.5px;">
 					<td>
 							<h4>@if($person->service_image == null)
-									<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+									<img src="{{ asset('hsfiles/public/img/538642-user_512x512.png') }}" class="img-circle" width="40" height="40">
 								@else
-									<img src="../hsfiles/public/img/{{ $person->service_image }}" class="img-circle" width="40" height="40">
+									<img src="{{ asset('hsfiles/public/img/'.$person->service_image) }}" class="img-circle" width="40" height="40">
 								@endif
 								<span class="text-success" style="color:aliceblue;"><strong>{{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong>
 							</h4>

@@ -55,7 +55,7 @@
                                 <th class="th-position text-uppercase font-500 font-12">Pharmacy</th>
                                 <th class="th-position text-uppercase font-500 font-12">Order Date</th>
                                 <th class="th-position text-uppercase font-500 font-12">Course Upto</th>
-                                <th class="th-position text-uppercase font-500 font-12">###</th>
+                                <th class="th-position text-uppercase font-500 font-12"></th>
                                 <th class="th-position text-uppercase font-500 font-12">Resident</th>
                                 <th class="th-position text-uppercase font-500 font-12">Order Status</th>
                                 <th class="th-position text-uppercase font-500 font-12">Received?</th>

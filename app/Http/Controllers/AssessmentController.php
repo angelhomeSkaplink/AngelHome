@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
-use DB, Auth, View, App;
+use DB, Auth, View, App, DateTime;
 use App\Assessment;
 use App\crm;
 use App\FileUpload;
@@ -44,53 +44,61 @@ class AssessmentController extends Controller
     }
 	
 	public function assessment_preview(Request $request){
-		$val = $request['language'];
-		App::setlocale($val);
+		
+		App::setlocale(session('locale'));
 // 		$assessments = Assessment::all();	
         $assessments = Assessment::orderby('sl no','asc')->get();
         return view('assessment.assessment_view', compact('assessments'));
     }
 	
-	public function assessment_edit_preview(){			
+	public function assessment_edit_preview(Request $request){
+	    
+		App::setlocale(session('locale'));
 // 		$assessments = DB::table('assessment_entry')->orderby('sl no','asc')->get();
         $assessments = Assessment::orderby('sl no','asc')->get();
         return view('assessment.assessment_edit_preview', compact('assessments'));
     }
 	
-	public function assessment_edit($assessment_id){		
+	public function assessment_edit(Request $request, $assessment_id){
+	    
+		App::setlocale(session('locale'));
 		$row = DB::table('assessment_entry')->where('assessment_id', $assessment_id)->first();
         return view('assessment.assessment_edit_view', compact('row'));
     }
 	
 	public function assessment_form_view($assessment_id){
+	    
+		App::setlocale(session('locale'));
 		$assessment = Assessment::all()->where('assessment_id', $assessment_id)->first();
         return view('assessment.assessment_form_admin_view', compact('assessment'));
     }
 	
 	public function assessment(Request $request){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$crms = DB::table('sales_pipeline')->where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->paginate(6);        
         return view('assessment.prospective_view', compact('crms'));
     }
 	
-	public function upload_file($id){		
-		 return view('assessment.assessment_upload_view', compact('id'));
+	public function upload_file(Request $request, $id){	
+	    
+		App::setlocale(session('locale'));
+	    return view('assessment.assessment_upload_view', compact('id'));
     }
 	
 	
 	
 	public function resident_assessment(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage',"MoveIn"]])->paginate(6);
 		$flag = "resident";
 		return view('assessment.resident_assessment', compact('crms','flag'));
 		
     }
     public function preadmin_resident_assessment(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 // 		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id]])->paginate(6);
 		//$crms = crm::all()->where('facility_id', Auth::user()->facility_id);
@@ -98,32 +106,23 @@ class AssessmentController extends Controller
 		
     }
      public function initial_assessment(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','DESC')->paginate(6);
 		$flag = "prospective";
-		return view('assessment.resident_assessment', compact('crms','flag'));
+		return view('assessment.pros_assessment', compact('crms','flag'));
 		
     }
 	
-// 	public function select_assessments(Request $request, $id){
-// 	    $val = $request['language'];
-// 		App::setlocale($val);
-// // 		$assessments = Assessment::all();	
-//         $assessments = Assessment::orderby('sl no','asc')->get();
-//         return view('assessment.select_assessment_view', compact('assessments', 'id'));
-    // }
     public function all_assesment(Request $request, $id){
-	    $val = $request['language'];
-		App::setlocale($val);
-        //$assessments = Assessment::all();	
-        // $assessments = Assessment::where('sl no',0)->get();
+	    
+		App::setlocale(session('locale'));
 		$assessments = Assessment::orderby('sl no','asc')->get();	
         return view('assessment.select_assessment_view', compact('assessments', 'id'));
     }
     public function preadmin_select_assessments(Request $request, $id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 // 		$assessments = Assessment::all();	
         $assessments = Assessment::where('sl no',0)->get();
 // 		$assessments = Assessment::orderby('sl no','asc')->get();	
@@ -131,14 +130,14 @@ class AssessmentController extends Controller
     }
 	
 // 	public function assessment_choose(Request $request, $assessment_id, $id){
-// 	    $val = $request['language'];
-// 		App::setlocale($val);
+// 	    
+// 		App::setlocale(session('locale'));
 // 		$assessment = Assessment::all()->where('assessment_id', $assessment_id)->first();
 // 		$common_point = DB::table('assessment_common_value')->where([['assessment_id', $assessment_id], ['current_status', 1]])->first();
 // 		return view('assessment.assessment_form_view', compact('assessment', 'id', 'common_point'));
 // 	}
 
-    public function assessment_store(Request $request){	
+    public function assessment_store(Request $request){
 		$data1 = $request['answer'];
         $answer_arr = array();
         foreach($data1 as $key => $value ){
@@ -174,7 +173,7 @@ class AssessmentController extends Controller
 		}
 	$chk_care = DB::table('care_plan')->where([['pros_id',$request['prosId']],['period',$request['assessment_period']]])->first();
 	$chk_assess = DB::table('resident_assessment')
-	->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']],['assessment_status',1]])->first();
+	->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']],['assessment_status',1],['care_plan_date',null]])->first();
 	if(!$chk_care){
 		// create new CARE PLAN
 		$newCarePlan = new CareplanSave();
@@ -189,7 +188,7 @@ class AssessmentController extends Controller
 		// Insert Assessment Data
 		if($chk_assess){
 			$update_assess = DB::table('resident_assessment')
-			->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']]])
+			->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']],['care_plan_date',null]])
 			->update(['assessment_status' => 0]);
 		}
 		$assessmentstore = new AssessmentStore();
@@ -210,11 +209,11 @@ class AssessmentController extends Controller
 	else{
 		$chk_care = DB::table('care_plan')->where([['pros_id',$request['prosId']],['period',$request['assessment_period']],['date',null]])->first();
 		if($chk_care){
-			if($chk_assess){
-				$update_assess = DB::table('resident_assessment')
-				->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']]])
-				->update(['assessment_status' => 0]);
-			}
+		    if($chk_assess){
+			$update_assess = DB::table('resident_assessment')
+			->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']],['care_plan_date',null]])
+			->update(['assessment_status' => 0]);
+		}
 			$assessmentstore = new AssessmentStore();
 			$assessmentstore->pros_id = $request['prosId'];
 			$assessmentstore->assessment_id = $request['surveyId'];
@@ -239,12 +238,11 @@ class AssessmentController extends Controller
 			$newCarePlan->user_id = Auth::user()->user_id;
 			$newCarePlan->care_plan_status = 1;
 			$newCarePlan->save();
-
-			if($chk_assess){
-				$update_assess = DB::table('resident_assessment')
-				->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']]])
-				->update(['assessment_status' => 0]);
-			}
+            if($chk_assess){
+			    $update_assess = DB::table('resident_assessment')
+			    ->where([['pros_id',$request['prosId']],['assessment_id',$request['surveyId']],['assessment_period',$request['assessment_period']],['care_plan_date',null]])
+			    ->update(['assessment_status' => 0]);
+		    }
 			$assessmentstore = new AssessmentStore();
 			$assessmentstore->pros_id = $request['prosId'];
 			$assessmentstore->assessment_id = $request['surveyId'];
@@ -263,27 +261,21 @@ class AssessmentController extends Controller
 }
 	
 // 	Testing
-	public function test(){
-		$chk_assess = DB::table('resident_assessment')
-	->where([['pros_id',18],['assessment_id','5c0a218643f78'],['assessment_period',"Initial"],['assessment_status',1]])->first();
-	$update_assess = DB::table('resident_assessment')
-				->where([['pros_id',18],['assessment_id','5c0a218643f78'],['assessment_period','Initial']])
-				->update(['assessment_status' => 0]);
-	// dd($chk_assess);	
-	// $chk_care = DB::table('care_plan')->where([['pros_id',1],['period',"Initial"]])->first();
-		// if(!$chk_care){
-		// 	dd("done");
-		// }
-		// else{
-		// 	dd("not done");
-		// }
+	public function test(Request $request){
+		$chk_care = DB::table('care_plan')->where([['pros_id',1],['period',"Initial"]])->first();
+		if(!$chk_care){
+			dd("done");
+		}
+		else{
+			dd("not done");
+		}
 	    
 	}
 	
 // Testing end
 	public function assessment_history(Request $request, $id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$reports = DB::table('resident_assessment')
                     ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
 					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')
@@ -295,27 +287,9 @@ class AssessmentController extends Controller
 		return view('assessment.assessment_history_view', compact('reports', 'resident'));
 	}
 	
-// 	public function care_plan(Request $request, $id){
-// 	    $val = $request['language'];
-// 		App::setlocale($val);
-// 		$reports = DB::table('resident_assessment')
-//                     ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
-// 					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')					
-// 					->where('resident_assessment.pros_id', $id)
-// 					->where('resident_assessment.assessment_status', 1)
-//                     ->select('resident_assessment.*','assessment_entry.*')
-//                     ->get();
-// 		$initial = DB::table('resident_assessment')->select(DB::raw("SUM(score) as score"))
-// 						->where([['pros_id', $id],['assessment_status', 1]])
-// 						->first();	
-// 		$total_score = 	$initial->score;
-		
-// 		$resident = DB::table('sales_pipeline')->where('id', $id)->first();
-// 		return view('assessment.assessment_care_plan', compact('reports', 'resident', 'total_score'));
-// 	}
 	
-	public function save_care_plan(Request $request){	
-		$null_careplan = DB::table('care_plan')->where('date',null)->first();
+	public function save_care_plan(Request $request){
+		$null_careplan = DB::table('care_plan')->where([['pros_id',$request['pros_id']],['period',$request['period']],['date',NULL]])->first();
 		$score = DB::table('resident_assessment')->select(DB::raw('SUM(score) as total_score'))->where('careplan_id',$null_careplan->care_plan_id)->first();
 		$total_point = $request['total_point'];
 		$update_CP = DB::table('care_plan')->where('care_plan_id',$null_careplan->care_plan_id)->update(['total_point' => $total_point,'care_plan_detail' => $request['care_plan_detail'],'date' => date("Y-m-d",time())] );
@@ -341,7 +315,9 @@ class AssessmentController extends Controller
 		return redirect('/service_plan_period/'.$request['pros_id']);
     }
 	
-	public function assessment_set_point($assessment_id){	
+	public function assessment_set_point(Request $request,$assessment_id){
+	    
+		App::setlocale(session('locale'));
 		$assessment_name = DB::table('assessment_entry')->where('assessment_id', $assessment_id)->first();
 		return view('assessment.assessment_set_point', compact('assessment_id', 'assessment_name'));
     }
@@ -360,8 +336,8 @@ class AssessmentController extends Controller
     }
 	
 	public function next_assessment_date(Request $request, $id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$name = DB::table('sales_pipeline')->where('id', $id)->first();
 		$assessment_check = DB::table('resident_assessment')->where('pros_id', $id)->first();
 		$assessments = Assessment::all();
@@ -398,15 +374,15 @@ class AssessmentController extends Controller
     }
 	
 	public function tasksheet(Request $request){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$crms = DB::table('sales_pipeline')->where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->paginate(6);
 		return view('assessment.tasksheet', compact('crms'));
     }
 	
 	public function set_task(Request $request, $id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$assignees = DB::table('users')
 		->join('role', 'users.user_id', '=', 'role.u_id')
 		->where('role.id', 8)
@@ -417,20 +393,20 @@ class AssessmentController extends Controller
     }
 	
 	public function main_task(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		return view('assessment.main_task');
     }
 	
 	public function main_task_list(Request $request){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		return view('assessment.main_task_list');
     }
 	
 	public function daily_task(Request $request, $task){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		
 		$dayOfYear = date("Y-m-d");
 		
@@ -469,8 +445,8 @@ class AssessmentController extends Controller
     }
 	
 	public function task_assignee(Request $request, $task){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		
 		$dayOfYear = date("Y-m-d");
 		
@@ -487,7 +463,9 @@ class AssessmentController extends Controller
 		}
     }
     
-    public function score_view($assessment_form_name){
+    public function score_view(Request $request,$assessment_form_name){
+        
+		App::setlocale(session('locale'));
 		return view('score_view', compact('assessment_form_name'));
 	}
 	
@@ -535,7 +513,9 @@ class AssessmentController extends Controller
     
     //CHANGES DONE BY DHRUWA
     
-    public function reassessment($assessment_id, $id){
+    public function reassessment(Request $request, $assessment_id, $id){
+        
+		App::setlocale(session('locale'));
 		$assessment = Assessment::all()->where('assessment_id', $assessment_id)->first();
 		$status = DB::table('resident_assessment')->where([['assessment_id', $assessment->assessment_id], ['pros_id', $id]])->first();
 		if(!$status){
@@ -570,18 +550,10 @@ class AssessmentController extends Controller
 		$residenttemporaryassessment->assessment_status = 0;
 		$residenttemporaryassessment->save();		
 	}
-	
-// 	public function assessment_period($pros_id){	
-// 		$data = DB::table('resident_assessment')->where('pros_id', $pros_id)->first();
-// 		if($data){
-// 			return view('assessment.assessment_period', compact('pros_id'));
-// 		}else{
-// 			Toastr::error("NO ASSESSMENT RECORD FOUND");
-// 			return back();
-// 		}				
-//     }
-	
-	public function Monthly($pros_id){		
+
+	public function Monthly(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$data = DB::table('next_assessment')->where([['period', 'Monthly'], ['pros_id', $pros_id]])->first();
 		if($data){
 			$reports = DB::table('resident_assessment')
@@ -598,7 +570,9 @@ class AssessmentController extends Controller
 		}	
     }
 	
-	public function Quarterly($pros_id){		
+	public function Quarterly(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$data = DB::table('next_assessment')->where([['period', 'Quarterly'], ['pros_id', $pros_id]])->first();
 		if($data){
 			$reports = DB::table('resident_assessment')
@@ -615,7 +589,9 @@ class AssessmentController extends Controller
 		}	
     }
 	
-	public function HalfYearly($pros_id){		
+	public function HalfYearly(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$data = DB::table('next_assessment')->where([['period', 'Half-Yearly'], ['pros_id', $pros_id]])->first();
 		if($data){
 			$reports = DB::table('resident_assessment')
@@ -632,7 +608,9 @@ class AssessmentController extends Controller
 		}	
     }
 	
-	public function Annual($pros_id){		
+	public function Annual(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$data = DB::table('next_assessment')->where([['period', 'Annual'], ['pros_id', $pros_id]])->first();
 		if($data){
 			$reports = DB::table('resident_assessment')
@@ -649,7 +627,9 @@ class AssessmentController extends Controller
 		}	
     }
 	
-	public function Adhoc($pros_id){		
+	public function Adhoc(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$data = DB::table('next_assessment')->where([['period', 'Ad-hoc'], ['pros_id', $pros_id]])->first();
 		if($data){
 			$reports = DB::table('resident_assessment')
@@ -666,7 +646,9 @@ class AssessmentController extends Controller
 		}	
     }
 	
-	public function Initial($pros_id){		
+	public function Initial(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$reports = DB::table('resident_assessment')
             ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
 			->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')
@@ -690,8 +672,8 @@ class AssessmentController extends Controller
 	
 	//END
     public function select_assessments(Request $request,$period,$id){
-        $val = $request['language'];
-		App::setlocale($val);
+        
+		App::setlocale(session('locale'));
 		$assessments = Assessment::orderby('sl no','asc')->get();
 		$cur_date = date('Y-m-d');
 		$status_array = array();
@@ -738,16 +720,20 @@ class AssessmentController extends Controller
 		}
         return view('assessment.select_assessment_view', compact('assessments', 'period', 'id', 'cur_date','status_array'));
     }
-    public function select_period($flag,$id){
+    public function select_period(Request $request,$flag,$id){
 		// dd($id);
+		
+		App::setlocale(session('locale'));
 		return view('assessment.select_period', compact('id','flag'));
 	}
-	public function assessment_choose($assessment_id, $period, $id, $cur_date){
+	public function assessment_choose(Request $request,$assessment_id, $period, $id, $cur_date){
+	    
+		App::setlocale(session('locale'));
 		$assessment = Assessment::all()->where('assessment_id', $assessment_id)->first();
 		$common_point = DB::table('assessment_common_value')->where([['assessment_id', $assessment_id], ['current_status', 1]])->first();
 		return view('assessment.assessment_form_view', compact('assessment', 'id', 'period', 'common_point', 'cur_date'));
 	}
-	public function care_plan($id, $period){
+	public function care_plan(Request $request,$id, $period){
 		$reports = DB::table('resident_assessment')
                     ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
 					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')					
@@ -765,10 +751,14 @@ class AssessmentController extends Controller
 		$resident = DB::table('sales_pipeline')->where('id', $id)->first();
 		return view('assessment.assessment_care_plan', compact('reports', 'resident', 'initial', 'period','id'));
 	}
-	public function care_plan_period($id, $period){		
+	public function care_plan_period(Request $request,$id, $period){
+	    
+		App::setlocale(session('locale'));
         return view('assessment.care_plan_period', compact('id', 'period'));
     }
-    public function care_plan_periodic($id, $period){
+    public function care_plan_periodic(Request $request,$id, $period){
+        
+		App::setlocale(session('locale'));
 		$reports = DB::table('resident_assessment')
                     ->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
 					->Join('sales_pipeline', 'resident_assessment.pros_id', '=', 'sales_pipeline.id')					
@@ -793,34 +783,27 @@ class AssessmentController extends Controller
 			return view('assessment.periodic_assessment_care_plan', compact('reports', 'resident', 'total_score', 'id', 'dayOfWeek', 'periodic_date', 'period'));
 		}
 	}
-	public function assessment_period($flag,$pros_id){	
+	public function assessment_period(Request $request, $flag,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$datas = DB::table('care_plan')->where('pros_id', $pros_id)->get();
-		return view('assessment.assessment_period', compact('pros_id','datas','flag'));	
+		return view('assessment.assessment_period', compact('pros_id','datas','flag'));
     }
-    public function assessment_history_detail_view($pros_id, $cp_id){	
-		// if($period=='Initial'){
-		// 	$period_array = ['Initial'];
-		// }elseif($period=='Monthly'){
-		// 	$period_array = ['Initial', 'Monthly'];
-		// }elseif($period=='Quarterly'){
-		// 	$period_array = ['Initial', 'Monthly', 'Quarterly'];
-		// }elseif($period=='Half-Yearly'){
-		// 	$period_array = ['Initial', 'Monthly', 'Quarterly', 'HalfYearly'];
-		// }elseif($period=='Annual'){
-		// 	$period_array = ['Initial', 'Monthly', 'Quarterly', 'HalfYearly', 'Annual'];
-		// }else{
-		// 	$period_array = ['Initial', 'Monthly', 'Quarterly', 'HalfYearly', 'Annual', 'Adhoc'];
-		// }
+    public function assessment_history_detail_view(Request $request, $pros_id, $cp_id){	
 		
+		App::setlocale(session('locale'));
 		$datas = DB::table('resident_assessment')
 				->Join('assessment_entry', 'resident_assessment.assessment_id', '=', 'assessment_entry.assessment_id')
 				->where('resident_assessment.pros_id', $pros_id)
 				->where('resident_assessment.careplan_id', $cp_id)
+				->where('resident_assessment.assessment_status',1)
 				->orderBy('resident_assessment.id', 'DESC')->get();
 		return view('assessment.assessment_history_detail_view', compact('datas', 'pros_id'));					
     }
     
-    public function assessment_history_view($pros_id,$id){
+    public function assessment_history_view(Request $request,$pros_id,$id){
+        
+		App::setlocale(session('locale'));
 		$result = DB::table('resident_assessment')
 		->where([['resident_assessment.id',$id],['resident_assessment.pros_id',$pros_id]])
 		->first();
@@ -828,7 +811,7 @@ class AssessmentController extends Controller
 		$elements = array();
 		$final = array();
 		$pages = json_decode($assessment_json->assessment_json)->pages;
-		// dd($pages);
+// 		dd($pages);
 		foreach($pages as $p){
 			foreach($p->elements as $e)
 			array_push($elements,$e);
@@ -836,10 +819,8 @@ class AssessmentController extends Controller
 		
 		$resident = DB::table('sales_pipeline')->where('id',$result->pros_id)->first();
 		$ans_elements = json_decode($result->assessment_json);
-		// $val_arr = array();
-		// dd($elements);
-		// dd($ans_elements);
-		// dd($elements[30]->choices);
+// 		dd($elements);
+// 		dd($ans_elements);
         foreach($ans_elements->data as $key => $value){
 			for($i=0;$i<count($elements);$i++){
 				if($key == $elements[$i]->name){
@@ -848,18 +829,19 @@ class AssessmentController extends Controller
 						$val="";
 						$val_arr = array();
 						foreach($elements[$i]->choices as $e){
-							
 							if(is_array($value)){
 								foreach($value as $v){
 									if($e->value == $v){
 										array_push($val_arr,$e->text);
 									}
 								}
+								$val = implode(",",$val_arr);
 							}
-							$val = implode(",",$val_arr);
+							else{
     						if($e->value == $value){
     								$val = $e->text;
     							}
+							}
 						}
 					    $obj->ans = $val;
 					}else{
@@ -870,6 +852,8 @@ class AssessmentController extends Controller
 				}
 			}
 		}
+// 		dd($final);
 		return view('assessment.assessment_history',compact('final','resident'));
 	}
+	
 }

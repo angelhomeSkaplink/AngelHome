@@ -2,13 +2,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-     New Service Plan
+     @lang("msg.New Service Plan")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>New Service Plan</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.New Service Plan")</strong></h3>
 	</div>
 </div>
 @endsection
@@ -50,7 +50,7 @@
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Point Range(From)")</label>
 						<select name="from_range" id="from_range" class="form-control" style="width:100%; height: 34px;" onkeyup="getRangeinfo();" required >
-							<option value="">Select Point</option>
+							<option value="">@lang("msg.Select Point")</option>
 							<?php for($i=1; $i<=1000; $i++){?>
 							<option value="<?php echo $i?>"><?php echo $i?></option>							
 							<?php }?>

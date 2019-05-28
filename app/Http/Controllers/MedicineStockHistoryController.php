@@ -11,6 +11,7 @@ use DateTime;
 use App\Medicine;
 use App\Pharmacy;
 use Illuminate\Support\Facades\Route;
+use Kamaln7\Toastr\Facades\Toastr;
 
 class MedicineStockHistoryController extends Controller
 {
@@ -21,8 +22,8 @@ class MedicineStockHistoryController extends Controller
     public function medicine_stocks_list(Request $request)
     {
 
-		$val = $request['language'];
-		if(!$val){
+		
+		App::setlocale(session('locale'));
 			$qry_data = DB::table('medicine_stock_history')
 					->where('facility_id', Auth::user()->facility_id)
                     ->select('medi_stock_id', 'stock_alert', 'stock_upto')
@@ -54,55 +55,17 @@ class MedicineStockHistoryController extends Controller
 
 			$stocks =   DB::table('medicine_stock_history')
 						->Join('sales_pipeline', 'sales_pipeline.id', '=', 'medicine_stock_history.pros_id')
+						->where('medicine_stock_history.facility_id',Auth::user()->facility_id)
 						->select('medicine_stock_history.*', 'sales_pipeline.*')
 						->orderBy('medicine_stock_history.stock_order_date', 'DESC')
 						->get();
-			return view('medicine_stocks.medicine_stocks_list', compact('stocks'));	
-		}else{
-			$route_name = Route::getCurrentRoute()->getPath();
-			App::setlocale($val);
-			$qry_data = DB::table('medicine_stock_history')
-					->where('facility_id', Auth::user()->facility_id)
-                    ->select('medi_stock_id', 'stock_alert', 'stock_upto')
-                    ->get();
-
-			foreach($qry_data as $stock)
-			{
-				if($stock->stock_alert == 10 || $stock->stock_upto == '0000-00-00')
-				{
-					continue;
-				}
-				else
-				{
-					$present_date = new DateTime("now");
-					$stock_upto = new DateTime($stock->stock_upto);
-
-					$diff = $present_date->diff($stock_upto);
-					$diff_d = $diff->days;
-					if ($diff_d <= 7)
-					{
-						DB::table('medicine_stock_history')
-							->where('medi_stock_id', $stock->medi_stock_id)
-							->update([
-								'stock_alert' => 1,
-							]);
-					}
-				}
-			}
-
-			$stocks =   DB::table('medicine_stock_history')
-						->Join('facility_pharmacy', 'medicine_stock_history.pharmacy_id', '=', 'facility_pharmacy.facility_pharmacy_id')
-						->Join('sales_pipeline', 'sales_pipeline.id', '=', 'medicine_stock_history.pros_id')
-						->select('medicine_stock_history.*','facility_pharmacy.pharmacy_name', 'sales_pipeline.pros_name')
-						->orderBy('medicine_stock_history.stock_order_date', 'DESC')
-						->get();
-
-			return view('medicine_stocks.'.$route_name, compact('stocks'));		
-		}		
+			return view('medicine_stocks.medicine_stocks_list', compact('stocks'));			
     }
 
-    public function add_recv_date($id)
+    public function add_recv_date(Request $request,$id)
     {
+        
+		App::setlocale(session('locale'));
         return view('medicine_stocks.add_recv_date', compact('id'));
     }
 
@@ -125,16 +88,9 @@ class MedicineStockHistoryController extends Controller
 
     public function add_stocks(Request $request)
     {
-		$val = $request['language'];
-		if(!$val){
-			$medicines = DB::table('medicine')->where('facility_id', Auth::user()->facility_id)->get();
-			return view('medicine_stocks.add_stocks', compact('medicines'));
-		}else{
-			$route_name = Route::getCurrentRoute()->getPath();
-			$medicines = DB::table('medicine')->where('facility_id', Auth::user()->facility_id)->get();
-			App::setlocale($val);
-			return view('medicine_stocks.'.$route_name, compact('medicines'));
-		}
+        App::setlocale(session('locale'));
+        $medicines = DB::table('medicine')->where('facility_id', Auth::user()->facility_id)->get();
+        return view('medicine_stocks.add_stocks', compact('medicines'));
 	}
 
     public function store_stocks(Request $request)
@@ -179,8 +135,10 @@ class MedicineStockHistoryController extends Controller
         return redirect('medicine_stocks_list');
     }
 
-    public function edit_stocks($id)
+    public function edit_stocks(Request $request,$id)
     {
+        
+		App::setlocale(session('locale'));
         $stocks = DB::table('medicine_stock_history')
                     ->select('medicine_stock_history.*')
                     ->where('medi_stock_id', $id)
@@ -215,7 +173,13 @@ class MedicineStockHistoryController extends Controller
                             ->where('medicine_stock_history.stock_alert', 1)
                             ->orderBy('medicine_stock_history.stock_upto', 'ASC')
                             ->get();
-        return view('medicine_stocks.renew_list', compact('pending_stocks'));
+        if($pending_stocks->isEmpty()){
+            Toastr::error("Nothing to renew");
+            return back();
+        }
+        else{
+            return view('medicine_stocks.renew_list', compact('pending_stocks'));
+        }
     }
 
     public function renewal_complete($id)
@@ -229,8 +193,10 @@ class MedicineStockHistoryController extends Controller
         return redirect('renew_list');
     }
 
-    public function view_stock_details($id)
+    public function view_stock_details(Request $request,$id)
     {
+        
+		App::setlocale(session('locale'));
         $stocks =   DB::table('medicine_stock_history')
                     ->Join('sales_pipeline', 'sales_pipeline.id', '=', 'medicine_stock_history.pros_id')
                     ->select('medicine_stock_history.*', 'sales_pipeline.pros_name')

@@ -9,11 +9,17 @@ use DB, Auth, App, Carbon;
 
 class WellnessController extends Controller
 {
-    public function note_view(){
+    public function note_view(Request $request){
+         
+
+        App::setlocale(session('locale'));
         $residents = DB::table('sales_pipeline')->where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->get();
 		return view('wellness.allResident',compact('residents'));
 	}
-	public function take_note($id){
+	public function take_note(Request $request,$id){
+	    
+
+        App::setlocale(session('locale'));
 		$notes = DB::table('note_taker')->where('res_id',$id)->orderby('id','desc')->get();
 		$facility = DB::table('facility')->where('id',Auth::user()->facility_id)->first();
 		$name = DB::table('sales_pipeline')->where('id',$id)->first();

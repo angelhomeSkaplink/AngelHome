@@ -67,14 +67,15 @@ class PaymentController extends Controller
     }
 	
 	public function resident_payment(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$crms = DB::table('sales_pipeline')->where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->paginate(6);
         return view('payment.pipeline_view', compact('crms'));
     }
 	
-	public function resident_make_payment($id){
+	public function resident_make_payment(Request $request,$id){
 		
+		App::setlocale(session('locale'));
 		$unique_id = $id;
 		
 		$check_id = DB::table('sales_pipeline')->where('id', $unique_id)->first();
@@ -128,8 +129,8 @@ class PaymentController extends Controller
     }
 	
 	public function payment_report(Request $request){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$reports = DB::table('resident_room')
                     ->Join('care_plan', 'resident_room.pros_id', '=', 'care_plan.pros_id')
 					->Join('sales_pipeline', 'resident_room.pros_id', '=', 'sales_pipeline.id')
@@ -138,7 +139,9 @@ class PaymentController extends Controller
 		return view('payment.resident_payment_report', compact('reports')); 
 	}
 	
-	public function detail_history($id){
+	public function detail_history(Request $request,$id){
+	    
+		App::setlocale(session('locale'));
 		$reports = DB::table('payment_info')
 					->Join('sales_pipeline', 'payment_info.pros_id', '=', 'sales_pipeline.id')
 					->where('payment_info.pros_id', '=', $id)
@@ -146,7 +149,7 @@ class PaymentController extends Controller
 		return view('payment.resident_payment_details_report_view', compact('reports','id')); 
 	}
 	
-	public function payment_pros($pros_id){		
+	public function payment_pros($pros_id){	
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['pros_name', 'like', '%' .$pros_id. '%']])->get();
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
         return view('payment.pipeline_search_view', compact('crms', 'prospectives'));

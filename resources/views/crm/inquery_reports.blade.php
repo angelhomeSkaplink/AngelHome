@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    Future Resident Info 
 @endsection
 
 @section('contentheader_title')
@@ -99,7 +99,7 @@ $(document).ready(function() {
                     <table class="table">
                         <tbody>
     						<tr>
-								<th class="th-position text-uppercase font-500 font-12">#</th>
+								<th class="th-position text-uppercase font-500 font-12"></th>
 								<th class="th-position text-uppercase font-500 font-12">Resident</th>
     							{{-- <th class="th-position text-uppercase font-500 font-13">
     								<select name="pros_id" id="id" class="form-control">

@@ -9,9 +9,21 @@
 	<div class="col-lg-4 col-lg-offset-4 text-center">
 		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Reschedule Appointment</strong></h3>
 	</div>
-	<div class="col-lg-4">
+	<div class="col-lg-4 pull-right">
+    <div class="col-md-6">
+      <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+        <option value="#" selected>Quick Links</option>
+        <option value="{{url('change_records/'.$row->pros_id)}}">Inquiry</option>
+        <option value="{{url('change_pro_records/'.$row->pros_id)}}">Sales Pipeline</option>
+        <option value="{{url('screening/'.$row->pros_id)}}">Screening</option>
+        <option value="{{url('select_assessments/Initial/'.$row->pros_id)}}">Assessment</option>
+        <option value="{{url('change_own_room/'.$row->pros_id)}}">Room Book</option>
+      </select>
+    </div>
+    <div class="col-md-6">
 		<a href="../appointment_schedule" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
-	</div>
+    </div>
+  </div>
 </div>
 
 @endsection
@@ -89,5 +101,5 @@ $n=explode(",",$pros->pros_name);
 	
 	</form>
 </div>
-
+@include('quick_link.quicklink')
 @endsection

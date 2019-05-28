@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-     Task List
+    @lang("msg.Task List")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Task List</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Task List")</strong></h3>
 	</div>
 </div>
 @endsection
@@ -38,35 +38,35 @@
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.View")</th>
     						</tr>
     						<tr>
-    							<td>Eating</td>
+    							<td>@lang("msg.Eating")</td>
     							<td><a href="daily_task/EATING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>Continence</td>
+    							<td>@lang("msg.Continence")</td>
     							<td><a href="daily_task/CONTINENCE"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>Transfer</td>
+    							<td>@lang("msg.Transfer")</td>
     							<td><a href="daily_task/TRANSFER"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>Ambulation</td>
+    							<td>@lang("msg.Ambulation")</td>
     							<td><a href="daily_task/AMBULATION"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>Dressing</td>
+    							<td>@lang("msg.Dressing")</td>
     							<td><a href="daily_task/DRESSING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>Bathing</td>
+    							<td>@lang("msg.Bathing")</td>
     							<td><a href="daily_task/BATHING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>Med.-Management</td>
+    							<td>@lang("msg.Med.-Management")</td>
     							<td><a href="daily_task/MED.-MANAGEMENT"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>Communication</td>
+    							<td>@lang("msg.Communication")</td>
     							<td><a href="daily_task/COMMUNICATION"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
                         </tbody>

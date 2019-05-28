@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-   Set Defult point
+   @lang("msg.Set Default Point")
 @endsection
 
 @section('contentheader_title')
-   Set Defult point
+   @lang("msg.Set Default Point")
 @endsection
 
 @section('main-content')
@@ -27,7 +27,7 @@
 					</div>										
 					<div class="col-md-12"> 
 						<div>
-							<button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+							<button type="submit" class="btn btn-primary btn-block btn-flat">@lang("msg.Submit")</button>
 						</div>
 					</div>
 				</form>				

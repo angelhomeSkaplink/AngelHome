@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('htmlheader_title')
-    Prospective Info 
+    @lang("msg.Payment Info") 
 @endsection
 @section('contentheader_title')
-	<p class="text-danger"><b>residents list</b>
+	<p class="text-danger"><b>Resident List</b>
 		<a href="{{ url('resident_payment') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:122px !important; margin-top: -2px; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a>
 	</p>
 @endsection

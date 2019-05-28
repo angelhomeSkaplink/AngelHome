@@ -1,25 +1,77 @@
-@section('main-content')
-<style>
-	.content-header
-	{
-		//display:none;
-		padding: 2px 0px 1px 20px;
-		margin-bottom: -10px;
-	}
-		
-	.content {
-		margin-top: 15px;
-	}
-</style>
-<div class="box box-primary">
+@php
+if($data->social_security_resident != ""){
+	$soc_sec= decrypt($data->social_security_resident);
+}else{
+	$soc_sec = "";
+}
+$qry = DB::table('sales_pipeline')->where('id',$id)->first();
+$name = explode(",",$qry->pros_name);
+@endphp
     <div class="tab-content" id="myTabContent">
 		<div class="col-md-12">
-			<div class="box box-body">
+			
 				<form action="{{action('ScreeningController@add_resident_details')}}" method="post">
 					<input type="hidden" name="_method" value="PATCH">
 					{{ csrf_field() }}
 					<div class="col-md-6">
+							<div class="panel panel-default">
+									<div class="panel-body border padding-7">
 						<input type="hidden" class="form-control" placeholder="" name="pros_id" value="{{ $id }}"/>
+						<div class="has-feedback">
+							<label>@lang("msg.Name")</label>
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group has-feedback">
+									<input type="text" class="form-control" name="pros_name[]" value="{{ $name[0] }}" />
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group has-feedback">
+									<input type="text" class="form-control" name="pros_name[]" value="{{ $name[1] }}" />
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group has-feedback">
+										<input type="text" class="form-control" name="pros_name[]" value="{{ $name[2] }}" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group has-feedback">
+							<label>Date Of Birth</label>
+							<input type="date" class="form-control" placeholder="" name="dob" value="{{ $data->dob }}" id="dob"/>
+						</div>
+						<div class="form-group has-feedback">
+							<label>Place of Birth</label>
+							<input type="text" class="form-control" placeholder="" name="pob" value="{{ $data->pob }}" pattern="[A-Za-z\s]+"/>
+						</div>
+						<div class="form-group has-feedback">
+							<label>Gender</label>
+							<select name="gender" id="gender" class="form-control" required >
+								<option value="{{$data->gender}}"> {{$data->gender}} </option>
+								<option value="Male">Male</option>
+								<option value="Female">Female</option>
+								<option value="Other">Other</option>
+							</select>
+						</div>
+						<div class="form-group has-feedback">
+							<label>Religion</label>
+							<input type="text" class="form-control" placeholder="" name="religion" value="{{ $data->religion }}" pattern="[A-Za-z\s]+"/>
+						</div>
+						<div class="form-group has-feedback">
+							<label>Marital Status</label>
+							<select name="marital" id="marital_status" class="form-control" required >
+								<option value="{{ $data->marital }}"> {{ $data->marital }} </option>
+								<option value="Single">Single</option>
+								<option value="Married">Married</option>
+							</select>
+						</div>
+					</div>
+				</div>
+					</div>
+					<div class="col-md-6">
+							<div class="panel panel-default">
+									<div class="panel-body border padding-7">
 						<div class="form-group has-feedback">
 							<label>Height</label>
 							<select name="height_resident" id="height_resident"  class="form-control" required >
@@ -64,38 +116,6 @@
 							</select>
 						</div>
 						<div class="form-group has-feedback">
-							<label>Date Of Birth</label>
-							<input type="date" class="form-control" placeholder="" name="dob" value="{{ $data->dob }}" id="dob"/>
-							<!--<script type="text/javascript"> $('#dob').datepicker({format: 'yyyy/mm/dd'});</script>-->
-						</div>
-						<div class="form-group has-feedback">
-							<label>Gender</label>
-							<select name="gender" id="gender" class="form-control" required >
-								<option value="{{$data->gender}}"> {{$data->gender}} </option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-								<option value="Other">Other</option>
-							</select>
-						</div>
-						<div class="form-group has-feedback">
-							<label>Religion</label>
-							<input type="text" class="form-control" placeholder="" name="religion" value="{{ $data->religion }}" pattern="[A-Za-z\s]+"/>
-						</div>
-						<div class="form-group has-feedback">
-							<label>Medicare</label>
-							<select name="medicare_resident" id="medicare_resident" class="form-control" required >
-								<option value="{{ $data->medicare_resident }}"> {{ $data->medicare_resident }} </option>
-								<option value="Yes">Yes</option>
-								<option value="No">No</option>
-							</select>
-						</div>
-						<div class="form-group has-feedback">
-							<label>Social Security</label>
-							<input type="text" class="form-control" placeholder="" name="social_security_resident" value="{{ $data->social_security_resident }}" required />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group has-feedback">
 							<label>Weight</label>
 							<select name="weight_resident" id="weight_resident" class="form-control" required >
 								<option value="{{ $data->weight_resident }}">{{ $data->weight_resident }}</option>
@@ -105,17 +125,14 @@
 							</select>
 						</div>
 						<div class="form-group has-feedback">
-							<label>Place of Birth</label>
-							<input type="text" class="form-control" placeholder="" name="pob" value="{{ $data->pob }}" pattern="[A-Za-z\s]+"/>
-						</div>
-						<div class="form-group has-feedback">
-							<label>Marital Status</label>
-							<select name="marital" id="marital_status" class="form-control" required >
-								<option value="{{ $data->marital }}"> {{ $data->marital }} </option>
-								<option value="Single">Single</option>
-								<option value="Married">Married</option>
+							<label>Medicare</label>
+							<select name="medicare_resident" id="medicare_resident" class="form-control" required >
+								<option value="{{ $data->medicare_resident }}"> {{ $data->medicare_resident }} </option>
+								<option value="Yes">Yes</option>
+								<option value="No">No</option>
 							</select>
 						</div>
+						
 						<div class="form-group has-feedback">
 							<label>VA</label>
 							<select name="va_resident" id="va_resident" class="form-control" required >
@@ -129,15 +146,32 @@
 							<input type="text" class="form-control" placeholder="" name="other_insurance_name_resident" value="{{ $data->other_insurance_name_resident }}" pattern="[A-Za-z\s]+" Title="Alphabate Character Only"/>
 						</div>
 						<div class="form-group has-feedback">
-							<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
+							<label>Social Security</label>
+							<input type="text" class="form-control" placeholder="" name="social_security_resident" value="{{ $soc_sec }}" required />
 						</div>
+						@if ($qry->stage == "MoveIn")
 						<div class="form-group has-feedback">
-							<button type="button" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
+							<label>Move Out Date</label>
+							<input type="date" class="form-control" placeholder="" name="moveout_date" min="{{ date('Y-m-d') }}" value="{{ $qry->moveout_date }}" />
 						</div>
-						<br/><br/><br/>
+						@endif
+						<div class="col-md-6 text-center">
+								<div class="form-group has-feedback">
+										<button type="button" class="btn btn-danger btn-flat btn-sm" onclick="history.back()" style="margin-right:15px">@lang("msg.Cancel")</button>
+								</div>
+						</div>
+						<div class="col-md-6 text-center">
+								<div class="form-group has-feedback">
+									<button type="submit" class="btn btn-success btn-flat btn-sm">@lang("msg.Submit")</button>
+								</div>
+						</div>
+									<br>			
+					</div>
+				</div>
 					</div>
 				</form>
 			</div>
+			</div>
 		</div>
 	</div>
-</div>
+{{-- </div> --}}

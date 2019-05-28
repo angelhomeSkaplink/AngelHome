@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    Room Booking 
 @endsection
 
 @section('contentheader_title')
@@ -55,7 +55,7 @@
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-500 font-12">#</th>
+    							<th class="th-position text-uppercase font-500 font-12"></th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="autocomplete" style="width:200px;">
     									<input id="myInput" type="text" placeHolder="&#61442; RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">
@@ -91,7 +91,16 @@
     							<?php } ?>
     							<!--<td style="padding-left:35px"><a data-toggle="tooltip" data-placement="bottom" data-original-title="Add Screening Records" href="book_room/{{ $crm->id }}"><i class="material-icons gray md-22"> add_circle</i></a></td>-->
     							<?php 
-    								$room = DB::table('resident_room')->where([['pros_id', $crm->id], ['status', 1]])->first(); if($room){
+										$room = DB::table('resident_room')
+											->where([['pros_id', $crm->id],['release_date',null]])
+											->first();
+											if($room == null){
+												$room = DB::table('resident_room')
+											->where([['pros_id', $crm->id],['release_date','>',date('Y-m-d')]])
+											->orderby('release_date','dsc')
+											->first();
+											}
+										if($room){
     								$room_no = DB::table('facility_room')->where([['room_id', $room->room_id]])->first();
     							?>
     							<td class="text-success"><b>BOOKED ROOM NO <label>{{$room_no->room_no}}</label> FROM <label>{{ $room->booked_date }}</label></b> </td>

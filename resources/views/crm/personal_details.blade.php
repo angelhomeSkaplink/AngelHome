@@ -7,8 +7,8 @@
 
 @section('contentheader_title')
 <div class="row">
-	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Resident Details</strong></h3>
+	<div class="col-md-4 offset-md-4 text-center">
+		<h3><strong>Resident Details</strong></h3>
 	</div>
 </div>
 @endsection
@@ -41,7 +41,7 @@ $(document).ready(function() {
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-500 font-12">#</th>
+    							<th class="th-position text-uppercase font-500 font-12"></th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="autocomplete" style="width:200px;">
     									<input id="myInput" type="text" placeHolder="&#61442; RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">

@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Initial Assessment
+    @lang("msg.Initial Assessment")
 @endsection
 
 @section('contentheader_title')
-    INITIAL ASSESSMENT
+    @lang("msg.Initial Assessment")
 @endsection
 
 @section('main-content')
@@ -32,7 +32,7 @@
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-400 font-13">#</th>
+    							<th class="th-position text-uppercase font-400 font-13"></th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Name")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Phone No")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Add Assessment")</th>								

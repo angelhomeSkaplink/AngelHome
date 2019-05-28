@@ -14,15 +14,28 @@ class AttendeeController extends Controller
 	public function __construct(){
         $this->middleware('auth');
     }
-	
-    public function add_attendee(Request $request){
+	public function attendee(Request $request, $event_id){
 		
+		App::setlocale(session('locale'));
+		$data = DB::table('attendee')->where('event_id',$event_id)->get();
+		if($data->isEmpty()){
+			$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage',"MoveIn"]])->get();
+			// dd($crms);
+			return view('admin.attendee_form', compact('event_id', 'crms'));
+		}
+		else{
+			Toastr::success("Attendee details are already updated !!");
+			return redirect('/activity_calendar');
+		}
+	}
+    public function add_attendee(Request $request){
 		$pros_id = Input::get('pros_id');
 		$event_id = Input::get('event_id');
+		$rsvp = Input::get('rsvp');
 		$attenedee_status = Input::get('attenedee_status');
 		$note = Input::get('note');
 		foreach($pros_id as $key => $n ){
-			$data = array('pros_id'=>$pros_id[$key],'event_id'=>$event_id[$key],'attenedee_status'=>$attenedee_status[$key],'note'=>$note[$key],'facility_id'=>Auth::user()->facility_id);
+			$data = array('pros_id'=>$pros_id[$key],'event_id'=>$event_id[$key],'rsvp'=>$rsvp[$key],'attenedee_status'=>$attenedee_status[$key],'note'=>$note[$key],'facility_id'=>Auth::user()->facility_id);
 			Attendee::insert($data);
 		}
 				
@@ -73,7 +86,6 @@ class AttendeeController extends Controller
     }
 	
 	public function assign_tasklist(Request $request){
-		
 		$user_id = Input::get('user_id');
 		$task = Input::get('task');
 		foreach($user_id as $key => $n ){

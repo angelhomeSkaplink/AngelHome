@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    assessments
+    @lang("msg.Assessments")
 @endsection
 
 @section('contentheader_title')
-    assessments
+    @lang("msg.Assessments")
 @endsection
 
 @section('main-content')
@@ -20,7 +20,7 @@
 				<div class="sv_custom_header"></div>
 				<div class="sv_container">
 					<div class="sv_header">
-						<h5>Create Assessment</h5>
+						<h5>@lang("msg.Create Assessment")</h5>
 					</div> 
 					<div class="sv_body">
 						<div id="editor"></div>

@@ -2,13 +2,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Edit Room Details
+    @lang("msg.Edit Room Details")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Edit Room Details</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Edit Room Details")</strong></h3>
 	</div>
 </div>
 @endsection
@@ -24,11 +24,11 @@
 				<div class="box-body" style="height:500px">
 					<input type="hidden" class="form-control" name="room_id" value="{{ $row->room_id }}" />
 					<div class="form-group has-feedback">
-						<label>Room no</label>
-						<input type="text" class="form-control" placeholder="ROOM NO" name="room_no" value="{{ $row->room_no }}" required />
+						<label>@lang("msg.Room No")</label>
+						<input type="text" class="form-control" placeholder="" name="room_no" value="{{ $row->room_no }}" required />
 					</div> 
 					<div class="form-group has-feedback">
-						<label class="sm-heading">Room Type </label>
+						<label class="sm-heading">@lang("msg.Room Type") </label>
 						<select name="room_type" id="room_type" class="form-control" required >
 							<option value="{{ $row->room_type }}">{{ $row->room_type }}</option>
 							<option value="AC">AC</option>
@@ -36,12 +36,12 @@
 						</select>
 					</div>
 					<div class="form-group has-feedback">
-						<label>special feature </label>
-						<textarea class="form-control" name="special_feature" type="text" rows="5" placeholder="SPECIAL FEATURE">{{ $row->special_feature }}</textarea>
+						<label>@lang("msg.Special Feature") </label>
+						<textarea class="form-control" name="special_feature" type="text" rows="5" placeholder="">{{ $row->special_feature }}</textarea>
 					</div>
 					<div class="form-group has-feedback">
-					<label>price</label>
-						<input type="number" class="form-control" placeholder="PRICE" name="price" value="{{ $row->price }}" required pattern="[0-9]"
+					<label>@lang("msg.Price")</label>
+						<input type="number" class="form-control" placeholder="" name="price" value="{{ $row->price }}" required pattern="[0-9]"
 						oninvalid="this.setCustomValidity('Required Field.Numeric Value Only')"
 						oninput="this.setCustomValidity('')"/>
 					</div>

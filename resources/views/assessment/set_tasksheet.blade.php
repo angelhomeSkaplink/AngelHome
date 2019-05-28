@@ -101,6 +101,7 @@ $name =  explode(",",$person->pros_name);
     								<input class="form-control" type="hidden" id="" name="count_row[]" value="1">
     								<td>
     									<label style="padding-right:10px;">
+    									<!--<input type="hidden" id="eating" name="eating[]" value="NO">-->
     									<input type="checkbox" id="eating" name="title[]" value="EATING"  onclick = "ChangeSdate()">
     									<span class="label-text">@lang("msg.Eating")</span>
     								</td>

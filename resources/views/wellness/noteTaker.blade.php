@@ -14,6 +14,24 @@
     <a href="{{  url('all_res_notes') }}" class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
   </div>
 </div>
+<div class="row">
+    <div class="col-md-2 col-md-offset-10" style="padding-right:45px;padding-top:5px;">
+      <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+        <option value="#" selected>Quick Links</option>
+        <option value="{{url('screening_view/'.$id)}}">Resident Details</option>
+        <option value="{{url('assessment_period/resident/'.$id)}}">Assessment History</option>
+        <option value="{{url('select_period/resident/'.$id)}}">Assessment</option>
+        <option value="{{url('service_plan_period/'.$id)}}">Service Plan</option>
+        <option value="{{url('all_tsp/'.$id)}}">Temporary Service Plan</option>
+        <option value="{{url('change_own_room/'.$id)}}">Room Book</option>
+        <option value="{{url('injury_history/'.$id)}}">Incident</option>
+        <option value="{{url('medication_incident_resident_report/'.$id)}}">Medication Incident</option>
+        <option value="{{url('checkup/'.$id)}}">Vital Statistics</option>
+        <!--<option value="{{url('take_note/'.$id)}}">Notes</option>-->
+        <option value="{{url('set_task/'.$id)}}">Set Tasksheet</option>
+      </select>
+    </div>
+</div>
 @endsection
 @section('main-content')
 <style>

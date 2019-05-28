@@ -56,7 +56,7 @@
 						</div>
 
             			<div class="form-group has-feedback">
-            				<label>Prospective ID</label>
+            				<label>Future Resident ID</label>
             				<input type="number" class="form-control" name="pros_id" value="{{ $stocks->pros_id }}" required/>
             			</div>
 

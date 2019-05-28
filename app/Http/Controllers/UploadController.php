@@ -25,10 +25,13 @@ class UploadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        
+        App::setlocale(session('locale'));
+        $policy_doc_name = DB::table('documents')->where([['doc_type','policy_doc'],['facility_id',Auth::user()->facility_id],['status',1]])->get();
         $policy_doc = DB::table('policy_doc')->where([['facility_id',Auth::user()->facility_id],['status',1]])->get();
-        return view('policy_doc.form',compact('policy_doc'));
+        return view('policy_doc.form',compact('policy_doc_name','policy_doc'));
     }
 
     /**

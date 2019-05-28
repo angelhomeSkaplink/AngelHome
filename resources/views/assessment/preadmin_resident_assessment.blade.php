@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-Resident Assessment 
+    @lang("msg.Resident Assessment") 
 @endsection
 
 @section('contentheader_title')
-    Resident ASSESSMENT
+    @lang("msg.Resident Assessment")
 @endsection
 
 @section('main-content')
@@ -32,7 +32,7 @@ Resident Assessment
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-400 font-13">#</th>
+    							<th class="th-position text-uppercase font-400 font-13"></th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Resident")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Phone No")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Add Assessment")</th>								

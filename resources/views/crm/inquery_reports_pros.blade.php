@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    Future Resident Info 
 @endsection
 
 @section('contentheader_title')
-    Prospective Info
+    Future Resident Info
 @endsection
 
 @section('main-content')

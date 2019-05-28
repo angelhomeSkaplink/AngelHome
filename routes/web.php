@@ -12,7 +12,6 @@
 */
 
 use Illuminate\Support\Facades\Auth;
-
 Route::get('/', function () {
 
     if (Auth::check()) {
@@ -20,7 +19,7 @@ Route::get('/', function () {
     }
     return view('auth.login');
 });
-
+Route::post('LanguageChange','LanguageController@languageStore');
 Route::get('/clear_cache',function(){
     $exitCode = Artisan::call('config:cache');
 });
@@ -68,7 +67,14 @@ Route::patch('change_appointment', 'ProspectiveController@change_appointment');
 Route::get('personal_details', 'ProspectiveController@personal_details');
 Route::get('details/{id}', 'ProspectiveController@details');
 Route::get('injury', 'ProspectiveController@injury');
+Route::get('injury_entry/{pros_id}/{injury_id}', 'ProspectiveController@injury_entry_form');
 Route::post('injury_record_entry', 'ProspectiveController@injury_record_entry');
+Route::get('injury_history/{pros_id}', 'ProspectiveController@injury_history');
+Route::get('medication_incident_report', 'ProspectiveController@medication_incident_report');  //Added by Zaman 06-2-2019
+Route::get('medication_incident_resident_report/{pros_id}', 'ProspectiveController@medication_incident_resident_report');
+Route::get('medication_incident_resident_history/{pros_id}', 'ProspectiveController@medication_incident_resident_history');
+Route::post('medication_incident_entry', 'ProspectiveController@medication_incident_entry');
+Route::post('medication_incident_action', 'ProspectiveController@medication_incident_action');
 Route::get('add_prospect_record/{stage}/{id}', 'ProspectiveController@add_prospect_record');
 Route::patch('new_records_pros_add', 'ProspectiveController@new_records_pros_add');
 Route::get('select_personal_detail_contact/{pros_id}', 'ProspectiveController@select_personal_detail_contact');
@@ -92,6 +98,7 @@ Route::get('room_edit/{room_id}', 'RoomController@room_edit');
 Route::patch('new_room_edit', 'RoomController@new_room_edit');
 Route::get('room_delete/{room_id}', 'RoomController@room_delete');
 Route::get('booking', 'RoomController@booking');
+Route::get('resident_room','RoomController@booking_res');
 Route::get('book_room/{id}', 'RoomController@book_room');
 Route::patch('room_book', 'RoomController@room_book');
 Route::patch('room_change', 'RoomController@room_change');
@@ -109,7 +116,7 @@ Route::get('assessment_preview', 'AssessmentController@assessment_preview');
 Route::get('tasksheet', 'AssessmentController@tasksheet');
 Route::get('set_task/{id}', 'AssessmentController@set_task');
 Route::patch('search_event', 'RoomController@search_event');
-Route::get('attendee/{event_id}', 'RoomController@attendee');
+Route::get('attendee/{event_id}', 'AttendeeController@attendee');
 Route::patch('add_attendee', 'AttendeeController@add_attendee');
 Route::patch('store_tasklist', 'AttendeeController@store_tasklist');
 Route::patch('assign_tasklist', 'AttendeeController@assign_tasklist');
@@ -133,10 +140,10 @@ Route::get('assessment_edit_preview', 'AssessmentController@assessment_edit_prev
 Route::get('assessment_edit/{assessment_id}', 'AssessmentController@assessment_edit');
 Route::get('assessment', 'AssessmentController@assessment');
 Route::get('initial_assessment', 'AssessmentController@initial_assessment');
+Route::get('resident_assessment', 'AssessmentController@resident_assessment');
 Route::get('all_assessment/{id}','AssessmentController@all_assesment');
 Route::get('upload_file/{id}', 'AssessmentController@upload_file');
 Route::patch('file_upload', 'ProspectiveController@file_upload');
-Route::get('resident_assessment', 'AssessmentController@resident_assessment');
 Route::get('preadmin_resident_assessment', 'AssessmentController@preadmin_resident_assessment');
 Route::get('select_assessments/{id}', 'AssessmentController@select_assessments');
 Route::get('preadmin_select_assessments/{id}', 'AssessmentController@preadmin_select_assessments');
@@ -147,7 +154,7 @@ Route::get('assessment_history/{id}', 'AssessmentController@assessment_history')
 Route::post('save_care_plan', 'AssessmentController@save_care_plan');
 Route::get('assessment_set_point/{assessment_id}', 'AssessmentController@assessment_set_point');
 Route::patch('set_points', 'AssessmentController@set_points');
-Route::get('next_assessment_date/{id}', 'AssessmentController@next_assessment_date');
+Route::get('set_date/{id}', 'AssessmentController@next_assessment_date');
 Route::patch('set_date', 'AssessmentController@set_date');
 Route::get('daily_task/{task}', 'AssessmentController@daily_task');
 Route::get('daily_task_assignee/{task}', 'AssessmentController@daily_task_assignee');
@@ -157,6 +164,8 @@ Route::get('task_assignee/{task}', 'AssessmentController@task_assignee');
 Route::get('main_task_list', 'AssessmentController@main_task_list');
 
 // Added by nilotpal
+Route::get('staff_position_master', 'AddMemberController@staff_position_master');
+Route::post('add_staff_position', 'AddMemberController@add_staff_position');
 Route::get('all_member_list', 'AddMemberController@all_member_list');
 Route::get('add_new_member', 'AddMemberController@add_new_member');
 Route::post('member_details', 'AddMemberController@store_member_details');
@@ -482,13 +491,72 @@ Route::get('error', function () {
 });
 
 //End error pages
-Route::get('test','AssessmentController@test');
+
 // Policy Doc Upload by Bikram
 Route::get('policy_doc_form','UploadController@create');
 Route::post('upload_doc','UploadController@store');
 Route::get('delete_policy/{doc_id}','UploadController@destroy');
 
-Auth::routes();
+// Print Configuration
+// Print Configuration
+Route::get('print_configuration','PrintConfigController@print_configuration');
+Route::post('save_print_configuration','PrintConfigController@save_print_configuration');
+Route::post('reset_print_configuration','PrintConfigController@reset_print_configuration');
+Route::get('print_order','PrintConfigController@print_order');
+Route::post('save_print_order','PrintConfigController@save_print_order');
+Route::get('bundle_print/{pros_id}','PrintConfigController@bundle_print');
+// document title add
+Route::get('document_form','AdminController@document_form');
+Route::post('save_document','AdminController@save_document');
+// edit resident details
+Route::get('edit_details/{scr}/{id}','ScreeningController@editResidentDetails');
+Route::get('loader','ScreeningController@Loader');
+Route::get('edit_event/{event_id}','RoomController@editEvent');
+Route::post('update_event','RoomController@updateEvent');
 
+Route::get('update_medicine/{id}/{med_id}','DoctorController@updateMedicine');
+Route::patch('update_record','DoctorController@updateRecord');
+// service request
+Route::get('service_request','AdminController@serviceRequest');
+Route::post('store_service_request','AdminController@storeServiceRequest');
+Route::get('service_request_details/{id}','AdminController@getDetails');
+
+Route::get('get_residents','AzaxController@getResidents');
+Route::post('movein','ProspectiveController@moveinResident');
+Route::post('resolve_request/{req_id}','AdminController@changeStatus');
+
+Route::get('assess_date','ReportController@getUpcoming');
+Route::post('assessDateSearch','ReportController@getUpcoming');
+
+Route::get('medicReport','ReportController@getMedicReport');
+Route::post('medicDailyReport','ReportController@getMedicReport');
+
+Route::post('storeNextAssessmentDate','ProspectiveController@storeNextAssessmentDate');
+
+Route::get('fall_report','ReportController@fallReport');
+Route::post('fall_report_data','ReportController@fallReportData');
+Route::post('fall_graph_data','ReportController@fallGraphData');
+
+Route::get('post_ev_fall','ReportController@postEvalFall');
+Route::post('post_ev_fall_data','ReportController@postEvalFallData');
+Route::post('post_ev_fall_graph_data','ReportController@postEvalFallGraphData');
+
+Route::get('fall_day','ReportController@fallDay');
+Route::post('fall_day_data','ReportController@fallDayData');
+// Fall Timeslot
+Route::get('time_of_fall','ReportController@timeSlot');
+Route::post('fall_timeslot','ReportController@timeSlotData');
+
+Route::get('location_report','ReportController@locationSummary');
+Route::post('location_data','ReportController@locationData');
+
+Route::get('injury_report','ReportController@injurySummary');
+Route::post('injury_data','ReportController@injuryData');
+
+Route::get('vista_view_report','ReportController@vistaViewReport');
+Route::post('vista_view_data','ReportController@vistaViewData');
+
+// new Routing
+Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

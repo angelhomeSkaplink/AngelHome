@@ -25,12 +25,16 @@ class ProspectiveController extends Controller
         $this->middleware('auth');
     }
     	
-	public function prospective(){		
+	public function prospective(Request $request){	
+	    
+		App::setlocale(session('locale'));
 		$prospectives = ProspectiveBasic::all();
         return view('receptionist.pross_view', compact('prospectives'));
     }
 	
-	public function pross_add(){
+	public function pross_add(Request $request){
+	    
+		App::setlocale(session('locale'));
         return view('receptionist.pross_add');
     }
 	
@@ -53,57 +57,13 @@ class ProspectiveController extends Controller
     }
 	
 	public function sales_pipeline(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->where('stage','!=',"MoveIn")->orderby('id','DESC')->paginate(6);
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->where('stage','!=',"MoveIn")->orderby('id','DESC')->get();
         return view('crm.pipeline_view', compact('crms', 'prospectives'));
     }
 
-// 	public function sales_pipeline(Request $request){
-//         $data = DB::table('resident_assessment')
-//                 ->where('resident_assessment.assessment_id','5c0a218643f78')
-//                 ->select('resident_assessment.*')
-//                 ->first();
-//         $data1 = json_decode($data->assessment_json);
-//         dd($data1);
-//         $answer_arr = array();
-//         foreach($data1 as $key => $value ){
-//             foreach($value as $k => $v){
-//                 $obj = new \stdClass();
-//                 $obj->DropDownId =  $k;
-//                 $obj->answer =  $v;
-//                 array_push($answer_arr,$obj);
-//             }
-//         } 
-//         $data = DB::table('assessment_entry')
-//             ->where('assessment_entry.assessment_id','5c0a218643f78')
-//             ->select('assessment_entry.*')
-//             ->first();
-//         $data1 = json_decode($data->assessment_json);
-//         // dd($data1->pages);
-//         $qs_arr = array();
-//         foreach($data1->pages as $d ){
-//             $obj = new \stdClass();
-//             $obj->PageName =  $d->name;
-//             $obj->DropDownId =  $d->elements[0]->name;
-//             array_push($qs_arr,$obj);
-//         }
-//         // dd($qs_arr);
-//         $result_arr = array();
-//         foreach($qs_arr as $q){
-//             foreach($answer_arr as $a){
-//                 if($q->DropDownId == $a->DropDownId){
-//                     $obj = new \stdClass();
-//                     $obj->Page =  $q->PageName;
-//                     $obj->Ans =  $a->answer;
-//                     array_push($result_arr,$obj);
-//                 }
-//             }
-//         }
-//         dd($result_arr);
-//         return view('crm.pipeline_view', compact('crms', 'prospectives'));
-//     }
 	
 	public function select_pros($pros_id){		
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['pros_name', 'like', '%' .$pros_id. '%']])->get();
@@ -130,13 +90,14 @@ class ProspectiveController extends Controller
     }*/
 	
 	public function new_pross_add(Request $request){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
         return view('crm.new_pross_add');
     }
 	
 	public function new_prospective(Request $request){
 		$name = implode(",",$request['pros_name']);
+		$contact_person = implode(",",$request['contact_person']);
 		// dd($name);
 		$pross = new crm();
 		$pross->pros_unique_id = uniqid();
@@ -148,7 +109,7 @@ class ProspectiveController extends Controller
 		$pross->city_p = $request['city_p'];
 		$pross->state_id_p = $request['state_id_p'];
 		$pross->zip_p = $request['zip_p'];
-		$pross->contact_person = $request['contact_person'];
+		$pross->contact_person = $contact_person;
 		$pross->phone_c = $request['phone_c'];
 		$pross->email_c = $request['email_c'];
 		$pross->address_c = $request['address_c'];
@@ -186,7 +147,7 @@ class ProspectiveController extends Controller
 		$prosspect->city_p = $request['city_p'];
 		$prosspect->state_id_p = $request['state_id_p'];
 		$prosspect->zip_p = $request['zip_p'];
-		$prosspect->contact_person = $request['contact_person'];
+		$prosspect->contact_person = $contact_person;
 		$prosspect->phone_c = $request['phone_c'];
 		$prosspect->email_c = $request['email_c'];
 		$prosspect->address_c = $request['address_c'];
@@ -209,8 +170,8 @@ class ProspectiveController extends Controller
     }
 	
 	public function add_records(Request $request, $pipeline_id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
         $row = DB::table('sales_pipeline')->where('id', $pipeline_id)->first();
 		$stage = DB::table('stage_pipeline')->where([['pipeline_id', $pipeline_id], ['status', 1]])->orderBy('stage_pipeline_id', 'DESC')->first();
 		return view('crm.add_new_records', compact('row', 'stage'));
@@ -249,8 +210,8 @@ class ProspectiveController extends Controller
     }
 	
 	public function view_records(Request $request, $pipeline_id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$leads = DB::table('leads')->get();
         $row = DB::table('sales_pipeline')->where('id', $pipeline_id)->first();
 		$details = DB::table('change_pross_record')->where([['pros_id', $pipeline_id],['status', 1]])->first();
@@ -260,8 +221,8 @@ class ProspectiveController extends Controller
     }
 	
 	public function sales_stage_pipeline(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 // 		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->paginate(6);
 // 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=',"MoveIn"]])->orderby('id','DESC')->paginate(6);
@@ -270,8 +231,8 @@ class ProspectiveController extends Controller
     }
 	
 	public function personal_details(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$crms = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->where('stage',"MoveIn")->paginate(6);
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->where('stage',"MoveIn")->get();
 		return view('crm.personal_details', compact('crms', 'prospectives'));
@@ -298,13 +259,13 @@ class ProspectiveController extends Controller
         return view('crm.personal_details_search_view', compact('crms', 'prospectives'));
     }
 	
-	public function details($id){	
+	public function details(Request $request,$id){	
         return view('crm.personal_details_add_form', compact('id'));
     }
 	
 	public function change_records(Request $request, $pipeline_id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 //         $row = DB::table('change_pross_record')->where([['pros_id', $pipeline_id], ['status', 1]])->first();
 // 		return view('crm.change_records', compact('row'));
         
@@ -314,6 +275,8 @@ class ProspectiveController extends Controller
     }
 	
 	public function change_pross_records(Request $request){
+		$pros_name = implode(",",$request['pros_name']);
+		$up_prosName = DB::table('sales_pipeline')->where('id',$request['pros_id'])->update(['pros_name' => $pros_name]);
 		
 		$j = DB::table('change_pross_record')->where('pros_id', $request['pros_id'])->update(['status' => 0]);
 		$contact_name = implode(",",$request['contact_person']);
@@ -361,8 +324,8 @@ class ProspectiveController extends Controller
     }
 	
 	public function change_pro_records(Request $request, $pipeline_id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$row = DB::table('change_pross_record')->where([['pros_id', $pipeline_id], ['status', 1]])->first();
 		return view('crm.change_pro_records', compact('row'));
     }
@@ -413,14 +376,15 @@ class ProspectiveController extends Controller
     }
 	
 	public function reports(Request $request){	
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		$reports = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage','!=','MoveIn'], ['marketing_id', '!=', NULL]])->orderby('id','DESC')->paginate(6);
-		// dd($reports);
 		return view('crm.inquery_reports', compact('reports'));
     }
 	
 	public function inquiery_reports(Request $request){
+	    
+		App::setlocale(session('locale'));
 		$from = $request['from'];
 		$to = $request['to'];
 		$sales_stage = $request['sales_stage'];
@@ -444,8 +408,8 @@ class ProspectiveController extends Controller
     }
 	
 	public function appointment_schedule(Request $request){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
         $appointments = DB::table('appointment')
 						->where('appointment.status', 1)
 						->Join('sales_pipeline', 'appointment.pros_id', '=', 'sales_pipeline.id')
@@ -457,8 +421,8 @@ class ProspectiveController extends Controller
 	}	
 	
 	public function reschedule(Request $request, $appoiuntment_id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
         $row = DB::table('appointment')->where('appoiuntment_id', $appoiuntment_id)->first();
 		$pros = DB::table('sales_pipeline')->where('id', $row->pros_id)->first();
 		return view('crm.reschedule_appointment', compact('row', 'pros'));
@@ -482,8 +446,8 @@ class ProspectiveController extends Controller
 	
 	// Added by Nilotpal
     public function details_view(Request $request, $id){
-        $val = $request['language'];
-		App::setlocale($val);
+        
+		App::setlocale(session('locale'));
         $reports_1 = DB::table('personal_details')
                     ->Join('insurance', 'personal_details.pros_id', '=', 'insurance.pros_id')
                     ->Join('emergency_contact', 'personal_details.pros_id', '=', 'emergency_contact.pros_id')
@@ -499,25 +463,136 @@ class ProspectiveController extends Controller
 					->where('personal_details.pros_id', $id)
                     ->select('personal_details.*','emergency_contact.*')
                     ->first();
-		dd($reports_1);
         return view('crm.details_view', compact('reports_1', 'reports_2'));
     }
 	//Finished
 	
 	public function injury(Request $request){
-	    $val = $request['language'];
-		App::setlocale($val);
+		App::setlocale(session('locale'));
+		$prospects = crm::where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->get();
+		// dd($prospects);
+		$event_codes = DB::table('event_code')->get();
+		$location_codes = DB::table('location_code')->get();
+		$injury_codes = DB::table('injury_code')->get();
+		$action_takens = DB::table('action_taken')->get();
+		$cp_updates = DB::table('cp_update')->get();
+        // return view('injury_details.injury_record_entry_form', compact('event_codes', 'prospects', 'location_codes', 'injury_codes', 'action_takens', 'cp_updates'));
+        return view('injury_details.injury_incident_view', compact('prospects'));
+    }
+    
+    public function injury_entry_form(Request $request, $pros_id, $incident_id){
+        App::setlocale(session('locale'));
 		$prospects = crm::where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->get();
 		$event_codes = DB::table('event_code')->get();
 		$location_codes = DB::table('location_code')->get();
 		$injury_codes = DB::table('injury_code')->get();
 		$action_takens = DB::table('action_taken')->get();
 		$cp_updates = DB::table('cp_update')->get();
-        return view('injury_details.injury_record_entry_form', compact('event_codes', 'prospects', 'location_codes', 'injury_codes', 'action_takens', 'cp_updates'));
-    }
+		
+		$data = new ResidentInjury();
+		if($incident_id != 0){ 
+		    $incident_data = DB::table('resident_injury')->where([['resident_injury_id', $incident_id],['pros_id', $pros_id],['injury_status', 1]])->first();
+		  //  dd($incident_data);
+		    $data->med_record_no = $incident_data->med_record_no;
+		    $data->injury_date = $incident_data->injury_date;
+		    $data->injury_time = $incident_data->injury_time;
+		    $data->event_code  = $incident_data->event_code ;
+		    $data->location_code  = $incident_data->location_code ;
+		    $data->injury_code  = $incident_data->injury_code ;
+		    $data->injury_brief_details  = $incident_data->injury_brief_details ;
+		    $data->person_involve  = $incident_data->person_involve ;
+		    $data->attachment  = $incident_data->attachment ;
+		    $data->rulled_out  = $incident_data->rulled_out ;
+		    $data->how_rulled_out  = $incident_data->how_rulled_out ;
+		    $data->aps_notified  = $incident_data->aps_notified ;
+		    $data->action_taken  = $incident_data->action_taken ;
+		    $data->action_taken_nurse  = $incident_data->action_taken_nurse ;
+		    $data->cp_update  = $incident_data->cp_update ;
+		    $data->cp_upload_nurse  = $incident_data->cp_upload_nurse ;
+		    $data->check_notice  = $incident_data->check_notice ;
+		    $data->check_notice1  = $incident_data->check_notice1 ;
+		    $data->check_notice2  = $incident_data->check_notice2 ;
+		    $data->check_notice3  = $incident_data->check_notice3 ;
+		    $data->check_notice4  = $incident_data->check_notice4 ;
+		    $data->check_notice5  = $incident_data->check_notice5 ;
+		    $data->check_notice6  = $incident_data->check_notice6 ;
+		    $data->check_notice7  = $incident_data->check_notice7 ;
+		    $data->check_notice8  = $incident_data->check_notice8 ;
+		    $data->fall_time  = $incident_data->fall_time ;
+		    $data->where_found  = $incident_data->where_found ;
+		    $data->bp_lying  = $incident_data->bp_lying ;
+		    $data->bp_sitting  = $incident_data->bp_sitting ;
+		    $data->puls  = $incident_data->puls ;
+		    $data->resp  = $incident_data->resp ;
+		    $data->diabetic  = $incident_data->diabetic ;
+		    $data->blood_suger  = $incident_data->blood_suger ;
+		    $data->incontinence  = $incident_data->incontinence ;
+		    $data->use_of_wc  = $incident_data->use_of_wc ;
+		    $data->last_meal_time  = $incident_data->last_meal_time ;
+		    $data->type_of_location_of_assist_device  = $incident_data->type_of_location_of_assist_device ;
+		    $data->glasses  = $incident_data->glasses ;
+		    $data->hearing_aide  = $incident_data->hearing_aide ;
+		    $data->floor_clear  = $incident_data->floor_clear ;
+		    $data->floor_clear_specific  = $incident_data->floor_clear_specific ;
+		    $data->lighting_other  = $incident_data->lighting_other ;
+		    $data->last_toilet  = $incident_data->last_toilet ;
+		    $data->shoes  = $incident_data->shoes ;
+		    $data->socks  = $incident_data->socks ;
+		    $data->fall_activity  = $incident_data->fall_activity ;
+		    $data->use_of_call_light  = $incident_data->use_of_call_light ;
+		    $data->call_light_within_use  = $incident_data->call_light_within_use ;
+		    $data->bedrail_position  = $incident_data->bedrail_position ;
+		    $data->brakes_on_wc  = $incident_data->brakes_on_wc ;
+		    $data->ambulatory  = $incident_data->ambulatory ;
+		    $data->alarm_bed  = $incident_data->alarm_bed ;
+		    $data->alarm_chair  = $incident_data->alarm_chair ;
+		    $data->alarm_other  = $incident_data->alarm_other ;
+		    $data->resident_confused  = $incident_data->resident_confused ;
+		    $data->psychotropic_med  = $incident_data->psychotropic_med ;
+		    $data->psychotropic_med_time  = $incident_data->psychotropic_med_time ;
+		    $data->bed_brakes  = $incident_data->bed_brakes ;
+		    $data->other_info  = $incident_data->other_info ;
+		    $data->environmental_issues_specify  = $incident_data->environmental_issues_specify ;
+		    $data->resident_location_when_found  = $incident_data->resident_location_when_found ;
+		    $data->visitor_prior_8_hours  = $incident_data->visitor_prior_8_hours ;
+		    $data->visitor_prior_8_hours_who  = $incident_data->visitor_prior_8_hours_who ;
+		    $data->new_staff_assigned  = $incident_data->new_staff_assigned ;
+		    $data->new_staff_assigned_who  = $incident_data->new_staff_assigned_who ;
+		    $data->behavior_issues_past_72_hours  = $incident_data->behavior_issues_past_72_hours ;
+		    $data->behavior_issues_past_72_hours_yes  = $incident_data->behavior_issues_past_72_hours_yes ;
+		    $data->bedrail_position_skin  = $incident_data->bedrail_position_skin ;
+		    $data->resident_confused_skin  = $incident_data->resident_confused_skin ;
+		    $data->on_prednisone  = $incident_data->on_prednisone ;
+		    $data->other_pertinent_info  = $incident_data->other_pertinent_info ;
+		    $data->equipment_issues  = $incident_data->equipment_issues ;
+		    $data->equipment_issues_specify  = $incident_data->equipment_issues_specify ;
+		    $data->activity_at_time_of_bruiseskin_tear  = $incident_data->activity_at_time_of_bruiseskin_tear ;
+		    $data->transfer_from_bed_or_chair  = $incident_data->transfer_from_bed_or_chair ;
+		    $data->recent_fall_past_72_hours_skin  = $incident_data->recent_fall_past_72_hours_skin ;
+		    $data->seated_next_to  = $incident_data->seated_next_to ;
+		    $data->seated_next_to_person  = $incident_data->seated_next_to_person ;
+		    $data->ambulatory_skin  = $incident_data->ambulatory_skin ;
+		    $data->on_coumadin  = $incident_data->on_coumadin ;
+		    $data->other_pertinent_info_skin  = $incident_data->other_pertinent_info_skin ;
+		    $data->behaviour_environmental_issues  = $incident_data->behaviour_environmental_issues ;
+		    $data->behaviour_environmental_issues_specify  = $incident_data->behaviour_environmental_issues_specify ;
+		    $data->assessed_for_pain  = $incident_data->assessed_for_pain ;
+		    $data->assessed_for_pain_medicated  = $incident_data->assessed_for_pain_medicated ;
+		    $data->urine_dip_results  = $incident_data->urine_dip_results ;
+		    $data->activity_at_time_of_behavior  = $incident_data->activity_at_time_of_behavior ;
+		    $data->unfamiliar_care_giver  = $incident_data->unfamiliar_care_giver ;
+		    $data->care_giver_name  = $incident_data->care_giver_name ;
+		    $data->other_pertinent_info_behaviour  = $incident_data->other_pertinent_info_behaviour ;
+		    $data->investigation  = $incident_data->investigation ;
+		    $data->user_id  = $incident_data->user_id ;
+		    $data->injury_entry_date  = $incident_data->injury_entry_date ;
+		    
+		}
+		
+        return view('injury_details.injury_record_entry_form', compact('data','incident_id', 'event_codes', 'prospects', 'pros_id', 'location_codes', 'injury_codes', 'action_takens', 'cp_updates'));
+    } 
 	
 	public function injury_record_entry(Request $request){
-		
 		if($request['event_code'] == 'event_others'){
 			$event_code = $request['other_event_code'];
 			$insert_event_code = DB::table('event_code')->insert(['event_code'=>$event_code]);
@@ -686,8 +761,15 @@ class ProspectiveController extends Controller
 		return redirect('/injury');
 	}
 	
-	public function add_prospect_record($stage, $id){
+	public function injury_history($pros_id){
+	    $history_data = DB::table('resident_injury')->where([['pros_id', $pros_id],['injury_status', 1]])->get();
+	   // dd($history_data);
+	    return view('injury_details.resident_injury_incident_history', compact('pros_id','history_data'));
+	}
+	
+	public function add_prospect_record(Request $request,$stage, $id){
 		
+		App::setlocale(session('locale'));
 		$leads = DB::table('leads')->get();
 		$name = DB::table('sales_pipeline')->where('id', $id)->first();
 		return view('crm.add_prospect_record', compact('stage', 'leads', 'id', 'name'));
@@ -801,7 +883,9 @@ class ProspectiveController extends Controller
 		return redirect('all_member_list');
 	}
 	
-	public function reports_pros($pros_id){
+	public function reports_pros(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$reports = DB::table('sales_pipeline')->where([['stage', 'Inquiery'], ['marketing_id', '!=', NULL], ['id', $pros_id]])->get();
 		$reports_all = DB::table('sales_pipeline')->where([['stage', 'Inquiery'], ['marketing_id', '!=', NULL]])->get();
 		return view('crm.inquery_reports_pros', compact('reports','reports_all'));
@@ -813,7 +897,7 @@ class ProspectiveController extends Controller
         return view('crm.pipeline_stage_search_view', compact('crms', 'prospectives'));
     }*/
     
-    public function select_stage_pros($pros_id){			
+    public function select_stage_pros($pros_id){		
 		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['pros_name', 'like', '%' .$pros_id. '%']])->get();
 		$prospectives = DB::table('sales_pipeline')->where('facility_id', Auth::user()->facility_id)->get();
         return view('crm.pipeline_stage_search_view', compact('crms', 'prospectives'));
@@ -849,7 +933,10 @@ class ProspectiveController extends Controller
 		foreach($medicines as $row) {
 			$name = explode(",",$row->pros_name);
 			$name = $name[0]." ".$name[1]." ".$name[2];
-			$countries[] = $name;
+			$obj = new \stdClass();
+			$obj->id =  $row->id;
+			$obj->name =  $name;
+			$countries[] = $obj;
 		}			
 		return $countries;
 	}
@@ -871,7 +958,9 @@ class ProspectiveController extends Controller
 		return $countries;
 	}
 	
-	public function search_appointment($pros_id){
+	public function search_appointment(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$residents = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['pros_name', 'like', '%' .$pros_id. '%']])->get();
 		foreach ($residents as $row){
 			$appointments = DB::table('appointment')
@@ -886,62 +975,11 @@ class ProspectiveController extends Controller
 		}
     }
     
-    // public function medication_incident_report(){
-    //   $prospects = crm::where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->get();
-    //   $incidents = DB::table('med_incident_record')->where([['med_incident_record.facility_id',Auth::user()->facility_id],['med_incident_record.status',1],['med_incident_record.action',0]])
-    //                 ->join('sales_pipeline','sales_pipeline.id','=','med_incident_record.pros_id')
-    //                 ->get();
-    //   // dd($incidents);
-    //   return view('injury_details.medication_incident_report',compact('prospects','incidents'));
-    // }
-
-    // public function medication_incident_entry(Request $request){
-    //   // dd(Auth::user());
-    //   $new_incident = new MedicationIncident();
-    //   $new_incident->pros_id = $request['resident_name'];
-    //   $new_incident->err_made_emp = $request['error_done_by'];
-    //   $new_incident->emp_role = $request['emp_role'];
-    //   $new_incident->dt_incident = $request['incident_date'];
-    //   $new_incident->shift_incident = $request['shift'];
-    //   $new_incident->time_incident = $request['incident_time'];
-    //   $new_incident->dt_recording = date('Y/m/d');
-    //   $new_incident->err_desc = $request['error_desc'];
-    //   $new_incident->err_contribution = $request['error_contrib'];
-    //   $new_incident->dt_physcn_infrmd = $request['physician_informed_date'];
-    //   $new_incident->tm_physcn_infrmd = $request['physician_informed_time'];
-    //   $new_incident->resident_infrmd = $request['resident_informed'];
-    //   $new_incident->physcn_response = $request['physician_response'];
-    //   $new_incident->physcn_action = $request['action_taken'];
-    //   $new_incident->resp_person_infrmd = $request['Res_party_informed'];
-    //   $new_incident->direction_received = $request['direction_received'];
-    //   $new_incident->user_err_entry = Auth::user()->user_id;
-    //   $new_incident->facility_id = Auth::user()->facility_id;
-    //   $new_incident->save();
-    //   Toastr::success("Medication Incident Report Added Successfully !!");
-    //   return redirect('medication_incident_report');
-    // }
-
-    // public function medication_incident_action(Request $request){
-    //   // dd($request);
-    //   $new_action = new MedicationIncidentAction();
-    //   $new_action->med_incident_record_id = $request['incident_id'];
-    //   $new_action->res_diagnosis = $request['resident_diagnosis'];
-    //   $new_action->medication = $request['Medication'];
-    //   $new_action->other_err = $request['other_err'];
-    //   $new_action->scope_severity = $request['scope_severity'];
-    //   $new_action->action_taken = $request['action_taken'];
-    //   $new_action->prevention_step = $request['prevention_step'];
-    //   $new_action->user_supervised = Auth::user()->user_id;
-    //   $new_action->updated_datetime = date('Y/m/d', time());
-    //   $new_action->status = 1;
-    //   $new_action->save();
-
-    //   $update_incident = DB::table('med_incident_record')->where('med_incident_record_id',$request['incident_id'])->update(['action' => 1]);
-    //   Toastr::success("Medication Incident Action Report Saved Successfully !!");
-    //   return redirect('medication_incident_report');
-    // }
+   
     
-    public function medication_incident_report(){
+    public function medication_incident_report(Request $request){
+        
+		App::setlocale(session('locale'));
       $prospects = crm::where([['stage',"MoveIn"],['facility_id', Auth::user()->facility_id]])->get();
       $incidents = DB::table('med_incident_record')->where([['med_incident_record.facility_id',Auth::user()->facility_id],['med_incident_record.status',1],['med_incident_record.action',0]])
                     ->join('sales_pipeline','sales_pipeline.id','=','med_incident_record.pros_id')
@@ -954,15 +992,19 @@ class ProspectiveController extends Controller
       return view('injury_details.medication_incident_report',compact('prospects','incidents','employee'));
     }
 
-    public function medication_incident_resident_report($pros_id){
+    public function medication_incident_resident_report(Request $request,$pros_id){
       // dd($pros_id);
+      
+	  App::setlocale(session('locale'));
       $employee = DB::table('users')->where([['users.facility_id', Auth::user()->facility_id],['users.status',1]])
   						->join('staff_position','staff_position.staff_position_id','=','users.staff_position_id')
   						->get();
       return view('injury_details.medication_incident_resident_report', compact('pros_id','employee'));
     }
 
-    public function medication_incident_resident_history($pros_id){
+    public function medication_incident_resident_history(Request $request,$pros_id){
+        
+		App::setlocale(session('locale'));
       $history = DB::table('med_incident_record')->where([['med_incident_record.pros_id',$pros_id],['med_incident_record.facility_id',Auth::user()->facility_id],['med_incident_record.status',1]])
                   ->join('users','users.user_id','=','med_incident_record.err_made_emp')
                   ->join('staff_position','staff_position.staff_position_id','=','users.staff_position_id')
@@ -1019,7 +1061,26 @@ class ProspectiveController extends Controller
       return redirect('medication_incident_report');
     }
 
-	
+	public function moveinResident(Request $request){
+		$j = DB::table('sales_pipeline')->where('id',$request['pros_id'])
+		->update(['stage' => "MoveIn", 'movein_date' => $request['moveinDate']]);
+		Toastr::success("Succeccfully Moved in !!");
+		return redirect('view_records/'.$request['pros_id']);
+	}
+	public function storeNextAssessmentDate(Request $request){
+		$j = DB::table('next_assessment')->where([['pros_id',$request['pros_id']],['assessment_status',1]])->first();
+		if($j){
+			$update = DB::table('next_assessment')->where([['pros_id',$request['pros_id']],['assessment_status',1]])->update(['assessment_status' => 0]);
+		}
+		$next_save = new NextAssessment();
+		$next_save->pros_id = $request['pros_id'];
+		$next_save->next_assessment_date = $request['next_date'];
+		$next_save->user_id = Auth::user()->user_id;
+		$next_save->facility_id = Auth::user()->facility_id;
+		$next_save->save();
+
+		return redirect()->back();
+	}
 }
 
 

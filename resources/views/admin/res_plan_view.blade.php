@@ -2,13 +2,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    @lang("msg.Future Resident Info") 
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important; margin:.5px;"><strong>Resident Serice Plan</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important; margin:.5px;"><strong>@lang("msg.Resident Serice Plan")</strong></h3>
 	</div>
 </div>
 @endsection
@@ -33,7 +33,7 @@
 					<table class="table table-striped">
 						<tbody>
 							<tr style="background-color:rgb(49, 68, 84) !important;">						
-								<th class="th-position text-uppercase font-500 font-12"><h5 style="color:aliceblue !important;"><strong>#</strong></h5></th>
+								<th class="th-position text-uppercase font-500 font-12"><h5 style="color:aliceblue !important;"></h5></th>
 								<th class="th-position text-uppercase font-500 font-12">
 									<div class="autocomplete" style="width:200px;">
 										<input id="myInput" type="text" placeHolder="@lang('msg.Resident')">
@@ -69,11 +69,9 @@
 								<td>{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</td>
 								<td style="padding-left:55px !important">
 									<a class="btn btn-default" href="service_plan_period/{{ $crm->id }}">
-										<i class="material-icons gray md-22"> visibility </i> View
+										<i class="material-icons gray md-22"> visibility </i> @lang("msg.View")
 									</a>
 								</td>
-								<!--<td style="padding-left:22px !important"><a href="view_plan_details/{{ $crm->id }}">
-								<i class="material-icons material-icons gray md-22"> pageview </i> </a></td>-->
 							</tr>
 							@endforeach
 						</tbody>
@@ -84,18 +82,6 @@
         </div>
     </div>
 </div>
-<!--<div class="modal fade" id="pointModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-				<h4 class="modal-title" id="myModalLabel">Resident Service plan details</h4>
-			</div>
-			<div class="modal-body">					
-			</div>
-		</div>
-	</div>
-</div>-->
 @endsection
 @section('scripts-extra')
 <script type="text/javascript" language="javascript" src="{{ asset('/js/rec/service.js') }}"></script>

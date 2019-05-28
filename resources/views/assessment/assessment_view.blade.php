@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-     All Assessments
+     @lang("msg.All Assessments")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4 text-center">
-        <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>All Assessments</strong></h3>
+        <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.All Assessments")</strong></h3>
     </div>
 </div>
 @endsection

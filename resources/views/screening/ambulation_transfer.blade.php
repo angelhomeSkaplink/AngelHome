@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Screening
 @endsection
 
 @section('contentheader_title')
 <?php $name = DB::table('sales_pipeline')->where('id', $id)->first(); ?>
-  <p class="text-danger"><b>ADD ambulation/transfer details for {{ $name->pros_name }}</b></p>
+  <p class="text-danger"><b>ADD Ambulation/Transfer Details For {{ $name->pros_name }}</b></p>
 @endsection
 
 @section('main-content')

@@ -12,6 +12,16 @@ MAR
       <span class="pull-right" style="padding-right:30px;"><button class="btn btn-primary" onclick="printDiv('printableDiv')" id="printButton"><i class="material-icons md-22"> print </i> Print</button></span>
 	<a href="{{ url('mar_report') }}" class="btn btn-success btn-block btn-flat btn-width btn-sm " style="margin-right:15px;border-radius:5px;" onclick="history.back();"><i class="material-icons">keyboard_arrow_left</i>Back</a>
     </div>
+    <div class="row">
+    <div class="col-md-2 col-md-offset-10" style="padding-right:45px;padding-top:5px;">
+      <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+        <option value="#" selected>Quick Links</option>
+        <option value="{{url('patient_medicine')}}">MAR</option>
+        <option value="{{url('medicine_stocks_list')}}">Medicine Stock</option>
+        <option value="{{url('add_patient_details/'.$name->id)}}">Pharmacy</option>
+      </select>
+    </div>
+</div>
 </div>
 @endsection
 
@@ -90,7 +100,7 @@ $name =  explode(",",$person->pros_name);
 	
 	<div class="row text-center">
 		<p><strong>Note: </strong><i class="material-icons md-36"> schedule</i> To be administered <strong>::</strong> <i class="material-icons md-36"> offline_pin</i>  Given in due time <strong>::</strong> <i class="material-icons md-36">  check_circle_outline </i>  Given either early or late <strong>::</strong> <i class="material-icons md-36"> cancel</i> Not given <strong>::</strong> <i class="material-icons md-36"> email</i> Refused-Mail sent to Doctor</p>
-		<p><span class="text-danger"><strong>Print Setting:</strong></span><span><b>Paper:</b></span>  legal; <span><b>Layout:</b></span> landscape</p>
+		<p><span class="text-danger"><strong>Print Setting:</strong></span><span><b>Paper:</b></span>  legal; <span><b>Layout:</b></span> landscape; <span><b>Scale:</b></span> 100</p>
 	</div>
 	<div class="row">
 	<div class="col-lg-4"></div>
@@ -174,18 +184,19 @@ $name =  explode(",",$person->pros_name);
 					</div>
 					<div class="row">
 						<div class="col-lg-12">
-							<h4><strong>Resient Name: {{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong></h4>
+							<h4><strong>Resident Name: {{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong></h4>
 							<h5><strong>Age: </strong> {{ $age }}</h5>
 							<h5><strong>Room: </strong> {{ $room_no }}</h5>
 						</div>
 					</div>
 				</div>
+				<div class="row text-center">
+            		<p><strong>Note: </strong><i class="material-icons md-36"> schedule</i> To be administered <strong>::</strong> <i class="material-icons md-36"> offline_pin</i>  Given in due time <strong>::</strong> <i class="material-icons md-36">  check_circle_outline </i>  Given either early or late <strong>::</strong> <i class="material-icons md-36"> cancel</i> Not given <strong>::</strong> <i class="material-icons md-36"> email</i> Refused-Mail sent to Doctor</p>            	</div>
 				<div>
 					<!--Table-->
 					<table class="table table-bordered table-responsive">
 						<thead>
 							<tr>
-								<th style="vertical-align : middle;text-align:center;" rowspan="3" class="th-position text-uppercase font-500 font-12">#</th>
 								<th style="vertical-align : middle;text-align:center;" rowspan="3"class="th-position text-uppercase font-500 font-12">Drugs/Strenth/Form/Dose</th>
 								<th style="vertical-align : middle;text-align:center;" rowspan="3" class="th-position text-uppercase font-500 font-12">Time to Take</th>
 								<th colspan="31" class="align-middle th-position text-uppercase font-500 font-12">Month & Year: {{$month}}, {{$year}}</th>
@@ -214,10 +225,11 @@ $name =  explode(",",$person->pros_name);
 						</thead>
 						<tbody>
 							@foreach ($result as $r)
-						   <?php $time_to_take_med_12=date('h:i A', strtotime($r->time_to_take_med)); ?>
+						   <?php $time_to_take_med_12=date('h:i A', strtotime($r->time_to_take));
+						        $doc = explode(",",$r->doctor_name);
+						   ?>
 							<tr>
-								<td></td>
-								<td><strong>Doctor: </strong>{{ $r->doctor_name }}</br>
+								<td><strong>Doctor: </strong>{{ $doc[0] }} {{ $doc[1] }} {{ $doc[2] }}</br>
 								<strong>Medicine: </strong>{{ $r->medicine_name }}</br>
 								<strong>Quantity: </strong> {{ $r->quantity_of_med }}</br>
 								<strong>Administer Via:</strong> {{ $r->apply_on }}</br>
@@ -233,10 +245,10 @@ $name =  explode(",",$person->pros_name);
 										$date=$q->mar_date;
 										$date = explode('-',$date);
 										$day_no = $date[2];
-										if ($i==$day_no && $r->time_to_take_med == $q->time_to_take_med && $q->status == 0) {
+										if ($i==$day_no && $r->time_to_take == $q->time_to_take_med && $q->status == 0) {
 											$flag=0;
 											break;
-										}elseif ($i==$day_no && $r->time_to_take_med == $q->time_to_take_med && $q->status == 1) {
+										}elseif ($i==$day_no && $r->time_to_take == $q->time_to_take_med && $q->status == 1) {
 											$earlyMarTime = strtotime($q->time_to_take_med) - 60*60;
 											$lateMarTime = strtotime($q->time_to_take_med) + 60*60;
 											$action_time = strtotime($q->action_performed_on);
@@ -248,10 +260,10 @@ $name =  explode(",",$person->pros_name);
 												$flag=2;
 												break;
 										   }
-										}elseif($i==$day_no && $r->time_to_take_med == $q->time_to_take_med && $q->status == 2){
+										}elseif($i==$day_no && $r->time_to_take == $q->time_to_take_med && $q->status == 2){
 											$flag=3;
 											break;
-										}elseif($i==$day_no && $r->time_to_take_med == $q->time_to_take_med && $q->status == 3){
+										}elseif($i==$day_no && $r->time_to_take == $q->time_to_take_med && $q->status == 3){
 											$flag=4;
 											break;
 										}else{
@@ -363,4 +375,5 @@ $name =  explode(",",$person->pros_name);
 		return v;
 	}
 </script>
+@include('quick_link.quicklink')
 @endsection

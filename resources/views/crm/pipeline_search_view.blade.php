@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('htmlheader_title')
-    Prospective Info 
+    Future Resident Info 
 @endsection
 @section('contentheader_title')
-	<p class="text-danger"><b>Future resident</b>
+	<p class="text-danger"><b>Future Resident</b>
 		<a href="{{ url('new_pross_add') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:187px !important; margin-top: -2px; margin-right: 10px;"><i class="material-icons md-14 font-weight-600"> add </i> Add New record</a>
 		<a href="{{ url('sales_pipeline') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:125px !important; margin-top: -2px; margin-right: 25px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a>
 	</p>

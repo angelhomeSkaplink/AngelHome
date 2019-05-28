@@ -33,7 +33,7 @@
     <div class="col-md-12">
         <div class="box box-primary border">
             <div class="box-body border padding-top-0 padding-left-right-0">
-                <div class="table-responsive">
+						<div class="table-responsive">
     				<table class="table">
     					<tbody>
     					  <tr>

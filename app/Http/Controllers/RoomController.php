@@ -21,15 +21,15 @@ class RoomController extends Controller
     }
 	
 	public function room_details(Request $request){	
-		$val = $request['language'];
-		App::setlocale($val);
+		
+		App::setlocale(session('locale'));
 		$rooms = DB::table('facility_room')->where([['current_status', 1],['facility_id', Auth::user()->facility_id]])->paginate(8);
         return view('admin.room_view', compact('rooms'));
     }
 	
 	public function new_room_add(Request $request){	
-		$val = $request['language'];
-		App::setlocale($val);
+		
+		App::setlocale(session('locale'));
         return view('admin.new_room_add');
     }
 	
@@ -54,7 +54,9 @@ class RoomController extends Controller
         return redirect('new_room_add')->with('msg', $msg);		
     }
 	
-	public function room_edit($room_id){
+	public function room_edit(Request $request,$room_id){
+	    
+		App::setlocale(session('locale'));
         $row = DB::table('facility_room')->where('room_id', $room_id)->first();
 		return view('admin.room_edit', compact('row'));
     }
@@ -90,22 +92,24 @@ class RoomController extends Controller
 	}
 	
 	public function booking(Request $request){	
-	    $val = $request['language'];
-	    App::setlocale($val);
-		$crms = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['stage',"MoveIn"]])->paginate(6);
-		$reports = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['stage',"MoveIn"]])->get();
+	    
+	    App::setlocale(session('locale'));
+		$crms = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['stage',"!=","MoveIn"]])->paginate(6);
+		$reports = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['stage',"!=","MoveIn"]])->get();
         return view('room.booking', compact('crms', 'reports'));
     }
 	
-	/*public function booking_pros($pros_id){
-		$reports_all = DB::table('sales_pipeline')->where('facility_id',Auth::user()->facility_id)->get();
-		$reports = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['id', $pros_id]])->get();
-		return view('room.booking_pros', compact('reports','reports_all'));
-    }*/
+	public function booking_res(Request $request){
+		App::setlocale(session('locale'));
+		$crms = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['stage',"MoveIn"]])->paginate(6);
+		$reports = DB::table('sales_pipeline')->where([['facility_id',Auth::user()->facility_id],['stage',"MoveIn"]])->get();
+		return view('room.booking', compact('crms','reports'));
+    }
 
 	
-	public function book_room($id){
+	public function book_room(Request $request,$id){
 		
+		App::setlocale(session('locale'));
         $rooms = DB::table('facility_room')->where('facility_id', Auth::user()->facility_id)->paginate(5);		
 		$reports = DB::table('facility_room')->where('room_status', 5)->first();
 		return view('room.room_view', compact('rooms', 'reports', 'id'));
@@ -136,28 +140,28 @@ class RoomController extends Controller
     }
 	
 	public function room_change(Request $request){
-		
-		
-		$check_room = DB::table('resident_room')->where([['pros_id', $request['pros_id']],['status',1]])->first();
+		$check_room = DB::table('resident_room')
+		->where([['pros_id', $request['pros_id']],['release_date',null]])
+		->first();
+		if($check_room == null){
+			$check_room = DB::table('resident_room')
+		->where([['pros_id', $request['pros_id']],['release_date','>=',date('Y-m-d')]])
+		->orderby('release_date','dsc')
+		->first();
+		}
 		if($check_room != null){
 			$release_date = date('Y-m-d');
-			$update_facility_room = DB::table('facility_room')->where('room_id', $check_room->room_id)->update(['room_status' => 0]);
-			$update_resident_room = DB::table('resident_room')->where([['pros_id', $request['pros_id']],['resident_room_id',$check_room->resident_room_id]])->update(['release_date'=> $release_date,'status' => 0]);
+			$update_resident_room = DB::table('resident_room')->where([['pros_id', $request['pros_id']],['resident_room_id',$check_room->resident_room_id]])->update(['release_date'=> $release_date]);
+			$update_facility_room = DB::table('facility_room')->where('room_id',$check_room->room_id)->update(['release_date'=> $release_date]);
 		}
-		// $i = DB::table('resident_room')->where('pros_id', $request['pros_id'])->update(['release_date'=> $release_date,'status' => 0]);
-		// $k = DB::table('resident_room')->where('pros_id', $request['pros_id'])->get();
 		
-		// foreach($k as $K){
-		// 	$j = DB::table('facility_room')->where('room_id', $K->room_id)->update(['room_status' => 0]);
-		// }
-		$j = DB::table('facility_room')->where('room_id', $request['room_id'])->update(['room_status' => 1]);
+		$j = DB::table('facility_room')->where('room_id', $request['room_id'])->update(['book_date' => date('Y-m-d'),'release_date' => null]);
         $roombook = new RoomBook();
 		$roombook->pros_id = $request['pros_id'];
 		$roombook->room_id = $request['room_id'];
 		$roombook->price = $request['price'];
 		$roombook->orgnl_price = $request['orgnl_price'];
 		$roombook->facility_id = Auth::user()->facility_id;
-		$roombook->status = 1;
 		$roombook->booked_date = date('Y/m/d');
 		$roombook->save();
 		
@@ -167,53 +171,75 @@ class RoomController extends Controller
     }
 	
 	public function change_own_room(Request $request, $id){
-	    $val = $request['language'];
-		App::setlocale($val);
-		$room_count = DB::table('facility_room')->where([['facility_id', Auth::user()->facility_id], ['room_status', 0]])->count();
+	    
+		App::setlocale(session('locale'));
+		// $room_count = DB::table('facility_room')->where([['facility_id', Auth::user()->facility_id], ['room_status', 0]])->count();
+        $room_count = DB::table('facility_room')
+        ->where('facility_id',Auth::user()->facility_id)
+        ->where(function($query){
+			$query->where('book_date',null);
+        })
+        ->orWhere(function($query){
+			$query->where('book_date','!=',null)
+				->where('release_date','<=',date('Y-m-d'));
+		})
+        ->count();
+		$res = DB::table('sales_pipeline')->where('id', $id)->first();
+		$flag = $res->stage;
 		
 		if($room_count==0){
 			Toastr::error("ALL ROOMS ARE BOOKED..<br/>NO AVAILABLE ROOM FOUND !!");
 			return redirect('booking');
 		}else{
-			$rooms = DB::table('facility_room')->where([['facility_id', Auth::user()->facility_id], ['room_status', 0]])->paginate(5);		
-			$reports = DB::table('facility_room')->where('room_status', 5)->first();
-			return view('room.change_room_view', compact('rooms', 'reports', 'id'));
+			$rooms = DB::table('facility_room')
+					->where('facility_id',Auth::user()->facility_id)
+					->where(function($query){
+						$query->where('book_date',null);
+					})
+					->orWhere(function($query){
+						$query->where('book_date','!=',null)
+							->where('release_date','<=',date('Y-m-d'));
+					})
+					->paginate(5);	
+			return view('room.change_room_view', compact('rooms', 'reports', 'id','flag'));
 		}		
 	}
 	
 	public function leave_own_room($id){
-		$room_count = DB::table('resident_room')->where([['facility_id', Auth::user()->facility_id], ['pros_id', $id], ['status', 1]])->first();
-		if(!$room_count){
-		    Toastr::success("Currently there is no room booked");
-		    return redirect('booking');
+		$check_room = DB::table('resident_room')
+		->where([['pros_id', $id],['release_date',null]])
+		->first();
+		if($check_room == null){
+			$check_room = DB::table('resident_room')
+		->where([['pros_id', $id],['release_date','>=',date('Y-m-d')]])
+		->orderby('release_date','dsc')
+		->first();
 		}
-		else{
-		    $leave_room = DB::table('facility_room')->where('room_id', $room_count->room_id)->update(['room_status'=> 0]);
-		    $room_status = DB::table('resident_room')->where('room_id', $room_count->room_id)->update(['release_date'=> date('Y-m-d'),'status'=> 0]);
-		
-		Toastr::success("THIS ROOM IS AVAILABLE FOR BOOKING !!");
-		return redirect('booking');
+		if($check_room != null){
+			$release_date = date('Y-m-d');
+			$update_resident_room = DB::table('resident_room')->where('resident_room_id',$check_room->resident_room_id)->update(['release_date'=> $release_date]);
+			$update_facility_room = DB::table('facility_room')->where('room_id',$check_room->room_id)->update(['release_date'=> $release_date]);
+			Toastr::success("THIS ROOM IS AVAILABLE FOR BOOKING !!");
+			return redirect('booking');
+		}else{
+			Toastr::success("Currently there is no room booked");
+			return redirect('booking');
 		}
-		
 	}
 	
 	public function room_details_view(Request $request, $id){
-	    $val = $request['language'];
-		App::setlocale($val);
+	    
+		App::setlocale(session('locale'));
 		
 		$report = DB::table('resident_room')->where([['room_id', $id], ['status', 1]])->first();
 		//dd($report);
 		$reports = DB::table('sales_pipeline')->where('id', $report->pros_id)->first();
-		//dd($reports);
-		//$reports = DB::table('resident_room')
-                    //->Join('sales_pipeline', 'resident_room.pros_id', '=', 'sales_pipeline.id')
-					//->where('resident_room.pros_id', $id)
-                    //->select('sales_pipeline.pros_name')->first();      
-		
         return json_encode($reports); 
     }
 	
 	public function select_room(Request $request){
+	    
+		App::setlocale(session('locale'));
 		$price_from = $request['price_from'];
 		$price_to = $request['price_to'];
 		$room_type = $request['room_type'];
@@ -233,71 +259,33 @@ class RoomController extends Controller
 		return view('room.room_view', compact('reports', 'rooms', 'id'));
     }
 	
-	//public function activity_calendar(){
-		//$system_date = date('Y-m-d');
-		//$events = ActivityCalendar::all()->where('event_date', '>=', $system_date);
-        //return view('admin.events_view', compact('events'));
-    //}
 
 	
 	public function activity_calendar(Request $request){ 
+		$route_name = 'events_view';
+		App::setlocale(session('locale'));	
+		$venues = DB::table('activity_calendar')->where('facility_id', Auth::user()->facility_id)->get();
+		$events = [];  
+		$data = DB::table('activity_calendar')->where('facility_id', Auth::user()->facility_id)->get();
+		if($data->count()){  
+			foreach ($data as $key => $value){  
+				$events[] = Calendar::event( 
+				$value->event_name,  
+				true,
+				new \DateTime($value->event_date),  
+				new \DateTime($value->event_end_date.' +1 day'));  
+			}	  
+		}	  
+		$calendar = Calendar::addEvents($events);  
 		
-		$val = $request['language'];
-		if(!$val){			
-			$venues = DB::table('activity_calendar')->where('facility_id', Auth::user()->facility_id)->get();
-			$events = [];  
-			$data = DB::table('activity_calendar')->where('facility_id', Auth::user()->facility_id)->get();
-			if($data->count()){  
-				foreach ($data as $key => $value){  
-					$events[] = Calendar::event( 
-					$value->event_name,  
-					true,  
-					new \DateTime($value->event_date),  
-					new \DateTime($value->event_end_date.' +1 day'));  
-				}	  
-			}	  
-			$calendar = Calendar::addEvents($events); 
+		$dateValue = date("Y-m-d");
+		$time=strtotime($dateValue);
+		$month=date("F",$time);
+		$year=date("Y",$time);
+		
 
-			$dateValue = date("Y-m-d");
-			$time=strtotime($dateValue);
-			$month=date("F",$time);
-			$year=date("Y",$time);
-
-			//$role = DB::table('role')->where([['u_id', Auth::user()->id],['status', 1]])->first();
-
-			//return $role;
-			
-			$side_events = DB::table('activity_calendar')->where([['month', $month],['year', $year],['facility_id', Auth::user()->facility_id]])->paginate(8);
-			return view('admin.events_view', compact('calendar', 'venues', 'side_events')); 
-		}else{
-			$route_name = 'events_view';
-			App::setlocale($val);	
-			$venues = DB::table('activity_calendar')->where('facility_id', Auth::user()->facility_id)->get();
-			$events = [];  
-			$data = DB::table('activity_calendar')->where('facility_id', Auth::user()->facility_id)->get();
-			if($data->count()){  
-				foreach ($data as $key => $value){  
-					$events[] = Calendar::event( 
-					$value->event_name,  
-					true,  
-					new \DateTime($value->event_date),  
-					new \DateTime($value->event_end_date.' +1 day'));  
-				}	  
-			}	  
-			$calendar = Calendar::addEvents($events);  
-			
-			$dateValue = date("Y-m-d");
-			$time=strtotime($dateValue);
-			$month=date("F",$time);
-			$year=date("Y",$time);
-			
-			//$role = DB::table('role')->where([['u_id', Auth::user()->id],['status', 1]])->first();
-
-			//return $role;
-
-			$side_events = DB::table('activity_calendar')->where([['month', $month],['year', $year],['facility_id', Auth::user()->facility_id]])->paginate(8);			
-			return view('admin.'.$route_name, compact('calendar', 'venues', 'side_events')); 
-		}		 
+		$side_events = DB::table('activity_calendar')->where([['month', $month],['year', $year],['facility_id', Auth::user()->facility_id]])->paginate(6);			
+		return view('admin.events_view', compact('calendar', 'venues', 'side_events'));  
     } 
 
 	//public function get_event_json(){
@@ -379,19 +367,11 @@ class RoomController extends Controller
     } 	
 	
 	public function new_event_add_form(Request $request){
-		
-		$val = $request['language'];
-		if(!$val){
+			App::setlocale(session('locale'));
 			return view('admin.new_event_add_form');
-		}else{
-			$route_name = Route::getCurrentRoute()->getPath();
-			App::setlocale($val);
-			return view('admin.new_event_add_form');
-		}
     }
 	
 	public function new_event_add(Request $request){
-		
 		$time=strtotime($request['event_date']);
 		$month=date("F",$time);
 		$year=date("Y",$time);
@@ -400,6 +380,7 @@ class RoomController extends Controller
 		$activitycalendar->event_name = $request['event_name'];
 		$activitycalendar->emoji_code = $request['emoji_code'];
 		$activitycalendar->event_description = $request['event_description'];
+		$activitycalendar->open_to = $request['open_to'];
 		$activitycalendar->event_place = $request['event_place'];
 		$activitycalendar->event_date = $request['event_date'];
 		$activitycalendar->event_end_date = $request['event_end_date'];
@@ -415,25 +396,34 @@ class RoomController extends Controller
 		return redirect('/activity_calendar');
     }
 	
-	public function attendee(Request $request, $event_id){
-		$val = $request['language'];
-		App::setlocale($val);
-		
-		$crms = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id],['stage',"MoveIn"]])->get();			
-			
-		return view('admin.attendee_form', compact('event_id', 'crms'));
-	}
-	
-	public function booking_pros($pros_id){
+	public function booking_pros(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$reports_all = DB::table('sales_pipeline')->where('facility_id',Auth::user()->facility_id)->get();
 		$reports = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['pros_name', 'like', '%' .$pros_id. '%']])->get();
 		return view('room.booking_pros', compact('reports','reports_all'));
     }
 	
-	public function booking_pros_email($pros_id){
+	public function booking_pros_email(Request $request,$pros_id){
+	    
+		App::setlocale(session('locale'));
 		$reports_all = DB::table('sales_pipeline')->where('facility_id',Auth::user()->facility_id)->get();
 		$reports = DB::table('sales_pipeline')->where([['facility_id', Auth::user()->facility_id], ['email_p', 'like', '%' .$pros_id. '%']])->get();
 		return view('room.booking_pros', compact('reports','reports_all'));
     }
+    public function editEvent($event_id){
+		App::setlocale(session('locale'));
+		$details = DB::table('activity_calendar')->where('event_id',$event_id)->first();
+		// dd($details);
+		return view('admin.event_edit',compact('details'));
+	}
+	public function updateEvent(Request $request){
+		$updateEvent = DB::table('activity_calendar')->where('event_id',$request['event_id'])->
+			update(['event_name' => $request['event_name'], 'emoji_code' => $request['emoji_code'], 'event_description' => $request['event_description'],
+			'open_to'=>$request['open_to'],'event_place' => $request['event_place'],'event_date' => $request['event_date'],'event_end_date' => $request['event_end_date']
+			,'event_time' => $request['event_time'],'duration' => $request['duration'],'end_time' => $request['end_time']]);
+		Toastr::success("Event Edited Successfully !!");
+		return redirect('/activity_calendar');
+	}
 
 }

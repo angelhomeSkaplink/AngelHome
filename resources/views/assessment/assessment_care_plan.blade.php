@@ -2,17 +2,17 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Care Plan
+    @lang("msg.Care Plan")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Care Plan</strong></h3>
-		<h5><strong><span class="text-danger">Date:</span> <span style="color:blue;">{{date("d-m-Y",time())}}</span></strong></h5>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Care Plan")</strong></h3>
+		<h5><strong><span class="text-danger">@lang("msg.Date"):</span> <span style="color:blue;">{{date("d-m-Y",time())}}</span></strong></h5>
 	</div>
 	<div class="col-lg-4">
-		<a href="" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+		<a href="" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>@lang("msg.Back")</a>
 	</div>
 </div>
 @endsection
@@ -58,18 +58,18 @@ $name =  explode(",",$person->pros_name);
 			<tr style="background-color:rgb(49, 68, 84) !important;margin:0.5px;">
 				<td>
 						<h4>@if($person->service_image == null)
-								<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+								<img src="{{ asset('/hsfiles/public/img/538642-user_512x512.png') }}" class="img-circle" width="40" height="40">
 							@else
-								<img src="../hsfiles/public/img/{{ $person->service_image }}" class="img-circle" width="40" height="40">
+								<img src="{{ asset('/hsfiles/public/img/'.$person->service_image) }}" class="img-circle" width="40" height="40">
 							@endif
 							<span class="text-success" style="color:aliceblue;"><strong>{{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong>
 						</h4>
 				</td>				
 				<td>
-						<h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>Room No: {{ $room_no }} </strong></span></h4>
+						<h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>@lang("msg.Room No"): {{ $room_no }} </strong></span></h4>
 				</td>
 				<td>
-						<h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>Age: {{ $age }} </strong></span></h4>
+						<h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>@lang("msg.Age"): {{ $age }} </strong></span></h4>
 				</td>
 			</tr>
 		</table>
@@ -88,26 +88,25 @@ $name =  explode(",",$person->pros_name);
 								<input type="hidden" class="form-control" name="pros_id" value="{{ $id }}" required />
 								
 								<tr>
-									<th class="th-position text-uppercase font-400 font-13"><b>Assessment Done</b></th>
-									<th class="th-position text-uppercase font-400 font-13"><b>Assessment score</b></th>
+									<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Assessment Done")</b></th>
+									<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Assessment score")</b></th>
 								</tr>
 								@foreach ($reports as $report)							
 								<tr>
-									{{-- <input type="hidden" class="form-control" name="pros_id" value="{{ $report->pros_id }}" required /> --}}
 									<td><label>{{ $report->assessment_form_name }}</label></td>	
 									<td><label>{{ $report->score }}</label></td>
 								</tr>
 								@endforeach
 								<tr>
-									<td><label>Assessment Total score</label></td>
+									<td><label>@lang("msg.Assessment Total Score")</label></td>
 									<td>{{ $initial->score }}</td>								
 								</tr>
 								<tr>
-									<td><label>Care plan score</label></td>
+									<td><label>@lang("msg.Care Plan Score")</label></td>
 									<td><input type="number" class="form-control"  name="total_point" value="{{ $initial->score }}" required/></td>								
 								</tr>
 								<tr>
-									<td><label>Note</label></td>
+									<td><label>@lang("msg.Note")</label></td>
 									<td><textarea class="form-control" name="care_plan_detail" type="text" placeHolder="Reason for editing the score" rows="3" required ></textarea></td>								
 								</tr>						
 							</tbody>
@@ -120,7 +119,7 @@ $name =  explode(",",$person->pros_name);
 						</div>
 
 						<div class="form-group has-feedback">
-							<a href="../../select_assessments/{{ $period }}/{{ $id }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right: 15px;">@lang("msg.Cancel")</a>
+							<a href="{{ url('select_assessments/'.$period.'/'.$id) }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right: 15px;">@lang("msg.Cancel")</a>
 						</div>
 					</div><br/><br/>
 				</form>				

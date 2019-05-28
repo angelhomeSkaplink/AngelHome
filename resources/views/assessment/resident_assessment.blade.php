@@ -37,7 +37,7 @@
 					<table class="table table-striped">
 						<tbody>
 							<tr style="background-color:rgb(49, 68, 84) !important;">								
-								<th class="th-position text-uppercase font-500 font-12"><h5 style="color:aliceblue !important;"><strong>#</strong></h5></th>
+								<th class="th-position text-uppercase font-500 font-12"><h5 style="color:aliceblue !important;"><strong></strong></h5></th>
 								<th class="th-position text-uppercase font-500 font-12">
 									<div class="autocomplete" style="width:200px;">
 										<input id="myInput" type="text" placeHolder="@lang('msg.Resident')">
@@ -69,27 +69,43 @@
 									$status = DB::table('resident_assessment')->where([['pros_id', $crm->id], ['resident_assessment.assessment_status', 1]])->first();
 									if(!$status){
 								?>
-								<td class="text-danger"><b>@lang("msg.No Assessment Done")</b></td>
+								<td class="text-danger text-center"><b>@lang("msg.No Assessment Done")</b></td>
 								<?php } else{
 									$today = date("Y-m-d");
 									$next_date = DB::table('next_assessment')->where([['pros_id', $crm->id], ['next_assessment.assessment_status', 1]])->first();
 									if(!$next_date){
 								?>
-								<td class="text-danger"><b>@lang("msg.No Next Assessment Date Found")</b></td>
-								<?php } else{
-									$max_date = $next_date->next_assessment_date;
-									$diff = date_diff(date_create($max_date),date_create($today));
-									$diff = $diff->days;
-									if($diff>=30){
+								<td class="text-center">
+									<form action="{{ url('storeNextAssessmentDate')}}" method="post">
+										<input name="_method" type="hidden" value="POST">
+										{!! csrf_field() !!}
+										<input type="hidden" name="pros_id" value="{{$crm->id}}">
+										<input type="date" min="{{date('Y-m-d')}}" name="next_date" value="" class="form-control">
+										<button type="submit">&#x1f4be;</button>
+									</form>
+								</td>
+								<?php } else{ ?>
+								<td class="text-center form-inline">
+									<form action="{{ url('storeNextAssessmentDate')}}" method="post">
+										<input name="_method" type="hidden" value="POST">
+										{!! csrf_field() !!}
+										<input type="hidden" name="pros_id" value="{{$crm->id}}">
+										<input type="date" min="2019-04-28" name="next_date" value="{{$next_date->next_assessment_date}}" class="form-control">
+										<button type="submit">&#x1f4be;</button>
+									</form>
+								</td>
+								<?php } }
 								?>
-								<td class="text-success"><b>@lang("msg.Next Assessment Date")= {{ $next_date->next_assessment_date }}</b></td>
-								<?php }elseif($diff<30 && $diff>0){ ?>
-								<td class="text-warning"><b>@lang("msg.Next Assessment Date") = {{ $next_date->next_assessment_date }}</b></td>
-								<?php } elseif($diff==0){?>
-								<td class="text-danger"><b>@lang("msg.Next Assessment Date") = {{ $next_date->next_assessment_date }}</b></td>
-								<?php } } } ?>
+								
 								<td class="padding-left-45">
-									<a href="assessment_period/{{$flag}}/{{ $crm->id}}" class="material-icons material-icons gray md-22" style="background:transparent; border:none">history </button>
+								    @php
+								    $datas = DB::table('care_plan')->where('pros_id', $crm->id)->get();
+								    @endphp
+								    @if(count($datas)<=0)
+    									<a href="javascript:ShowWarning()" class="material-icons material-icons gray md-22" style="background:transparent; border:none">history </button>
+                                    @else
+									    <a href="assessment_period/{{$flag}}/{{ $crm->id}}" class="material-icons material-icons gray md-22" style="background:transparent; border:none">history </button>
+									@endif
 								</td>
 								<td class="padding-left-15">										
 									<span class="pull-right"><a class="btn btn-default" href="select_period/{{$flag}}/{{ $crm->id}}"><i class="material-icons material-icons gray md-22"> add_circle_outline </i> Add</a></span>
@@ -107,4 +123,12 @@
 @endsection
 @section('scripts-extra')
 <script type="text/javascript" language="javascript" src="{{ asset('/js/rec/res_assessment.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+<script teype="text/javascript">
+	function ShowWarning(){
+		toastr.optionsOverride = 'positionclass = "toast-bottom-right"';
+        toastr.options.positionClass = 'toast-bottom-right';
+        toastr.error('No assessments are done', 'Empty', 'positionclass = "toast-bottom-right"');
+	}
+</script>
 @endsection

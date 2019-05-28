@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Future Resident Add
 @endsection
 
 @section('contentheader_title')
-    Prospective Add
+    Future Resident Add
 @endsection
 
 @section('main-content')
@@ -26,7 +26,7 @@
 				@endif
 				<div class="box-body">					
 					<div class="form-group has-feedback">
-						<input type="text" class="form-control" placeholder="Prospective Name" name="prospective_name" required pattern="[A-Za-z\s]+" Title="Alphabate Character Only"/>
+						<input type="text" class="form-control" placeholder="Future Resident Name" name="prospective_name" required pattern="[A-Za-z\s]+" Title="Alphabate Character Only"/>
 					</div> 
 					<div class="form-group has-feedback">
 						<input type="text" class="form-control" placeholder="Phone No" name="phone_no" pattern="[0-9]{10}" Title="Numeric Value. 10 Digit"/>

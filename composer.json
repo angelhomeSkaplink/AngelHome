@@ -10,7 +10,10 @@
 		"laravelcollective/html": "^5.3",
         "spatie/laravel-backup": "^3.0.0",
         "league/flysystem-aws-s3-v3": "~1.0",
-        "yk/laravel-backup": "^1.0"
+        "yk/laravel-backup": "^1.0",
+        "spomky-labs/php-aes-gcm": "^1.2",
+        "maddhatter/laravel-fullcalendar": "^1.3",
+        "stevebauman/translation": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

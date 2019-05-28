@@ -1,4 +1,3 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 @extends('layouts.auth')
 
 @section('htmlheader_title')
@@ -6,77 +5,58 @@
 @endsection
 
 @section('content')
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <!-- <a href="#"><b>Angel Home</b></a> -->
-        </div><!-- /.login-logo -->
-
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-				<li>These credentials do not match our records.</li>
-				<li>Check Your User Name and Password</li>
-				<li>Or Your Account has been Deactivated</li>
-                <!--@foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach-->
-            </ul>
-        </div>
-    @endif
-
-		<div class="login-box-body">
-			<p class="login-box-msg">Log-in</p>
-				<form action="{{ url('/login') }}" method="post">
-
-				{!! csrf_field() !!}
-
-				<div class="form-group has-feedback">
-					<input type="text" class="form-control" placeholder="User Name" name="email"/>
-					<span class="form-control-feedback"> <i class="material-icons" style="position: relative; top:5px;"> email </i> </span>
-				</div>
-				<div class="form-group has-feedback">
-					<input type="password" class="form-control" placeholder="Password" name="password"/>
-					<span class="form-control-feedback"> <i class="material-icons" style="position: relative; top:5px;"> lock </i> </span>
-				</div>
-				<input type="hidden" class="form-control" name="status" value="1"/>
-				<!--<div class="form-group has-feedback">
-					<select class="form-control" name="role" id="role" data-validation="required" data-validation-error-msg="This Field Is Required" >
-						<option value="">Select a Role</option>
-						<option value="1">Admin</option>
-						<option value="2">Receptionist</option>						
-						<option value="3">Marketing</option>
-						<option value="4">RCC</option>
-						<option value="5">Back Office</option>
-						<option value="6">Doctor</option>
-						<option value="7">Wellness Director</option>
-					</select>
-				</div>-->
-				<div class="row">
-					<!--<div class="col-xs-8">
-						<div class="checkbox icheck">
-							<label>
-								<input type="checkbox" name="remember"> Remember Me
-							</label>
+<body>
+	
+		<div class="limiter">
+			<div class="container-login100">
+					<form action="{{ url('login') }}" method="post" class="login100-form validate-form">
+							{!! csrf_field() !!}
+						<span class="login100-form-title">
+							Member Login
+						</span>
+	
+						<div class="wrap-input100">
+							<input class="input100" type="text" name="email" placeholder="Email">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-envelope" aria-hidden="true"></i>
+							</span>
 						</div>
-					</div><!-- /.col -->
-					<div class="col-xs-4"></div>
-					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary btn-block btn-flat" style="width:100% !important">Login</button>
-					</div><!-- /.col -->
-					<div class="col-xs-4"></div>
-				</div>
-			</form>	
-    <!--<a href="{{ url('/password/reset') }}">I forgot my password</a><br>
-    <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>-->
-		</div><!-- /.login-box-body -->
-	</div><!-- /.login-box -->
-
-    @include('layouts.partials.scripts_auth')
-
-</body>
-
-
-
+	
+						<div class="wrap-input100 validate-input" data-validate = "Password is required">
+							<input class="input100" type="password" name="password" placeholder="Password">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-lock" aria-hidden="true"></i>
+							</span>
+						</div>
+						<input type="hidden" class="form-control" name="status" value="1"/>
+	
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn">
+								Login
+							</button>
+						</div>
+						<br>
+						@include('layouts.errors')
+					</form>
+					
+			</div>
+			
+		</div>
+		
+	
+		
+	<!--===============================================================================================-->	
+		<script src="{{ asset('/public/login/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+	<!--===============================================================================================-->
+		<script src="{{ asset('/public/login/vendor/bootstrap/js/popper.js') }}"></script>
+		<script src="{{ asset('/public/login/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+	<!--===============================================================================================-->
+		<script src="{{ asset('/public/login/vendor/select2/select2.min.js') }}"></script>
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+		<script src="{{ asset('/public/login/js/main.js') }}"></script>
+		@include('layouts.partials.scripts_auth')
+	</body>
 @endsection

@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-   Assessment Forms
+   @lang("msg.Assessment Forms")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Assessment</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Assessments")</strong></h3>
 	</div>
 	<div class="col-lg-4">
-		<a href="../../../../select_assessments/{{ $period }}/{{ $id }}" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+		<a href="../../../../select_assessments/{{ $period }}/{{ $id }}" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>@lang("msg.Back")</a>
 	</div>
 </div>
 @endsection
@@ -31,6 +31,30 @@
 	.sv_page_title{
 	    font-size: 1.1em !important;
 	}
+</style>
+<style>
+    div.scrollmenu {
+      background-color: #75a4b7;
+      overflow: auto;
+      white-space: nowrap;
+    }
+    
+    div.scrollmenu a {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px;
+      text-decoration: none;
+    }
+    div.scrollmenu a.active {
+      background-color: #777;
+	    color: #333;
+	    font-weight: bold;
+    }
+    
+    div.scrollmenu a:hover {
+      background-color: #999;
+    }
 </style>
 <script>
 	var assessment = {!! $assessment !!} 
@@ -56,6 +80,8 @@ else{
 	$age = "Not specified";
 }
 $name =  explode(",",$person->pros_name);
+$assess = json_decode($assessment);
+$assess = json_decode($assess->assessment_json);
 @endphp
 <div class="row" >
 	<div class="col-lg-12 table-responsive">
@@ -63,24 +89,35 @@ $name =  explode(",",$person->pros_name);
 			<tr style="background-color:rgb(49, 68, 84) !important;margin:0.5px;">
 				<td>
 						<h4>@if($person->service_image == null)
-								<img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
+								<img src="{{ asset('hsfiles/public/img/538642-user_512x512.png') }}" class="img-circle" width="40" height="40">
 							@else
-								<img src="../hsfiles/public/img/{{ $person->service_image }}" class="img-circle" width="40" height="40">
+								<img src="{{ asset('hsfiles/public/img/'.$person->service_image) }}" class="img-circle" width="40" height="40">
 							@endif
 							<span class="text-success" style="color:aliceblue;"><strong>{{ $name[0] }} {{ $name[1] }} {{ $name[2] }}</strong>
 						</h4>
 				</td>				
 				<td>
-						<h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>Room No: {{ $room_no }} </strong></span></h4>
+						<h4 class="text-center" style="margin-top:20px;">	<span class="text-center" style="color:aliceblue;"><strong>@lang("msg.Room No"): {{ $room_no }} </strong></span></h4>
 				</td>
 				<td>
-						<h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>Age: {{ $age }} </strong></span></h4>
+						<h4><span class="pull-right" style="color:aliceblue;margin-top:10px;"><strong>@lang("msg.Age"): {{ $age }} </strong></span></h4>
 				</td>
 			</tr>
 		</table>
 	</div>
 </div>
 <div class="row">
+    <div id="topheader">
+		<nav class="navbar navbar-default responsive">
+			<div class="container-fluid">
+				<div class="scrollmenu">
+				@foreach ($assess->pages as $key=>$p)
+					<a class="pages nav-link" href="#section{{$key+1}}">{{ $p->name }}</a>
+				@endforeach
+				</div>
+			</div>
+		</nav>
+	</div>
     <div class="col-md-12">
         <div class="box box-primary border">
             <div class="box-body border padding-top-0 padding-left-right-0">
@@ -108,7 +145,6 @@ $name =  explode(",",$person->pros_name);
 			method: "GET",
 			success: function(data) {
 				var data = JSON.parse(data);
-				console.log(data);
 				storageSt = data.assessment_json;			
 				var res = {};
 				if (storageSt)
@@ -131,7 +167,6 @@ $name =  explode(",",$person->pros_name);
 		});
 	}		
 	function saveState(survey) {
-		console.log(survey);
 		var res = {
 			currentPageNo: survey.currentPageNo,
 			data: survey.data,
@@ -155,7 +190,6 @@ $name =  explode(",",$person->pros_name);
 			prosId: prosId,
 			_token: csrf			
 		})
-		console.log("You are Here "+JSON.stringify(res));
 	}
 	survey
 		.onCurrentPageChanged
@@ -175,6 +209,14 @@ $name =  explode(",",$person->pros_name);
 		saveState(survey);
 	}, 100000000000);
 	survey.render("surveyElement");
+	$(document).ready(function(){
+      $('.pages')[0].click();  
+     });
+	$( '.scrollmenu' ).on( 'click', function (e) {
+      console.log(event.target)
+    	$( '.scrollmenu' ).find( 'a.active' ).removeClass( 'active' );
+      $( event.target ).addClass( 'active' );
+    });
 </script>
 @endsection
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Screening
 @endsection
 
 @section('contentheader_title')

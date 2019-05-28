@@ -36,7 +36,7 @@
 					<table class="table">
 						<tbody>
 							<tr>
-								<th class="th-position text-uppercase font-500 font-12">#</th>
+								<th class="th-position text-uppercase font-500 font-12"></th>
 								<th class="th-position text-uppercase font-500 font-12">
 									<div class="autocomplete" style="width:200px;">
 										<input id="myInput" type="text" placeHolder="@lang('msg.Resident')">
@@ -67,9 +67,9 @@
                               @endphp
                               <tr>
                                 @if($crm->service_image == NULL)
-                                <td><img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>
+                                <td><img src="../hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40"></td>
                                 @else
-                                <td><img src="hsfiles/public/img/{{ $crm->service_image }}" class="img-circle" width="40" height="40"></td>
+                                <td><img src="../hsfiles/public/img/{{ $crm->service_image }}" class="img-circle" width="40" height="40"></td>
                                 @endif
                                 <td>{{ $n[0] }} {{ $n[1] }} {{ $n[2] }}</td>
                                 <td>{{ $crm->phone_p }}</td>

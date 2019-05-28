@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('htmlheader_title')
@@ -6,35 +5,36 @@
 @endsection
 
 @section('contentheader_title')
-    @lang("msg.New Resident")
+    <div class="row">
+  <div class="col-lg-4 offset-lg-4 text-center">
+      <h3><strong>@lang("msg.Inquiry Form")</strong></h3>
+  </div>
+  <div class="col-lg-4 pull-right">
+  <div class="col-md-6">
+      <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+        <option value="#" selected>Quick Links</option>
+        <option value="{{url('change_pro_records/'.$row->id)}}">Sales Pipeline</option>
+        <option value="{{url('reschedule/'.$row->id)}}">Appointment Schedule</option>
+        <option value="{{url('screening/'.$row->id)}}">Screening</option>
+        <option value="{{url('select_assessments/Initial/'.$row->id)}}">Assessment</option>
+        <option value="{{url('change_own_room/'.$row->id)}}">Room Book</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+        <h2 class="pull-right"><button class="btn btn-primary" onclick="printDiv('printableDiv')" id="printButton"><i class="material-icons md-22"> print </i> Print</button></h2>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('main-content')
-<style>
-	.content-header
-	{
-		display:none;
-	}
-	.content {
-		margin-top: 0px;
-	}
-</style>
-<div class="row">
-  <div class="col-lg-4">
-  </div>
-  <div class="col-lg-4">
-      <h2 class="text-center">Inquiry Form</h2>
-  </div>
-  <div class="col-lg-4">
-    <h2 class="pull-right" style="padding-right:30px;"><button class="btn btn-primary" onclick="printDiv('printableDiv')" id="printButton"><i class="material-icons md-22"> print </i> Print</button></h2>
-  </div>
-</div>
+
 <div class="row">
 	<form action="{{action('ProspectiveController@change_pross_records')}}" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="_method" value="PATCH">
 	{{ csrf_field() }}
 	<div class="col-md-4">
-		<div class="box box-primary">
+		<div class="panel panel-default">
 			@if(Session::has('msg'))
 				<div class="alert alert-danger">
 					<strong>{{ Session::get('msg') }}</strong>
@@ -44,27 +44,27 @@
 			    $n = explode(",", $row->pros_name);
 			    $m = explode(",",$row->contact_person);
 			@endphp
-			<div class="box-body">
-
+			<div class="panel-body border padding-7">
+				<h4 class="text-center">@lang("msg.Future Resident")</h4>
 				<input type="hidden" class="form-control" name="pros_id" value="{{ $row->id }}"  />
 
 				<div class="row">
 				<div class="col-lg-4">
 					<div class="form-group has-feedback">
 						<label>@lang("msg.First Name")</label>
-					<input type="text" class="form-control" value="{{ $n[0] }}" readonly />
+					<input type="text" class="form-control" name="pros_name[]" value="{{ $n[0] }}" />
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Middle Name")</label>
-					<input type="text" class="form-control" value="{{ $n[1] }}" readonly />
+					<input type="text" class="form-control" name="pros_name[]" value="{{ $n[1] }}" />
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Last Name")</label>
-						<input type="text" class="form-control" value="{{ $n[2] }}" readonly />
+						<input type="text" class="form-control" name="pros_name[]" value="{{ $n[2] }}" />
 					</div>
 				</div>
 				</div>	
@@ -101,8 +101,9 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div class="box box-primary">
-			<div class="box-body">
+		<div class="panel panel-default">				
+			<div class="panel-body border padding-7">
+				<h4 class="text-center">@lang("msg.Contact Person")</h4>
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="form-group has-feedback">
@@ -157,8 +158,8 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div class="box box-primary">
-			<div class="box-body">
+		<div class="panel panel-default">
+			<div class="panel-body border padding-7">
 				<div class="form-group has-feedback">
 					<label>@lang("msg.Relation")</label>
 					<input type="text" class="form-control" value="{{ $row->relation }}" name="relation" id="relation" pattern="[A-Za-z\s]+" />
@@ -171,14 +172,18 @@
 						<label>@lang("msg.Photograph")</label>
 						<input type="file" class="form-control" name="service_image" id="service_image" value="{{ $row->service_image }}"/>
 					</div>
-				<div class="form-group has-feedback">
-            		<button type="submit" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
+					<div class="row">
+						<div class="col-md-6 text-center">
+							<div class="form-group has-feedback">
+								<a href="{{  url('sales_pipeline') }}" class="btn btn-danger btn-flat btn-width" style="margin-right:15px">@lang("msg.Cancel")</a>
+				 			</div>
+						</div>
+						<div class="col-md-6 text-center">
+							<div class="form-group has-feedback">
+            		<button type="submit" class="btn btn-success btn-flat btn-width">@lang("msg.Submit")</button>
             	</div>
-
-				<div class="form-group has-feedback">
-                    <a href="{{  url('sales_pipeline') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
-       			</div><br/><br/><br/>
-
+						</div>
+					</div>
 			</div>
 		</div>
 	</div>
@@ -284,14 +289,13 @@
     <div class="row">
 
       <div class="col-lg-12 text-center">
-
-        <center><table>
+			<table>
           <tr>
             <td style="width:90%;" class="text-center">
               <h4 ><b>Powered by Senior Safe Technology LLC.</b></h4>
             </td>
           </tr>
-        </table></center>
+        </table>
       </div>
     </div>
   </div>
@@ -307,4 +311,5 @@
     window.reload();
 	}
 </script>
+@include('quick_link.quicklink')
 @endsection

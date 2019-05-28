@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Add
+    Future Resident Add
 @endsection
 
 @section('contentheader_title')

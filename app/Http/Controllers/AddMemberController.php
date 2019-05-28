@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use App\StaffPosition;
 use DB, Auth, App, Input;
 use Kamaln7\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +19,7 @@ class AddMemberController extends Controller
 
     public function all_member_list(Request $request)
     {
-		$val = $request['language'];
-		App::setlocale($val);
+		App::setlocale(session('language'));
         $all_records =  DB::table('users')
 						->where('role', '!=', 1)
 						->where('facility_id', Auth::user()->facility_id)
@@ -32,8 +32,8 @@ class AddMemberController extends Controller
     // This is the form
     public function add_new_member(Request $request)
     {
-		$val = $request['language'];
-		App::setlocale($val);
+		
+		App::setlocale(session('locale'));
         $last_id =  DB::table('users')->orderBy('id', 'desc')->select('users.id')->first();
 
         if ($last_id == NULL) {
@@ -42,7 +42,8 @@ class AddMemberController extends Controller
         else {
             $new_id = $last_id->id + 1;
         }
-        return view('add_new_member', compact('new_id'));
+        $facility_desig = DB::table('staff_position')->where('facility_id', Auth::user()->facility_id)->get();
+        return view('add_new_member', compact('new_id','facility_desig'));
     }
 
     // For storing the details
@@ -75,7 +76,7 @@ class AddMemberController extends Controller
 				$new_member->email = $request['user_name'];
 				$temp = password_hash($request['_password'], PASSWORD_BCRYPT);
 				$new_member->password = $temp;				
-
+                $new_member->staff_position_id = $request['designation'];
 				$new_member->facility_id = Auth::user()->facility_id;
 				$new_member->facility_owner_id = Auth::user()->facility_owner_id;
 				$new_member->save();
@@ -98,9 +99,15 @@ class AddMemberController extends Controller
 		}
 	}
 
-	public function edit_member_role($user_id){
-		$role = DB::table('users')->where('user_id', $user_id)->first();
-		return view('admin.member_edit',compact('role'));
+	
+		public function edit_member_role(Request $request, $user_id){
+	    
+		App::setlocale(session('locale'));
+		$role = DB::table('users')->where('user_id', $user_id)
+						->join('staff_position','staff_position.staff_position_id','=','users.staff_position_id')
+						->first();
+		$facility_desig = DB::table('staff_position')->where('facility_id', Auth::user()->facility_id)->get();
+		return view('admin.member_edit',compact('role','facility_desig'));
 	}
 
 	public function update_member_role(Request $request){
@@ -118,9 +125,9 @@ class AddMemberController extends Controller
 		$role_status = DB::table('role')->where('u_id',$user_id)->where('status',1)->update(['status'=>0]);
 
 		$roles = $request->input('role');
-		
+
 		//$u_name = DB::table('users')->where([['email', $request['user_name']],['facility_id', Auth::user()->facility_id]])->first();
-			
+
 			//if($u_name){
 				//Toastr::error("USER NAME ALREADY EXIST !!<br/>CHOOSE DIFFRENT USER NAME");
 				//return back();
@@ -133,7 +140,7 @@ class AddMemberController extends Controller
 			$new_role->status=1;
 			$new_role->save();
 		}
-		
+
 		$last_pass = DB::table('users')->where('user_id',$user_id)->pluck('users.password')->first();
 
 		if ($last_pass != $request['password']) {
@@ -142,11 +149,35 @@ class AddMemberController extends Controller
 		else {
 
 		}
-		
-		$update_email = DB::table('users')->where('user_id',$user_id)->update(['email' => $request['user_name']]);
+
+		$update_user = DB::table('users')->where('user_id',$user_id)->update(['email' => $request['user_name'], 'staff_position_id' => $request['designation']]);
 
 		Toastr::success("Record Successfully Updated !!");
 		return redirect('all_member_list');
 
+	}
+	
+	public function staff_position_master(Request $request){
+	    
+		App::setlocale(session('locale'));
+		return view('admin.staff_position_master');
+	}
+
+	public function add_staff_position(Request $request){
+		$new_staff = new StaffPosition();
+		$new_staff->dept = $request['dept'];
+		$new_staff->pos_title = $request['pos'];
+		$new_staff->shorthand = $request['shorthand'];
+		$new_staff->reports_to = $request['reports_to'];
+		$new_staff->staffing_guidance = $request['staffing_guidance'];
+		$new_staff->notes = $request['notes'];
+		$new_staff->pc = $request['pc'];
+		$new_staff->printer = $request['printer'];
+		$new_staff->cellphone = $request['cellphone'];
+		$new_staff->uniform = $request['uniform'];
+		$new_staff->facility_id = Auth::user()->facility_id;
+		$new_staff->save();
+		Toastr::success("New Staff Position Added Successfully !!");
+		return redirect('staff_position_master');
 	}
 }

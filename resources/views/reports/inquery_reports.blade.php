@@ -65,9 +65,9 @@ $(document).ready(function() {
 		</div>
 		<div class="col-md-3">
 			<div class="form-group has-feedback">
-				<label>Prospectives</label><br/>
+				<label>Future Residents</label><br/>
 				<select name="id" id="id" class="form-control">
-					<option value="">Select Prospective</option>
+					<option value="">Select Future Resident</option>
 					@foreach ($reports as $prospect)
 					<option value="{{ $prospect->id}}">{{ $prospect->pros_name }}</option>
 					@endforeach
@@ -106,7 +106,7 @@ $(document).ready(function() {
                 <table class="table">
                     <tbody>
 						<tr>
-							<th class="th-position text-uppercase font-500 font-12">###</th>
+							<th class="th-position text-uppercase font-500 font-12"></th>
 							<th class="th-position text-uppercase font-500 font-12">Residents</th>
 							<th class="th-position text-uppercase font-500 font-12">Phone No</th>
 							<th class="th-position text-uppercase font-500 font-12">Email</th>

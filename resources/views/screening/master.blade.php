@@ -9,29 +9,28 @@
     <div class="col-lg-4 col-lg-offset-4 text-center">
       <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Screening</strong></h3>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4 pull-right">
+    <div class="col-md-6">
+      <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+        <option value="#" selected>Quick Links</option>
+        <option value="{{url('change_records/'.$id)}}">Inquiry</option>
+        <option value="{{url('change_pro_records/'.$id)}}">Sales Pipeline</option>
+        <option value="{{url('reschedule/'.$id)}}">Appointment Schedule</option>
+        <option value="{{url('select_assessments/Initial/'.$id)}}">Assessment</option>
+        <option value="{{url('change_own_room/'.$id)}}">Room Book</option>
+      </select>
+    </div>
+    <div class="col-md-6">
       <a href="{{ url('screening') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
     </div>
+  </div>
 </div>
 @endsection
 
 @section('main-content')
 <style>
-  
-	.content-header
-	{
-		//display:none;
-		padding: 2px 0px 1px 20px;
-		margin-bottom: -18px;
-	}
-		
-	.content {
-		margin-top: 15px;
-	}
-</style>
-<style>
     div.scrollmenu {
-      background-color: #333;
+      background-color: #75a4b7;
       overflow: auto;
       white-space: nowrap;
     }
@@ -44,24 +43,32 @@
       text-decoration: none;
     }
     div.scrollmenu a.active {
-      background-color: #999;
+      background-color: #777;
 	    color: #333;
+	    font-weight: bold;
     }
     
     div.scrollmenu a:hover {
-      background-color: #777;
+      background-color: #999;
     }
-    </style>
+</style>
     
 @php
 $person = DB::table('sales_pipeline')->where('id',$id)
 			->join('resident_details','sales_pipeline.id','=','resident_details.pros_id')
 			->first();
 $room = DB::table('resident_room')
-		->join('facility_room','resident_room.room_id','=','facility_room.room_id')
-		->where([['resident_room.pros_id',$id],['resident_room.status',1]])->first();
+  ->where([['pros_id', $id],['release_date',null]])
+  ->first();
+if($room == null){
+  $room = DB::table('resident_room')
+  ->where([['pros_id', $id],['release_date','>',date('Y-m-d')]])
+  ->orderby('release_date','dsc')
+  ->first();
+}
 if($room){
-	$room_no = $room->room_no;
+  $room_no = DB::table('facility_room')->where('room_id',$room->room_id)->first();
+	$room_no = $room_no->room_no;
 }
 else{
 	$room_no = "No Room Booked";
@@ -115,8 +122,10 @@ $name =  explode(",",$person->pros_name);
       </div>
     </nav>
   </div>
-  <div class="row" id="main_content_div">
-    <!--this part will change-->
+  <div class="box">
+      <div class="row" id="main_content_div">
+        <!--this part will change-->
+      </div>
   </div>
 @include('layouts.partials.scripts_auth')
 <script type="text/javascript">
@@ -134,4 +143,5 @@ function load_main_content(urls)
     $('#main_content_div').load('/'+urls+'/'+id);
   }
 </script>
+@include('quick_link.quicklink')
 @endsection

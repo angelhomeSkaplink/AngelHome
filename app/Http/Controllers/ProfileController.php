@@ -19,8 +19,8 @@ class ProfileController extends Controller
    	return view('update_password',compact('profile'));
    }
    public function change_password(Request $request){
-     $val = $request['language'];
-	 App::setlocale($val);
+     
+	 App::setlocale(session('locale'));
      return view('password_change');
   }
   public function update_password(Request $request)

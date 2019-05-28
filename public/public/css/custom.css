@@ -1,0 +1,184 @@
+.form-bg{
+    background: #e4e6e6;
+}
+
+form{
+    font-family: 'Roboto', sans-serif;
+}
+i{
+    vertical-align: middle;
+}
+.form-horizontal .header{
+    background: #3f9cb5;
+    padding: 30px 25px;
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 3px 3px 0 0;
+}
+
+.form-horizontal .heading{
+    font-size: 16px;
+    color: #3f9cb5;
+    margin: 10px 0 20px 0;
+    text-transform: capitalize;
+}
+
+.form-horizontal .form-content{
+    padding: 25px;
+    background: #fff;
+}
+
+.form-horizontal .form-control{
+    padding: 12px 16px 12px 39px;
+    height: 35px;
+    font-size: 14px;
+    color: #2b2a2a;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    box-shadow: none;
+    margin-bottom: 15px;
+}
+
+.form-horizontal .form-control:focus{
+    border-color: #3f9cb5;
+    box-shadow: none;
+}
+
+.form-horizontal .control-label{
+    font-size: 17px;
+    color: #ccc;
+    position: absolute;
+    top: 5px;
+    left: 27px;
+    text-align: center;
+}
+
+.form-horizontal textarea.form-control{
+    resize: vertical;
+    height: 130px;
+}
+
+.pull-right {
+    float: right !important;
+}
+.text-center {
+    text-align: center !important;
+}
+.pagination {
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+}
+  
+.pagination li {
+    display: inline-block;
+} 
+.pagination li+li {
+    margin-left: 1rem;
+}
+.pagination a {
+    text-decoration: none;
+    padding: 0.2rem 0.4rem;
+    color:rgb(255, 255, 255);
+    border: 1px solid #e4abec;
+    border-radius: 2px;
+}
+.paginate-div{
+    background: #e4abec;
+}
+
+.content-header {
+    text-transform: uppercase;
+}
+
+/* padding classes */
+.padding-7{
+    padding: 7px;
+}
+
+.btn-circle.btn-lg {
+    width: 35px;
+    height: 35px;
+    padding: 5px 8px;
+    font-size: 12px;
+    line-height: 1.00;
+    border-radius: 25px;
+  }
+
+  /* login page css */
+  /*
+ * Page: Login & Register
+ * ----------------------
+ */
+.login-logo,
+.register-logo {
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 300;
+}
+.login-logo a,
+.register-logo a {
+  color: #444;
+}
+.login-page,
+.register-page {
+  background: url('../img/BGImg.jpg') repeat fixed;
+  
+  width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 1;
+}
+.login-box,
+.register-box {
+  width: 360px;
+  margin: 7% auto;
+}
+@media (max-width: 768px) {
+  .login-box,
+  .register-box {
+    width: 90%;
+    margin-top: 20px;
+  }
+}
+.login-box-body,
+.register-box-body {
+  background: #fff;
+  padding: 20px;
+  border-top: 0;
+  color: #666;
+  border-radius:4px;
+  box-shadow:5px 5px 10px rgba(0, 0, 0, 0.20);
+}
+.login-box-body .form-control-feedback,
+.register-box-body .form-control-feedback {
+  color: #777;
+}
+.login-box-msg,
+.register-box-msg {
+
+  margin: 0;
+    text-align: center;
+    padding: 5 20px 20px 20px;
+    font-size: 30px;
+    font-weight: 100;
+}
+.social-auth-links {
+  margin: 10px 0;
+}

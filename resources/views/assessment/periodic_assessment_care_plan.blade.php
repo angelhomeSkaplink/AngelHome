@@ -2,17 +2,17 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Assessment history
+    @lang("msg.Assessment History")
 @endsection
 
 @section('contentheader_title')
     
 	@if($reports->isEmpty())
-		<p class="text-danger"><b>NO ASSESSMENT RECORDS FOUND</b><a href="../../select_period/{{ $period }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:90px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a></p>
+		<p class="text-danger"><b>@lang("msg.No Assessment Record Found")</b><a href="../../select_period/{{ $period }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:90px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Back")</a></p>
 	@endif
 	@if(!$reports->isEmpty())
 		<p class="text-success"><b>{{ $id }}</b>
-			<a href="../../select_period/{{ $period }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:90px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> back</a><a class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-right: 15px; margin-top: -2px !important;"><b>Date: {{ $periodic_date }}</b></a>	
+			<a href="../../select_period/{{ $period }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:90px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Back")</a><a class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-right: 15px; margin-top: -2px !important;"><b>@lang("msg.Date"): {{ $periodic_date }}</b></a>	
 		</p>
 	@endif
 @endsection
@@ -39,8 +39,8 @@
 					<table class="table">
 						<tbody>						
 							<tr>
-								<th class="th-position text-uppercase font-400 font-13"><b>Assessment Done</b></th>
-								<th class="th-position text-uppercase font-400 font-13"><b>Assessment score</b></th>
+								<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Assessment Done")</b></th>
+								<th class="th-position text-uppercase font-400 font-13"><b>@lang("msg.Assessment Score")</b></th>
 							</tr>
 							@foreach ($reports as $report)							
 							<tr>

@@ -7,9 +7,14 @@
 @endsection
 
 @section('contentheader_title')
-    <p class="text-danger"><b>Add Stock Info</b>
-    <a href="{{ url('medicine_stocks_list') }}" class="btn btn-primary btn-block btn-flat btn-width btn-custom" style="width:135px !important; margin-top: -2px; margin-bottom: 9px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Go Back")</a>
-    </p>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 text-center">
+      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Add Stock Info</strong></h3>
+    </div>
+    <div class="col-lg-4">
+      <a href="{{ url('medicine_stocks_list') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
+    </div>
+</div>
 @endsection
 
 @section('main-content')
@@ -17,7 +22,7 @@
 	.content-header
 	{
 	padding: 2px 0px 1px 20px;
-		margin-bottom: -18px;
+		margin-bottom: -10px;
 	}
 	.content {
 		margin-top: 15px;
@@ -58,7 +63,7 @@ $(document).ready(function() {
                 <form action="{{action('MedicineStockHistoryController@store_stocks')}}" method="post">
 					<input type="hidden" name="_method" value="PATCH">
 						{{ csrf_field() }}
-            		<div class="col-md-3"></div>					
+            		<div class="col-md-4"></div>					
 					<div class="col-md-4">	
 						<div class="box-body">
 							<div class="form-group has-feedback">

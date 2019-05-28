@@ -31,10 +31,11 @@
 	<div class="card-body px-lg-5 pt-0">
 	<form action="{{ action('AddMemberController@store_member_details') }}" method="post" style="color: #757575;" enctype="multipart/form-data">
         <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> -->
-		<div class="col-md-2"></div>
-		<div class="col-md-4">
-			<div class="box box-primary">
-				<div class="box-body" style="height:400px; padding-top:0">
+	<div class="box box-primary">
+	<div class="box-body" style="padding-top:0px;">
+		<div class="col-md-6">
+			<!--<div class="box box-primary">-->
+			<!--	<div class="box-body" style="padding-top:0">-->
 					<div class="form-group has-feedback">
 					<!-- <label>ID</label> -->
 						<input type="hidden" class="form-control" value="{{ $new_id }}" name="new_id" required readonly />
@@ -67,12 +68,12 @@
 					<!-- <label>Status</label> -->
 						<input type="hidden" class="form-control" name="status" pattern="[0-9]" value="1"/>
 					</div>
-				</div>
-			</div>
+			<!--	</div>-->
+			<!--</div>-->
 		</div>
-		<div class="col-md-4">
-			<div class="box box-primary">
-				<div class="box-body" style="padding-top:25px; height:400px;">					
+		<div class="col-md-6">
+			<!--<div class="box box-primary">-->
+			<!--	<div class="box-body" style="padding-top:25px;">					-->
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Password")*</label>
 						<input type="password" class="form-control" name="_password" id="txtPassword" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,}$"
@@ -82,6 +83,20 @@
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Confirm Password")*</label>
 						<input type="password" id="txtConfirmPassword" class="form-control" name="password_confirmation" required />
+					</div>
+					<div class="form-group has-feedback">
+						<label>Designation*</label>
+						@if($facility_desig->isEmpty())
+						<select class="form-control" name="designation" value='0' required />
+						</select>
+						<a href="staff_position_master"> Add New Designation</a>
+						@else
+						<select class="form-control" name="designation">
+							@foreach($facility_desig as $desig)
+							<option value="{{$desig->staff_position_id}}">{{$desig->pos_title}}</option>
+							@endforeach
+						</select>
+						@endif
 					</div>
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Role")*</label><br/>
@@ -142,7 +157,9 @@
                         <a href="{{  url('all_member_list') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
             		</div>
 				</div>
-			</div>
+		<!--	</div>-->
+		<!--</div>-->
+		</div>
 		</div>
 	</form>
 	</div>

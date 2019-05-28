@@ -4,43 +4,29 @@ Future Resident
 @endsection
 @section('contentheader_title')
 <div class="row">
-    <div class="col-lg-4 col-lg-offset-4 text-center">
-      <h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Future Resident</strong></h3>
+    <div class="col-lg-4 offset-lg-4 text-center">
+      <h3><strong>Future Resident</strong></h3>
     </div>
     <div class="col-lg-4">
-      <a href="{{ url('new_pross_add') }}" class="btn btn-success btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">add</i>Add New Prospective</a>
+      <a href="{{ url('new_pross_add') }}" class="btn btn-success btn-sm pull-right padding-7"><i class="material-icons">add</i>Add Future Resident</a>
     </div>
 </div>
 @endsection
 
 @section('main-content')
-<style>
-	.wickedpicker{
-		z-index:999 !important;
-	}
-	.content-header
-	{
-		padding: 2px 0px 1px 20px;
-		margin-bottom: -10px;
-	}
-	.content {
-		margin-top: 15px;
-	}
-</style>
-<link href="{{ asset('/css/type_ahead.css') }}" rel="stylesheet" type="text/css"/>
 
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary border">
-			<div class="box-body border padding-top-0 padding-left-right-0">
+        <div class="panel panel-default">
+			<div class="panel-body border padding-top-0 padding-left-right-0">
 			    <div class="table-responsive">
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-400 font-13">######</th>
+    							<th class="th-position text-uppercase font-400 font-13"></th>
     							<th class="th-position text-uppercase font-500 font-12">
     								<div class="autocomplete" style="width:200px;">
-    									<input id="myInput" type="text" placeHolder="&#61442; FUTURE RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">
+    									<input id="myInput" type="text" placeHolder="&#61442; FUTURE RESIDENT" style="font-family:Arial, FontAwesome"/>
     								</div>
     							</th>
     							<th class="th-position text-uppercase font-400 font-13">Phone No</th>
@@ -75,13 +61,13 @@ Future Resident
     							<td>{{ $basic->email_p }}</td>
     							<td>{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</td>
     							<?php } ?>
-    							<td><a href="change_records/{{ $crm->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400">Change Records</a></span></td>
+    							<td><a href="change_records/{{ $crm->id }}"><span class="btn btn-primary btn-sm">Change Records</a></span></td>
     						</tr>
     						@endforeach
                         </tbody>
                     </table>
                 </div>
-				<div class="text-center">{{ $crms->links() }}</div>
+				<div class="paginate-div text-center">{{ $crms->links() }}</div>
             </div>                
         </div>
     </div>

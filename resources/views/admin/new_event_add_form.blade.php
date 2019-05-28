@@ -16,7 +16,7 @@
 		z-index:999 !important;
 	}
 	.content-header{
-		display:none;
+		display:block;
 	}
 </style>
 <script>
@@ -70,12 +70,13 @@
 </script>
 <div class="row">
 	<form action="new_event_add" method="post" enctype="multipart/form-data">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="box box-primary">				
-				<div class="box-body padding-bottom-15">
+		<div class="col-md-12">
+			<div class="col-md-6">
+				<div class="box box-primary">
+					<div class="box-body">
 					<div class="form-group has-feedback">
 						<label>@lang("msg.Name")</label>
-						<input type="text" class="form-control" name="event_name" required />
+					<input type="text" class="form-control" name="event_name" value="" required />
 					</div>
 					<div class="form-group has-feedback form-inline">
 						<a href="#modal" id="emoji_btn" class="btn btn-success" data-toggle="modal" data-target="#myModal"><i class="material-icons md-36" style="color:#fff;"> add_circle </i> Add Emoji</a>
@@ -90,6 +91,19 @@
 						<label>@lang("msg.venue")</label>
 						<input type="text" class="form-control" name="event_place" id="event_place" required />
 					</div>
+					<div class="form-group has-feedback">
+						<label>@lang("msg.Open To")</label>
+						<select class="form-control" name="open_to" id="open_to">
+						    <option value="0">@lang("msg.Residents")</option>
+						    <option value="1">@lang("msg.Family & Friends")</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="col-md-6">
+				<div class="box box-primary">
+					<div class="box-body">
 					<div class="form-group has-feedback">
 						<label>@lang("msg.start Date")</label>
 						<input type="text" class="form-control" name="event_date" id="event_date" autocomplete="off" required/>
@@ -126,15 +140,18 @@
 					</div>
 					<div class="form-group has-feedback">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-            			<button type="submit" onClick="DoSubmit();" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
-            		</div>
-
+						<button type="submit" onClick="DoSubmit();" class="btn btn-primary btn-block btn-success btn-flat btn-width btn-sm">@lang("msg.Submit")</button>
+					</div>
 					<div class="form-group has-feedback">
-                        <a href="{{  url('activity_calendar') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
-            		</div>					
+								<a href="{{  url('activity_calendar') }}" class="btn btn-primary btn-danger btn-block btn-flat btn-width btn-sm" style="margin-right:15px">@lang("msg.Cancel")</a>
+					</div>
 				</div>
 			</div>
-		</div>		
+			</div>
+		</div>
+		
+	</form>
+</div>	
 		<div class="col-md-10"></div>					
 	</form>
 </div>

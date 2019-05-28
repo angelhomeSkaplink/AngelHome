@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('htmlheader_title')
-    Prospective Info 
+    Future Resident Info 
 @endsection
 @section('contentheader_title')
 	<p class="text-danger"><b>Future resident</b>

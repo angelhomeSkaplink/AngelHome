@@ -24,7 +24,7 @@
                 <table class="table">
                     <tbody>
 						<tr>
-							<th class="th-position text-uppercase font-500 font-12">#</th>
+							<th class="th-position text-uppercase font-500 font-12"></th>
 							<th class="th-position text-uppercase font-500 font-13">Resident</th>
 							<th class="th-position text-uppercase font-500 font-12">Notes</th>
 						</tr>

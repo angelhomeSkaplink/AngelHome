@@ -15,7 +15,9 @@ class EmojiController extends Controller
         $this->middleware('auth');
     }
 
-    public function get_emoji(){
+    public function get_emoji(Request $request){
+        
+		App::setlocale(session('locale'));
         $data = DB::table('emoji_library')->select('emoji_library.*')->get();
         return view('emoji.add_emoji',compact('data'));
     }

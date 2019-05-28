@@ -28,7 +28,7 @@
     					<table class="table">
     						<tbody>
     							<tr>
-    								<th class="th-position text-uppercase font-500 font-12">#</th>
+    								<th class="th-position text-uppercase font-500 font-12"></th>
     								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Resident")</th>
     								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Person Required") </th>
     								<th class="th-position text-uppercase font-500 font-12">@lang("msg.Start Time")</th>

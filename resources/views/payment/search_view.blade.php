@@ -2,7 +2,7 @@
 @extends('layouts.app_resident')
 
 @section('htmlheader_title')
-    Prospective Info 
+    Payment Info 
 @endsection
 
 @section('contentheader_title')

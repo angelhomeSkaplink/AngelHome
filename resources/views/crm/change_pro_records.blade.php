@@ -10,10 +10,21 @@
 	<div class="col-lg-4 col-lg-offset-4 text-center">
 		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Change Records</strong></h3>
 	</div>
-	<div class="col-lg-4">
-		{{-- <a href="../resident_service_plan" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="width:105px !important; margin-right: 15px;"><i class="material-icons md-14 font-weight-600"> keyboard_arrow_left </i> @lang("msg.Back")</a> --}}
+	<div class="col-lg-4 pull-right">
+    <div class="col-md-6">
+      <select class="form-control" name="quicklink" id="quicklink" onchange="load_url()">
+        <option value="#" selected>Quick Links</option>
+        <option value="{{url('change_records/'.$row->pros_id)}}">Inquiry</option>
+        <option value="{{url('reschedule/'.$row->pros_id)}}">Appointment Schedule</option>
+        <option value="{{url('screening/'.$row->pros_id)}}">Screening</option>
+        <option value="{{url('select_assessments/Initial/'.$row->pros_id)}}">Assessment</option>
+        <option value="{{url('change_own_room/'.$row->pros_id)}}">Room Book</option>
+      </select>
+    </div>
+    <div class="col-md-6">
 		<a href="../sales_stage_pipeline" class="btn btn-success btn-block btn-flat btn-width btn-sm pull-right" style="margin-right:15px;border-radius:5px;"><i class="material-icons">keyboard_arrow_left</i>Back</a>
-	</div>
+    </div>
+  </div>
 </div> 
 @endsection
 
@@ -182,6 +193,7 @@
 	</form>
 </div>
 
-    @include('layouts.partials.scripts_auth')
+@include('layouts.partials.scripts_auth')
+@include('quick_link.quicklink')
 
 @endsection

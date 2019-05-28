@@ -7,7 +7,7 @@
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Daily Task</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Daily Task")</strong></h3>
 	</div>
 </div>
 @endsection
@@ -34,39 +34,39 @@
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-500 font-12">@lang("msg.task")</th>
+    							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Task")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.View")</th>
     						</tr>
     						<tr>
-    							<td>EATING</td>
+    							<td>@lang("msg.Eating")</td>
     							<td><a href="task_assignee/EATING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>CONTINENCE</td>
+    							<td>@lang("msg.Continence")</td>
     							<td><a href="task_assignee/CONTINENCE"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>TRANSFER</td>
+    							<td>@lang("msg.Transfer")</td>
     							<td><a href="task_assignee/TRANSFER"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>AMBULATION</td>
+    							<td>@lang("msg.Ambulance")</td>
     							<td><a href="task_assignee/AMBULATION"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>DRESSING</td>
+    							<td>@lang("msg.Dressing")</td>
     							<td><a href="task_assignee/DRESSING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>BATHING</td>
+    							<td>@lang("msg.Bathing")</td>
     							<td><a href="task_assignee/BATHING"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>MED-MANAGEMENT</td>
+    							<td>@lang("msg.Med.-Management")</td>
     							<td><a href="task_assignee/MED.-MANAGEMENT"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
     						<tr>
-    							<td>COMMUNICATION</td>
+    							<td>@lang("msg.Communication")</td>
     							<td><a href="task_assignee/COMMUNICATION"><i class="material-icons material-icons gray md-22"> details </i></a></td>
     						</tr>
                         </tbody>

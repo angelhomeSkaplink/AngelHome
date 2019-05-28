@@ -1,240 +1,336 @@
+<div class="content-header row">
+</div>
+<div class="content-body"><!-- stats -->
 <div class="row">
-    <div class="col-lg-12">
-        <div class="row">
-            <div class="col-lg-2" >
-                <div class="panel zoom">
-                    <div class="panel-body box-body text-center" style="height:100px;background-color:#29a3a3;padding-top:40px;color:#fff;">
-                        Tile 1
+    <div class="col-xl-3 col-lg-6 col-xs-12">
+        <div class="card">
+        <div class="card-body">
+            <div class="card-block">
+                <div class="media">
+                    <div class="media-body text-xs-left">
+                        <h3 class="pink">278</h3>
+                        <span>New Projects</span>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="panel panel-default zoom">
-                    <div class="panel-body box-body text-center" style="height:100px;background-color:#003300;padding-top:40px;color:#fff;">
-                        Tile 2
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="panel panel-primary zoom">
-                    <div class="panel-body box-body text-center" style="height:100px;background-color:#cc66ff;padding-top:40px;color:#fff;">
-                        Tile 3
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="panel panel-primary zoom">
-                    <div class="panel-body box-body text-center" style="height:100px;background-color:#804000;padding-top:40px;color:#fff;">
-                        Tile 4
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="panel panel-primary zoom">
-                    <div class="panel-body box-body text-center" style="height:100px;background-color:#4d004d;padding-top:40px;color:#fff;">
-                        Tile 5
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="panel panel-primary zoom">
-                    <div class="panel-body box-body text-center" style="height:100px;background-color:#0066ff;padding-top:40px;color:#fff;">
-                        Tile 6
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="panel panel-default zoom">
-                    <a href="facility_room_graph/{{ $id }}">
-                    <div class="panel-heading wiget-head text-center"> 
-                        <h4><strong> ROOM REPORT</strong></h4>
-                    </div>
-                    </a>
-                    <div class="panel-body box-body text-center make-scrollable">
-                        <div id="cchart-container">
-                                <canvas id="pie-chart" style="width:200px !important; height:auto !important;"></canvas>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-default zoom">
-                <a href="">
-                    <div class="panel-heading wiget-head text-center"> 
-                        <h4><strong> DIET MENU</strong></h4>
-                    </div>
-                </a>
-                    <div class="panel-body box-body text-center make-scrollable">
-                        Menu Content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-default zoom">
-                    <a href="activity_calendar">
-                    <div class="panel-heading wiget-head text-center">
-                        <h4><strong> ACTIVITY CALENDAR</strong></h4>
-                    </div>
-                    </a>
-                    <div class="panel-body box-body make-scrollable">
-                    <?php 
-                        $todayWithDay= date("D d-m-Y", time());
-                        $today= date("Y-m-d", time());
-                        $data = DB::table('activity_calendar')->where('facility_id', Auth::user()->facility_id)->where('event_date',$today)->get();
-                        // $data = DB::table('activity_calendar')->where('facility_id', Auth::user()->facility_id)->get();
-                    ?>    
-                    <h4 class="text-center" style="margin-top:0px;"><u>{{ $todayWithDay }}</u></h4>
-                    @if($data->isEmpty())
-                        <h4 class="text-center" style="padding-top:50px;"><span style="color:#b3b3b3;">No event found</span></h4>
-                    @else
-                        @foreach ($data as $e)
-                            <div style="border-bottom:1px solid #e3e3e3;">
-                            <span class="" style="color:#999999;"> <i class="material-icons">access_time</i> {{ $e->event_time }}</span> 
-                                <h5> 
-                                <span style="color:#337ab7;">&#x{{$e->emoji_code}};{{ $e->event_name}}:</span>
-                                <span style="padding-left:2px;color:#999999;padding-top:0px;text-transform:lowercase;">{{ $e->event_description}}</span>
-                                </h5>
-                            </div>
-                        @endforeach
-                    @endif
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-default zoom">
-                    <a href="appointment_schedule">
-                    <div class="panel-heading wiget-head text-center" style="">
-                        <h4><strong> APPOINTMENTS</strong></h4>
-                    </div>
-                    </a>
-                    <div class="panel-body box-body make-scrollable">
-                        <?php
-                        $today= date("Y-m-d", time());
-                        $appointments = DB::table('appointment')
-                                ->where('appointment.status', 1)
-                                ->where('appointment_date', $today)
-                                ->Join('sales_pipeline', 'appointment.pros_id', '=', 'sales_pipeline.id')
-                                ->where('sales_pipeline.facility_id', Auth::user()->facility_id)
-                                ->select('sales_pipeline.pros_name', 'sales_pipeline.service_image', 'sales_pipeline.id', 'appointment.appoiuntment_id', 'appointment.pros_id', 'appointment.appointment_date', 'appointment.appointment_time')->get();
-                        ?>
-                        @if($appointments->isEmpty())
-                        <h4 class="text-center" style="padding-top:50px;"><span style="color:#b3b3b3;">No appointment found</span></h4>
-                        @endif
-                        @foreach ($appointments as $a)
-                        <div class="row" style="border-bottom:1px solid #e3e3e3;padding:5px;">
-                            <div class="col-lg-3">
-                            @if($a->service_image == NULL)
-                                <img src="hsfiles/public/img/538642-user_512x512.png" class="img-circle" width="40" height="40">
-                                @else
-                                <img src="hsfiles/public/img/{{ $a->service_image }}" class="img-circle" width="40" height="40">
-                            @endif
-                            </div>
-                            <div class="col-lg-9">
-                                <p style="padding-top:10px;">{{$a->pros_name}}</p>
-                            </div>
-                        </div>
-                        @endforeach
+                    <div class="media-right media-middle">
+                        <i class="icon-bag2 pink font-large-2 float-xs-right"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="row">
-        <div class="col-lg-3">
-                <div class="panel panel-default zoom">
-                    <a href="">
-                    <div class="panel-heading wiget-head text-center"> 
-                        <h4><strong> WIDGET TITLE</strong></h4>
+<div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-block">
+                <div class="media">
+                    <div class="media-body text-xs-left">
+                        <h3 class="teal">156</h3>
+                        <span>New Clients</span>
                     </div>
-                    </a>
-                    <div class="panel-body box-body text-center make-scrollable">
-                        Content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-default zoom">
-                    <a href="">
-                    <div class="panel-heading wiget-head text-center"> 
-                        <h4><strong> WIDGET TITLE</strong></h4>
-                    </div>
-                    </a>
-                    <div class="panel-body box-body text-center make-scrollable">
-                        Content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-default zoom">
-                    <a href="">
-                    <div class="panel-heading wiget-head text-center"> 
-                        <h4><strong> WIDGET TITLE</strong></h4>
-                    </div>
-                    </a>
-                    <div class="panel-body box-body text-center make-scrollable">
-                        Content
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-default zoom">
-                    <a href="get_emoji">
-                    <div class="panel-heading wiget-head text-center"> 
-                        <h4><strong> WIDGET TITLE</strong></h4>
-                    </div>
-                    </a>
-                    <div class="panel-body box-body text-center make-scrollable">
-                        Content
+                    <div class="media-right media-middle">
+                        <i class="icon-user1 teal font-large-2 float-xs-right"></i>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-block">
+                <div class="media">
+                    <div class="media-body text-xs-left">
+                        <h3 class="deep-orange">64.89 %</h3>
+                        <span>Conversion Rate</span>
+                    </div>
+                    <div class="media-right media-middle">
+                        <i class="icon-diagram deep-orange font-large-2 float-xs-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-3 col-lg-6 col-xs-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-block">
+                <div class="media">
+                    <div class="media-body text-xs-left">
+                        <h3 class="cyan">423</h3>
+                        <span>Support Tickets</span>
+                    </div>
+                    <div class="media-right media-middle">
+                        <i class="icon-ios-help-outline cyan font-large-2 float-xs-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--/ stats -->
+<!--/ project charts -->
+<div class="row">
+<div class="col-xl-8 col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <ul class="list-inline text-xs-center pt-2 m-0">
+                <li class="mr-1">
+                    <h6><i class="icon-circle warning"></i> <span class="grey darken-1">Remaining</span></h6>
+                </li>
+                <li class="mr-1">
+                    <h6><i class="icon-circle success"></i> <span class="grey darken-1">Completed</span></h6>
+                </li>
+            </ul>
+            <div class="chartjs height-250">
+                <canvas id="line-stacked-area" height="250"></canvas>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-xs-3 text-xs-center">
+                    <span class="text-muted">Total Projects</span>
+                    <h2 class="block font-weight-normal">18</h2>
+                    <progress class="progress progress-xs mt-2 progress-success" value="70" max="100"></progress>
+                </div>
+                <div class="col-xs-3 text-xs-center">
+                    <span class="text-muted">Total Task</span>
+                    <h2 class="block font-weight-normal">125</h2>
+                    <progress class="progress progress-xs mt-2 progress-success" value="40" max="100"></progress>
+                </div>
+                <div class="col-xs-3 text-xs-center">
+                    <span class="text-muted">Completed Task</span>
+                    <h2 class="block font-weight-normal">242</h2>
+                    <progress class="progress progress-xs mt-2 progress-success" value="60" max="100"></progress>
+                </div>
+                <div class="col-xs-3 text-xs-center">
+                    <span class="text-muted">Total Revenue</span>
+                    <h2 class="block font-weight-normal">$11,582</h2>
+                    <progress class="progress progress-xs mt-2 progress-success" value="90" max="100"></progress>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-4 col-lg-12">
+    <div class="card card-inverse bg-info">
+        <div class="card-body">
+            <div class="position-relative">
+                <div class="chart-title position-absolute mt-2 ml-2 white">
+                    <h1 class="display-4">84%</h1>
+                    <span>Employees Satisfied</span>
+                </div>
+                <canvas id="emp-satisfaction" class="height-400 block"></canvas>
+                <div class="chart-stats position-absolute position-bottom-0 position-right-0 mb-2 mr-3 white">
+                    <a href="#" class="btn bg-info bg-darken-3 mr-1 white">Statistics <i class="icon-stats-bars"></i></a> for the last year.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--/ project charts -->
+<!-- Recent invoice with Statistics -->
+<div class="row match-height">
+<div class="col-xl-4 col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="media">
+                <div class="p-2 text-xs-center bg-deep-orange media-left media-middle">
+                    <i class="icon-user1 font-large-2 white"></i>
+                </div>
+                <div class="p-2 media-body">
+                    <h5 class="deep-orange">New Users</h5>
+                    <h5 class="text-bold-400">1,22,356</h5>
+                    <progress class="progress progress-sm progress-deep-orange mt-1 mb-0" value="45" max="100"></progress>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="media">
+                <div class="p-2 text-xs-center bg-cyan media-left media-middle">
+                    <i class="icon-camera7 font-large-2 white"></i>
+                </div>
+                <div class="p-2 media-body">
+                    <h5>New Products</h5>
+                    <h5 class="text-bold-400">28</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="media">
+                <div class="p-2 media-body text-xs-left">
+                    <h5>New Users</h5>
+                    <h5 class="text-bold-400">1,22,356</h5>
+                </div>
+                <div class="p-2 text-xs-center bg-teal media-right media-middle">
+                    <i class="icon-user1 font-large-2 white"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-8 col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Recent Invoices</h4>
+            <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+            <div class="heading-elements">
+                <ul class="list-inline mb-0">
+                    <li><a data-action="reload"><i class="icon-reload"></i></a></li>
+                    <li><a data-action="expand"><i class="icon-expand2"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-block">
+                <p>Total paid invoices 240, unpaid 150. <span class="float-xs-right"><a href="#">Invoice Summary <i class="icon-arrow-right2"></i></a></span></p>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Invoice#</th>
+                            <th>Customer Name</th>
+                            <th>Status</th>
+                            <th>Due</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-truncate"><a href="#">INV-001001</a></td>
+                            <td class="text-truncate">Elizabeth W.</td>
+                            <td class="text-truncate"><span class="tag tag-default tag-success">Paid</span></td>
+                            <td class="text-truncate">10/05/2016</td>
+                            <td class="text-truncate">$ 1200.00</td>
+                        </tr>
+                        <tr>
+                            <td class="text-truncate"><a href="#">INV-001012</a></td>
+                            <td class="text-truncate">Andrew D.</td>
+                            <td class="text-truncate"><span class="tag tag-default tag-success">Paid</span></td>
+                            <td class="text-truncate">20/07/2016</td>
+                            <td class="text-truncate">$ 152.00</td>
+                        </tr>
+                        <tr>
+                            <td class="text-truncate"><a href="#">INV-001401</a></td>
+                            <td class="text-truncate">Megan S.</td>
+                            <td class="text-truncate"><span class="tag tag-default tag-success">Paid</span></td>
+                            <td class="text-truncate">16/11/2016</td>
+                            <td class="text-truncate">$ 1450.00</td>
+                        </tr>
+                        <tr>
+                            <td class="text-truncate"><a href="#">INV-01112</a></td>
+                            <td class="text-truncate">Doris R.</td>
+                            <td class="text-truncate"><span class="tag tag-default tag-warning">Overdue</span></td>
+                            <td class="text-truncate">11/12/2016</td>
+                            <td class="text-truncate">$ 5685.00</td>
+                        </tr>
+                        <tr>
+                            <td class="text-truncate"><a href="#">INV-008101</a></td>
+                            <td class="text-truncate">Walter R.</td>
+                            <td class="text-truncate"><span class="tag tag-default tag-warning">Overdue</span></td>
+                            <td class="text-truncate">18/05/2016</td>
+                            <td class="text-truncate">$ 685.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Recent invoice with Statistics -->
+<div class="row match-height">
+<div class="col-xl-4 col-md-6 col-sm-12">
+    <div class="card" style="height: 440px;">
+        <div class="card-body">
+            <img class="card-img-top img-fluid" src="{{ asset('/public/dashboardPanel/app-assets/images/carousel/05.jpg') }}" alt="Card image cap">
+            <div class="card-block">
+                <h4 class="card-title">Basic</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-outline-pink">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-4 col-md-6 col-sm-12">
+    <div class="card" style="height: 440px;">
+        <div class="card-body">
+            <div class="card-block">
+                <h4 class="card-title">List Group</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <span class="tag tag-default tag-pill bg-primary float-xs-right">4</span> Cras justo odio
+                </li>
+                <li class="list-group-item">
+                    <span class="tag tag-default tag-pill bg-info float-xs-right">2</span> Dapibus ac facilisis in
+                </li>
+                <li class="list-group-item">
+                    <span class="tag tag-default tag-pill bg-warning float-xs-right">1</span> Morbi leo risus
+                </li>
+                <li class="list-group-item">
+                    <span class="tag tag-default tag-pill bg-success float-xs-right">3</span> Porta ac consectetur ac
+                </li>
+                <li class="list-group-item">
+                    <span class="tag tag-default tag-pill bg-danger float-xs-right">8</span> Vestibulum at eros
+                </li>
+            </ul>
+            <div class="card-block">
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-4 col-md-12 col-sm-12">
+    <div class="card" style="height: 440px;">
+        <div class="card-body">
+            <div class="card-block">
+                <h4 class="card-title">Carousel</h4>
+                <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+            </div>
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item">
+                        <img src="{{ asset('/public/dashboardPanel/app-assets/images/carousel/02.jpg') }}" alt="First slide">
+                    </div>
+                    <div class="carousel-item active">
+                        <img src="{{ asset('/public/dashboardPanel/app-assets/images/carousel/03.jpg') }}" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{{ asset('/public/dashboardPanel/app-assets/images/carousel/01.jpg') }}" alt="Third slide">
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="icon-prev" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="icon-next" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="card-block">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
-
-<script type="text/javascript" language="javascript" src="{{ asset('/js/chart/Chart.min.js') }}"></script>
-<script>
-	$(document).ready(function(){		
-		var id = {{ $id }};
-		console.log(id);
-		$.ajax({
-			url: "/facility_room_graph_data/"+id,
-			method: "GET",
-			success: function(data) {
-				console.log(data);
-				var vacant_position = [];
-				JSON.parse(data).forEach(function(elm,i){
-					vacant_position.push(elm.vacant_position);
-				})
-
-				var onClick = function (e) {
-					window.location.replace( "../facility_room_reports/"+id)					
-				}
-				new Chart(document.getElementById("pie-chart"), {
-					type: 'pie',					
-					data: {
-						labels: ["VACANT","OCCUPIED"],
-						datasets: [{
-							label: "FACILITY ROOM GRAPH REPORT",
-							backgroundColor: ["#42a5f5", "#ef9a9a",],
-							data: vacant_position
-						}]
-					},
-					options: {
-						title: {
-							display: true,
-							text: 'FACILITY ROOM STATUS'						
-						},
-						onClick: onClick					  
-					}
-				});				
-			},			
-			
-			error: function(data) {
-				console.log(data);
-			}
-		});
-	});
-</script>
+    </div>

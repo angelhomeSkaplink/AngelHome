@@ -19,7 +19,6 @@ class EmailController extends Controller
         $facility_name = $getEmail_pass->facility_name;
         $from = Config::set('mail.username', $email );
         $pass = Config::set('mail.password', $password );
-        
         try {
           \Mail::send('email.doctor_mail', ['subject' => $subject, 'content' => $content], function ($message) use($to,$subject,$email,$facility_name)
           {
@@ -30,15 +29,13 @@ class EmailController extends Controller
           $today = date("Y-m-d",time());
       		$action_time = Carbon\Carbon::now();
       		$action_time->toDateTimeString();
-          $query = DB::table('medicine_history')->where('pat_medi_id',$request['pat_medi_id'])
+          $query = DB::table('medicine_history')->where([['pat_medi_id',$request['pat_medi_id']],['freq',$request['freq']]])
       		->where('mar_date',$today)->update(['action_performed_on'=>$action_time, 'reason_title'=>$subject, 'reason_desc'=>$content, 'status'=>3, 'user_id'=>Auth::user()->user_id]);
           Toastr::success("Mail sent to " .$to. " successfully");
         } catch (\Exception $e) {
-          Toastr::error("Mail not sent. Please contact facility admin!");
+            dd($e);
+        //   Toastr::error("Mail not sent. Please contact facility admin!");
         }
         return redirect('patient_medicine');
 }
-// Encryption and decryption of passwords
-// $encrypted = Crypt::encrypt('secret');
-// $decrypted = Crypt::decrypt($encrypted);
 }

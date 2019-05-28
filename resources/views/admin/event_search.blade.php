@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Events Details
+    @lang("msg.Events Details")
 @endsection
 
 @section('contentheader_title')
-    Upcoming Events
+    @lang("msg.Upcoming Events")
 @endsection
 
 @section('main-content')

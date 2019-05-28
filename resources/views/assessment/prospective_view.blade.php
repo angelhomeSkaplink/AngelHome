@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Audio Drop
+    @lang("msg.Audio Drop")
 @endsection
 
 @section('contentheader_title')
 <div class="row">
 	<div class="col-lg-4 col-lg-offset-4 text-center">
-		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>Audio Drop: All Residents</strong></h3>
+		<h3 style="margin:0px;color:rgba(0, -3, 0, 0.87) !important;"><strong>@lang("msg.Audio Drop"): @lang("msg.All Residents")</strong></h3>
 	</div>
 </div>
 @endsection
@@ -35,13 +35,13 @@
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-400 font-13">#</th>
+    							<th class="th-position text-uppercase font-400 font-13"></th>
     							<th class="th-position text-uppercase font-400 font-13">
     								<div class="autocomplete" style="width:200px;">
     									<input id="myInput" type="text" placeHolder="&#61442; FUTURE RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
-    							<th class="th-position text-uppercase font-400 font-13">Phone No</th>
+    							<th class="th-position text-uppercase font-400 font-13">@lang("msg.Phone")</th>
     							<th class="th-position text-uppercase font-400 font-13">							
     								<div class="emailautocomplete" style="width:200px;">
     									<input id="emailInput" type="text" placeHolder="&#61442; EMAIL" style="font-family: FontAwesome, Arial; font-style: normal">
@@ -52,7 +52,7 @@
     									<input id="contactInput" type="text" placeHolder="&#61442; CONTACT PERSON" style="font-family: FontAwesome, Arial; font-style: normal">
     								</div>
     							</th>
-    							<th class="th-position text-uppercase font-400 font-13">Upload Recording</th>
+    							<th class="th-position text-uppercase font-400 font-13">@lang("msg.Upload Recording")</th>
     						</tr>
 							@foreach ($crms as $crm)
 							@php
@@ -73,7 +73,7 @@
     							<td>{{ $basic->email_p }}</td>
     							<td>{{ $m[0] }} {{ $m[1] }} {{ $m[2] }}</td>
     							<?php } ?>
-    							<td><a href="upload_file/{{ $crm->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400">Upload Recording</a></span></td>
+    							<td><a href="upload_file/{{ $crm->id }}"><span class="label label-primary font-size-80pc padding-7 success-bg padding-top-bottom-5 font-400">@lang("msg.Upload Recording")</a></span></td>
     						</tr>
     						@endforeach
                         </tbody>

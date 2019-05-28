@@ -34,9 +34,9 @@
                                 <th class="th-position text-uppercase font-500 font-12">@lang("msg.Medicine Name")</th>
                                 <th class="th-position text-uppercase font-500 font-12">@lang("msg.Quantity")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Frequency")</th>
-                                <th class="th-position text-uppercase font-500 font-12">@lang("msg.Time To Take Medicine")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Continue Till")</th>
                                 <th class="th-position text-uppercase font-500 font-12">@lang("msg.Apply Medicine On")</th>
+                                <th class="th-position text-uppercase font-500 font-12">@lang("msg.Edit")</th>
     							<th class="th-position text-uppercase font-500 font-12">@lang("msg.Action")</th>
                             </tr>
                             @foreach ($qry_data as $qry_data)
@@ -44,7 +44,6 @@
                                 <td>{{ $qry_data->medicine_name }}</td>
     							<td>{{ $qry_data->quantity_of_med }}</td>
     							<td>{{ $qry_data->frequency_in_a_day }}</td>
-                                <td>{{ $qry_data->time_to_take_med }}</td>
     							<td>{{ $qry_data->course_date }}</td>
     
                                 <td class="th-position font-12">
@@ -74,7 +73,9 @@
                                     @endif
                                 @endif
                                 </td>
-    
+                                <td class="">
+                                    <a href="{{ url('update_medicine/'.$qry_data->pros_id.'/'.$qry_data->pat_medi_id) }}"><i class="material-icons gray md-22"> edit</i></a>
+                                </td>
                                 <td class="padding-left-22">
                                     <a data-toggle="tooltip" data-placement="bottom" data-original-title="Delete" href="{{ url('delete_records/' . $qry_data->pat_medi_id . '/' . $qry_data->pros_id) }}" onclick="return confirm('Are you sure you want to delete this record?');" ><i class="material-icons gray md-22"> delete</i></a>
                                 </td>

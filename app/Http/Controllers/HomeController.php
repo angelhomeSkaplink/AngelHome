@@ -16,13 +16,8 @@ class HomeController extends Controller
    
     public function index(Request $request){		
 		$uniq_code = uniqid();
-        $val = $request['language'];
-		if(!$val){
-			return view('dashboard', compact('uniq_code'));
-		}else{
-			$route_name = Route::getCurrentRoute()->getPath();
-			App::setlocale($val);
-			return view($route_name, compact('uniq_code'));
-		}
+        $route_name = Route::getCurrentRoute()->getPath();
+        App::setlocale(session('locale'));
+        return view($route_name, compact('uniq_code'));
     }
 }

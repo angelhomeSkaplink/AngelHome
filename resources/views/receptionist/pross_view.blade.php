@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    Future Resident Info 
 @endsection
 
 @section('contentheader_title')
-    Prospective Ifo
+    Future Resident Ifo
 @endsection
 
 @section('main-content')
@@ -19,13 +19,13 @@
 					</div>
 				@endif
                 <div class="box-header with-border">
-                    <a href="{{ url('pross_add') }}" class="btn btn-primary btn-block btn-flat">Add a new Record</a></br>
+                    <a href="{{ url('pross_add') }}" class="btn btn-primary btn-block btn-flat">Add A New Record</a></br>
                 </div>
                 <div class="box-body">
                     <table class="table table-bordered">
                         <tbody>
 							<tr>
-								<th>Prospective Name</th>
+								<th>Future Resident Name</th>
 								<th>Phone No</th>
 								<th>Email</th>
 								<th>Benifactor Name</th>

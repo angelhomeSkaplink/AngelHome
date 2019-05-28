@@ -21,7 +21,9 @@ class MemberController extends Controller
         return view("member");
     }
 
-    public function memberview(){
+    public function memberview(Request $request){
+        
+		App::setlocale(session('locale'));
         $members = member::all();		
         return view('memberview', compact('members'));
     }
@@ -90,7 +92,9 @@ class MemberController extends Controller
 		return redirect("/admin");
     }
 	
-	public function member_edit($user_id){
+	public function member_edit(Request $request,$user_id){
+	    
+		App::setlocale(session('locale'));
         $row = DB::table('users')->where('id', $user_id)->first();
 		return view('member_edit_view')->with('row', $row);
     }

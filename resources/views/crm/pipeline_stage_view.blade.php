@@ -1,8 +1,7 @@
-
 @extends('layouts.app')
 
 @section('htmlheader_title')
-    Prospective Info 
+    Future Resident Info 
 @endsection
 
 @section('contentheader_title')
@@ -41,7 +40,7 @@ $(document).ready(function() {
                     <table class="table">
                         <tbody>
     						<tr>
-    							<th class="th-position text-uppercase font-500 font-12">#</th>
+    							<th class="th-position text-uppercase font-500 font-12"></th>
     							<th class="th-position text-uppercase font-400 font-12">
     								<div class="autocomplete" style="width:200px;">
     									<input id="myInput" type="text" name="room_type" autocomplete="off" placeHolder="&#61442; FUTURE RESIDENT" style="font-family: FontAwesome, Arial; font-style: normal">
